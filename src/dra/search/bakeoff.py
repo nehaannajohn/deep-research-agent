@@ -8,6 +8,7 @@ Outcome may be one winner OR a route-by-type rule (academic vs. general).
 from __future__ import annotations
 
 import json
+import re
 from statistics import mean
 from typing import Callable
 
@@ -33,33 +34,55 @@ def recall_at_k(returned_urls: list, seed_urls: list, k: int = 10) -> float:
     return found / len(seed_urls)
 
 
-def score_tool(tool: SearchTool, queries: list, relevance_fn: Callable, k: int = 10) -> dict:
-    """Aggregate recall@k, mean judged relevance, and latency for one tool."""
-    recalls, relevances, latencies = [], [], []
-    for q in queries:
+JUDGE_TOP_N = 5  # judge relevance on the top-N passages only (cost control)
+
+
+def _score_query(tool: SearchTool, q: dict, relevance_fn: Callable, k: int) -> dict:
+    try:
         res = tool.search(q["query"], k=k)
-        urls = [p.url for p in res.passages]
-        recalls.append(recall_at_k(urls, q.get("seed_sources", []), k))
-        rels = [relevance_fn(q["query"], p.text) for p in res.passages if p.text]
-        relevances.append(mean(rels) if rels else 0.0)
-        latencies.append(res.latency_s)
+    except Exception as exc:  # one API hiccup shouldn't kill the whole bake-off
+        return {"domain": q.get("domain", "unknown"), "recall": 0.0,
+                "relevance": 0.0, "latency": 0.0, "error": str(exc)[:80]}
+    urls = [p.url for p in res.passages]
+    judged = [p for p in res.passages if p.text][:JUDGE_TOP_N]
+    rels = [relevance_fn(q["query"], p.text) for p in judged]
     return {
-        "tool": tool.name,
-        "n": len(queries),
-        "recall_at_k": round(mean(recalls), 4) if recalls else 0.0,
-        "mean_relevance": round(mean(relevances), 4) if relevances else 0.0,
-        "mean_latency_s": round(mean(latencies), 4) if latencies else 0.0,
+        "domain": q.get("domain", "unknown"),
+        "recall": recall_at_k(urls, q.get("seed_sources", []), k),
+        "relevance": mean(rels) if rels else 0.0,
+        "latency": res.latency_s,
     }
 
 
+def _aggregate(records: list, tool_name: str) -> dict:
+    if not records:
+        return {"tool": tool_name, "n": 0, "recall_at_k": 0.0, "mean_relevance": 0.0,
+                "mean_latency_s": 0.0, "errors": 0}
+    return {
+        "tool": tool_name,
+        "n": len(records),
+        "recall_at_k": round(mean(r["recall"] for r in records), 4),
+        "mean_relevance": round(mean(r["relevance"] for r in records), 4),
+        "mean_latency_s": round(mean(r["latency"] for r in records), 4),
+        "errors": sum(1 for r in records if r.get("error")),
+    }
+
+
+def score_tool(tool: SearchTool, queries: list, relevance_fn: Callable, k: int = 10) -> dict:
+    """Aggregate recall@k, judged relevance, and latency for one tool."""
+    return _aggregate([_score_query(tool, q, relevance_fn, k) for q in queries], tool.name)
+
+
 def run_bakeoff(tools: dict, queries: list, relevance_fn: Callable, k: int = 10) -> dict:
-    """Score every tool overall and per `domain` stratum."""
-    overall = {name: score_tool(t, queries, relevance_fn, k) for name, t in tools.items()}
+    """Search + judge each tool x query ONCE; aggregate overall and per `domain`."""
+    records = {name: [_score_query(t, q, relevance_fn, k) for q in queries] for name, t in tools.items()}
+    overall = {name: _aggregate(recs, name) for name, recs in records.items()}
     by_domain: dict = {}
-    domains = sorted({q.get("domain", "unknown") for q in queries})
-    for d in domains:
-        subset = [q for q in queries if q.get("domain") == d]
-        by_domain[d] = {name: score_tool(t, subset, relevance_fn, k) for name, t in tools.items()}
+    for d in sorted({q.get("domain", "unknown") for q in queries}):
+        by_domain[d] = {
+            name: _aggregate([r for r in recs if r["domain"] == d], name)
+            for name, recs in records.items()
+        }
     return {"overall": overall, "by_domain": by_domain, "k": k}
 
 
@@ -74,9 +97,12 @@ _RELEVANCE_PROMPT = (
 def make_relevance_fn(judge) -> Callable:  # judge: dra.llm.bedrock.BedrockChat
     def fn(query: str, passage_text: str) -> float:
         out = judge.complete(_RELEVANCE_PROMPT.format(query=query, passage=passage_text[:2000]))
+        m = re.search(r"\d*\.?\d+", out)
+        if not m:
+            return 0.0
         try:
-            return max(0.0, min(1.0, float(out.strip().split()[0])))
-        except (ValueError, IndexError):
+            return max(0.0, min(1.0, float(m.group())))
+        except ValueError:
             return 0.0
 
     return fn
@@ -102,7 +128,8 @@ def main():  # pragma: no cover - live integration entry point
         tools["tavily"] = TavilySearch(cfg.tavily_key)
     tools["semantic_scholar"] = SemanticScholarSearch(cfg.semantic_scholar_key)
 
-    judge = BedrockChat(cfg.panel_models[0] if cfg.panel_models else cfg.roles["generator"], region=cfg.region)
+    # Use the fast, non-reasoning generator (Mistral) to rate relevance in the bake-off.
+    judge = BedrockChat(cfg.roles["generator"], region=cfg.region)
     results = run_bakeoff(tools, load_queries(), make_relevance_fn(judge))
     with open("data/bakeoff_results.json", "w") as f:
         json.dump(results, f, indent=2)
