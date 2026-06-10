@@ -22,3 +22,11 @@ def test_search_tool_returns_searchresult():
 def test_k_limits_results():
     tool = FakeTool([Passage(source_id=f"s{i}", text="t") for i in range(10)])
     assert len(tool.search("q", k=3).passages) == 3
+
+
+def test_default_search_tool_is_exa():
+    from dra.config import Config
+    from dra.search import default_search_tool
+
+    cfg = Config(region="us-east-1", roles={}, panel_models=[], exa_key="k")
+    assert default_search_tool(cfg).name == "exa"

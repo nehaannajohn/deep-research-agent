@@ -1,0 +1,109 @@
+{
+  "overall": {
+    "exa": {
+      "tool": "exa",
+      "n": 12,
+      "recall_at_k": 0.3333,
+      "mean_relevance": 0.9187,
+      "mean_latency_s": 1.4099,
+      "errors": 0
+    },
+    "tavily": {
+      "tool": "tavily",
+      "n": 12,
+      "recall_at_k": 0.25,
+      "mean_relevance": 0.7635,
+      "mean_latency_s": 3.4611,
+      "errors": 0
+    },
+    "semantic_scholar": {
+      "tool": "semantic_scholar",
+      "n": 12,
+      "recall_at_k": 0.0,
+      "mean_relevance": 0.0,
+      "mean_latency_s": 0.2378,
+      "errors": 0
+    }
+  },
+  "by_domain": {
+    "general": {
+      "exa": {
+        "tool": "exa",
+        "n": 4,
+        "recall_at_k": 0.0,
+        "mean_relevance": 0.869,
+        "mean_latency_s": 1.4338,
+        "errors": 0
+      },
+      "tavily": {
+        "tool": "tavily",
+        "n": 4,
+        "recall_at_k": 0.0,
+        "mean_relevance": 0.725,
+        "mean_latency_s": 3.7055,
+        "errors": 0
+      },
+      "semantic_scholar": {
+        "tool": "semantic_scholar",
+        "n": 4,
+        "recall_at_k": 0.0,
+        "mean_relevance": 0.0,
+        "mean_latency_s": 0.235,
+        "errors": 0
+      }
+    },
+    "hard-to-source": {
+      "exa": {
+        "tool": "exa",
+        "n": 3,
+        "recall_at_k": 0.0,
+        "mean_relevance": 0.8893,
+        "mean_latency_s": 1.4796,
+        "errors": 0
+      },
+      "tavily": {
+        "tool": "tavily",
+        "n": 3,
+        "recall_at_k": 0.0,
+        "mean_relevance": 0.6653,
+        "mean_latency_s": 4.5928,
+        "errors": 0
+      },
+      "semantic_scholar": {
+        "tool": "semantic_scholar",
+        "n": 3,
+        "recall_at_k": 0.0,
+        "mean_relevance": 0.0,
+        "mean_latency_s": 0.2399,
+        "errors": 0
+      }
+    },
+    "technical": {
+      "exa": {
+        "tool": "exa",
+        "n": 5,
+        "recall_at_k": 0.8,
+        "mean_relevance": 0.976,
+        "mean_latency_s": 1.3491,
+        "errors": 0
+      },
+      "tavily": {
+        "tool": "tavily",
+        "n": 5,
+        "recall_at_k": 0.6,
+        "mean_relevance": 0.8532,
+        "mean_latency_s": 2.5865,
+        "errors": 0
+      },
+      "semantic_scholar": {
+        "tool": "semantic_scholar",
+        "n": 5,
+        "recall_at_k": 0.0,
+        "mean_relevance": 0.0,
+        "mean_latency_s": 0.2388,
+        "errors": 0
+      }
+    }
+  },
+  "k": 10
+}
