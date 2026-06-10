@@ -3,9 +3,18 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
-_PLAN_PROMPT = """You are planning research for a user query.
+_PLAN_PROMPT = """You are planning research for a user query. Decompose ONLY when it helps.
+
+Rules:
+- Split the query into multiple sub-questions ONLY when its parts would retrieve
+  genuinely DISTINCT evidence (different topics, sources, or claims).
+- If the query is already atomic or specific, return it UNCHANGED as a single
+  sub-question. A single sub-question is a valid and common answer — do not pad.
+- This mirrors atomic claim extraction: prefer the fewest sub-questions that fully
+  cover the query, each likely to surface different evidence.
+
 Return ONLY JSON of the form:
-{{"subquestions": ["3-6 specific, answerable sub-questions"],
+{{"subquestions": ["one or more specific, answerable sub-questions"],
   "constraints": {{"wants_visual": true/false, "format": "table|prose|null", "focus": ["optional topics"]}}}}
 
 Query: {query}"""
