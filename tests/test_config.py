@@ -29,3 +29,10 @@ def test_independence_violation_raises():
 def test_family():
     assert family("meta.llama3-1-70b-instruct-v1:0") == "meta"
     assert family("") == ""
+
+
+def test_family_strips_inference_profile_scope():
+    assert family("us.meta.llama4-maverick-17b-instruct-v1:0") == "meta"
+    assert family("global.anthropic.claude-opus-4-8") == "anthropic"
+    assert family("mistral.mistral-large-3-675b-instruct") == "mistral"
+    assert family("openai.gpt-oss-120b-1:0") == "openai"

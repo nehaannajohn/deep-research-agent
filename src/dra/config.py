@@ -12,9 +12,19 @@ from dataclasses import dataclass
 from dotenv import load_dotenv
 
 
+# Inference-profile ids carry a region-scope prefix (us./global./eu./apac.)
+# before the provider; bare on-demand ids start with the provider.
+_SCOPES = {"us", "global", "eu", "apac", "us-gov"}
+
+
 def family(model_id: str) -> str:
-    """Bedrock ids look like 'anthropic.claude-...', 'meta.llama3-...'. Family = prefix."""
-    return model_id.split(".", 1)[0] if model_id else ""
+    """Provider family of a model / inference-profile id (region-scope prefix stripped)."""
+    if not model_id:
+        return ""
+    parts = model_id.split(".")
+    if parts[0] in _SCOPES and len(parts) > 1:
+        return parts[1]
+    return parts[0]
 
 
 @dataclass

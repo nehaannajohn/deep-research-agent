@@ -23,3 +23,33 @@ def test_complete_returns_text_and_builds_request():
 def test_complete_json_parses():
     chat = BedrockChat("m", client=FakeClient(text='{"a": 1}'))
     assert chat.complete_json("give json") == {"a": 1}
+
+
+def test_complete_skips_reasoning_block():
+    class ReasoningClient:
+        def converse(self, **kwargs):
+            return {"output": {"message": {"content": [
+                {"reasoningContent": {"reasoningText": {"text": "thinking..."}}},
+                {"text": "final answer"},
+            ]}}}
+
+    assert BedrockChat("m", client=ReasoningClient()).complete("hi") == "final answer"
+
+
+def test_complete_retries_without_temperature_when_rejected():
+    class TempRejectClient:
+        def __init__(self):
+            self.calls = []
+
+        def converse(self, **kwargs):
+            self.calls.append(kwargs)
+            if "temperature" in kwargs["inferenceConfig"]:
+                raise RuntimeError("ValidationException: `temperature` is deprecated for this model.")
+            return {"output": {"message": {"content": [{"text": "OK"}]}}}
+
+    c = TempRejectClient()
+    out = BedrockChat("opus", client=c).complete("hi", temperature=0.0)
+    assert out == "OK"
+    assert len(c.calls) == 2
+    assert "temperature" in c.calls[0]["inferenceConfig"]
+    assert "temperature" not in c.calls[1]["inferenceConfig"]
