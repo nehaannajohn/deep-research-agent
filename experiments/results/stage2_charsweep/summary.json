@@ -1,0 +1,58 @@
+{
+  "tc1_straightforward": {
+    "1000": {
+      "n_unique_sources": 27,
+      "total_excerpt_chars": 28876
+    },
+    "2000": {
+      "n_unique_sources": 27,
+      "total_excerpt_chars": 55989
+    },
+    "4000": {
+      "n_unique_sources": 25,
+      "total_excerpt_chars": 120833
+    }
+  },
+  "tc2_contradictory": {
+    "1000": {
+      "n_unique_sources": 30,
+      "total_excerpt_chars": 34356
+    },
+    "2000": {
+      "n_unique_sources": 30,
+      "total_excerpt_chars": 73498
+    },
+    "4000": {
+      "n_unique_sources": 29,
+      "total_excerpt_chars": 152069
+    }
+  },
+  "tc3_sparse": {
+    "1000": {
+      "n_unique_sources": 28,
+      "total_excerpt_chars": 29124
+    },
+    "2000": {
+      "n_unique_sources": 30,
+      "total_excerpt_chars": 58992
+    },
+    "4000": {
+      "n_unique_sources": 29,
+      "total_excerpt_chars": 119929
+    }
+  },
+  "tc4_multimodal": {
+    "1000": {
+      "n_unique_sources": 37,
+      "total_excerpt_chars": 38361
+    },
+    "2000": {
+      "n_unique_sources": 35,
+      "total_excerpt_chars": 77324
+    },
+    "4000": {
+      "n_unique_sources": 34,
+      "total_excerpt_chars": 157997
+    }
+  }
+}
