@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "dra"
 version = "0.1.0"
 description = "Deep Research Agent — transparent, reliable research via claim verification + adaptive retrieval"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.5",
     "python-dotenv>=1.0",
