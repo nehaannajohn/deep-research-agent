@@ -25,6 +25,14 @@ def test_complete_json_parses():
     assert chat.complete_json("give json") == {"a": 1}
 
 
+def test_extract_json_handles_fences_and_prose():
+    from dra.llm.bedrock import _extract_json
+    assert _extract_json('{"a": 1}') == {"a": 1}
+    assert _extract_json('```json\n{"a": 1}\n```') == {"a": 1}
+    assert _extract_json("Here is the result:\n{\"a\": [1, 2]}\nThanks") == {"a": [1, 2]}
+    assert _extract_json("```\n[1, 2, 3]\n```") == [1, 2, 3]
+
+
 def test_complete_skips_reasoning_block():
     class ReasoningClient:
         def converse(self, **kwargs):

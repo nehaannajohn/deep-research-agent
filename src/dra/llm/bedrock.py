@@ -5,7 +5,31 @@ The boto3 client is injectable so unit tests can stub it — no live calls in te
 from __future__ import annotations
 
 import json
+import re
 from typing import Optional
+
+
+def _extract_json(text: str):
+    """Parse JSON from a model response that may wrap it in ```fences``` or prose."""
+    t = (text or "").strip()
+    try:
+        return json.loads(t)
+    except json.JSONDecodeError:
+        pass
+    fence = re.search(r"```(?:json)?\s*(.*?)```", t, re.DOTALL)
+    if fence:
+        try:
+            return json.loads(fence.group(1).strip())
+        except json.JSONDecodeError:
+            pass
+    for open_ch, close_ch in (("{", "}"), ("[", "]")):
+        i, j = t.find(open_ch), t.rfind(close_ch)
+        if 0 <= i < j:
+            try:
+                return json.loads(t[i:j + 1])
+            except json.JSONDecodeError:
+                continue
+    raise ValueError(f"No JSON found in model output: {t[:200]!r}")
 
 
 class BedrockChat:
@@ -51,5 +75,5 @@ class BedrockChat:
                 return block["text"]
         return ""
 
-    def complete_json(self, prompt: str, **kw) -> dict:
-        return json.loads(self.complete(prompt, **kw))
+    def complete_json(self, prompt: str, **kw):
+        return _extract_json(self.complete(prompt, **kw))
