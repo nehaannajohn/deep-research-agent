@@ -26,6 +26,18 @@ def test_independence_violation_raises():
         load_config(env).assert_independence()
 
 
+def test_drop_empty_aws_env():
+    from dra.config import _drop_empty_aws_env
+
+    env = {"AWS_ACCESS_KEY_ID": "", "AWS_SECRET_ACCESS_KEY": "",
+           "AWS_PROFILE": "Arenal-science", "AWS_SESSION_TOKEN": "tok"}
+    _drop_empty_aws_env(env)
+    assert "AWS_ACCESS_KEY_ID" not in env  # empty -> dropped
+    assert "AWS_SECRET_ACCESS_KEY" not in env  # empty -> dropped
+    assert env["AWS_PROFILE"] == "Arenal-science"  # non-empty -> kept
+    assert env["AWS_SESSION_TOKEN"] == "tok"  # non-empty -> kept
+
+
 def test_family():
     assert family("meta.llama3-1-70b-instruct-v1:0") == "meta"
     assert family("") == ""

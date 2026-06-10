@@ -47,9 +47,19 @@ class Config:
             )
 
 
+def _drop_empty_aws_env(environ) -> None:
+    """Empty AWS_* values from a template .env poison botocore's credential chain
+    (it prefers env-var creds over the named profile -> InvalidClientTokenId).
+    Remove the empties so AWS_PROFILE / the default chain resolves cleanly."""
+    for k in ("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN", "AWS_PROFILE"):
+        if environ.get(k, None) == "":
+            environ.pop(k, None)
+
+
 def load_config(env: "dict | None" = None) -> Config:
     if env is None:
         load_dotenv()
+        _drop_empty_aws_env(os.environ)
         env = dict(os.environ)
     panel = [m.strip() for m in env.get("BEDROCK_PANEL_MODELS", "").split(",") if m.strip()]
     return Config(
