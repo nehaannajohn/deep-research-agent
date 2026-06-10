@@ -34,11 +34,13 @@ class SemanticScholarSearch(SearchTool):
     def search(self, query: str, k: int = 10) -> SearchResult:
         t0 = time.monotonic()
         headers = {"x-api-key": self.api_key} if self.api_key else {}
-        resp = self.client.get(
-            URL,
-            params={"query": query, "limit": k, "fields": FIELDS},
-            headers=headers,
-        )
+        params = {"query": query, "limit": k, "fields": FIELDS}
+        resp = self.client.get(URL, params=params, headers=headers)
+        for attempt in range(2):  # retry transient 429s (common without an API key)
+            if getattr(resp, "status_code", 200) != 429:
+                break
+            time.sleep(1.5 * (attempt + 1))
+            resp = self.client.get(URL, params=params, headers=headers)
         data = resp.json()
         passages = [
             Passage(

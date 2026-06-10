@@ -22,7 +22,12 @@ def normalize_url(u: str) -> str:
             u = u[len(pre):]
     if u.startswith("www."):
         u = u[4:]
-    return u.rstrip("/")
+    u = u.split("#")[0].split("?")[0].rstrip("/")
+    # canonicalize arxiv abs/pdf (+ version suffix) to one form so they match
+    m = re.search(r"arxiv\.org/(?:abs|pdf)/(\d+\.\d+)", u)
+    if m:
+        return f"arxiv.org/abs/{m.group(1)}"
+    return u
 
 
 def recall_at_k(returned_urls: list, seed_urls: list, k: int = 10) -> float:

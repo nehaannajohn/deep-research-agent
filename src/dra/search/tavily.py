@@ -33,12 +33,8 @@ class TavilySearch(SearchTool):
         t0 = time.monotonic()
         resp = self.client.post(
             URL,
-            json={
-                "api_key": self.api_key,
-                "query": query,
-                "max_results": k,
-                "include_raw_content": True,
-            },
+            headers={"Authorization": f"Bearer {self.api_key}"},
+            json={"query": query, "max_results": k, "include_raw_content": True},
         )
         data = resp.json()
         passages = [

@@ -52,6 +52,7 @@ def test_tavily_prefers_raw_content():
     assert res.passages[0].text == "full text"
     assert res.passages[1].text == "only snippet"
     assert res.passages[0].source_id == "http://a"
+    assert http.last["headers"]["Authorization"] == "Bearer k"  # modern bearer auth
 
 
 def test_semantic_scholar_maps_abstract_and_sends_key():

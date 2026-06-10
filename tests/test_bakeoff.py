@@ -8,6 +8,12 @@ def test_normalize_url():
     assert normalize_url("https://arxiv.org/abs/2201.11903") == "arxiv.org/abs/2201.11903"
 
 
+def test_normalize_url_canonicalizes_arxiv():
+    abs_url = normalize_url("http://arxiv.org/abs/2201.11903")
+    pdf_url = normalize_url("https://arxiv.org/pdf/2201.11903v1")
+    assert abs_url == pdf_url == "arxiv.org/abs/2201.11903"
+
+
 def test_recall_at_k_counts_seeds_found():
     returned = ["http://a", "http://b", "http://c"]
     seeds = ["http://a", "http://c", "http://z"]
