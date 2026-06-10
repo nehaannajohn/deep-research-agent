@@ -43,6 +43,21 @@ def test_exa_maps_results_and_strips_text():
     assert http.last["json"]["numResults"] == 2
 
 
+def test_exa_uses_highlights_and_joins_excerpts():
+    http = FakePost({"results": [
+        {"id": "e1", "url": "http://a", "title": "A", "score": 0.9,
+         "highlights": ["frag one", "frag two"]},
+        {"id": "e2", "url": "http://b", "title": "B", "score": 0.5,
+         "highlights": ["only frag"]},
+    ]})
+    res = ExaSearch(api_key="k", client=http, max_chars=500).search("scaling laws", k=2)
+    assert "frag one" in res.passages[0].text and "frag two" in res.passages[0].text
+    assert res.passages[1].text == "only frag"
+    hl = http.last["json"]["contents"]["highlights"]
+    assert hl["query"] == "scaling laws"
+    assert hl["maxCharacters"] == 500
+
+
 def test_tavily_prefers_raw_content():
     http = FakePost({"results": [
         {"url": "http://a", "title": "A", "score": 0.7, "content": "snippet", "raw_content": "full text"},

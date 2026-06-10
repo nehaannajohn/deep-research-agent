@@ -1,9 +1,15 @@
 """Exa neural search adapter (web + papers).
 
-Assumed response shape (POST https://api.exa.ai/search with contents.text):
-  {"results": [{"id","url","title","score","text", ...}]}
-The HTTP client is injectable (a `requests`-like object with `.post`) so unit
-tests pass canned payloads; live calls happen only in the manual bake-off run.
+Retrieves query-targeted verbatim *highlights* (the excerpts within each document
+most relevant to the query), not full pages — this keeps evidence focused and
+context small while preserving the verbatim-evidence invariant. `max_chars` caps
+the highlight budget per source (Exa default is 4000; range 100–10000).
+
+Assumed response shape (POST https://api.exa.ai/search with contents.highlights):
+  {"results": [{"id","url","title","score","highlights":[...], "text"?, ...}]}
+Falls back to `text` when a result has no `highlights` (e.g. canned bake-off
+payloads). The HTTP client is injectable (a `requests`-like object with `.post`)
+so unit tests pass canned payloads; live calls happen only in manual runs.
 """
 from __future__ import annotations
 
@@ -18,9 +24,10 @@ URL = "https://api.exa.ai/search"
 class ExaSearch(SearchTool):
     name = "exa"
 
-    def __init__(self, api_key: str, client=None):
+    def __init__(self, api_key: str, client=None, max_chars: int = 1000):
         self.api_key = api_key
         self._client = client
+        self.max_chars = max_chars
 
     @property
     def client(self):
@@ -35,17 +42,24 @@ class ExaSearch(SearchTool):
         resp = self.client.post(
             URL,
             headers={"x-api-key": self.api_key, "Content-Type": "application/json"},
-            json={"query": query, "numResults": k, "contents": {"text": True}},
+            json={
+                "query": query,
+                "numResults": k,
+                "contents": {"highlights": {"query": query, "maxCharacters": self.max_chars}},
+            },
         )
         data = resp.json()
-        passages = [
-            Passage(
-                source_id=r.get("id") or r.get("url", ""),
-                text=(r.get("text") or "").strip(),
-                url=r.get("url", ""),
-                title=r.get("title") or "",
-                score=float(r.get("score") or 0.0),
+        passages = []
+        for r in data.get("results", [])[:k]:
+            highlights = [h.strip() for h in (r.get("highlights") or []) if h and h.strip()]
+            text = "\n…\n".join(highlights) if highlights else (r.get("text") or "").strip()
+            passages.append(
+                Passage(
+                    source_id=r.get("id") or r.get("url", ""),
+                    text=text,
+                    url=r.get("url", ""),
+                    title=r.get("title") or "",
+                    score=float(r.get("score") or 0.0),
+                )
             )
-            for r in data.get("results", [])[:k]
-        ]
         return SearchResult(passages=passages, latency_s=time.monotonic() - t0)
