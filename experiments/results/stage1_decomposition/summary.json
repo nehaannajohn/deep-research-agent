@@ -1,0 +1,46 @@
+{
+  "tc1_straightforward": {
+    "n_subquestions": 4,
+    "overlap": {
+      "only_a": 2,
+      "only_b": 23,
+      "shared": 6,
+      "jaccard": 0.1935483870967742
+    },
+    "arm_a_sources": 8,
+    "arm_b_sources": 29
+  },
+  "tc2_contradictory": {
+    "n_subquestions": 5,
+    "overlap": {
+      "only_a": 3,
+      "only_b": 25,
+      "shared": 5,
+      "jaccard": 0.15151515151515152
+    },
+    "arm_a_sources": 8,
+    "arm_b_sources": 30
+  },
+  "tc3_sparse": {
+    "n_subquestions": 4,
+    "overlap": {
+      "only_a": 4,
+      "only_b": 23,
+      "shared": 4,
+      "jaccard": 0.12903225806451613
+    },
+    "arm_a_sources": 8,
+    "arm_b_sources": 27
+  },
+  "tc4_multimodal": {
+    "n_subquestions": 5,
+    "overlap": {
+      "only_a": 7,
+      "only_b": 35,
+      "shared": 1,
+      "jaccard": 0.023255813953488372
+    },
+    "arm_a_sources": 8,
+    "arm_b_sources": 36
+  }
+}
