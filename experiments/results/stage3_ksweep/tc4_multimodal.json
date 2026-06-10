@@ -1,0 +1,111 @@
+{
+  "query": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "decompose": true,
+  "n_subquestions": 5,
+  "judged_relevance_by_rank": [
+    1.8,
+    2.0,
+    1.8,
+    1.8,
+    1.8,
+    1.6,
+    1.6,
+    2.0,
+    1.8,
+    2.0
+  ],
+  "by_k": {
+    "5": {
+      "n_records": 25,
+      "mean_relevance": 1.84,
+      "pct_relevant": 1.0
+    },
+    "8": {
+      "n_records": 40,
+      "mean_relevance": 1.8,
+      "pct_relevant": 1.0
+    },
+    "10": {
+      "n_records": 50,
+      "mean_relevance": 1.82,
+      "pct_relevant": 1.0
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What are the major architectural patterns currently used in multi-agent LLM systems, and how can they be categorized into a taxonomy?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "What are the key design dimensions (e.g., communication protocols, coordination mechanisms, role specialization) that differentiate these architectural patterns?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "How do existing multi-agent LLM systems (e.g., research projects, industry applications) map onto these architectural patterns, and what are their strengths/limitations?",
+      "relevance_by_rank": [
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "subquestion": "What are the open problems or challenges in multi-agent LLM systems (e.g., scalability, emergent behavior, alignment, efficiency) and how do they relate to specific architectural patterns?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "What visual representations (e.g., graphs, flowcharts, matrices) would best illustrate the relationships between architectural patterns and their associated challenges?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        2,
+        2,
+        2
+      ]
+    }
+  ]
+}

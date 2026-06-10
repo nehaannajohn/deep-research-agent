@@ -1,0 +1,126 @@
+{
+  "tc1_straightforward": {
+    "judged_relevance_by_rank": [
+      2.0,
+      2.0,
+      1.75,
+      2.0,
+      1.75,
+      1.75,
+      1.5,
+      2.0,
+      2.0,
+      1.75
+    ],
+    "by_k": {
+      "5": {
+        "n_records": 20,
+        "mean_relevance": 1.9,
+        "pct_relevant": 1.0
+      },
+      "8": {
+        "n_records": 32,
+        "mean_relevance": 1.844,
+        "pct_relevant": 1.0
+      },
+      "10": {
+        "n_records": 40,
+        "mean_relevance": 1.85,
+        "pct_relevant": 1.0
+      }
+    }
+  },
+  "tc2_contradictory": {
+    "judged_relevance_by_rank": [
+      1.8,
+      1.8,
+      1.6,
+      1.8,
+      1.8,
+      1.6,
+      1.4,
+      1.8,
+      1.4,
+      1.8
+    ],
+    "by_k": {
+      "5": {
+        "n_records": 25,
+        "mean_relevance": 1.76,
+        "pct_relevant": 1.0
+      },
+      "8": {
+        "n_records": 40,
+        "mean_relevance": 1.7,
+        "pct_relevant": 1.0
+      },
+      "10": {
+        "n_records": 50,
+        "mean_relevance": 1.68,
+        "pct_relevant": 1.0
+      }
+    }
+  },
+  "tc3_sparse": {
+    "judged_relevance_by_rank": [
+      2.0,
+      2.0,
+      2.0,
+      1.75,
+      2.0,
+      2.0,
+      1.75,
+      1.75,
+      1.75,
+      1.75
+    ],
+    "by_k": {
+      "5": {
+        "n_records": 20,
+        "mean_relevance": 1.95,
+        "pct_relevant": 1.0
+      },
+      "8": {
+        "n_records": 32,
+        "mean_relevance": 1.906,
+        "pct_relevant": 1.0
+      },
+      "10": {
+        "n_records": 40,
+        "mean_relevance": 1.875,
+        "pct_relevant": 1.0
+      }
+    }
+  },
+  "tc4_multimodal": {
+    "judged_relevance_by_rank": [
+      1.8,
+      2.0,
+      1.8,
+      1.8,
+      1.8,
+      1.6,
+      1.6,
+      2.0,
+      1.8,
+      2.0
+    ],
+    "by_k": {
+      "5": {
+        "n_records": 25,
+        "mean_relevance": 1.84,
+        "pct_relevant": 1.0
+      },
+      "8": {
+        "n_records": 40,
+        "mean_relevance": 1.8,
+        "pct_relevant": 1.0
+      },
+      "10": {
+        "n_records": 50,
+        "mean_relevance": 1.82,
+        "pct_relevant": 1.0
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "query": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "n_subquestions": 4,
+  "by_k": {
+    "5": {
+      "mean_completeness": 80.0
+    },
+    "8": {
+      "mean_completeness": 80.0
+    },
+    "10": {
+      "mean_completeness": 80.0
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What are the real-world benefits of using synthetic data for training or fine-tuning large language models, specifically regarding data quality, bias mitigation, and evaluation?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "quantitative analysis"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "quantitative analysis"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "quantitative analysis"
+        }
+      }
+    },
+    {
+      "subquestion": "What are the real-world risks of using synthetic data for training or fine-tuning large language models, with a focus on data quality issues, amplification of biases, and challenges in evaluation?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "empirical evidence on mitigation strategies"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "empirical evidence on mitigation strategies"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "empirical evidence on mitigation strategies"
+        }
+      }
+    },
+    {
+      "subquestion": "How does the quality of synthetic data compare to real-world data in terms of training effectiveness for large language models?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "specific task comparison"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "contextual understanding"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "synthetic data generation methods comparison"
+        }
+      }
+    },
+    {
+      "subquestion": "What methods exist to evaluate the reliability and biases of synthetic data used in large language model training, and how do these methods perform in practice?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "practical performance comparison"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "practical comparison of methods"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "practical comparison of methods"
+        }
+      }
+    }
+  ]
+}

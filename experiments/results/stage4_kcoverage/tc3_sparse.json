@@ -1,0 +1,85 @@
+{
+  "query": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "n_subquestions": 4,
+  "by_k": {
+    "5": {
+      "mean_completeness": 82.5
+    },
+    "8": {
+      "mean_completeness": 82.5
+    },
+    "10": {
+      "mean_completeness": 82.5
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What empirical evidence exists for improvements in LLM reasoning performance through inference-time compute scaling (e.g., test-time compute, chain-of-thought, self-refinement, or tree search methods)?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 90,
+          "missing": "meta-analysis of TTS strategies"
+        },
+        "8": {
+          "completeness": 90,
+          "missing": "meta-analysis of TTS strategies"
+        },
+        "10": {
+          "completeness": 90,
+          "missing": "meta-analysis of findings"
+        }
+      }
+    },
+    {
+      "subquestion": "Which specific inference-time scaling techniques have been rigorously validated across multiple benchmarks or real-world tasks, and what are their limitations?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "rigorous validation on diverse real-world tasks"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "rigorous validation of specific techniques"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "rigorous validation on diverse tasks"
+        }
+      }
+    },
+    {
+      "subquestion": "What are the leading speculative or theoretical proposals for inference-time compute scaling that lack robust empirical validation?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "empirical validation of certain proposals"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "empirical validation of speculative proposals"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "empirical validation of proposals"
+        }
+      }
+    },
+    {
+      "subquestion": "In which areas (e.g., task types, model sizes, or domains) is the evidence for inference-time compute scaling too thin or contradictory to draw conclusions?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "domain-specific analysis"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "domain-specific analysis"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "domain-specific verifier design"
+        }
+      }
+    }
+  ]
+}

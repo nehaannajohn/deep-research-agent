@@ -1,0 +1,46 @@
+{
+  "tc1_straightforward": {
+    "5": {
+      "mean_completeness": 80.0
+    },
+    "8": {
+      "mean_completeness": 80.0
+    },
+    "10": {
+      "mean_completeness": 80.0
+    }
+  },
+  "tc2_contradictory": {
+    "5": {
+      "mean_completeness": 80.0
+    },
+    "8": {
+      "mean_completeness": 80.0
+    },
+    "10": {
+      "mean_completeness": 80.0
+    }
+  },
+  "tc3_sparse": {
+    "5": {
+      "mean_completeness": 82.5
+    },
+    "8": {
+      "mean_completeness": 82.5
+    },
+    "10": {
+      "mean_completeness": 82.5
+    }
+  },
+  "tc4_multimodal": {
+    "5": {
+      "mean_completeness": 86.0
+    },
+    "8": {
+      "mean_completeness": 84.0
+    },
+    "10": {
+      "mean_completeness": 84.0
+    }
+  }
+}

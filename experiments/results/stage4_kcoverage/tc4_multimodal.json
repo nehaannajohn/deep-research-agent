@@ -1,0 +1,102 @@
+{
+  "query": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "n_subquestions": 5,
+  "by_k": {
+    "5": {
+      "mean_completeness": 86.0
+    },
+    "8": {
+      "mean_completeness": 84.0
+    },
+    "10": {
+      "mean_completeness": 84.0
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What are the major architectural patterns currently used in multi-agent LLM systems, and how can they be categorized into a taxonomy?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 90,
+          "missing": "empirical comparison"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "empirical comparison"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "empirical comparison"
+        }
+      }
+    },
+    {
+      "subquestion": "What are the key design dimensions (e.g., communication protocols, coordination mechanisms, role specialization) that differentiate these architectural patterns?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 90,
+          "missing": "empirical pattern tradeoffs"
+        },
+        "8": {
+          "completeness": 90,
+          "missing": "empirical tradeoffs"
+        },
+        "10": {
+          "completeness": 90,
+          "missing": "comparative analysis"
+        }
+      }
+    },
+    {
+      "subquestion": "How do existing multi-agent LLM systems (e.g., research prototypes, industry applications) map onto these architectural patterns?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "specific industry examples"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "specific industry examples"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "specific industry examples"
+        }
+      }
+    },
+    {
+      "subquestion": "What are the open problems or challenges in multi-agent LLM systems, and how do they relate to specific architectural patterns?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "empirical validation"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "empirical validation"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "empirical validation"
+        }
+      }
+    },
+    {
+      "subquestion": "What visual representations (e.g., graphs, taxonomies, flowcharts) would best illustrate the relationships between these patterns and their trade-offs?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 90,
+          "missing": "specific examples"
+        },
+        "8": {
+          "completeness": 90,
+          "missing": "empirical validation"
+        },
+        "10": {
+          "completeness": 90,
+          "missing": "empirical validation"
+        }
+      }
+    }
+  ]
+}

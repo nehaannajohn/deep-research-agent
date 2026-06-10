@@ -1,0 +1,111 @@
+{
+  "query": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees\u2014find the real fault lines and explain what accounts for the conflicting results.",
+  "decompose": true,
+  "n_subquestions": 5,
+  "judged_relevance_by_rank": [
+    1.8,
+    1.8,
+    1.6,
+    1.8,
+    1.8,
+    1.6,
+    1.4,
+    1.8,
+    1.4,
+    1.8
+  ],
+  "by_k": {
+    "5": {
+      "n_records": 25,
+      "mean_relevance": 1.76,
+      "pct_relevant": 1.0
+    },
+    "8": {
+      "n_records": 40,
+      "mean_relevance": 1.7,
+      "pct_relevant": 1.0
+    },
+    "10": {
+      "n_records": 50,
+      "mean_relevance": 1.68,
+      "pct_relevant": 1.0
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What empirical evidence exists that chain-of-thought (CoT) prompting improves the reasoning capabilities of large language models (LLMs) compared to standard prompting?",
+      "relevance_by_rank": [
+        2,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "What empirical evidence suggests that CoT prompting primarily enhances output formatting or presentation rather than actual reasoning performance?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "subquestion": "What methodological differences (e.g., model size, task type, evaluation metrics) account for conflicting findings in the literature on CoT effectiveness?",
+      "relevance_by_rank": [
+        1,
+        2,
+        1,
+        2,
+        2,
+        2,
+        1,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "subquestion": "Are there specific conditions (e.g., model architecture, training data, task complexity) under which CoT is reliably effective or ineffective for reasoning?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "How do recent studies reconcile or explain the discrepancies in CoT performance across different benchmarks or research groups?",
+      "relevance_by_rank": [
+        2,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2
+      ]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "query": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "decompose": true,
+  "n_subquestions": 4,
+  "judged_relevance_by_rank": [
+    2.0,
+    2.0,
+    2.0,
+    1.75,
+    2.0,
+    2.0,
+    1.75,
+    1.75,
+    1.75,
+    1.75
+  ],
+  "by_k": {
+    "5": {
+      "n_records": 20,
+      "mean_relevance": 1.95,
+      "pct_relevant": 1.0
+    },
+    "8": {
+      "n_records": 32,
+      "mean_relevance": 1.906,
+      "pct_relevant": 1.0
+    },
+    "10": {
+      "n_records": 40,
+      "mean_relevance": 1.875,
+      "pct_relevant": 1.0
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What are the key techniques currently used for inference-time compute scaling in large language models (LLMs) for reasoning tasks?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "Which of these techniques have been empirically validated through published research or benchmarks, and what are the specific findings?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "What proposed methods or hypotheses for inference-time compute scaling remain speculative or lack strong empirical support?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2
+      ]
+    },
+    {
+      "subquestion": "In which areas of inference-time compute scaling for LLM reasoning is the evidence too thin or contradictory to draw firm conclusions?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1
+      ]
+    }
+  ]
+}

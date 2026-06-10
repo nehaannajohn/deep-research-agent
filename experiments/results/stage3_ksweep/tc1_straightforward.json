@@ -1,0 +1,96 @@
+{
+  "query": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "decompose": true,
+  "n_subquestions": 4,
+  "judged_relevance_by_rank": [
+    2.0,
+    2.0,
+    1.75,
+    2.0,
+    1.75,
+    1.75,
+    1.5,
+    2.0,
+    2.0,
+    1.75
+  ],
+  "by_k": {
+    "5": {
+      "n_records": 20,
+      "mean_relevance": 1.9,
+      "pct_relevant": 1.0
+    },
+    "8": {
+      "n_records": 32,
+      "mean_relevance": 1.844,
+      "pct_relevant": 1.0
+    },
+    "10": {
+      "n_records": 40,
+      "mean_relevance": 1.85,
+      "pct_relevant": 1.0
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What are the real-world benefits of using synthetic data to train or fine-tune large language models, particularly in terms of data quality, bias mitigation, and scalability?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "What are the real-world risks of using synthetic data to train or fine-tune large language models, focusing on data quality degradation, amplification of biases, and evaluation challenges?",
+      "relevance_by_rank": [
+        2,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "subquestion": "How does the use of synthetic data impact the evaluation of large language models, including metrics for accuracy, generalization, and robustness compared to models trained on real-world data?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2,
+        2,
+        1
+      ]
+    },
+    {
+      "subquestion": "What are the trade-offs between synthetic and real-world data in terms of bias introduction or reduction when training or fine-tuning large language models?",
+      "relevance_by_rank": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2,
+        2,
+        2
+      ]
+    }
+  ]
+}

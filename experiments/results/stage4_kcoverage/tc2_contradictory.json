@@ -1,0 +1,102 @@
+{
+  "query": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees\u2014find the real fault lines and explain what accounts for the conflicting results.",
+  "n_subquestions": 5,
+  "by_k": {
+    "5": {
+      "mean_completeness": 80.0
+    },
+    "8": {
+      "mean_completeness": 80.0
+    },
+    "10": {
+      "mean_completeness": 80.0
+    }
+  },
+  "per_subquestion": [
+    {
+      "subquestion": "What empirical evidence exists that chain-of-thought (CoT) prompting improves the reasoning capabilities of large language models (LLMs) compared to standard prompting?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 90,
+          "missing": "meta-analysis"
+        },
+        "8": {
+          "completeness": 90,
+          "missing": "meta-analysis"
+        },
+        "10": {
+          "completeness": 90,
+          "missing": "meta-analysis"
+        }
+      }
+    },
+    {
+      "subquestion": "What empirical evidence suggests that CoT prompting primarily enhances output formatting or presentation rather than actual reasoning performance?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "counterexamples"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "causal analysis"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "causal analysis"
+        }
+      }
+    },
+    {
+      "subquestion": "What are the key methodological or experimental differences across studies that account for conflicting results on CoT's effectiveness?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 70,
+          "missing": "specific study comparisons"
+        },
+        "8": {
+          "completeness": 70,
+          "missing": "specific study comparisons"
+        },
+        "10": {
+          "completeness": 70,
+          "missing": "specific experimental comparisons"
+        }
+      }
+    },
+    {
+      "subquestion": "Are there specific task types, model architectures, or evaluation metrics where CoT consistently demonstrates reasoning improvements versus formatting improvements?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "detailed analysis on model architectures"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "detailed analysis on model architectures"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "detailed analysis on model architectures"
+        }
+      }
+    },
+    {
+      "subquestion": "What theoretical or mechanistic explanations have been proposed to reconcile the conflicting findings about CoT's impact on LLM reasoning?",
+      "coverage_by_k": {
+        "5": {
+          "completeness": 80,
+          "missing": "empirical validation"
+        },
+        "8": {
+          "completeness": 80,
+          "missing": "empirical validation"
+        },
+        "10": {
+          "completeness": 80,
+          "missing": "empirical validation"
+        }
+      }
+    }
+  ]
+}
