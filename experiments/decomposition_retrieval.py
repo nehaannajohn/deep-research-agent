@@ -42,6 +42,7 @@ RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
 K = 8
 DEFAULT_MAX_CHARS = 2000          # Stage 1 holds the excerpt budget here
 SWEEP_BUDGETS = (1000, 2000, 4000)  # Stage 2 sweeps these
+K_SWEEP = (5, 8, 10)                 # Stage 3 sweeps these (prefixes of one k=max ranking)
 
 
 def unique_source_ids(passages) -> set:
@@ -140,6 +141,121 @@ def run_charsweep(generator, exa_factory, decompose: bool, cases=TEST_CASES,
     return report
 
 
+_REL_PROMPT = """Rate how relevant the PASSAGE is to answering the SUB-QUESTION.
+0 = not relevant, 1 = partially relevant, 2 = directly relevant.
+Return ONLY JSON: {{"relevance": 0|1|2}}
+SUB-QUESTION: {subq}
+PASSAGE: {passage}"""
+
+
+def _judge_relevance(judge, subq, passage_text) -> int:
+    """Independent judge (≠ generator) rates excerpt relevance to its sub-question."""
+    try:
+        d = judge.complete_json(_REL_PROMPT.format(subq=subq, passage=passage_text[:1500]))
+        v = int(d.get("relevance", 0))
+        return v if v in (0, 1, 2) else 0
+    except Exception:
+        return 0
+
+
+def run_ksweep(generator, search, judge, decompose: bool, cases=TEST_CASES,
+               ks=K_SWEEP, out_dir=None) -> dict:
+    """Stage 3: fixed maxChars (search's budget); pick k. Exa returns a ranked list with
+    NO usable relevance score, so k in {5,8,10} are prefixes of ONE k=max(ks) retrieval and
+    the real signal is JUDGED relevance fall-off by rank — does record 8/10 still earn its
+    place? An independent judge rates each excerpt's relevance (0/1/2) to its sub-question."""
+    out_dir = out_dir or os.path.join(RESULTS_DIR, "stage3_ksweep")
+    os.makedirs(out_dir, exist_ok=True)
+    kmax = max(ks)
+    report = {}
+    for case_id, query in cases:
+        queries = _decompose(generator, query) if decompose else [query]
+        per_subq = []
+        rel_by_rank = [[] for _ in range(kmax)]
+        for q in queries:
+            ps = search.search(q, k=kmax).passages  # one ranked retrieval per sub-question
+            rels = [_judge_relevance(judge, q, p.text) for p in ps]
+            for r, rel in enumerate(rels):
+                rel_by_rank[r].append(rel)
+            per_subq.append({"subquestion": q, "relevance_by_rank": rels})
+        rank_profile = [round(sum(v) / len(v), 3) if v else None for v in rel_by_rank]
+        by_k = {}
+        for k in ks:
+            flat = [rel for sub in per_subq for rel in sub["relevance_by_rank"][:k]]
+            n_rel = sum(1 for x in flat if x >= 1)
+            by_k[str(k)] = {
+                "n_records": len(flat),
+                "mean_relevance": round(sum(flat) / len(flat), 3) if flat else 0.0,
+                "pct_relevant": round(n_rel / len(flat), 3) if flat else 0.0,
+            }
+        report[case_id] = {"query": query, "decompose": decompose,
+                           "n_subquestions": len(queries),
+                           "judged_relevance_by_rank": rank_profile,
+                           "by_k": by_k, "per_subquestion": per_subq}
+        with open(os.path.join(out_dir, f"{case_id}.json"), "w") as f:
+            json.dump(report[case_id], f, indent=2)
+    with open(os.path.join(out_dir, "summary.json"), "w") as f:
+        json.dump({cid: {"judged_relevance_by_rank": r["judged_relevance_by_rank"],
+                         "by_k": r["by_k"]}
+                   for cid, r in report.items()}, f, indent=2)
+    return report
+
+
+_COVERAGE_PROMPT = """You are assessing whether a SET of evidence passages, taken TOGETHER,
+is sufficient to answer a SUB-QUESTION. Judge the passages collectively, not individually.
+How completely can the sub-question be answered using ALL the passages combined?
+Score 0-100 (0 = cannot answer at all; 100 = fully and comprehensively answerable).
+Also note, in one short phrase, the most important aspect still missing (or 'none').
+Return ONLY JSON: {{"completeness": 0-100, "missing": "short phrase or 'none'"}}
+SUB-QUESTION: {subq}
+PASSAGES:
+{passages}"""
+
+
+def _judge_coverage(judge, subq, passages_text) -> dict:
+    """Independent judge rates how completely the COMBINED passage set answers the sub-question."""
+    try:
+        d = judge.complete_json(_COVERAGE_PROMPT.format(subq=subq, passages=passages_text))
+        c = max(0, min(100, int(d.get("completeness", 0))))
+        return {"completeness": c, "missing": str(d.get("missing", "") or "")[:120]}
+    except Exception:
+        return {"completeness": 0, "missing": "ERROR"}
+
+
+def run_kcoverage(generator, search, judge, decompose: bool, cases=TEST_CASES,
+                  ks=K_SWEEP, out_dir=None) -> dict:
+    """Stage 4: cumulative coverage. For each sub-question, judge how completely the COMBINED
+    top-k evidence (k in {5,8,10}, nested prefixes of one k=max retrieval) answers it. The
+    decision signal is the marginal lift 5->8->10: flat lift = redundancy (small k suffices),
+    real lift = more records add genuine coverage."""
+    out_dir = out_dir or os.path.join(RESULTS_DIR, "stage4_kcoverage")
+    os.makedirs(out_dir, exist_ok=True)
+    kmax = max(ks)
+    report = {}
+    for case_id, query in cases:
+        queries = _decompose(generator, query) if decompose else [query]
+        per_subq = []
+        cov_by_k = {str(k): [] for k in ks}
+        for q in queries:
+            ps = search.search(q, k=kmax).passages  # one ranked retrieval per sub-question
+            cov = {}
+            for k in ks:
+                joined = "\n\n---\n\n".join(f"[{p.source_id}] {p.text[:1500]}" for p in ps[:k])
+                res = _judge_coverage(judge, q, joined)
+                cov[str(k)] = res
+                cov_by_k[str(k)].append(res["completeness"])
+            per_subq.append({"subquestion": q, "coverage_by_k": cov})
+        by_k = {str(k): {"mean_completeness": round(sum(cov_by_k[str(k)]) / len(cov_by_k[str(k)]), 1)}
+                for k in ks}
+        report[case_id] = {"query": query, "n_subquestions": len(queries),
+                           "by_k": by_k, "per_subquestion": per_subq}
+        with open(os.path.join(out_dir, f"{case_id}.json"), "w") as f:
+            json.dump(report[case_id], f, indent=2)
+    with open(os.path.join(out_dir, "summary.json"), "w") as f:
+        json.dump({cid: r["by_k"] for cid, r in report.items()}, f, indent=2)
+    return report
+
+
 def main(argv=None):  # pragma: no cover - live path
     import sys
     from dra.config import load_config
@@ -156,6 +272,16 @@ def main(argv=None):  # pragma: no cover - live path
         decompose = "--no-decompose" not in argv  # default: decompose
         run_charsweep(generator, exa_factory, decompose=decompose)
         print("Wrote char-sweep results to experiments/results/stage2_charsweep/")
+    elif argv and argv[0] == "ksweep":
+        decompose = "--no-decompose" not in argv  # default: decompose
+        judge = BedrockChat(cfg.roles["inloop_judge"], region=region)  # independent of generator
+        run_ksweep(generator, exa_factory(DEFAULT_MAX_CHARS), judge, decompose=decompose)
+        print("Wrote k-sweep results to experiments/results/stage3_ksweep/")
+    elif argv and argv[0] == "kcoverage":
+        decompose = "--no-decompose" not in argv  # default: decompose
+        judge = BedrockChat(cfg.roles["inloop_judge"], region=region)  # independent of generator
+        run_kcoverage(generator, exa_factory(DEFAULT_MAX_CHARS), judge, decompose=decompose)
+        print("Wrote k-coverage results to experiments/results/stage4_kcoverage/")
     else:
         run_ab(generator, exa_factory(DEFAULT_MAX_CHARS))
         print("Wrote A/B results to experiments/results/stage1_decomposition/")
