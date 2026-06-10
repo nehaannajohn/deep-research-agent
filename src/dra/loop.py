@@ -52,7 +52,7 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
         passages = deps.search.search(subq, k=8).passages
         for psg in passages:
             sources[psg.source_id] = psg
-        new = synthesize(subq, passages, deps.generator, start_index=len(claims))
+        new = synthesize(query, subq, passages, deps.generator, start_index=len(claims))
         for c in new:
             evidence = c.citations[0].span if c.citations else ""
             v = deps.verifier.verify(c.text, evidence)
