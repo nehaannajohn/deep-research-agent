@@ -14,6 +14,11 @@ from dra.schemas import ResearchReport
 from dra.synthesis import synthesize
 from dra.verify.base import Verifier
 
+# Settled retrieval default (experiments/results stage3+4 → VERDICT_k.md): cumulative
+# coverage is flat beyond 5 records/sub-question, so 5 is the lean default; the future
+# adaptive loop escalates k for the rare sub-question that needs more.
+RETRIEVAL_K = 5
+
 
 @dataclass
 class Deps:
@@ -49,7 +54,7 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
     sources: dict = {}
     for subq in p.subquestions:
         route(subq, deps.generator)  # label only (Exa is the single MVP backend)
-        passages = deps.search.search(subq, k=8).passages
+        passages = deps.search.search(subq, k=RETRIEVAL_K).passages
         for psg in passages:
             sources[psg.source_id] = psg
         new = synthesize(query, subq, passages, deps.generator, start_index=len(claims))
