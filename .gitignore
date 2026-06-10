@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.key
+
+# Models / data artifacts (large)
+models/
+checkpoints/
+*.bin
+*.safetensors
+data/raw/
+data/cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Logs / runs
+*.log
+runs/
+wandb/
+outputs/
+
+# The assessment PDF (keep local, not in the shared code repo)
+*.pdf
+
+# Internal planning / design docs — kept local, not part of the code package
+CLAUDE.md
+docs/
