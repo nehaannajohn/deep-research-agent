@@ -12,9 +12,11 @@ class FakeGen:
         return "## Summary\nFinding [c0]."
 
     def complete_json(self, prompt):
-        if "subquestions" in prompt:  # planner prompt
-            return {"subquestions": ["sq1"], "constraints": {}}
-        return {"claims": [{"text": "Claim X", "citations": ["s1"]}]}  # synthesis prompt
+        if "core_query" in prompt:                       # planner SPLIT call
+            return {"core_query": "explain X", "constraints": {}}
+        if "subquestions" in prompt:                     # planner DECOMPOSE call
+            return {"subquestions": ["sq1"]}
+        return {"claims": [{"text": "Claim X", "citations": ["s1"]}]}  # synthesis
 
 
 class FakeSearch(SearchTool):
