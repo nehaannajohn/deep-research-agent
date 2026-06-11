@@ -37,6 +37,9 @@ class Config:
     semantic_scholar_key: str = ""
     perplexity_key: str = ""
     wandb_key: str = ""
+    retrieval_cache_enabled: bool = True
+    retrieval_cache_ttl_s: int = 259200  # 3 days
+    retrieval_cache_dir: str = "data/cache/retrieval"
 
     def assert_independence(self) -> None:
         g = family(self.roles.get("generator", ""))
@@ -45,6 +48,13 @@ class Config:
             raise ValueError(
                 f"generator and in-loop judge must be different model families (both '{g}')"
             )
+
+
+def _env_bool(env, key: str, default: bool) -> bool:
+    v = env.get(key)
+    if v is None:
+        return default
+    return v.strip().lower() not in ("0", "false", "no", "")
 
 
 def _drop_empty_aws_env(environ) -> None:
@@ -74,4 +84,7 @@ def load_config(env: "dict | None" = None) -> Config:
         semantic_scholar_key=env.get("SEMANTIC_SCHOLAR_API_KEY", ""),
         perplexity_key=env.get("PERPLEXITY_API_KEY", ""),
         wandb_key=env.get("WANDB_API_KEY", ""),
+        retrieval_cache_enabled=_env_bool(env, "DRA_RETRIEVAL_CACHE", True),
+        retrieval_cache_ttl_s=int(env.get("DRA_RETRIEVAL_CACHE_TTL", "259200")),
+        retrieval_cache_dir=env.get("DRA_RETRIEVAL_CACHE_DIR", "data/cache/retrieval"),
     )

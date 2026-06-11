@@ -48,3 +48,18 @@ def test_family_strips_inference_profile_scope():
     assert family("global.anthropic.claude-opus-4-8") == "anthropic"
     assert family("mistral.mistral-large-3-675b-instruct") == "mistral"
     assert family("openai.gpt-oss-120b-1:0") == "openai"
+
+
+def test_load_config_cache_defaults():
+    from dra.config import load_config
+    cfg = load_config(env={})
+    assert cfg.retrieval_cache_enabled is True
+    assert cfg.retrieval_cache_ttl_s == 259200
+    assert cfg.retrieval_cache_dir == "data/cache/retrieval"
+
+
+def test_load_config_cache_overrides():
+    from dra.config import load_config
+    cfg = load_config(env={"DRA_RETRIEVAL_CACHE": "0", "DRA_RETRIEVAL_CACHE_TTL": "60"})
+    assert cfg.retrieval_cache_enabled is False
+    assert cfg.retrieval_cache_ttl_s == 60
