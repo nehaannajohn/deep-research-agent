@@ -1,0 +1,170 @@
+{
+  "tc1_straightforward": {
+    "n_subquestions": 3,
+    "n_claims": 22,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 22,
+        "mean_atomicity": 0.864,
+        "mean_grounding": 1.0
+      },
+      "opus": {
+        "n_judged": 22,
+        "mean_atomicity": 0.727,
+        "mean_grounding": 1.045
+      },
+      "deepseek": {
+        "n_judged": 22,
+        "mean_atomicity": 1.0,
+        "mean_grounding": 1.273
+      }
+    }
+  },
+  "tc2_contradictory": {
+    "n_subquestions": 4,
+    "n_claims": 28,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 28,
+        "mean_atomicity": 1.0,
+        "mean_grounding": 1.357
+      },
+      "opus": {
+        "n_judged": 28,
+        "mean_atomicity": 0.857,
+        "mean_grounding": 1.357
+      },
+      "deepseek": {
+        "n_judged": 28,
+        "mean_atomicity": 0.929,
+        "mean_grounding": 1.571
+      }
+    }
+  },
+  "tc3_sparse": {
+    "n_subquestions": 4,
+    "n_claims": 33,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 33,
+        "mean_atomicity": 0.879,
+        "mean_grounding": 0.97
+      },
+      "opus": {
+        "n_judged": 33,
+        "mean_atomicity": 0.576,
+        "mean_grounding": 1.061
+      },
+      "deepseek": {
+        "n_judged": 33,
+        "mean_atomicity": 0.939,
+        "mean_grounding": 1.061
+      }
+    }
+  },
+  "tc4_multimodal": {
+    "n_subquestions": 3,
+    "n_claims": 25,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 25,
+        "mean_atomicity": 1.0,
+        "mean_grounding": 1.08
+      },
+      "opus": {
+        "n_judged": 25,
+        "mean_atomicity": 0.48,
+        "mean_grounding": 1.32
+      },
+      "deepseek": {
+        "n_judged": 25,
+        "mean_atomicity": 0.72,
+        "mean_grounding": 1.28
+      }
+    }
+  },
+  "tc5_rag_hallucination": {
+    "n_subquestions": 2,
+    "n_claims": 12,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 12,
+        "mean_atomicity": 0.917,
+        "mean_grounding": 0.75
+      },
+      "opus": {
+        "n_judged": 12,
+        "mean_atomicity": 0.333,
+        "mean_grounding": 1.25
+      },
+      "deepseek": {
+        "n_judged": 12,
+        "mean_atomicity": 0.667,
+        "mean_grounding": 1.083
+      }
+    }
+  },
+  "tc6_ultraprocessed_foods": {
+    "n_subquestions": 2,
+    "n_claims": 11,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 11,
+        "mean_atomicity": 0.818,
+        "mean_grounding": 1.636
+      },
+      "opus": {
+        "n_judged": 11,
+        "mean_atomicity": 0.364,
+        "mean_grounding": 1.636
+      },
+      "deepseek": {
+        "n_judged": 11,
+        "mean_atomicity": 0.818,
+        "mean_grounding": 1.727
+      }
+    }
+  },
+  "tc7_remote_productivity": {
+    "n_subquestions": 2,
+    "n_claims": 10,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 10,
+        "mean_atomicity": 0.8,
+        "mean_grounding": 1.1
+      },
+      "opus": {
+        "n_judged": 10,
+        "mean_atomicity": 0.6,
+        "mean_grounding": 1.6
+      },
+      "deepseek": {
+        "n_judged": 10,
+        "mean_atomicity": 0.7,
+        "mean_grounding": 1.4
+      }
+    }
+  },
+  "tc8_moe_vs_dense": {
+    "n_subquestions": 1,
+    "n_claims": 6,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 6,
+        "mean_atomicity": 1.0,
+        "mean_grounding": 1.5
+      },
+      "opus": {
+        "n_judged": 6,
+        "mean_atomicity": 1.0,
+        "mean_grounding": 1.5
+      },
+      "deepseek": {
+        "n_judged": 6,
+        "mean_atomicity": 1.0,
+        "mean_grounding": 1.167
+      }
+    }
+  }
+}

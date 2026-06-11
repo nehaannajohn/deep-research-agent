@@ -1,0 +1,71 @@
+{
+  "mistral_large_3": {
+    "total_claims": 635,
+    "synth_failures": 1,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 635,
+        "mean_atomicity": 0.791,
+        "mean_grounding": 0.887
+      },
+      "opus": {
+        "n_judged": 635,
+        "mean_atomicity": 0.498,
+        "mean_grounding": 0.915
+      },
+      "deepseek": {
+        "n_judged": 635,
+        "mean_atomicity": 0.912,
+        "mean_grounding": 1.009
+      }
+    },
+    "panel_mean_atomicity": 0.734,
+    "panel_mean_grounding": 0.937
+  },
+  "llama4_maverick": {
+    "total_claims": 147,
+    "synth_failures": 0,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 147,
+        "mean_atomicity": 0.918,
+        "mean_grounding": 1.129
+      },
+      "opus": {
+        "n_judged": 147,
+        "mean_atomicity": 0.619,
+        "mean_grounding": 1.272
+      },
+      "deepseek": {
+        "n_judged": 147,
+        "mean_atomicity": 0.864,
+        "mean_grounding": 1.306
+      }
+    },
+    "panel_mean_atomicity": 0.8,
+    "panel_mean_grounding": 1.236
+  },
+  "haiku_4_5": {
+    "total_claims": 287,
+    "synth_failures": 0,
+    "by_judge": {
+      "gpt_oss": {
+        "n_judged": 287,
+        "mean_atomicity": 0.808,
+        "mean_grounding": 0.895
+      },
+      "opus": {
+        "n_judged": 287,
+        "mean_atomicity": 0.516,
+        "mean_grounding": 0.958
+      },
+      "deepseek": {
+        "n_judged": 287,
+        "mean_atomicity": 0.909,
+        "mean_grounding": 1.052
+      }
+    },
+    "panel_mean_atomicity": 0.744,
+    "panel_mean_grounding": 0.968
+  }
+}
