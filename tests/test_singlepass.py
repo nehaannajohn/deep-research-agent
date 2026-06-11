@@ -8,8 +8,8 @@ class FakeGen:
     """One fake stands in for planner (complete_json), synthesis (complete_json),
     and router (complete), dispatching on prompt content."""
 
-    def complete(self, prompt):  # router
-        return "web"
+    def complete(self, prompt, **kw):  # router label (unused) + report narrative
+        return "## Summary\nFinding [c0]."
 
     def complete_json(self, prompt):
         if "subquestions" in prompt:  # planner prompt
@@ -40,3 +40,4 @@ def test_singlepass_end_to_end():
     assert len(report.sources) == 1
     assert report.resolved_brief == "sq1"
     assert "Claim X" in report.report_markdown
+    assert "## Detailed Citation Results" in report.report_markdown

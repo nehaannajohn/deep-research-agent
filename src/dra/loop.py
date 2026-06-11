@@ -9,6 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from dra.planner import plan
+from dra.report import compose_report
 from dra.router import route
 from dra.schemas import ResearchReport
 from dra.synthesis import synthesize
@@ -25,24 +26,6 @@ class Deps:
     generator: object  # BedrockChat-like: planner/synthesis (complete_json) + router (complete)
     verifier: Verifier
     search: object  # SearchTool
-
-
-def _render_markdown(report: ResearchReport) -> str:
-    out = ["# Research Report", "", f"**Query:** {report.query}", ""]
-    sections: dict = {}
-    for c in report.claims:
-        sections.setdefault(c.section, []).append(c)
-    for section, claims in sections.items():
-        out.append(f"## {section}")
-        for c in claims:
-            cites = ", ".join(sorted({cit.source_id for cit in c.citations}))
-            conf = f"{c.confidence:.2f}" if c.confidence is not None else "—"
-            out.append(f"- {c.text}  _({c.verdict}, conf={conf}; sources: {cites})_")
-        out.append("")
-    out.append("## References")
-    for p in report.sources:
-        out.append(f"- [{p.source_id}] {(p.title or p.url or '').strip()}")
-    return "\n".join(out)
 
 
 def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
@@ -64,17 +47,7 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
             c.verdict, c.confidence = r.label, r.confidence
         claims.extend(new)
 
-    report = ResearchReport(
-        query=query,
-        resolved_brief=" ; ".join(p.subquestions),
-        claims=claims,
-        sources=list(sources.values()),
-    )
-    report.metadata.descriptive_summary = (
-        f"{len(claims)} claims across {len(p.subquestions)} sub-questions."
-    )
-    report.report_markdown = _render_markdown(report)
-    return report
+    return compose_report(query, p, claims, list(sources.values()), deps.generator)
 
 
 def build_deps(cfg) -> Deps:
