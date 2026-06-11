@@ -21,6 +21,8 @@ checkpoints/
 *.safetensors
 data/raw/
 data/cache/
+# Offline eval harness benchmark data (downloaded, never pushed)
+/eval/
 
 # OS / editor
 .DS_Store
