@@ -80,6 +80,7 @@ class HarnessConfig:
     refresh: bool
     limit: "int | None" = None
     workers: int = 8
+    contested: int = 75
 
 
 def parse_args(argv) -> HarnessConfig:
@@ -98,6 +99,9 @@ def parse_args(argv) -> HarnessConfig:
                     help="cap examples per dataset (creds-window runs); default uncapped")
     ap.add_argument("--workers", type=int, default=8,
                     help="concurrent verify() workers (the ensemble is I/O-bound)")
+    ap.add_argument("--contested", type=int, default=75,
+                    help="per-benchmark synthetic contested examples to fold in "
+                         "(0 disables); makes each dataset's table 4-class")
     ns = ap.parse_args(argv)
     return HarnessConfig(
         verifier=ns.verifier,
@@ -107,6 +111,7 @@ def parse_args(argv) -> HarnessConfig:
         refresh=ns.refresh,
         limit=ns.limit,
         workers=ns.workers,
+        contested=ns.contested,
     )
 
 
@@ -114,17 +119,28 @@ def main(argv=None) -> int:  # pragma: no cover - live orchestration
     """Live entrypoint: load datasets -> run_predictions -> build_report ->
     write report.{json,md} + reliability diagram. Needs AWS creds + benchmarks."""
     import json
+    import logging
     import os
 
     from dra.config import load_config
+    from dra.eval.loaders.contested import augment_with_contested
     from dra.eval.loaders.fever import load_fever
     from dra.eval.loaders.scifact import load_scifact
     from dra.eval.report import build_report, render_report_md, save_reliability_diagram
     from dra.eval.runner import run_predictions
+    from dra.llm.bedrock import BedrockChat
+
+    logger = logging.getLogger(__name__)
 
     cfg = parse_args(argv)
     app_config = load_config()
     verifier = build_verifier(cfg.verifier, config=app_config)
+
+    # Synthesis LLM for per-benchmark contested construction: drawn from the
+    # generator family, independent of the verifier ensemble under test.
+    generator_id = app_config.roles.get("generator", "")
+    synth_llm = (BedrockChat(generator_id, region=app_config.region)
+                 if cfg.contested > 0 and generator_id else None)
 
     loaders = {"fever": load_fever, "scifact": load_scifact}
     cache_dir = "eval/results/verifier/predictions"
@@ -136,6 +152,18 @@ def main(argv=None) -> int:  # pragma: no cover - live orchestration
     for ds in cfg.datasets:
         examples = (loaders[ds](seed=cfg.sample_seed, n=cfg.limit)
                     if cfg.limit else loaders[ds](seed=cfg.sample_seed))
+        # Fold a per-benchmark synthetic contested subset in BEFORE prediction so
+        # contested flows through run_predictions + _metric_table -> 4-class table.
+        if cfg.contested > 0:
+            if synth_llm is not None:
+                examples = augment_with_contested(
+                    examples, synth_llm, verifier,
+                    n=cfg.contested, seed=cfg.sample_seed, max_workers=cfg.workers,
+                )
+            else:
+                logger.warning(
+                    "contested construction requested but generator model id is "
+                    "empty; skipping contested for dataset %s", ds)
         rows = run_predictions(
             verifier, examples,
             verifier_id=cfg.verifier, dataset=ds, split="test",

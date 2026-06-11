@@ -13,6 +13,7 @@ checks are the construction QA gate, NOT how contested is scored.
 from __future__ import annotations
 
 import json
+from concurrent.futures import ThreadPoolExecutor
 
 from dra.eval.base import EvalExample
 from dra.schemas import Passage
@@ -71,28 +72,69 @@ def is_valid_contested(claim: str, support: Passage, refute: Passage, verifier) 
     )
 
 
-def build_contested_set(supported, llm, verifier, n=None, seed=13) -> list[EvalExample]:
+def build_contested_set(
+    supported, llm, verifier, n=None, seed=13, max_workers: int = 8
+) -> list[EvalExample]:
     """For each supported EvalExample (first passage = E), synthesize E',
     run the QA gate, and emit a contested EvalExample for those that pass.
 
-    Deterministic order (input order); stops once `n` have been emitted.
-    `seed` is accepted for signature stability / future sampling (unused here).
+    `n` is the number of *accepted* (gate-passing) contested examples to emit,
+    not candidates processed. To bound cost we process at most
+    ``min(len(supported), max(n*3, n+10))`` candidates, collect those that pass
+    the gate, and return the first `n` in **input order** (deterministic).
+
+    The per-candidate work (synthesize E' -> validate gate) is independent, so
+    candidates run through a ThreadPoolExecutor when ``max_workers > 1``;
+    ``max_workers=1`` preserves the original sequential behaviour. Results are
+    re-sorted by candidate index before emitting, so order is the same regardless
+    of worker count. `seed` is accepted for signature stability / future sampling.
     """
-    out: list[EvalExample] = []
-    for ex in supported:
-        if n is not None and len(out) >= n:
-            break
-        if not ex.passages:
-            continue
+    # Eligible candidates (non-empty passages), capped to bound cost when n is set.
+    candidates = [(i, ex) for i, ex in enumerate(supported) if ex.passages]
+    if n is not None:
+        cap = min(len(candidates), max(n * 3, n + 10))
+        candidates = candidates[:cap]
+
+    def _build(indexed):
+        idx, ex = indexed
         support = ex.passages[0]
         refute = synthesize_refuting_evidence(ex.claim, support, llm)
         if is_valid_contested(ex.claim, support, refute, verifier):
-            out.append(
-                build_contested_example(
-                    ex.claim, support, refute, example_id=f"contested:{ex.example_id}"
-                )
+            return idx, build_contested_example(
+                ex.claim, support, refute, example_id=f"contested:{ex.example_id}"
             )
-    return out
+        return idx, None
+
+    if max_workers and max_workers > 1:
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            built = list(pool.map(_build, candidates))
+    else:
+        built = [_build(it) for it in candidates]
+
+    # Re-sort by candidate index -> deterministic input order; drop gate failures.
+    accepted = [ex for _idx, ex in sorted(built, key=lambda t: t[0]) if ex is not None]
+    return accepted[:n] if n is not None else accepted
+
+
+def augment_with_contested(
+    examples, synth_llm, verifier, *, n, seed=13, max_workers=8
+) -> list[EvalExample]:
+    """Fold a per-benchmark contested subset into a dataset's examples.
+
+    Filter `examples` to ``gold_label=="supported"`` with non-empty passages,
+    construct up to `n` accepted contested examples from those, and return
+    ``examples + contested`` (originals preserved at the front, contested
+    appended). Returns `examples` unchanged when no eligible supported example
+    has passages. Pure / fake-testable: `synth_llm` and `verifier` are injected.
+    """
+    eligible = [ex for ex in examples
+                if ex.gold_label == "supported" and ex.passages]
+    if not eligible:
+        return examples
+    contested = build_contested_set(
+        eligible, synth_llm, verifier, n=n, seed=seed, max_workers=max_workers
+    )
+    return examples + contested
 
 
 def load_prior_contested_cases(bench_path: str = BENCH_PATH) -> list[EvalExample]:

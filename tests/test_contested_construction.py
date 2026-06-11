@@ -6,6 +6,7 @@ evidences into a SINGLE holistic contested EvalExample.
 """
 from dra.eval.base import EvalExample
 from dra.eval.loaders.contested import (
+    augment_with_contested,
     build_contested_example,
     build_contested_set,
     is_valid_contested,
@@ -126,6 +127,67 @@ def test_build_contested_set_respects_n_cap():
     supported = [_supported_example(i) for i in range(5)]
     out = build_contested_set(supported, FakeLLM(), FakeVerifier(), n=2)
     assert len(out) == 2
+
+
+def test_build_contested_set_parallel_matches_sequential():
+    supported = [_supported_example(i) for i in range(6)]
+    seq = build_contested_set(supported, FakeLLM(), FakeVerifier(), max_workers=1)
+    par = build_contested_set(supported, FakeLLM(), FakeVerifier(), max_workers=4)
+    # Same accepted set by id, in input order.
+    assert [ex.example_id for ex in par] == [ex.example_id for ex in seq]
+    assert all(ex.gold_label == "contested" for ex in par)
+
+
+def test_build_contested_set_parallel_respects_n_cap():
+    supported = [_supported_example(i) for i in range(8)]
+    out = build_contested_set(supported, FakeLLM(), FakeVerifier(), n=3, max_workers=4)
+    assert len(out) == 3
+    # First n accepted, in input order.
+    assert [ex.example_id for ex in out] == [
+        "contested:sup:0", "contested:sup:1", "contested:sup:2",
+    ]
+
+
+# ----- augment_with_contested -------------------------------------------
+
+def _refuted_example(i):
+    return EvalExample(
+        example_id=f"ref:{i}",
+        claim=f"Refuted claim {i}",
+        passages=[_support(i)],
+        gold_label="refuted",
+    )
+
+
+def test_augment_with_contested_appends_constructed():
+    examples = [_supported_example(i) for i in range(3)] + [_refuted_example(0)]
+    out = augment_with_contested(examples, FakeLLM(), FakeVerifier(), n=3)
+    # Originals preserved at the front, contested appended.
+    assert out[:4] == examples
+    contested = out[4:]
+    assert len(contested) == 3
+    assert all(ex.gold_label == "contested" for ex in contested)
+    assert all(ex.meta["construction"] == "synthetic" for ex in contested)
+
+
+def test_augment_with_contested_respects_n():
+    examples = [_supported_example(i) for i in range(5)]
+    out = augment_with_contested(examples, FakeLLM(), FakeVerifier(), n=2)
+    assert len(out) == len(examples) + 2
+
+
+def test_augment_with_contested_no_eligible_returns_unchanged():
+    examples = [_refuted_example(0), _refuted_example(1)]
+    out = augment_with_contested(examples, FakeLLM(), FakeVerifier(), n=3)
+    assert out == examples
+
+
+def test_augment_with_contested_skips_supported_without_passages():
+    no_passage = EvalExample(
+        example_id="sup:np", claim="No passages", passages=[], gold_label="supported")
+    examples = [no_passage]
+    out = augment_with_contested(examples, FakeLLM(), FakeVerifier(), n=3)
+    assert out == examples
 
 
 # ----- load_prior_contested_cases ----------------------------------------

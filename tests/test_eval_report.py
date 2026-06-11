@@ -143,6 +143,31 @@ def test_calibration_falls_back_to_eval_rows_when_no_split():
     assert "ece_before" in rep["calibration"]
 
 
+def test_calibration_block_reports_auroc_in_unit_range():
+    rep = build_report({"fever": _fever_rows()}, calib_split_rows=_miscalibrated_rows())
+    cal = rep["calibration"]
+    assert "auroc" in cal
+    assert 0.0 <= cal["auroc"] <= 1.0
+
+
+def test_auroc_is_one_when_p_supported_perfectly_ranks():
+    # p_supported ranks every supported gold strictly above every non-supported.
+    rows = [
+        _row("a0", "supported", "supported", 0.95),
+        _row("a1", "supported", "supported", 0.90),
+        _row("b0", "refuted", "supported", 0.10),     # p_supported = 0.10
+        _row("b1", "insufficient", "supported", 0.20),  # p_supported = 0.20
+    ]
+    rep = build_report({"fever": rows})
+    assert rep["calibration"]["auroc"] == 1.0
+
+
+def test_render_report_md_contains_auroc():
+    rep = build_report({"fever": _fever_rows()}, calib_split_rows=_miscalibrated_rows())
+    md = render_report_md(rep)
+    assert "AUROC" in md
+
+
 def test_calibration_disjoint_split_when_calib_split_set():
     rows = _fever_rows() * 4  # enough rows to partition
     rep = build_report({"fever": rows}, calib_split=0.5)
@@ -310,3 +335,9 @@ def test_cli_arg_parsing_defaults():
     cfg = parse_args(["--verifier", "A", "--datasets", "fever"])
     assert cfg.datasets == ["fever"]
     assert cfg.refresh is False
+    assert cfg.contested == 75  # default per-benchmark contested count
+
+
+def test_cli_arg_parsing_contested():
+    cfg = parse_args(["--verifier", "A", "--datasets", "fever", "--contested", "0"])
+    assert cfg.contested == 0

@@ -10,7 +10,7 @@ See docs/superpowers/specs/2026-06-11-layer1-verifier-eval-design.md §8.
 """
 from __future__ import annotations
 
-from dra.eval.calibrate import ece_before_after, PlattCalibrator
+from dra.eval.calibrate import auroc, ece_before_after, PlattCalibrator
 from dra.eval.metrics import accuracy, confusion_matrix, per_class_prf
 from dra.eval.runner import cost_summary
 
@@ -78,6 +78,9 @@ def _calibration_block(eval_rows, calib_rows, *, bins: int, diagram_path: str) -
     ECE/Brier + reliability bins on `eval_rows`. Falls back to fitting on the eval
     rows themselves when no disjoint split is supplied (still auditable; the
     manifest records which).
+
+    AUROC is invariant under the monotonic Platt recalibration (rank-preserving),
+    so it is reported once (on the raw eval signal).
     """
     fit_rows = calib_rows if calib_rows else eval_rows
     fit_probs = [p_supported(r["pred"], r["confidence"]) for r in fit_rows]
@@ -90,6 +93,7 @@ def _calibration_block(eval_rows, calib_rows, *, bins: int, diagram_path: str) -
     metrics = ece_before_after(eval_probs, eval_outcomes, calibrator, bins=bins)
     return {
         **metrics,
+        "auroc": auroc(eval_probs, eval_outcomes),
         "n_fit": len(fit_rows),
         "n_eval": len(eval_rows),
         "fit_on_disjoint_split": bool(calib_rows),
@@ -289,6 +293,9 @@ def render_report_md(report: dict) -> str:
     out += ["## Calibration", "",
             f"ECE before -> after: **{_fmt(cal['ece_before'])} -> {_fmt(cal['ece_after'])}**  "
             f"(Brier {_fmt(cal['brier_before'])} -> {_fmt(cal['brier_after'])})",
+            "",
+            f"AUROC (threshold-independent; invariant under Platt recalibration): "
+            f"**{_fmt(cal['auroc'])}**",
             "",
             f"Collapse rule: `{cal['collapse_rule']}`  "
             f"(fit on disjoint split: {cal['fit_on_disjoint_split']}, "
