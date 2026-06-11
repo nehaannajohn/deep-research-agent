@@ -84,6 +84,26 @@ def test_build_prompt_item_type5_carries_visual_constraint():
     assert item.meta["type"] == "type5"
 
 
+def test_build_prompt_item_constraints_override():
+    # An explicit constraints dict overrides the type's default.
+    item = build_prompt_item("type5", "Compare X and Y.", 5, constraints={"format": "table"})
+    assert item.constraints == {"format": "table"}
+    assert item.expected_behavior == "answer_confident"
+    assert item.meta["type"] == "type5"
+
+
+def test_build_prompt_item_constraints_override_on_default_empty_type():
+    # Overriding a type whose default is empty (type1) also works.
+    item = build_prompt_item("type1", "Explain attention.", 0, constraints={"wants_visual": True})
+    assert item.constraints == {"wants_visual": True}
+
+
+def test_build_prompt_item_constraints_none_uses_type_default():
+    # Passing constraints=None (the default) keeps the per-type default.
+    item = build_prompt_item("type5", "Diagram the flow.", 1, constraints=None)
+    assert item.constraints == {"wants_visual": True}
+
+
 def test_build_prompt_item_type3_flags_contested():
     item = build_prompt_item("type3", "Is X better than Y? Both sides.", 12)
     assert item.expected_behavior == "flag_contested"

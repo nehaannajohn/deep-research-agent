@@ -145,19 +145,24 @@ def also_acceptable(type_key: str) -> List[str]:
     return list(_ALSO_ACCEPTABLE.get(type_key, []))
 
 
-def build_prompt_item(type_key: str, query: str, idx: int) -> EvalItem:
+def build_prompt_item(
+    type_key: str, query: str, idx: int, constraints: dict | None = None
+) -> EvalItem:
     """Assemble one DRA-Bench `EvalItem` from a type + drafted query (pure).
 
-    The id is `dra-<type>-<idx:03d>`, the tier is always `dra_bench`, the
-    per-type constraints are stamped on, and `meta` records the type plus the
-    also-acceptable behaviors so the scorer can credit them.
+    The id is `dra-<type>-<idx:03d>`, the tier is always `dra_bench`, and `meta`
+    records the type plus the also-acceptable behaviors so the scorer can credit
+    them. Constraints default to the type's `spec["constraints"]`, but a caller
+    may pass an explicit `constraints` dict to override on a per-item basis
+    (e.g. type5 items that want a table vs. a diagram).
     """
     spec = _SPEC_BY_KEY[type_key]
+    chosen = spec["constraints"] if constraints is None else constraints
     return EvalItem(
         id=f"dra-{type_key}-{idx:03d}",
         tier="dra_bench",
         query=query,
-        constraints=dict(spec["constraints"]),
+        constraints=dict(chosen),
         expected_behavior=expected_behavior_for(type_key),
         meta={"type": type_key, "also_acceptable": also_acceptable(type_key)},
     )
