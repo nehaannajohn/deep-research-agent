@@ -59,3 +59,51 @@ def test_render_appendix_unverified_omits_verdict_confidence_disclaimers():
     assert "## Confidence & Coverage" not in out
     assert "## Disclaimers" not in out
     assert "## Sources" in out
+
+
+class FakeGen:
+    """Fake generator: returns a fixed narrative; records the prompt it received."""
+    def __init__(self, narrative):
+        self.narrative = narrative
+        self.last_prompt = None
+
+    def complete(self, prompt, **kw):
+        self.last_prompt = prompt
+        return self.narrative
+
+
+def test_compose_narrative_passes_claim_ids_and_keeps_valid_refs():
+    from dra.report import compose_narrative
+    gen = FakeGen("## Summary\nWater boils at 100C [c0].")
+    claims = [_claim("c0", "Water boils at 100C", "sq A", "supported", 0.9)]
+    out = compose_narrative("q", PLAN, claims, gen, verified=True)
+    assert "[c0]" in out                       # valid ref kept
+    assert "[c0]" in gen.last_prompt            # claim id given to the model
+
+
+def test_compose_narrative_strips_unknown_claim_refs():
+    from dra.report import compose_narrative
+    gen = FakeGen("## Summary\nReal [c0]. Hallucinated [c9].")
+    claims = [_claim("c0", "Real claim", "sq A")]
+    out = compose_narrative("q", PLAN, claims, gen, verified=False)
+    assert "[c0]" in out
+    assert "[c9]" not in out  # unknown ref dropped (constrain-by-construction guard)
+
+
+def test_compose_narrative_requests_mermaid_when_wants_visual():
+    from dra.report import compose_narrative
+    gen = FakeGen("## Summary\n[c0]")
+    plan_visual = Plan(subquestions=["sq A"], constraints={"wants_visual": True})
+    compose_narrative("q", plan_visual, [_claim("c0", "x", "sq A")], gen, verified=False)
+    assert "mermaid" in gen.last_prompt.lower()
+
+
+def test_compose_narrative_falls_back_on_llm_failure():
+    from dra.report import compose_narrative
+
+    class BoomGen:
+        def complete(self, prompt, **kw):
+            raise RuntimeError("model down")
+
+    out = compose_narrative("the query", PLAN, [_claim("c0", "x", "sq A")], BoomGen(), verified=False)
+    assert "## Summary" in out and "the query" in out  # deterministic fallback narrative

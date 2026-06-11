@@ -80,3 +80,51 @@ def render_appendix(claims, sources, md: ReportMetadata, verified: bool) -> str:
     for p in sources:
         out.append(f"- [{p.source_id}] {(p.title or p.url or '').strip()}")
     return "\n".join(out)
+
+
+_NARRATIVE_PROMPT = """Compose a research report answering the QUERY using ONLY the CLAIMS below.
+Rules:
+- Every factual sentence MUST cite a claim id in square brackets, e.g. [c1]; use only the ids listed.
+- Do NOT introduce any fact that is not one of the claims.
+- Start with a "## Summary" section, then logical "## <topic>" sections.
+{visual}{table}- Be concise.
+
+QUERY: {query}
+
+CLAIMS:
+{claims}
+
+Output GitHub-flavored Markdown only."""
+
+
+def _claims_block(claims, verified: bool) -> str:
+    lines = []
+    for c in claims:
+        if verified:
+            conf = f", conf {c.confidence:.2f}" if c.confidence is not None else ""
+            lines.append(f"[{c.id}] ({c.verdict}{conf}) {c.text}")
+        else:
+            lines.append(f"[{c.id}] {c.text}")
+    return "\n".join(lines)
+
+
+def strip_unknown_claim_refs(text: str, valid_ids: set) -> str:
+    """Constrain-by-construction guard: drop any [cN] reference not in the ledger."""
+    return re.sub(r"\[(c\d+)\]", lambda m: m.group(0) if m.group(1) in valid_ids else "", text)
+
+
+def compose_narrative(query, plan, claims, generator, verified: bool) -> str:
+    constraints = plan.constraints or {}
+    visual = ("- Include a section with a Mermaid diagram (```mermaid ... ```) of the relevant "
+              "architecture or flow.\n") if constraints.get("wants_visual") else ""
+    table = ("- Present the core comparison as a Markdown table.\n"
+             if constraints.get("format") == "table" else "")
+    prompt = _NARRATIVE_PROMPT.format(query=query, claims=_claims_block(claims, verified),
+                                      visual=visual, table=table)
+    try:
+        text = (generator.complete(prompt) or "").strip()
+    except Exception:
+        text = ""
+    if not text:
+        text = f"## Summary\nThis report summarizes {len(claims)} finding(s) for: {query}."
+    return strip_unknown_claim_refs(text, {c.id for c in claims})
