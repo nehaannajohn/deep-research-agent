@@ -137,6 +137,27 @@ def test_cost_summary_closed_form():
     assert out["n"] == 2
 
 
+def test_parallel_matches_sequential_and_preserves_order(tmp_path):
+    exs = _examples(12)
+    seq = run_predictions(FakeVerifier(), exs, cache_dir=str(tmp_path / "seq"),
+                          max_workers=1, **_KEY)
+    par = run_predictions(FakeVerifier(), exs, cache_dir=str(tmp_path / "par"),
+                          max_workers=4, **_KEY)
+    # Order is preserved (input order) under concurrency, for cache determinism.
+    assert [r["example_id"] for r in par] == [f"ex{i}" for i in range(12)]
+    # Identical on every stable field (latency_ms is wall time and varies).
+    stable = lambda rs: [{k: v for k, v in r.items() if k != "latency_ms"} for r in rs]
+    assert stable(par) == stable(seq)
+
+
+def test_parallel_skip_on_exception_preserves_remaining(tmp_path):
+    v = FakeVerifier(raise_on="claim 3")
+    rows = run_predictions(v, _examples(6), cache_dir=str(tmp_path),
+                           max_workers=4, **_KEY)
+    # ex3 skipped; the rest survive in input order despite concurrency.
+    assert [r["example_id"] for r in rows] == ["ex0", "ex1", "ex2", "ex4", "ex5"]
+
+
 def test_cost_summary_handles_missing_model_calls():
     rows = [
         {"example_id": "a", "model_calls": None, "latency_ms": 50.0},

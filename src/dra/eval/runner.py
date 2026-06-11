@@ -17,6 +17,7 @@ import logging
 import os
 import time
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
 
@@ -86,6 +87,7 @@ def run_predictions(
     sample_seed,
     cache_dir: str,
     refresh: bool = False,
+    max_workers: int = 1,
 ) -> "list[dict]":
     """Run `verifier` over `examples`, returning/caching prediction rows.
 
@@ -105,16 +107,16 @@ def run_predictions(
         if cached is not None:
             return cached
 
-    rows: list[dict] = []
-    for ex in examples:
+    def _score(indexed):
+        idx, ex = indexed
         start = time.perf_counter()
         try:
             result = verifier.verify(ex.claim, ex.passages)
         except Exception:  # noqa: BLE001 - skip a pathological example, don't abort
             logger.warning("verify() raised for example %s; skipping", ex.example_id)
-            continue
+            return idx, None
         latency_ms = (time.perf_counter() - start) * 1000.0
-        rows.append({
+        return idx, {
             "example_id": ex.example_id,
             "gold": ex.gold_label,
             "pred": result.label,
@@ -123,8 +125,19 @@ def run_predictions(
             "votes": dict(result.votes),
             "latency_ms": latency_ms,
             "model_calls": _model_calls(verifier, result),
-        })
+        }
 
+    # Score concurrently when max_workers > 1 (the ensemble fans out to several
+    # Bedrock calls per claim, so the run is I/O-bound — parallelism is a large
+    # speedup). map() preserves input order, so cached rows stay deterministic.
+    indexed = list(enumerate(examples))
+    if max_workers and max_workers > 1:
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            scored = list(pool.map(_score, indexed))
+    else:
+        scored = [_score(it) for it in indexed]
+
+    rows = [row for _idx, row in scored if row is not None]
     _write_cache(path, rows)
     return rows
 

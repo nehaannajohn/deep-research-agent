@@ -78,6 +78,8 @@ class HarnessConfig:
     sample_seed: int
     calib_split: float
     refresh: bool
+    limit: "int | None" = None
+    workers: int = 8
 
 
 def parse_args(argv) -> HarnessConfig:
@@ -92,6 +94,10 @@ def parse_args(argv) -> HarnessConfig:
                     help="held-out fraction for the calibration partition")
     ap.add_argument("--refresh", action="store_true",
                     help="force re-prediction, ignoring the cache")
+    ap.add_argument("--limit", type=int, default=None,
+                    help="cap examples per dataset (creds-window runs); default uncapped")
+    ap.add_argument("--workers", type=int, default=8,
+                    help="concurrent verify() workers (the ensemble is I/O-bound)")
     ns = ap.parse_args(argv)
     return HarnessConfig(
         verifier=ns.verifier,
@@ -99,6 +105,8 @@ def parse_args(argv) -> HarnessConfig:
         sample_seed=ns.sample_seed,
         calib_split=ns.calib_split,
         refresh=ns.refresh,
+        limit=ns.limit,
+        workers=ns.workers,
     )
 
 
@@ -126,12 +134,13 @@ def main(argv=None) -> int:  # pragma: no cover - live orchestration
     predictions: dict = {}
     manifest: dict = {}
     for ds in cfg.datasets:
-        examples = loaders[ds](seed=cfg.sample_seed)
+        examples = (loaders[ds](seed=cfg.sample_seed, n=cfg.limit)
+                    if cfg.limit else loaders[ds](seed=cfg.sample_seed))
         rows = run_predictions(
             verifier, examples,
             verifier_id=cfg.verifier, dataset=ds, split="test",
             dataset_revision="latest", sample_seed=cfg.sample_seed,
-            cache_dir=cache_dir, refresh=cfg.refresh,
+            cache_dir=cache_dir, refresh=cfg.refresh, max_workers=cfg.workers,
         )
         predictions[ds] = rows
         manifest[ds] = {"id": ds, "revision": "latest", "seed": cfg.sample_seed}
@@ -141,15 +150,19 @@ def main(argv=None) -> int:  # pragma: no cover - live orchestration
         predictions, manifest=manifest, verifier_id=cfg.verifier,
         diagram_path=diagram_path,
     )
-    save_reliability_diagram(
-        report["calibration"]["reliability_bins"],
-        report["calibration"]["reliability_bins_after"],
-        diagram_path,
-    )
+    # Write reports FIRST so a plotting/matplotlib failure never loses them.
     with open(os.path.join(out_dir, f"report_{cfg.verifier}.json"), "w") as f:
         json.dump(report, f, indent=2)
     with open(os.path.join(out_dir, f"report_{cfg.verifier}.md"), "w") as f:
         f.write(render_report_md(report))
+    try:
+        save_reliability_diagram(
+            report["calibration"]["reliability_bins"],
+            report["calibration"]["reliability_bins_after"],
+            diagram_path,
+        )
+    except Exception as e:  # noqa: BLE001 - plotting optional (matplotlib extra)
+        print(f"[warn] reliability diagram skipped: {e}")
     return 0
 
 
