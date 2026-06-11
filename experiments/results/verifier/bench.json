@@ -1,0 +1,602 @@
+[
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can mitigate privacy risks, especially to closely related pre-training portions."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Fine-tuning on generated data is unlikely to introduce significant privacy dangers due to the reproduction of memorized data."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "supported",
+      "contested"
+    ],
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify the leakage of the original pre-training data."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "LLM-generated data is potentially less susceptible to privacy attacks as it can mitigate the leakage of the original pre-training data."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify the leakage of the original pre-training data."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that enhances linguistic diversity and prevents model collapse."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse."
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Chain-of-thought prompting is a technique that instructs large language models to show their reasoning by generating intermediate steps before delivering final answers."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Chain-of-thought prompting is a technique that fails to improve the performance of large language models by generating unnecessary intermediate steps before delivering final answers."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Chain-of-thought prompting is a technique that instructs large language models to show their reasoning by generating intermediate steps before delivering final answers."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Chain-of-thought prompting enables complex reasoning capabilities through intermediate reasoning steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Chain-of-thought prompting hinders complex reasoning capabilities by introducing unnecessary intermediate steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Chain-of-thought prompting enables complex reasoning capabilities through intermediate reasoning steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Chain-of-thought prompting enables complex reasoning capabilities through intermediate reasoning steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Chain-of-thought prompting allows models to decompose multi-step problems into intermediate steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Chain-of-thought prompting prevents models from decomposing multi-step problems into intermediate steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Chain-of-thought prompting allows models to decompose multi-step problems into intermediate steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "supported",
+      "contested"
+    ],
+    "claim": "Chain-of-thought prompting allows models to decompose multi-step problems into intermediate steps."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Chain-of-thought prompting provides an interpretable window into the behavior of the model, suggesting how it might have arrived at a particular answer."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Chain-of-thought prompting obscures the model's behavior, making it more difficult to understand how it arrived at a particular answer."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Chain-of-thought prompting provides an interpretable window into the behavior of the model, suggesting how it might have arrived at a particular answer."
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "supported",
+      "contested"
+    ],
+    "claim": "Chain-of-thought prompting provides an interpretable window into the behavior of the model, suggesting how it might have arrived at a particular answer."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Current methods for inference-time compute scaling in LLM reasoning include parallel scaling strategies, such as self-consistency, Best-of-N sampling, majority voting, and Multi-Agent Verification (MAV)."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "CLAIM: Current methods for inference-time compute scaling in LLM reasoning do not include parallel scaling strategies like self-consistency, Best-of-N sampling, majority voting, or Multi-Agent Verification (MAV)."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Current methods for inference-time compute scaling in LLM reasoning include parallel scaling strategies, such as self-consistency, Best-of-N sampling, majority voting, and Multi-Agent Verification (MAV)."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Hybrid scaling strategies, like Meta-Reasoner, AgentTTS, and START, blend different scaling approaches to adapt to task difficulty and model behavior."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Hybrid scaling strategies, such as Meta-Reasoner, AgentTTS, and START, rigidly adhere to a single scaling approach, failing to adapt to task difficulty and model behavior."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Hybrid scaling strategies, like Meta-Reasoner, AgentTTS, and START, blend different scaling approaches to adapt to task difficulty and model behavior."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Hybrid scaling strategies, like Meta-Reasoner, AgentTTS, and START, blend different scaling approaches to adapt to task difficulty and model behavior."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, modify the model's internal computation during inference by estimating answer uncertainty and terminating early if confidence is high."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, do not alter the model's internal computation during inference and instead always require a fixed amount of computation regardless of answer uncertainty or confidence."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, modify the model's internal computation during inference by estimating answer uncertainty and terminating early if confidence is high."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, modify the model's internal computation during inference by estimating answer uncertainty and terminating early if confidence is high."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement do not optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one, as they actually hinder the process by introducing unnecessary complexity and randomness."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one."
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "The major architectural patterns in multi-agent LLM systems include centralized and decentralized architectures."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "The major architectural patterns in multi-agent LLM systems exclude both centralized and decentralized architectures."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "The major architectural patterns in multi-agent LLM systems include centralized and decentralized architectures."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "The major architectural patterns in multi-agent LLM systems include centralized and decentralized architectures."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Centralized systems employ hierarchical patterns where a central supervisor delegates tasks to specialized agents."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Centralized systems do not employ hierarchical patterns and instead operate through a flat, non-hierarchical structure where tasks are not delegated by a central supervisor."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Centralized systems employ hierarchical patterns where a central supervisor delegates tasks to specialized agents."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "supported",
+      "contested"
+    ],
+    "claim": "Centralized systems employ hierarchical patterns where a central supervisor delegates tasks to specialized agents."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Decentralized systems use collaborative patterns where autonomous agents communicate directly in a peer-to-peer fashion."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "refuted",
+    "panel_labels": [
+      "refuted",
+      "refuted",
+      "refuted"
+    ],
+    "claim": "Decentralized systems use hierarchical patterns where a central authority controls and coordinates the actions of autonomous agents."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Decentralized systems use collaborative patterns where autonomous agents communicate directly in a peer-to-peer fashion."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Decentralized systems use collaborative patterns where autonomous agents communicate directly in a peer-to-peer fashion."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "panel_labels": [
+      "supported",
+      "supported",
+      "supported"
+    ],
+    "claim": "Four architectural patterns form the foundation of most multi-agent applications: subagents, skills, handoffs, and routers."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "panel_labels": [
+      "insufficient",
+      "insufficient",
+      "insufficient"
+    ],
+    "claim": "Four architectural patterns form the foundation of most multi-agent applications: subagents, skills, handoffs, and routers."
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "panel_labels": [
+      "contested",
+      "contested",
+      "contested"
+    ],
+    "claim": "Four architectural patterns form the foundation of most multi-agent applications: subagents, skills, handoffs, and routers."
+  }
+]

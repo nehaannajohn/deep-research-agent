@@ -1,0 +1,146 @@
+{
+  "sonnet": {
+    "macro_f1": 0.9826762246117084,
+    "per_class": {
+      "supported": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1": 0.967741935483871,
+        "support": 16
+      },
+      "refuted": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15
+      },
+      "insufficient": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 16
+      },
+      "contested": {
+        "precision": 0.9285714285714286,
+        "recall": 1.0,
+        "f1": 0.962962962962963,
+        "support": 13
+      }
+    },
+    "n_examples": 60,
+    "latency_s_total": 582.4,
+    "quality": {
+      "mean_reasoning": 4.483,
+      "mean_recommendation": 4.35,
+      "n": 180
+    }
+  },
+  "mistral": {
+    "macro_f1": 0.934644843476879,
+    "per_class": {
+      "supported": {
+        "precision": 0.8421052631578947,
+        "recall": 1.0,
+        "f1": 0.9142857142857143,
+        "support": 16
+      },
+      "refuted": {
+        "precision": 0.9375,
+        "recall": 1.0,
+        "f1": 0.967741935483871,
+        "support": 15
+      },
+      "insufficient": {
+        "precision": 1.0,
+        "recall": 0.8125,
+        "f1": 0.896551724137931,
+        "support": 16
+      },
+      "contested": {
+        "precision": 1.0,
+        "recall": 0.9230769230769231,
+        "f1": 0.9600000000000001,
+        "support": 13
+      }
+    },
+    "n_examples": 60,
+    "latency_s_total": 178.4,
+    "quality": {
+      "mean_reasoning": 4.244,
+      "mean_recommendation": 4.178,
+      "n": 180
+    }
+  },
+  "nova": {
+    "macro_f1": 1.0,
+    "per_class": {
+      "supported": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 16
+      },
+      "refuted": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15
+      },
+      "insufficient": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 16
+      },
+      "contested": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 13
+      }
+    },
+    "n_examples": 60,
+    "latency_s_total": 193.4,
+    "quality": {
+      "mean_reasoning": 3.622,
+      "mean_recommendation": 3.822,
+      "n": 180
+    }
+  },
+  "ensemble": {
+    "macro_f1": 1.0,
+    "per_class": {
+      "supported": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 16
+      },
+      "refuted": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15
+      },
+      "insufficient": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 16
+      },
+      "contested": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 13
+      }
+    },
+    "n_examples": 60,
+    "latency_s_total": 192.6,
+    "quality": {
+      "mean_reasoning": 4.531,
+      "mean_recommendation": 4.385,
+      "n": 179
+    }
+  }
+}

@@ -1,0 +1,727 @@
+[
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states fine-tuning LLMs on datasets overlapping with pre-training data poses privacy risks, especially to closely related pre-training portions.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can mitigate privacy risks, especially to closely related pre-training portions.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passage states fine-tuning on overlapping pre-training data poses privacy risks, not mitigates them, directly contradicting the claim.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss model collapse from synthetic data contamination, not privacy risks from fine-tuning on pre-training data overlaps.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "contested",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "The first passage explicitly supports the claim, while the synthetic_refute passage directly contradicts it by asserting fine-tuning mitigates memorization risks.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "Both passages explicitly state fine-tuning on generated data may introduce significant privacy dangers due to reproduction of memorized data.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "claim": "Fine-tuning on generated data is unlikely to introduce significant privacy dangers due to the reproduction of memorized data.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "Both passages explicitly state fine-tuning on generated data may introduce significant privacy dangers by reproducing memorized data and exacerbating privacy risks.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data.",
+    "pred": "insufficient",
+    "confidence": 0.6666666666666666,
+    "recommendation": "gather_more",
+    "reasoning": "Passages focus on model collapse and performance degradation from synthetic data, not privacy dangers from memorized data reproduction.",
+    "votes": {
+      "insufficient": 2,
+      "supported": 1
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "contested",
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "Two passages explicitly support the claim about privacy dangers, while one passage directly refutes it by arguing generated data reduces memorization risks.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "claim": "LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify the leakage of the original pre-training data.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "Both passages explicitly state LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify leakage of original pretraining data.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "claim": "LLM-generated data is potentially less susceptible to privacy attacks as it can mitigate the leakage of the original pre-training data.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "Both passages explicitly state LLM-generated data is MORE susceptible to privacy attacks and amplifies leakage, directly contradicting the claim.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "claim": "LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify the leakage of the original pre-training data.",
+    "pred": "insufficient",
+    "confidence": 0.6666666666666666,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss model collapse and performance degradation from synthetic data, but never address privacy attacks or amplification of pre-training data leakage.",
+    "votes": {
+      "insufficient": 2,
+      "supported": 1
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "supported",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states recursive training on synthetic data leads to a 'self-consuming' loop affecting linguistic diversity and describes model collapse as the resulting phenomenon.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "refuted",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that enhances linguistic diversity and prevents model collapse.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "Passages state recursive training on synthetic data leads to a self-consuming loop that *harms* linguistic diversity and causes model collapse, not enhances it.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "insufficient",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse.",
+    "pred": "insufficient",
+    "confidence": 0.6666666666666666,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss privacy risks of synthetic data fine-tuning but never mention self-consuming loops, linguistic diversity degradation, or model collapse.",
+    "votes": {
+      "insufficient": 2,
+      "supported": 1
+    }
+  },
+  {
+    "case": "tc1_straightforward",
+    "intended": "contested",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "The first passage supports the claim directly, while the synthetic_refute passage contradicts it by asserting curated synthetic data enhances linguistic diversity.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "claim": "Chain-of-thought prompting is a technique that instructs large language models to show their reasoning by generating intermediate steps before delivering final answers.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The first passage directly states CoT prompting instructs large language models to show reasoning by generating intermediate steps before delivering final answers.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "claim": "Chain-of-thought prompting is a technique that fails to improve the performance of large language models by generating unnecessary intermediate steps before delivering final answers.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "Passages clearly state CoT significantly boosts performance on multi-step tasks; the claim incorrectly calls intermediate steps unnecessary and says the technique fails.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "claim": "Chain-of-thought prompting is a technique that instructs large language models to show their reasoning by generating intermediate steps before delivering final answers.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "The passages discuss fine-tuning, privacy risks, and memorization in LLMs, with no mention of chain-of-thought prompting.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "claim": "Chain-of-thought prompting enables complex reasoning capabilities through intermediate reasoning steps.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The first passage directly states that CoT prompting enables complex reasoning capabilities through intermediate reasoning steps, matching the claim exactly.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "claim": "Chain-of-thought prompting hinders complex reasoning capabilities by introducing unnecessary intermediate steps.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "Passages explicitly state CoT enables complex reasoning through intermediate steps, contradicting the claim it hinders reasoning.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "claim": "Chain-of-thought prompting enables complex reasoning capabilities through intermediate reasoning steps.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss fine-tuning privacy risks and memorization; none mention chain-of-thought prompting or intermediate reasoning steps.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "contested",
+    "claim": "Chain-of-thought prompting enables complex reasoning capabilities through intermediate reasoning steps.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "The first passage directly supports the claim, while the synthetic passage explicitly refutes it by attributing gains to token count, not reasoning improvement.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "claim": "Chain-of-thought prompting allows models to decompose multi-step problems into intermediate steps.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "Both passages explicitly state that chain-of-thought prompting enables models to decompose multi-step problems into intermediate steps.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "claim": "Chain-of-thought prompting prevents models from decomposing multi-step problems into intermediate steps.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "Both passages explicitly state chain-of-thought prompting enables models to decompose multi-step problems into intermediate steps, directly contradicting the claim.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "claim": "Chain-of-thought prompting allows models to decompose multi-step problems into intermediate steps.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss fine-tuning, privacy risks, and memorization in LLMs; no mention of chain-of-thought prompting or multi-step reasoning.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "contested",
+    "claim": "Chain-of-thought prompting allows models to decompose multi-step problems into intermediate steps.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "Two passages explicitly support decomposition into intermediate steps; the synthetic passage directly refutes this mechanism, creating a split.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "supported",
+    "claim": "Chain-of-thought prompting provides an interpretable window into the behavior of the model, suggesting how it might have arrived at a particular answer.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states chain of thought 'provides an interpretable window into the behavior of the model, suggesting how it might have arrived at a particular answer,' matching the claim verbatim.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "refuted",
+    "claim": "Chain-of-thought prompting obscures the model's behavior, making it more difficult to understand how it arrived at a particular answer.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passage explicitly states chain-of-thought provides an 'interpretable window into the behavior of the model,' directly contradicting the claim it obscures behavior.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "insufficient",
+    "claim": "Chain-of-thought prompting provides an interpretable window into the behavior of the model, suggesting how it might have arrived at a particular answer.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss fine-tuning privacy risks and memorization; none mention chain-of-thought prompting or interpretability.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc2_contradictory",
+    "intended": "contested",
+    "claim": "Chain-of-thought prompting provides an interpretable window into the behavior of the model, suggesting how it might have arrived at a particular answer.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "First passage directly supports the claim; second passage contradicts it by arguing chain-of-thought steps don't reflect actual reasoning.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "claim": "Current methods for inference-time compute scaling in LLM reasoning include parallel scaling strategies, such as self-consistency, Best-of-N sampling, majority voting, and Multi-Agent Verification (MAV).",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The first passage explicitly lists self-consistency, Best-of-N sampling, majority voting, and MAV as parallel scaling strategies for inference-time compute.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "claim": "CLAIM: Current methods for inference-time compute scaling in LLM reasoning do not include parallel scaling strategies like self-consistency, Best-of-N sampling, majority voting, or Multi-Agent Verification (MAV).",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passages explicitly list self-consistency, Best-of-N sampling, majority voting, and MAV as current parallel scaling strategies for inference-time compute.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "claim": "Current methods for inference-time compute scaling in LLM reasoning include parallel scaling strategies, such as self-consistency, Best-of-N sampling, majority voting, and Multi-Agent Verification (MAV).",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "The passages discuss LLM fine-tuning and privacy risks, with no mention of inference-time compute scaling, self-consistency, Best-of-N, majority voting, or MAV.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "claim": "Hybrid scaling strategies, like Meta-Reasoner, AgentTTS, and START, blend different scaling approaches to adapt to task difficulty and model behavior.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states Meta-Reasoner, AgentTTS, and START are hybrid scaling strategies that adapt based on task difficulty and model behavior.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "claim": "Hybrid scaling strategies, such as Meta-Reasoner, AgentTTS, and START, rigidly adhere to a single scaling approach, failing to adapt to task difficulty and model behavior.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passage explicitly states Meta-Reasoner, AgentTTS, and START dynamically adapt strategies based on task difficulty and model behavior, contradicting the claim of rigid adherence.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "claim": "Hybrid scaling strategies, like Meta-Reasoner, AgentTTS, and START, blend different scaling approaches to adapt to task difficulty and model behavior.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss LLM fine-tuning privacy risks, with no mention of Meta-Reasoner, AgentTTS, START, or hybrid scaling strategies.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "contested",
+    "claim": "Hybrid scaling strategies, like Meta-Reasoner, AgentTTS, and START, blend different scaling approaches to adapt to task difficulty and model behavior.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "One passage explicitly supports hybrid blending in Meta-Reasoner, AgentTTS, and START; the synthetic passage directly refutes this characterization.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, modify the model's internal computation during inference by estimating answer uncertainty and terminating early if confidence is high.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states HALT-CoT and SoftCoT++ are internal scaling strategies that estimate answer uncertainty and terminate early if confidence is high.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, do not alter the model's internal computation during inference and instead always require a fixed amount of computation regardless of answer uncertainty or confidence.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passage explicitly states HALT-CoT and SoftCoT++ estimate answer uncertainty and terminate early if confidence is high, meaning computation varies.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, modify the model's internal computation during inference by estimating answer uncertainty and terminating early if confidence is high.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss fine-tuning privacy risks and memorization; no mention of HALT-CoT, SoftCoT++, or internal scaling strategies.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "contested",
+    "claim": "Internal scaling strategies, such as HALT-CoT and SoftCoT++, modify the model's internal computation during inference by estimating answer uncertainty and terminating early if confidence is high.",
+    "pred": "contested",
+    "confidence": 0.6666666666666666,
+    "recommendation": "flag_contested",
+    "reasoning": "The arxiv passage supports the claim directly; the synthetic_refute passage explicitly contradicts it by stating these methods optimize training, not inference computation.",
+    "votes": {
+      "contested": 2,
+      "refuted": 1
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "supported",
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one.",
+    "pred": "supported",
+    "confidence": 0.6666666666666666,
+    "recommendation": "accept",
+    "reasoning": "The passages explicitly describe Best-of-N, MCTS, and Self-Refinement as methods that sample, evaluate, and select high-scoring solutions.",
+    "votes": {
+      "contested": 1,
+      "supported": 2
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "refuted",
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement do not optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one, as they actually hinder the process by introducing unnecessary complexity and randomness.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "Passages explicitly state Best-of-N, MCTS, and Self-Refinement optimize reasoning by sampling, evaluating, and selecting highest-scoring solutions, contradicting the claim.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "insufficient",
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss fine-tuning privacy risks with LLMs; they contain no information about Best-of-N sampling, MCTS, or Self-Refinement methods.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc3_sparse",
+    "intended": "contested",
+    "claim": "Methods like Best-of-N sampling, MCTS, and Self-Refinement optimize reasoning by sampling multiple candidate solutions, evaluating them, and selecting the highest-scoring one.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "The legitimate passage supports the claim about Best-of-N and MCTS, but the synthetic passage refutes it by characterizing these methods as brute-force rather than genuine reasoning optimization.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "claim": "The major architectural patterns in multi-agent LLM systems include centralized and decentralized architectures.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states multi-agent systems organize around two fundamental coordination concepts: centralized and decentralized architectures, directly supporting the claim.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "refuted",
+    "claim": "The major architectural patterns in multi-agent LLM systems exclude both centralized and decentralized architectures.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passage explicitly states centralized and decentralized architectures are the two fundamental coordination concepts in multi-agent LLM systems, directly contradicting the claim.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "claim": "The major architectural patterns in multi-agent LLM systems include centralized and decentralized architectures.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "All passages discuss LLM fine-tuning privacy risks; none mention multi-agent systems or centralized/decentralized architectures.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "claim": "The major architectural patterns in multi-agent LLM systems include centralized and decentralized architectures.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "First passage directly supports centralized/decentralized as fundamental patterns; synthetic_refute passage argues hybrid architectures prevail, contradicting the binary claim.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "claim": "Centralized systems employ hierarchical patterns where a central supervisor delegates tasks to specialized agents.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states centralized systems employ hierarchical patterns where a central supervisor intelligently delegates tasks to specialized agents, directly matching the claim.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "refuted",
+    "claim": "Centralized systems do not employ hierarchical patterns and instead operate through a flat, non-hierarchical structure where tasks are not delegated by a central supervisor.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passage explicitly states centralized systems employ hierarchical patterns where a central supervisor delegates tasks, directly contradicting the claim.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "claim": "Centralized systems employ hierarchical patterns where a central supervisor delegates tasks to specialized agents.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "All passages discuss LLM fine-tuning and privacy risks; none mention centralized systems, hierarchical patterns, or supervisor-agent delegation.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "claim": "Centralized systems employ hierarchical patterns where a central supervisor delegates tasks to specialized agents.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "The first passage directly supports the claim, while the synthetic_refute passage contradicts it by describing flat centralized architectures without hierarchical delegation.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "claim": "Decentralized systems use collaborative patterns where autonomous agents communicate directly in a peer-to-peer fashion.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage directly states 'Decentralized systems use collaborative patterns where autonomous agents communicate directly in peer-to-peer fashion,' matching the claim verbatim.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "refuted",
+    "claim": "Decentralized systems use hierarchical patterns where a central authority controls and coordinates the actions of autonomous agents.",
+    "pred": "refuted",
+    "confidence": 1.0,
+    "recommendation": "revise",
+    "reasoning": "The passage explicitly states decentralized systems use collaborative peer-to-peer patterns, not hierarchical patterns with central authority \u2014 that describes centralized systems.",
+    "votes": {
+      "refuted": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "claim": "Decentralized systems use collaborative patterns where autonomous agents communicate directly in a peer-to-peer fashion.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "All passages discuss LLM fine-tuning and privacy risks, with no mention of decentralized systems or peer-to-peer communication.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "claim": "Decentralized systems use collaborative patterns where autonomous agents communicate directly in a peer-to-peer fashion.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "The main passage directly supports the claim, but the synthetic_refute passage contradicts it by noting many decentralized systems use intermediary nodes rather than pure peer-to-peer communication.",
+    "votes": {
+      "contested": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "supported",
+    "claim": "Four architectural patterns form the foundation of most multi-agent applications: subagents, skills, handoffs, and routers.",
+    "pred": "supported",
+    "confidence": 1.0,
+    "recommendation": "accept",
+    "reasoning": "The passage explicitly states these four patterns form the foundation of most multi-agent applications and details each one.",
+    "votes": {
+      "supported": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "insufficient",
+    "claim": "Four architectural patterns form the foundation of most multi-agent applications: subagents, skills, handoffs, and routers.",
+    "pred": "insufficient",
+    "confidence": 1.0,
+    "recommendation": "gather_more",
+    "reasoning": "Passages discuss LLM fine-tuning and privacy risks, with no mention of multi-agent architectural patterns like subagents, skills, handoffs, or routers.",
+    "votes": {
+      "insufficient": 3
+    }
+  },
+  {
+    "case": "tc4_multimodal",
+    "intended": "contested",
+    "claim": "Four architectural patterns form the foundation of most multi-agent applications: subagents, skills, handoffs, and routers.",
+    "pred": "contested",
+    "confidence": 1.0,
+    "recommendation": "flag_contested",
+    "reasoning": "The LangChain passage directly supports the claim, while the synthetic_refute passage contradicts it by asserting skills and routers are not foundational patterns.",
+    "votes": {
+      "contested": 3
+    }
+  }
+]
