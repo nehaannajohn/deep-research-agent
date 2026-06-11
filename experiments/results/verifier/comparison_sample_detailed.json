@@ -1,0 +1,622 @@
+[
+  {
+    "idx": 0,
+    "intended": "supported",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions.",
+    "candidates": {
+      "sonnet": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passage explicitly states fine-tuning LLMs on datasets overlapping with pre-training data poses privacy risks, especially to closely related pre-training portions."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages explicitly state that fine-tuning LLMs on overlapping pre-training data amplifies memorization and privacy risks."
+      },
+      "nova": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Passages collectively confirm privacy risks from fine-tuning on overlapping data."
+      },
+      "ensemble": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passage explicitly states fine-tuning LLMs on datasets overlapping with pre-training data poses privacy risks, especially to closely related pre-training portions."
+      }
+    }
+  },
+  {
+    "idx": 1,
+    "intended": "refuted",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can mitigate privacy risks, especially to closely related pre-training portions.",
+    "candidates": {
+      "sonnet": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passage states fine-tuning on overlapping pre-training data poses privacy risks, not mitigates them, directly contradicting the claim."
+      },
+      "mistral": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Passages indicate fine-tuning on overlapping data amplifies memorization and privacy risks, contradicting the claim."
+      },
+      "nova": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Fine-tuning on overlapping data amplifies, not mitigates, privacy risks."
+      },
+      "ensemble": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passage states fine-tuning on overlapping pre-training data poses privacy risks, not mitigates them, directly contradicting the claim."
+      }
+    }
+  },
+  {
+    "idx": 2,
+    "intended": "insufficient",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions.",
+    "candidates": {
+      "sonnet": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss model collapse from synthetic data contamination, not privacy risks from fine-tuning on pre-training data overlaps."
+      },
+      "mistral": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "The passages discuss synthetic data contamination and model collapse but do not address privacy risks from fine-tuning on overlapping pre-training data."
+      },
+      "nova": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "The provided passages do not directly address privacy risks."
+      },
+      "ensemble": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss model collapse from synthetic data contamination, not privacy risks from fine-tuning on pre-training data overlaps."
+      }
+    }
+  },
+  {
+    "idx": 3,
+    "intended": "contested",
+    "claim": "Fine-tuning large language models (LLMs) on datasets overlapping with their pre-training data can pose privacy risks, especially to closely related pre-training portions.",
+    "candidates": {
+      "sonnet": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "The main passage explicitly supports the claim, while the synthetic_refute passage directly contradicts it by asserting fine-tuning mitigates memorization risks."
+      },
+      "mistral": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "One passage supports the claim of privacy risks from overlapping data, while another refutes it by citing mitigation via fine-tuning."
+      },
+      "nova": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Passages provide both supporting and refuting evidence for the claim."
+      },
+      "ensemble": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "The first passage explicitly supports the claim, while the synthetic_refute passage directly contradicts it by asserting fine-tuning mitigates memorization risks."
+      }
+    }
+  },
+  {
+    "idx": 4,
+    "intended": "supported",
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data.",
+    "candidates": {
+      "sonnet": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Both passages explicitly state fine-tuning on generated data may introduce significant privacy dangers due to reproduction of memorized data."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Both passages confirm that fine-tuning on generated data can amplify memorization and privacy risks, including PII leakage."
+      },
+      "nova": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Passages collectively highlight privacy risks of fine-tuning on generated data."
+      },
+      "ensemble": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Both passages explicitly state fine-tuning on generated data may introduce significant privacy dangers due to reproduction of memorized data."
+      }
+    }
+  },
+  {
+    "idx": 5,
+    "intended": "refuted",
+    "claim": "Fine-tuning on generated data is unlikely to introduce significant privacy dangers due to the reproduction of memorized data.",
+    "candidates": {
+      "sonnet": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Both passages explicitly state fine-tuning on generated data introduces significant, overlooked privacy dangers and exacerbates rather than mitigates risks."
+      },
+      "mistral": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passages explicitly state that fine-tuning on generated data can amplify memorization and exacerbate privacy risks, contradicting the claim."
+      },
+      "nova": {
+        "pred": "refuted",
+        "confidence": 0.6,
+        "recommendation": "revise",
+        "reasoning": "The passages collectively indicate that fine-tuning on generated data can introduce significant privacy risks."
+      },
+      "ensemble": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Both passages explicitly state fine-tuning on generated data may introduce significant privacy dangers by reproducing memorized data and exacerbating privacy risks."
+      }
+    }
+  },
+  {
+    "idx": 6,
+    "intended": "insufficient",
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data.",
+    "candidates": {
+      "sonnet": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss model collapse and performance degradation from synthetic data, but never mention privacy dangers or memorized data reproduction."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages describe risks of synthetic data use in training, including potential reproduction of memorized or private data, aligning with the claim."
+      },
+      "nova": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "The passages discuss model performance and collapse, not privacy dangers."
+      },
+      "ensemble": {
+        "pred": "insufficient",
+        "confidence": 0.6666666666666666,
+        "recommendation": "gather_more",
+        "reasoning": "Passages focus on model collapse and performance degradation from synthetic data, not privacy dangers from memorized data reproduction."
+      }
+    }
+  },
+  {
+    "idx": 7,
+    "intended": "contested",
+    "claim": "Fine-tuning on generated data may introduce significant privacy dangers due to the reproduction of memorized data.",
+    "candidates": {
+      "sonnet": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Two passages explicitly support the claim about privacy dangers from memorized data reproduction, while one passage directly refutes it by arguing generated data reduces memorization risks."
+      },
+      "mistral": {
+        "pred": "contested",
+        "confidence": 0.6,
+        "recommendation": "flag_contested",
+        "reasoning": "Passages show both privacy risks (memorization/exacerbation) and potential mitigations (diversity/augmentation) when fine-tuning on generated data."
+      },
+      "nova": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Passages both support and refute the claim."
+      },
+      "ensemble": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Two passages explicitly support the claim about privacy dangers, while one passage directly refutes it by arguing generated data reduces memorization risks."
+      }
+    }
+  },
+  {
+    "idx": 8,
+    "intended": "supported",
+    "claim": "LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify the leakage of the original pre-training data.",
+    "candidates": {
+      "sonnet": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Both passages explicitly state LLM-generated data is more susceptible to privacy attacks as it can inadvertently amplify leakage of original pretraining data."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Both passages explicitly state that LLM-generated data amplifies privacy risks by reproducing memorized pretraining data and exacerbating leakage."
+      },
+      "nova": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages collectively support the claim."
+      },
+      "ensemble": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Both passages explicitly state LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify leakage of original pretraining data."
+      }
+    }
+  },
+  {
+    "idx": 9,
+    "intended": "refuted",
+    "claim": "LLM-generated data is potentially less susceptible to privacy attacks as it can mitigate the leakage of the original pre-training data.",
+    "candidates": {
+      "sonnet": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Both passages explicitly state LLM-generated data is MORE susceptible to privacy attacks and amplifies leakage, directly contradicting the claim."
+      },
+      "mistral": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passages explicitly state that LLM-generated data amplifies privacy risks by reproducing memorized pre-training data."
+      },
+      "nova": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passages indicate LLM-generated data may increase, not decrease, privacy risks."
+      },
+      "ensemble": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Both passages explicitly state LLM-generated data is MORE susceptible to privacy attacks and amplifies leakage, directly contradicting the claim."
+      }
+    }
+  },
+  {
+    "idx": 10,
+    "intended": "insufficient",
+    "claim": "LLM-generated data is potentially more susceptible to privacy attacks as it can inadvertently amplify the leakage of the original pre-training data.",
+    "candidates": {
+      "sonnet": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss model collapse and performance degradation from synthetic data, but never mention privacy attacks or amplification of pre-training data leakage."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages discuss risks of synthetic data contamination and performance degradation, indirectly supporting susceptibility to privacy leakage from original training data."
+      },
+      "nova": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss model collapse, not privacy attacks."
+      },
+      "ensemble": {
+        "pred": "insufficient",
+        "confidence": 0.6666666666666666,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss model collapse and performance degradation from synthetic data, but never address privacy attacks or amplification of pre-training data leakage."
+      }
+    }
+  },
+  {
+    "idx": 11,
+    "intended": "supported",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse.",
+    "candidates": {
+      "sonnet": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passage explicitly states recursive training on synthetic data leads to a 'self-consuming' loop affecting linguistic diversity and describes model collapse phenomenon."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages explicitly confirm recursive training on synthetic data causes model collapse and reduces linguistic diversity."
+      },
+      "nova": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "Passages collectively entail the claim on model collapse."
+      },
+      "ensemble": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passage explicitly states recursive training on synthetic data leads to a 'self-consuming' loop affecting linguistic diversity and describes model collapse as the resulting phenomenon."
+      }
+    }
+  },
+  {
+    "idx": 12,
+    "intended": "refuted",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that enhances linguistic diversity and prevents model collapse.",
+    "candidates": {
+      "sonnet": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Passages state recursive synthetic data training creates a self-consuming loop that HARMS linguistic diversity and causes model collapse, not enhances it."
+      },
+      "mistral": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passages explicitly state that recursive training on synthetic data leads to model collapse and reduces linguistic diversity."
+      },
+      "nova": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Synthetic data leads to model collapse, not enhancement."
+      },
+      "ensemble": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Passages state recursive training on synthetic data leads to a self-consuming loop that *harms* linguistic diversity and causes model collapse, not enhances it."
+      }
+    }
+  },
+  {
+    "idx": 13,
+    "intended": "insufficient",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse.",
+    "candidates": {
+      "sonnet": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss privacy risks of synthetic data fine-tuning but never mention self-consuming loops, linguistic diversity degradation, or model collapse."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages highlight risks of memorization and leakage from synthetic data, supporting the claim of model collapse and reduced diversity."
+      },
+      "nova": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "The passages discuss privacy risks but don't directly address 'self-consuming' loops or model collapse."
+      },
+      "ensemble": {
+        "pred": "insufficient",
+        "confidence": 0.6666666666666666,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss privacy risks of synthetic data fine-tuning but never mention self-consuming loops, linguistic diversity degradation, or model collapse."
+      }
+    }
+  },
+  {
+    "idx": 14,
+    "intended": "contested",
+    "claim": "Recursive training on synthetic data leads to a 'self-consuming' loop that affects linguistic diversity and causes model collapse.",
+    "candidates": {
+      "sonnet": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "First passage supports the claim directly; the synthetic_refute passage contradicts it by asserting synthetic data can enhance linguistic diversity."
+      },
+      "mistral": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "One passage supports model collapse reducing diversity, while another argues curated synthetic data can enhance diversity."
+      },
+      "nova": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Passages provide both supporting and refuting evidence."
+      },
+      "ensemble": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "The first passage supports the claim directly, while the synthetic_refute passage contradicts it by asserting curated synthetic data enhances linguistic diversity."
+      }
+    }
+  },
+  {
+    "idx": 15,
+    "intended": "supported",
+    "claim": "Chain-of-thought prompting is a technique that instructs large language models to show their reasoning by generating intermediate steps before delivering final answers.",
+    "candidates": {
+      "sonnet": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The first passage directly states CoT prompting 'instructs large language models to show their reasoning by generating intermediate steps before delivering final answers,' matching the claim exactly."
+      },
+      "mistral": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages explicitly describe CoT as a technique that generates intermediate reasoning steps before final answers."
+      },
+      "nova": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The passages collectively affirm the definition and benefits of CoT prompting."
+      },
+      "ensemble": {
+        "pred": "supported",
+        "confidence": 1.0,
+        "recommendation": "accept",
+        "reasoning": "The first passage directly states CoT prompting instructs large language models to show reasoning by generating intermediate steps before delivering final answers."
+      }
+    }
+  },
+  {
+    "idx": 16,
+    "intended": "refuted",
+    "claim": "Chain-of-thought prompting is a technique that fails to improve the performance of large language models by generating unnecessary intermediate steps before delivering final answers.",
+    "candidates": {
+      "sonnet": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Passages explicitly state CoT significantly boosts performance on multi-step tasks, contradicting the claim that it fails to improve performance."
+      },
+      "mistral": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passages explicitly state that CoT significantly boosts performance on multi-step tasks, contradicting the claim."
+      },
+      "nova": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "The passages indicate CoT improves performance and transparency."
+      },
+      "ensemble": {
+        "pred": "refuted",
+        "confidence": 1.0,
+        "recommendation": "revise",
+        "reasoning": "Passages clearly state CoT significantly boosts performance on multi-step tasks; the claim incorrectly calls intermediate steps unnecessary and says the technique fails."
+      }
+    }
+  },
+  {
+    "idx": 17,
+    "intended": "insufficient",
+    "claim": "Chain-of-thought prompting is a technique that instructs large language models to show their reasoning by generating intermediate steps before delivering final answers.",
+    "candidates": {
+      "sonnet": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "Passages discuss fine-tuning, privacy risks, and memorization in LLMs; none mention chain-of-thought prompting or intermediate reasoning steps."
+      },
+      "mistral": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "The passages discuss privacy risks of fine-tuning but do not address chain-of-thought prompting or intermediate reasoning steps."
+      },
+      "nova": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "The passages do not discuss chain-of-thought prompting."
+      },
+      "ensemble": {
+        "pred": "insufficient",
+        "confidence": 1.0,
+        "recommendation": "gather_more",
+        "reasoning": "The passages discuss fine-tuning, privacy risks, and memorization in LLMs, with no mention of chain-of-thought prompting."
+      }
+    }
+  },
+  {
+    "idx": 21,
+    "intended": "contested",
+    "claim": "Chain-of-thought prompting enables complex reasoning capabilities through intermediate reasoning steps.",
+    "candidates": {
+      "sonnet": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "The first passage directly supports the claim, while the synthetic passage explicitly refutes it by attributing gains to token quantity rather than reasoning improvement."
+      },
+      "mistral": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "The passages support the claim of CoT enabling complex reasoning but also refute it by attributing benefits to token volume rather than genuine reasoning improvements."
+      },
+      "nova": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Passages both support and refute the claim's premise."
+      },
+      "ensemble": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "The first passage directly supports the claim, while the synthetic passage explicitly refutes it by attributing gains to token count, not reasoning improvement."
+      }
+    }
+  },
+  {
+    "idx": 25,
+    "intended": "contested",
+    "claim": "Chain-of-thought prompting allows models to decompose multi-step problems into intermediate steps.",
+    "candidates": {
+      "sonnet": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Two passages explicitly support decomposition into intermediate steps; the synthetic passage contradicts this, claiming improvements stem from pattern replication instead."
+      },
+      "mistral": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "One passage supports the claim that chain-of-thought prompting enables decomposition, while another refutes it by suggesting pattern replication."
+      },
+      "nova": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Some passages support, one synthetic passage refutes the claim."
+      },
+      "ensemble": {
+        "pred": "contested",
+        "confidence": 1.0,
+        "recommendation": "flag_contested",
+        "reasoning": "Two passages explicitly support decomposition into intermediate steps; the synthetic passage directly refutes this mechanism, creating a split."
+      }
+    }
+  }
+]
