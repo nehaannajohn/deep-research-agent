@@ -31,3 +31,31 @@ def test_stratified_sample_caps_and_balances():
 def test_stratified_sample_returns_all_when_small():
     exs = [EvalExample(example_id="a", claim="c", gold_label="supported")]
     assert len(stratified_sample(exs, n=10)) == 1
+
+
+def test_scifact_mapping_supported_uses_rationale_sentences():
+    from dra.eval.loaders.scifact import scifact_claim_to_example
+    corpus = {7: {"doc_id": 7, "title": "T", "abstract": ["S0.", "S1 rationale.", "S2 rationale.", "S3."]}}
+    claim = {"id": 42, "claim": "C", "cited_doc_ids": [7],
+             "evidence": {"7": [{"sentences": [1, 2], "label": "SUPPORT"}]}}
+    ex = scifact_claim_to_example(claim, corpus)
+    assert ex.gold_label == "supported" and ex.example_id == "42"
+    assert [p.text for p in ex.passages] == ["S1 rationale.", "S2 rationale."]
+    assert ex.passages[0].source_id == "7:1" and ex.meta["dataset"] == "scifact"
+
+
+def test_scifact_mapping_contradict_is_refuted():
+    from dra.eval.loaders.scifact import scifact_claim_to_example
+    corpus = {3: {"doc_id": 3, "title": "T", "abstract": ["only sentence."]}}
+    claim = {"id": 1, "claim": "C", "cited_doc_ids": [3],
+             "evidence": {"3": [{"sentences": [0], "label": "CONTRADICT"}]}}
+    assert scifact_claim_to_example(claim, corpus).gold_label == "refuted"
+
+
+def test_scifact_mapping_no_evidence_is_insufficient():
+    from dra.eval.loaders.scifact import scifact_claim_to_example
+    corpus = {9: {"doc_id": 9, "title": "T", "abstract": ["a.", "b."]}}
+    claim = {"id": 5, "claim": "C", "cited_doc_ids": [9], "evidence": {}}
+    ex = scifact_claim_to_example(claim, corpus)
+    assert ex.gold_label == "insufficient"
+    assert [p.text for p in ex.passages] == ["a.", "b."]   # falls back to cited abstract
