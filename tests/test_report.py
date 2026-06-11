@@ -90,12 +90,12 @@ def test_compose_narrative_strips_unknown_claim_refs():
     assert "[c9]" not in out  # unknown ref dropped (constrain-by-construction guard)
 
 
-def test_compose_narrative_requests_mermaid_when_wants_visual():
+def test_compose_narrative_no_longer_requests_diagram_inline():
     from dra.report import compose_narrative
     gen = FakeGen("## Summary\n[c0]")
     plan_visual = Plan(subquestions=["sq A"], constraints={"wants_visual": True})
     compose_narrative("q", plan_visual, [_claim("c0", "x", "sq A")], gen, verified=False)
-    assert "mermaid" in gen.last_prompt.lower()
+    assert "mermaid" not in gen.last_prompt.lower()  # diagram is a separate step now
 
 
 def test_compose_narrative_falls_back_on_llm_failure():
@@ -130,6 +130,28 @@ def test_compose_report_auto_detects_unverified():
     rep = compose_report("q", PLAN, claims, [], gen)
     assert rep.metadata.overall_confidence is None
     assert "Verdict" not in rep.report_markdown
+
+
+def test_compose_report_inserts_diagram_when_generator_and_flag_present():
+    from dra.report import compose_report
+
+    class FakeDiagram:
+        def generate(self, query, claims, narrative):
+            return "```mermaid\ngraph LR\n  A-->B\n  B-->C\n```"
+
+    gen = FakeGen("## Summary\nFinding [c0].")
+    plan_visual = Plan(subquestions=["sq A"], constraints={"wants_visual": True})
+    rep = compose_report("q", plan_visual, [_claim("c0", "x", "sq A")], [], gen,
+                         diagram_generator=FakeDiagram())
+    assert "## Architecture" in rep.report_markdown and "```mermaid" in rep.report_markdown
+
+
+def test_compose_report_no_diagram_without_generator():
+    from dra.report import compose_report
+    gen = FakeGen("## Summary\n[c0]")
+    plan_visual = Plan(subquestions=["sq A"], constraints={"wants_visual": True})
+    rep = compose_report("q", plan_visual, [_claim("c0", "x", "sq A")], [], gen)  # no diagram_generator
+    assert "```mermaid" not in rep.report_markdown
 
 
 def test_compose_report_empty_ledger_is_minimal():

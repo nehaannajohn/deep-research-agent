@@ -87,7 +87,7 @@ Rules:
 - Every factual sentence MUST cite a claim id in square brackets, e.g. [c1]; use only the ids listed.
 - Do NOT introduce any fact that is not one of the claims.
 - Start with a "## Summary" section, then logical "## <topic>" sections.
-{visual}{table}- Be concise.
+{table}- Be concise.
 
 QUERY: {query}
 
@@ -115,12 +115,10 @@ def strip_unknown_claim_refs(text: str, valid_ids: set) -> str:
 
 def compose_narrative(query, plan, claims, generator, verified: bool) -> str:
     constraints = plan.constraints or {}
-    visual = ("- Include a section with a Mermaid diagram (```mermaid ... ```) of the relevant "
-              "architecture or flow.\n") if constraints.get("wants_visual") else ""
     table = ("- Present the core comparison as a Markdown table.\n"
              if constraints.get("format") == "table" else "")
     prompt = _NARRATIVE_PROMPT.format(query=query, claims=_claims_block(claims, verified),
-                                      visual=visual, table=table)
+                                      table=table)
     try:
         text = (generator.complete(prompt) or "").strip()
     except Exception:
@@ -130,7 +128,8 @@ def compose_narrative(query, plan, claims, generator, verified: bool) -> str:
     return strip_unknown_claim_refs(text, {c.id for c in claims})
 
 
-def compose_report(query, plan, claims, sources, generator, with_verification=None) -> ResearchReport:
+def compose_report(query, plan, claims, sources, generator, with_verification=None,
+                   diagram_generator=None) -> ResearchReport:
     brief = " ; ".join(plan.subquestions)
     if not claims:
         return ResearchReport(
@@ -143,6 +142,9 @@ def compose_report(query, plan, claims, sources, generator, with_verification=No
     verified = (with_verification if with_verification is not None
                 else any(c.verdict != "unverified" for c in claims))
     narrative = compose_narrative(query, plan, claims, generator, verified)
+    if (plan.constraints or {}).get("wants_visual") and diagram_generator is not None:
+        from dra.diagram import insert_diagram
+        narrative = insert_diagram(narrative, diagram_generator.generate(query, claims, narrative))
     md = rollup_metadata(plan, claims, verified)
     appendix = render_appendix(claims, sources, md, verified)
     report_markdown = f"# Research Report\n**Query:** {query}\n\n{narrative}\n\n---\n\n{appendix}"
