@@ -49,6 +49,14 @@ class Config:
             raise ValueError(
                 f"generator and in-loop judge must be different model families (both '{g}')"
             )
+        # The selected verifier is the ensemble (verifier_models); every member must be a
+        # different family from the generator so the verifier independently checks its claims.
+        for m in self.verifier_models:
+            if g and family(m) == g:
+                raise ValueError(
+                    f"verifier ensemble member '{m}' shares the generator family '{g}'; "
+                    "the verifier must be independent of the generator"
+                )
 
 
 def _env_bool(env, key: str, default: bool) -> bool:

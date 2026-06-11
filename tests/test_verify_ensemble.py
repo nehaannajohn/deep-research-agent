@@ -47,3 +47,11 @@ def test_no_majority_falls_back_to_insufficient():
 def test_empty_members_raises():
     with pytest.raises(ValueError):
         EnsembleVerifier([])
+
+
+def test_single_member_is_unanimous_not_no_consensus():
+    # a 1-member ensemble must return that member's verdict, not fall into no-consensus
+    e = EnsembleVerifier([Const("supported")])
+    r = e.verify("c", P)
+    assert r.label == "supported"
+    assert r.confidence == 1.0

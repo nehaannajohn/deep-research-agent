@@ -75,3 +75,23 @@ def test_load_config_verifier_models_default_empty():
     from dra.config import load_config
     cfg = load_config(env={})
     assert cfg.verifier_models == []
+
+
+def test_independence_rejects_generator_family_in_verifier_ensemble():
+    # the verifier (ensemble) must be independent of the generator family
+    env = {
+        "BEDROCK_GENERATOR_MODEL": "us.meta.llama4-maverick-17b-instruct-v1:0",
+        "BEDROCK_INLOOP_JUDGE_MODEL": "mistral.mistral-large-3-675b-instruct",
+        "BEDROCK_VERIFIER_MODELS": "global.anthropic.claude-sonnet-4-6, meta.llama3-1-70b-instruct-v1:0",
+    }
+    with pytest.raises(ValueError):
+        load_config(env).assert_independence()
+
+
+def test_independence_passes_for_clean_verifier_ensemble():
+    env = {
+        "BEDROCK_GENERATOR_MODEL": "us.meta.llama4-maverick-17b-instruct-v1:0",
+        "BEDROCK_INLOOP_JUDGE_MODEL": "mistral.mistral-large-3-675b-instruct",
+        "BEDROCK_VERIFIER_MODELS": "global.anthropic.claude-sonnet-4-6,mistral.mistral-large-3-675b-instruct,us.amazon.nova-pro-v1:0",
+    }
+    load_config(env).assert_independence()  # no meta member -> no raise

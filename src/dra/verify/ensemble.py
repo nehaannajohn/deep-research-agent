@@ -21,9 +21,10 @@ class EnsembleVerifier(Verifier):
         tally = Counter(labels)
         modal, count = tally.most_common(1)[0]
         n = len(self.members)
-        # count == 1 means "all members differ" for the odd/small ensembles we use (3 members);
-        # an even-sized 2-2 tie would not hit this branch — out of scope for the current design.
-        if count == 1:  # no consensus (every member disagreed)
+        # No consensus = the modal label appears once AND there are >1 members (every member
+        # differed). A single-member ensemble is unanimous, not no-consensus. (2-2 even ties
+        # don't reach this branch — out of scope for the 3-member design.)
+        if count == 1 and n > 1:
             return VerifierResult(
                 label="insufficient",
                 confidence=1 / n,
