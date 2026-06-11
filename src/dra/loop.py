@@ -59,9 +59,9 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
             sources[psg.source_id] = psg
         new = synthesize(query, subq, passages, deps.generator, start_index=len(claims))
         for c in new:
-            evidence = c.citations[0].span if c.citations else ""
-            v = deps.verifier.verify(c.text, evidence)
-            c.verdict, c.confidence = v.label, v.confidence
+            cited = [sources[cit.source_id] for cit in c.citations if cit.source_id in sources]
+            r = deps.verifier.verify(c.text, cited)
+            c.verdict, c.confidence = r.label, r.confidence
         claims.extend(new)
 
     report = ResearchReport(

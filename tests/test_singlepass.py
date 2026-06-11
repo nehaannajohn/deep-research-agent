@@ -1,7 +1,7 @@
 from dra.loop import Deps, run_query
 from dra.schemas import Passage
 from dra.search.base import SearchResult, SearchTool
-from dra.verify.base import Verdict, Verifier
+from dra.verify.base import Verifier, VerifierResult
 
 
 class FakeGen:
@@ -25,8 +25,8 @@ class FakeSearch(SearchTool):
 
 
 class FakeVerifier(Verifier):
-    def verify(self, claim, evidence):
-        return Verdict(label="supported", confidence=0.8)
+    def verify(self, claim, passages):
+        return VerifierResult(label="supported", confidence=0.8)
 
 
 def test_singlepass_end_to_end():

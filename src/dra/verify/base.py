@@ -1,24 +1,30 @@
-"""Verifier contract: given a claim and its evidence, return a label + confidence.
+"""Verifier contract: judge a claim against all its cited passages.
 
-Both variant A (LLM-judge) and variant B (fine-tuned cross-encoder) implement this,
-so they're drop-in interchangeable for the ablation.
+Returns a 4-way label + reasoning + a (model-generated) recommendation + a
+MEASURED confidence (self-consistency or ensemble agreement; never the model's
+verbalized number). Both the LLM-judge and (future) cross-encoder implement this.
 """
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-EntailmentLabel = Literal["supported", "refuted", "insufficient"]
+from dra.schemas import Passage, VerdictLabel
+
+Recommendation = Literal["accept", "gather_more", "reformulate", "revise", "flag_contested"]
 
 
-class Verdict(BaseModel):
-    label: EntailmentLabel = "insufficient"
-    confidence: float = 0.0
+class VerifierResult(BaseModel):
+    label: VerdictLabel = "insufficient"   # one of the 4 terminal labels; never "unverified"
+    confidence: float = 0.0                # measured (raw, not recalibrated)
+    reasoning: str = ""
+    recommendation: Recommendation = "gather_more"
+    votes: dict[str, int] = Field(default_factory=dict)
 
 
 class Verifier(ABC):
     @abstractmethod
-    def verify(self, claim: str, evidence: str) -> Verdict:
+    def verify(self, claim: str, passages: list[Passage]) -> VerifierResult:
         raise NotImplementedError
