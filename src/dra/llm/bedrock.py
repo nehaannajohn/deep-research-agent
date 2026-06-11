@@ -46,7 +46,7 @@ class BedrockChat:
         prompt: str,
         system: Optional[str] = None,
         temperature: float = 0.0,
-        max_tokens: int = 1024,
+        max_tokens: int = 8192,
     ) -> str:
         messages = [{"role": "user", "content": [{"text": prompt}]}]
 

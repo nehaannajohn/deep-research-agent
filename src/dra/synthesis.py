@@ -13,9 +13,12 @@ Sub-question: {subq}
 Passages (cite each claim by its [source_id]):
 {passages}
 
-Write atomic claims (ONE assertion each) that answer the sub-question, grounded ONLY in
-the passages above, while respecting any formatting/scope intent in the overall query.
-Each claim must cite the source_id(s) it uses.
+Write atomic claims (ONE assertion each) that answer the sub-question.
+STRICT GROUNDING RULE: use ONLY information explicitly stated in the passages above. Do NOT
+add facts, names, numbers, dates, taxonomies, or any detail from your own knowledge — if it
+is not written in the passages, do not write it. A claim that is true but not supported by
+the passages does NOT belong here. Respect any formatting/scope intent in the overall query.
+Each claim must cite the source_id(s) whose text directly supports it.
 Return ONLY JSON: {{"claims": [{{"text": "...", "citations": ["source_id", ...]}}]}}"""
 
 
