@@ -80,10 +80,21 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
 def build_deps(cfg) -> Deps:
     from dra.llm.bedrock import BedrockChat
     from dra.search import default_search_tool
+    from dra.verify.ensemble import EnsembleVerifier
     from dra.verify.llm_judge import LLMJudgeVerifier
 
+    # Selected verifier (provisional): the 3-model ensemble {Sonnet, Mistral, Nova} with
+    # cross-model agreement as confidence. Falls back to the single in-loop judge if no
+    # ensemble is configured. See experiments/results/verifier/DECISION.md (revisit at Layer 1).
+    if cfg.verifier_models:
+        verifier = EnsembleVerifier(
+            [LLMJudgeVerifier(BedrockChat(m, region=cfg.region), n_samples=1)
+             for m in cfg.verifier_models]
+        )
+    else:
+        verifier = LLMJudgeVerifier(BedrockChat(cfg.roles["inloop_judge"], region=cfg.region))
     return Deps(
         generator=BedrockChat(cfg.roles["generator"], region=cfg.region),
-        verifier=LLMJudgeVerifier(BedrockChat(cfg.roles["inloop_judge"], region=cfg.region)),
+        verifier=verifier,
         search=default_search_tool(cfg),
     )
