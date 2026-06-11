@@ -7,7 +7,7 @@ don't correlate. `assert_independence()` enforces the generator/in-loop split.
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from dotenv import load_dotenv
 
@@ -32,6 +32,7 @@ class Config:
     region: str
     roles: dict
     panel_models: list
+    verifier_models: list = field(default_factory=list)
     exa_key: str = ""
     tavily_key: str = ""
     semantic_scholar_key: str = ""
@@ -72,6 +73,7 @@ def load_config(env: "dict | None" = None) -> Config:
         _drop_empty_aws_env(os.environ)
         env = dict(os.environ)
     panel = [m.strip() for m in env.get("BEDROCK_PANEL_MODELS", "").split(",") if m.strip()]
+    verifiers = [m.strip() for m in env.get("BEDROCK_VERIFIER_MODELS", "").split(",") if m.strip()]
     return Config(
         region=env.get("AWS_REGION", "us-east-1"),
         roles={
@@ -79,6 +81,7 @@ def load_config(env: "dict | None" = None) -> Config:
             "inloop_judge": env.get("BEDROCK_INLOOP_JUDGE_MODEL", ""),
         },
         panel_models=panel,
+        verifier_models=verifiers,
         exa_key=env.get("EXA_API_KEY", ""),
         tavily_key=env.get("TAVILY_API_KEY", ""),
         semantic_scholar_key=env.get("SEMANTIC_SCHOLAR_API_KEY", ""),

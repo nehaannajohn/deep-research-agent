@@ -63,3 +63,15 @@ def test_load_config_cache_overrides():
     cfg = load_config(env={"DRA_RETRIEVAL_CACHE": "0", "DRA_RETRIEVAL_CACHE_TTL": "60"})
     assert cfg.retrieval_cache_enabled is False
     assert cfg.retrieval_cache_ttl_s == 60
+
+
+def test_load_config_verifier_models_parsed():
+    from dra.config import load_config
+    cfg = load_config(env={"BEDROCK_VERIFIER_MODELS": "a.x, b.y , c.z"})
+    assert cfg.verifier_models == ["a.x", "b.y", "c.z"]
+
+
+def test_load_config_verifier_models_default_empty():
+    from dra.config import load_config
+    cfg = load_config(env={})
+    assert cfg.verifier_models == []
