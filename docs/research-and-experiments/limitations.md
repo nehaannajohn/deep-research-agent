@@ -1,0 +1,41 @@
+# Known Limitations & Risks (not solved by the MVP)
+
+Limitations and risks identified through our design and experiments that the MVP **does not** address. This is a living document — each entry states the limitation, why it exists, and a candidate (out-of-scope) mitigation.
+
+---
+
+## 1. Per-component decisions rest on small-scale evaluations
+**Limitation.** We ran comprehensive ablation experiments to answer our **key design questions** empirically. For every *other* component where we settled on a choice, the decision rests on **small-scale evaluations run on a smaller subset of examples**, given time constraints — e.g. the retrieval-engine choice (Exa, see [retrieval-engine-decision-exa-vs-tavily.md](./retrieval-engine-decision-exa-vs-tavily.md)) came from a 12-query bake-off, not a full ablation across retrieval *approaches* (hybrid lexical+dense, multi-backend fusion, rerankers, agentic/iterative retrieval).
+**Why.** Time-boxed MVP — we could not run a full, statistically-powered experiment for every component.
+**Caveat.** These small-scale results are **not large enough to be statistically significant** and are therefore **not included in the overall results summary**; the conclusions could in principle shift on a larger, more diverse sample set.
+
+## 2. Verifier checks claims, not source credibility
+**Limitation.** The verifier confirms whether an extracted claim is grounded in its cited passage, but does **not** assess the *quality/credibility of the cited record itself*. A claim can be faithfully grounded in a low-quality source and still pass.
+**Why.** The grounding invariant (claim ↔ verbatim evidence) was the priority; source-quality scoring is an orthogonal concern we deferred.
+**Not in MVP (candidate mitigation).** A lightweight, **toggleable credibility layer** after retrieval that prunes/down-weights to higher-credibility sources (e.g. domain/venue signals, recency, primary-vs-secondary).
+
+## 3. Tested only on English-language text queries
+**Limitation.** All evaluation has been on **English**, **text-only** queries.
+**Why.** Test cases (4 brief + experiment sets) were English text; no multilingual or multimodal coverage attempted.
+**Not in MVP.** Non-English retrieval/generation quality and any image/table/PDF-figure inputs are unvalidated and out of scope.
+
+## 4. Static retrieval defaults tuned on a small set; no per-query adaptivity yet
+**Limitation.** The settled defaults (decompose ON, `k=5`, `maxChars=2k`) were chosen from a handful of brief test cases. The runtime applies them uniformly; there is **no feedback-driven adaptive retrieval** in the MVP.
+**Why.** Small-N experiments establish a sensible floor; true adaptivity is feedback-driven and was deliberately deferred (Phase 3). Difficulty is revealed by evidence, not guessable a priori.
+**Not in MVP.** The verifier-recommendation-driven loop (escalate `k`, widen `maxChars`, reformulate sub-question) is the planned next slice, not yet built/validated.
+
+## 5. Lower coverage driven by a single retrieval backend
+**Limitation.** Cumulative coverage plateaus around 80–85% and is **flat beyond k=5** — retrieving deeper from the same source doesn't help. The main driver is that the MVP uses a **single retrieval backend** (Exa): no source diversity, no route-by-query-type, so systematic index blind spots and paywalled / non-indexed / very recent content are missed, and the residual "missing aspect" is often a different *type* of evidence (e.g. meta-analytic synthesis) that one backend won't surface.
+**Why.** Exa won on every axis in the bake-off, so a single backend covered all domains for the MVP; multi-source fusion and route-by-query-type remained in the full design but unbuilt. The k-coverage sweep confirmed the ceiling is not a depth problem (identical residual gap at k=5 and k=10), pointing at source/breadth rather than `k`.
+**Not in MVP.** Multi-backend retrieval + type routing + a fallback path, plus reformulation that targets a missing evidence *type* rather than retrieving deeper.
+
+## 6. Verifier benchmark (Layer 1) doesn't match how the verifier operates
+**Limitation.** The production verifier judges a claim against the **full set of cited/retrieved passages** (k≈5, mixed relevance, possibly conflicting) **holistically** — that is what lets it emit `contested`. The public Layer-1 benchmarks (FEVER, SciFact) present **one claim against a single, curated, single-direction evidence**, so they evaluate a **cleaner, easier task than the real operating condition**: no heterogeneous multi-passage set, and no native way to express "the evidence is split." Layer-1 macro-F1/ECE are therefore a **proxy** for, and likely **optimistic** relative to, real-pipeline behavior.
+**Why.** FEVER/SciFact are the standard labeled component benchmarks; they're closed-corpus, mostly single-hop, single-evidence. The verifier's real input (a retrieved multi-passage set with distractors) isn't what they contain.
+**How it's covered / not in MVP.** `contested` is evaluated on a **constructed 2-evidence conflict set** (a partial step toward multi-passage input); the **Layer-2 evaluation + the Layer-1→Layer-2 cross-check** exercise the verifier under *real* multi-passage retrieval. Not built: multi-passage Layer-1 examples (gold evidence bundled with retrieved distractors) to more faithfully mimic the k-passage production input.
+
+## 7. Format/modality constraints don't yield byte-identical retrieval across query variants
+**Limitation.** The planner bifurcates a query into a **core research query** (drives decomposition → retrieval) and **constraints** (visual/format/modality, consumed only at report composition). This keeps a format instruction (e.g. "include a diagram") from changing the *kind* of retrieval — verified: no diagram/format sub-questions leak into the decomposition. However, the planner's LLM **split step rewords the extracted core query slightly differently** for a plain query vs the same query with a format instruction appended, so the decomposition (and therefore the retrieved evidence) is **not byte-identical** across format variants. Observed with the 2-step planner: 2 of 4 validation cases produced identical sub-questions across the plain/augmented arms; the other 2 drifted in granularity/wording (same research content, no leak).
+**Why.** The core-query/constraint separation is real and enforced at the planner, but the core-query extraction is itself an LLM call, and LLMs are sensitive to surface input text — so even at temperature 0 the stripped core isn't guaranteed token-identical across differently-phrased inputs.
+**Impact.** A format-augmented query may re-decompose and re-retrieve (cache miss) and surface slightly different evidence than its plain counterpart — same topic, not wrong retrieval. So a strict "format is the *only* difference" A/B and cache reuse across format variants aren't guaranteed; the ±visual comparison holds the *research* content constant but not the exact passage set.
+**How it's covered / not in MVP.** Accepted and documented; the architecture (constraint isolation at the planner) is the correct structural fix and prevents the consequential failure (content leak). Not built: a **deterministic/verbatim core extraction** (rule-based stripping of the presentation clause, leaving the research wording untouched) that would guarantee identical decomposition across format variants.

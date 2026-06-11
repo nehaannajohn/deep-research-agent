@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Deep Research Agent: Landscape Report &amp; Architectural Analysis</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <link href="data:text/css; charset=utf-8;charset=utf-8,%0A%2Emarkdown%2Dbody%7B%2D%2Dbase%2Dsize%2D16%3A1rem%3B%2D%2Dbase%2Dsize%2D24%3A1%2E5rem%3B%2D%2Dbase%2Dsize%2D4%3A0%2E25rem%3B%2D%2Dbase%2Dsize%2D40%3A2%2E5rem%3B%2D%2Dbase%2Dsize%2D8%3A0%2E5rem%3B%2D%2Dbase%2Dtext%2Dweight%2Dmedium%3A500%3B%2D%2Dbase%2Dtext%2Dweight%2Dnormal%3A400%3B%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%3A600%3B%2D%2DfontStack%2Dmonospace%3Aui%2Dmonospace%2CSFMono%2DRegular%2CSF%20Mono%2CMenlo%2CConsolas%2CLiberation%20Mono%2Cmonospace%3B%2D%2DfontStack%2DsansSerif%3A%2Dapple%2Dsystem%2CBlinkMacSystemFont%2C%22Segoe%20UI%22%2C%22Noto%20Sans%22%2CHelvetica%2CArial%2Csans%2Dserif%2C%22Apple%20Color%20Emoji%22%2C%22Segoe%20UI%20Emoji%22%3B%2D%2DfgColor%2Daccent%3AHighlight%7D%40media%20%28prefers%2Dcolor%2Dscheme%3Adark%29%7B%2Emarkdown%2Dbody%2C%5Bdata%2Dtheme%3Ddark%5D%7Bcolor%2Dscheme%3Adark%3B%2D%2DfgColor%2Daccent%3A%234493f8%3B%2D%2DbgColor%2Dattention%2Dmuted%3A%23bb800926%3B%2D%2DbgColor%2Ddefault%3A%230d1117%3B%2D%2DbgColor%2Dmuted%3A%23151b23%3B%2D%2DbgColor%2Dneutral%2Dmuted%3A%23656c7633%3B%2D%2DborderColor%2Daccent%2Demphasis%3A%231f6feb%3B%2D%2DborderColor%2Dattention%2Demphasis%3A%239e6a03%3B%2D%2DborderColor%2Ddanger%2Demphasis%3A%23da3633%3B%2D%2DborderColor%2Ddefault%3A%233d444d%3B%2D%2DborderColor%2Ddone%2Demphasis%3A%238957e5%3B%2D%2DborderColor%2Dsuccess%2Demphasis%3A%23238636%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dangle%3A%239198a1%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dunmatched%3A%23f85149%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dbg%3A%23b62324%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dtext%3A%23f0f6fc%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcomment%3A%239198a1%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%3A%2379c0ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%2Dother%2Dreference%2Dlink%3A%23a5d6ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%3A%23d2a8ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%2Dtag%3A%237ee787%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dkeyword%3A%23ff7b72%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dbold%3A%23f0f6fc%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dbg%3A%235a1e02%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dtext%3A%23ffdfb6%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dbg%3A%2367060c%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dtext%3A%23ffdcd7%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dheading%3A%231f6feb%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dbg%3A%231158c7%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dtext%3A%23f0f6fc%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dbg%3A%23033a16%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dtext%3A%23aff5b4%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ditalic%3A%23f0f6fc%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dlist%3A%23f2cc60%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmeta%2Ddiff%2Drange%3A%23d2a8ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstorage%2Dmodifier%2Dimport%3A%23f0f6fc%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%3A%23a5d6ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%2Dregexp%3A%237ee787%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dsublimelinter%2Dgutter%2Dmark%3A%233d444d%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dvariable%3A%23ffa657%3B%2D%2DfgColor%2Dattention%3A%23d29922%3B%2D%2DfgColor%2Ddanger%3A%23f85149%3B%2D%2DfgColor%2Ddefault%3A%23f0f6fc%3B%2D%2DfgColor%2Ddone%3A%23ab7df8%3B%2D%2DfgColor%2Dmuted%3A%239198a1%3B%2D%2DfgColor%2Dsuccess%3A%233fb950%3B%2D%2DborderColor%2Dmuted%3A%233d444db3%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dbg%3Avar%28%2D%2DbgColor%2Ddanger%2Dmuted%29%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dtext%3Avar%28%2D%2DfgColor%2Ddanger%29%3B%2D%2Dfocus%2DoutlineColor%3Avar%28%2D%2DborderColor%2Daccent%2Demphasis%29%3B%2D%2DborderColor%2Dneutral%2Dmuted%3Avar%28%2D%2DborderColor%2Dmuted%29%7D%7D%40media%20%28prefers%2Dcolor%2Dscheme%3Alight%29%7B%2Emarkdown%2Dbody%2C%5Bdata%2Dtheme%3Dlight%5D%7Bcolor%2Dscheme%3Alight%3B%2D%2DfgColor%2Ddanger%3A%23d1242f%3B%2D%2DbgColor%2Dattention%2Dmuted%3A%23fff8c5%3B%2D%2DbgColor%2Dmuted%3A%23f6f8fa%3B%2D%2DbgColor%2Dneutral%2Dmuted%3A%23818b981f%3B%2D%2DborderColor%2Daccent%2Demphasis%3A%230969da%3B%2D%2DborderColor%2Dattention%2Demphasis%3A%239a6700%3B%2D%2DborderColor%2Ddanger%2Demphasis%3A%23cf222e%3B%2D%2DborderColor%2Ddefault%3A%23d1d9e0%3B%2D%2DborderColor%2Ddone%2Demphasis%3A%238250df%3B%2D%2DborderColor%2Dsuccess%2Demphasis%3A%231a7f37%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dangle%3A%2359636e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dunmatched%3A%2382071e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dbg%3A%23cf222e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dtext%3A%23f6f8fa%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcomment%3A%2359636e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%3A%230550ae%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%2Dother%2Dreference%2Dlink%3A%230a3069%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%3A%236639ba%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%2Dtag%3A%230550ae%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dtext%3Avar%28%2D%2DfgColor%2Ddanger%29%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dkeyword%3A%23cf222e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dbg%3A%23ffd8b5%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dtext%3A%23953800%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dbg%3A%23ffebe9%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dtext%3A%2382071e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dheading%3A%230550ae%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dbg%3A%230550ae%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dtext%3A%23d1d9e0%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dbg%3A%23dafbe1%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dtext%3A%23116329%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dlist%3A%233b2300%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmeta%2Ddiff%2Drange%3A%238250df%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%3A%230a3069%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%2Dregexp%3A%23116329%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dsublimelinter%2Dgutter%2Dmark%3A%23818b98%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dvariable%3A%23953800%3B%2D%2DfgColor%2Daccent%3A%230969da%3B%2D%2DfgColor%2Dattention%3A%239a6700%3B%2D%2DfgColor%2Ddone%3A%238250df%3B%2D%2DfgColor%2Dmuted%3A%2359636e%3B%2D%2DfgColor%2Dsuccess%3A%231a7f37%3B%2D%2DbgColor%2Ddefault%3A%23ffffff%3B%2D%2DborderColor%2Dmuted%3A%23d1d9e0b3%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dbg%3Avar%28%2D%2DbgColor%2Ddanger%2Dmuted%29%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dbold%3A%231f2328%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ditalic%3A%231f2328%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstorage%2Dmodifier%2Dimport%3A%231f2328%3B%2D%2DfgColor%2Ddefault%3A%231f2328%3B%2D%2Dfocus%2DoutlineColor%3Avar%28%2D%2DborderColor%2Daccent%2Demphasis%29%3B%2D%2DborderColor%2Dneutral%2Dmuted%3Avar%28%2D%2DborderColor%2Dmuted%29%7D%7D%2Emarkdown%2Dbody%7B%2Dms%2Dtext%2Dsize%2Dadjust%3A100%25%3B%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A100%25%3Bmargin%3A0%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dnormal%2C400%29%3Bcolor%3Avar%28%2D%2DfgColor%2Ddefault%29%3Bbackground%2Dcolor%3Avar%28%2D%2DbgColor%2Ddefault%29%3Bfont%2Dfamily%3Avar%28%2D%2DfontStack%2DsansSerif%2C%20%2Dapple%2Dsystem%2C%20BlinkMacSystemFont%2C%20%22Segoe%20UI%22%2C%20%22Noto%20Sans%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%29%3Bfont%2Dsize%3A16px%3Bline%2Dheight%3A1%2E5%3Bword%2Dwrap%3Abreak%2Dword%7D%2Emarkdown%2Dbody%20a%7Btext%2Ddecoration%3Aunderline%3Btext%2Dunderline%2Doffset%3A%2E2rem%7D%2Emarkdown%2Dbody%20%2Eocticon%7Bdisplay%3Ainline%2Dblock%3Bfill%3AcurrentColor%3Bvertical%2Dalign%3Atext%2Dbottom%7D%2Emarkdown%2Dbody%20h1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%7Bwidth%3A16px%3Bheight%3A16px%3Bcontent%3A%27%20%27%3Bdisplay%3Ainline%2Dblock%3Bbackground%2Dcolor%3AcurrentColor%3B%2Dwebkit%2Dmask%2Dimage%3Aurl%28%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%20version%3D%271%2E1%27%20aria%2Dhidden%3D%27true%27%3E%3Cpath%20fill%2Drule%3D%27evenodd%27%20d%3D%27M7%2E775%203%2E275a%2E75%2E75%200%20001%2E06%201%2E06l1%2E25%2D1%2E25a2%202%200%20112%2E83%202%2E83l%2D2%2E5%202%2E5a2%202%200%2001%2D2%2E83%200%20%2E75%2E75%200%2000%2D1%2E06%201%2E06%203%2E5%203%2E5%200%20004%2E95%200l2%2E5%2D2%2E5a3%2E5%203%2E5%200%2000%2D4%2E95%2D4%2E95l%2D1%2E25%201%2E25zm%2D4%2E69%209%2E64a2%202%200%20010%2D2%2E83l2%2E5%2D2%2E5a2%202%200%20012%2E83%200%20%2E75%2E75%200%20001%2E06%2D1%2E06%203%2E5%203%2E5%200%2000%2D4%2E95%200l%2D2%2E5%202%2E5a3%2E5%203%2E5%200%20004%2E95%204%2E95l1%2E25%2D1%2E25a%2E75%2E75%200%2000%2D1%2E06%2D1%2E06l%2D1%2E25%201%2E25a2%202%200%2001%2D2%2E83%200z%27%3E%3C%2Fpath%3E%3C%2Fsvg%3E%22%29%3Bmask%2Dimage%3Aurl%28%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%20version%3D%271%2E1%27%20aria%2Dhidden%3D%27true%27%3E%3Cpath%20fill%2Drule%3D%27evenodd%27%20d%3D%27M7%2E775%203%2E275a%2E75%2E75%200%20001%2E06%201%2E06l1%2E25%2D1%2E25a2%202%200%20112%2E83%202%2E83l%2D2%2E5%202%2E5a2%202%200%2001%2D2%2E83%200%20%2E75%2E75%200%2000%2D1%2E06%201%2E06%203%2E5%203%2E5%200%20004%2E95%200l2%2E5%2D2%2E5a3%2E5%203%2E5%200%2000%2D4%2E95%2D4%2E95l%2D1%2E25%201%2E25zm%2D4%2E69%209%2E64a2%202%200%20010%2D2%2E83l2%2E5%2D2%2E5a2%202%200%20012%2E83%200%20%2E75%2E75%200%20001%2E06%2D1%2E06%203%2E5%203%2E5%200%2000%2D4%2E95%200l%2D2%2E5%202%2E5a3%2E5%203%2E5%200%20004%2E95%204%2E95l1%2E25%2D1%2E25a%2E75%2E75%200%2000%2D1%2E06%2D1%2E06l%2D1%2E25%201%2E25a2%202%200%2001%2D2%2E83%200z%27%3E%3C%2Fpath%3E%3C%2Fsvg%3E%22%29%7D%2Emarkdown%2Dbody%20details%2C%2Emarkdown%2Dbody%20figcaption%2C%2Emarkdown%2Dbody%20figure%7Bdisplay%3Ablock%7D%2Emarkdown%2Dbody%20summary%7Bdisplay%3Alist%2Ditem%7D%2Emarkdown%2Dbody%20%5Bhidden%5D%7Bdisplay%3Anone%21important%7D%2Emarkdown%2Dbody%20a%7Bbackground%2Dcolor%3Argba%280%2C0%2C0%2C0%29%3Bcolor%3Avar%28%2D%2DfgColor%2Daccent%29%3Btext%2Ddecoration%3Anone%7D%2Emarkdown%2Dbody%20abbr%5Btitle%5D%7Bborder%2Dbottom%3Anone%3B%2Dwebkit%2Dtext%2Ddecoration%3Aunderline%20dotted%3Btext%2Ddecoration%3Aunderline%20dotted%7D%2Emarkdown%2Dbody%20b%2C%2Emarkdown%2Dbody%20strong%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%7D%2Emarkdown%2Dbody%20dfn%7Bfont%2Dstyle%3Aitalic%7D%2Emarkdown%2Dbody%20h1%7Bmargin%3A%2E67em%200%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bpadding%2Dbottom%3A%2E3em%3Bfont%2Dsize%3A2em%3Bborder%2Dbottom%3A1px%20solid%20var%28%2D%2DborderColor%2Dmuted%29%7D%2Emarkdown%2Dbody%20mark%7Bbackground%2Dcolor%3Avar%28%2D%2DbgColor%2Dattention%2Dmuted%29%3Bcolor%3Avar%28%2D%2DfgColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20small%7Bfont%2Dsize%3A90%25%7D%2Emarkdown%2Dbody%20sub%2C%2Emarkdown%2Dbody%20sup%7Bfont%2Dsize%3A75%25%3Bline%2Dheight%3A0%3Bposition%3Arelative%3Bvertical%2Dalign%3Abaseline%7D%2Emarkdown%2Dbody%20sub%7Bbottom%3A%2D%2E25em%7D%2Emarkdown%2Dbody%20sup%7Btop%3A%2D%2E5em%7D%2Emarkdown%2Dbody%20img%7Bborder%2Dstyle%3Anone%3Bmax%2Dwidth%3A100%25%3Bbox%2Dsizing%3Acontent%2Dbox%7D%2Emarkdown%2Dbody%20code%2C%2Emarkdown%2Dbody%20kbd%2C%2Emarkdown%2Dbody%20pre%2C%2Emarkdown%2Dbody%20samp%7Bfont%2Dfamily%3Amonospace%3Bfont%2Dsize%3A1em%7D%2Emarkdown%2Dbody%20figure%7Bmargin%3A1em%20var%28%2D%2Dbase%2Dsize%2D40%29%7D%2Emarkdown%2Dbody%20hr%7Bbox%2Dsizing%3Acontent%2Dbox%3Boverflow%3Ahidden%3Bbackground%3Argba%280%2C0%2C0%2C0%29%3Bborder%2Dbottom%3A1px%20solid%20var%28%2D%2DborderColor%2Dmuted%29%3Bheight%3A%2E25em%3Bpadding%3A0%3Bmargin%3Avar%28%2D%2Dbase%2Dsize%2D24%29%200%3Bbackground%2Dcolor%3Avar%28%2D%2DborderColor%2Ddefault%29%3Bborder%3A0%7D%2Emarkdown%2Dbody%20input%7Bfont%3Ainherit%3Bmargin%3A0%3Boverflow%3Avisible%3Bfont%2Dfamily%3Ainherit%3Bfont%2Dsize%3Ainherit%3Bline%2Dheight%3Ainherit%7D%2Emarkdown%2Dbody%20%5Btype%3Dbutton%5D%2C%2Emarkdown%2Dbody%20%5Btype%3Dreset%5D%2C%2Emarkdown%2Dbody%20%5Btype%3Dsubmit%5D%7B%2Dwebkit%2Dappearance%3Abutton%3Bappearance%3Abutton%7D%2Emarkdown%2Dbody%20%5Btype%3Dcheckbox%5D%2C%2Emarkdown%2Dbody%20%5Btype%3Dradio%5D%7Bbox%2Dsizing%3Aborder%2Dbox%3Bpadding%3A0%7D%2Emarkdown%2Dbody%20%5Btype%3Dnumber%5D%3A%3A%2Dwebkit%2Dinner%2Dspin%2Dbutton%2C%2Emarkdown%2Dbody%20%5Btype%3Dnumber%5D%3A%3A%2Dwebkit%2Douter%2Dspin%2Dbutton%7Bheight%3Aauto%7D%2Emarkdown%2Dbody%20%5Btype%3Dsearch%5D%3A%3A%2Dwebkit%2Dsearch%2Dcancel%2Dbutton%2C%2Emarkdown%2Dbody%20%5Btype%3Dsearch%5D%3A%3A%2Dwebkit%2Dsearch%2Ddecoration%7B%2Dwebkit%2Dappearance%3Anone%3Bappearance%3Anone%7D%2Emarkdown%2Dbody%20%3A%3A%2Dwebkit%2Dinput%2Dplaceholder%7Bcolor%3Ainherit%3Bopacity%3A%2E54%7D%2Emarkdown%2Dbody%20%3A%3A%2Dwebkit%2Dfile%2Dupload%2Dbutton%7B%2Dwebkit%2Dappearance%3Abutton%3Bappearance%3Abutton%3Bfont%3Ainherit%7D%2Emarkdown%2Dbody%20a%3Ahover%7Btext%2Ddecoration%3Aunderline%7D%2Emarkdown%2Dbody%20%3A%3Aplaceholder%7Bcolor%3Avar%28%2D%2DfgColor%2Dmuted%29%3Bopacity%3A1%7D%2Emarkdown%2Dbody%20hr%3A%3Abefore%7Bdisplay%3Atable%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%20hr%3A%3Aafter%7Bdisplay%3Atable%3Bclear%3Aboth%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%20table%7Bborder%2Dspacing%3A0%3Bborder%2Dcollapse%3Acollapse%3Bdisplay%3Ablock%3Bwidth%3Amax%2Dcontent%3Bmax%2Dwidth%3A100%25%3Boverflow%3Aauto%3Bfont%2Dvariant%3Atabular%2Dnums%7D%2Emarkdown%2Dbody%20td%2C%2Emarkdown%2Dbody%20th%7Bpadding%3A0%7D%2Emarkdown%2Dbody%20details%20summary%7Bcursor%3Apointer%7D%2Emarkdown%2Dbody%20%5Brole%3Dbutton%5D%3Afocus%2C%2Emarkdown%2Dbody%20a%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%7Boutline%3A2px%20solid%20var%28%2D%2Dfocus%2DoutlineColor%29%3Boutline%2Doffset%3A%2D2px%3Bbox%2Dshadow%3Anone%7D%2Emarkdown%2Dbody%20%5Brole%3Dbutton%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20a%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%7Boutline%3Asolid%201px%20rgba%280%2C0%2C0%2C0%29%7D%2Emarkdown%2Dbody%20%5Brole%3Dbutton%5D%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20a%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%2Dvisible%7Boutline%3A2px%20solid%20var%28%2D%2Dfocus%2DoutlineColor%29%3Boutline%2Doffset%3A%2D2px%3Bbox%2Dshadow%3Anone%7D%2Emarkdown%2Dbody%20a%3Anot%28%5Bclass%5D%29%3Afocus%2C%2Emarkdown%2Dbody%20a%3Anot%28%5Bclass%5D%29%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%2Dvisible%7Boutline%2Doffset%3A0%7D%2Emarkdown%2Dbody%20kbd%7Bdisplay%3Ainline%2Dblock%3Bpadding%3Avar%28%2D%2Dbase%2Dsize%2D4%29%3Bfont%3A11px%20var%28%2D%2DfontStack%2Dmonospace%2C%20ui%2Dmonospace%2C%20SFMono%2DRegular%2C%20SF%20Mono%2C%20Menlo%2C%20Consolas%2C%20Liberation%20Mono%2C%20monospace%29%3Bline%2Dheight%3A10px%3Bcolor%3Avar%28%2D%2DfgColor%2Ddefault%29%3Bvertical%2Dalign%3Amiddle%3Bbackground%2Dcolor%3Avar%28%2D%2DbgColor%2Dmuted%29%3Bborder%3Asolid%201px%20var%28%2D%2DborderColor%2Dneutral%2Dmuted%29%3Bborder%2Dbottom%2Dcolor%3Avar%28%2D%2DborderColor%2Dneutral%2Dmuted%29%3Bborder%2Dradius%3A6px%3Bbox%2Dshadow%3Ainset%200%20%2D1px%200%20var%28%2D%2DborderColor%2Dneutral%2Dmuted%29%7D%2Emarkdown%2Dbody%20h1%2C%2Emarkdown%2Dbody%20h2%2C%2Emarkdown%2Dbody%20h3%2C%2Emarkdown%2Dbody%20h4%2C%2Emarkdown%2Dbody%20h5%2C%2Emarkdown%2Dbody%20h6%7Bmargin%2Dtop%3Avar%28%2D%2Dbase%2Dsize%2D24%29%3Bmargin%2Dbottom%3Avar%28%2D%2Dbase%2Dsize%2D16%29%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bline%2Dheight%3A1%2E25%7D%2Emarkdown%2Dbody%20h2%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bpadding%2Dbottom%3A%2E3em%3Bfont%2Dsize%3A1%2E5em%3Bborder%2Dbottom%3A1px%20solid%20var%28%2D%2DborderColor%2Dmuted%29%7D%2Emarkdown%2Dbody%20h3%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A1%2E25em%7D%2Emarkdown%2Dbody%20h4%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A1em%7D%2Emarkdown%2Dbody%20h5%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A%2E875em%7D%2Emarkdown%2Dbody%20h6%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A%2E85em%3Bcolor%3Avar%28%2D%2DfgColor%2Dmuted%29%7D%2Emarkdown%2Dbody%20p%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A10px%7D%2Emarkdown%2Dbody%20blockquote%7Bmargin%3A0%3Bpadding%3A0%201em%3Bcolor%3Avar%28%2D%2DfgColor%2Dmuted%29%3Bborder%2Dleft%3A%2E25em%20solid%20var%28%2D%2DborderColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20ol%2C%2Emarkdown%2Dbody%20ul%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A0%3Bpadding%2Dleft%3A2em%7D%2Emarkdown%2Dbody%20ol%20ol%2C%2Emarkdown%2Dbody%20ul%20ol%7Blist%2Dstyle%2Dtype%3Alower%2Droman%7D%2Emarkdown%2Dbody%20ol%20ol%20ol%2C%2Emarkdown%2Dbody%20ol%20ul%20ol%2C%2Emarkdown%2Dbody%20ul%20ol%20ol%2C%2Emarkdown%2Dbody%20ul%20ul%20ol%7Blist%2Dstyle%2Dtype%3Alower%2Dalpha%7D%2Emarkdown%2Dbody%20dd%7Bmargin%2Dleft%3A0%7D%2Emarkdown%2Dbody%20code%2C%2Emarkdown%2Dbody%20samp%2C%2Emarkdown%2Dbody%20tt%7Bfont%2Dfamily%3Avar%28%2D%2DfontStack%2Dmonospace%2C%20ui%2Dmonospace%2C%20SFMono%2DRegular%2C%20SF%20Mono%2C%20Menlo%2C%20Consolas%2C%20Liberation%20Mono%2C%20monospace%29%3Bfont%2Dsize%3A12px%7D%2Emarkdown%2Dbody%20pre%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A0%3Bfont%2Dfamily%3Avar%28%2D%2DfontStack%2Dmonospace%2C%20ui%2Dmonospace%2C%20SFMono%2DRegular%2C%20SF%20Mono%2C%20Menlo%2C%20Consolas%2C%20Liberation%20Mono%2C%20monospace%29%3Bfont%2Dsize%3A12px%3Bword%2Dwrap%3Anormal%7D%2Emarkdown%2Dbody%20%2Eocticon%7Bdisplay%3Ainline%2Dblock%3Boverflow%3Avisible%21important%3Bvertical%2Dalign%3Atext%2Dbottom%3Bfill%3AcurrentColor%7D%2Emarkdown%2Dbody%20input%3A%3A%2Dwebkit%2Dinner%2Dspin%2Dbutton%2C%2Emarkdown%2Dbody%20input%3A%3A%2Dwebkit%2Douter%2Dspin%2Dbutton%7Bmargin%3A0%3Bappearance%3Anone%7D%2Emarkdown%2Dbody%20%2Emr%2D2%7Bmargin%2Dright%3Avar%28%2D%2Dbase%2Dsize%2D8%2C8px%29%21important%7D%2Emarkdown%2Dbody%3A%3Abefore%7Bdisplay%3Atable%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%3A%3Aafter%7Bdisplay%3Atable%3Bclear%3Aboth%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%3E%3Afirst%2Dchild%7Bmargin%2Dtop%3A0%21important%7D%2Emarkdown%2Dbody%3E%3Alast%2Dchild%7Bmargin%2Dbottom%3A0%21important%7D%2Emarkdown%2Dbody%20a%3Anot%28%5Bhref%5D%29%7Bcolor%3Ainherit%3Btext%2Ddecoration%3Anone%7D%2Emarkdown%2Dbody%20%2Eabsent%7Bcolor%3Avar%28%2D%2DfgColor%2Ddanger%29%7D%2Emarkdown%2Dbody%20%2Eanchor%7Bfloat%3Aleft%3Bpadding%2Dright%3Avar%28%2D%2Dbase%2Dsize%2D4%29%3Bmargin%2Dleft%3A%2D20px%3Bline%2Dheight%3A1%7D%2Emarkdown%2Dbody%20%2Eanchor%3Afocus%7Boutline%3A0%7D%2Emarkdown%2Dbody%20blockquote%2C%2Emarkdown%2Dbody%20details%2C%2Emarkdown%2Dbody%20dl%2C%2Emarkdown%2Dbody%20ol%2C%2Emarkdown%2Dbody%20p%2C%2Emarkdown%2Dbody%20pre%2C%2Emarkdown%2Dbody%20table%2C%2Emarkdown%2Dbody%20ul%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3Avar%28%2D%2Dbase%2Dsize%2D16%29%7D%2Emarkdown%2Dbody%20blockquote%3E%3Afirst%2Dchild%7Bmargin%2Dtop%3A0%7D%2Emarkdown%2Dbody%20blockquote%3E%3Alast%2Dchild%7Bmargin%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20h1%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h2%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h3%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h4%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h5%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h6%20%2Eocticon%2Dlink%7Bcolor%3Avar%28%2D%2DfgColor%2Ddefault%29%3Bvertical%2Dalign%3Amiddle%3Bvisibility%3Ahidden%7D%2Emarkdown%2Dbody%20h1%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h2%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h3%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h4%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h5%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h6%3Ahover%20%2Eanchor%7Btext%2Ddecoration%3Anone%7D%2Emarkdown%2Dbody%20h1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%7Bvisibility%3Avisible%7D%2Emarkdown%2Dbody%20h1%20code%2C%2Emarkdown%2Dbody%20h1%20tt%2C%2Emarkdown%2Dbody%20h2%20code%2C%2Emarkdown%2Dbody%20h2%20tt%2C%2Emarkdown%2Dbody%20h3%20code%2C%2Emarkdown%2Dbody%20h3%20tt%2C%2Emarkdown%2Dbody%20h4%20code%2C%2Emarkdown%2Dbody%20h4%20tt%2C%2Emarkdown%2Dbody%20h5%20code%2C%2Emarkdown%2Dbody%20h5%20tt%2C%2Emarkdown%2Dbody%20h6%20code%2C%2Emarkdown%2Dbody%20h6%20tt%7Bpadding%3A0%20%2E2em%3Bfont%2Dsize%3Ainherit%7D%2Emarkdown%2Dbody%20summary%20h1%2C%2Emarkdown%2Dbody%20summary%20h2%2C%2Emarkdown%2Dbody%20summary%20h3%2C%2Emarkdown%2Dbody%20summary%20h4%2C%2Emarkdown%2Dbody%20summary%20h5%2C%2Emarkdown%2Dbody%20summary%20h6%7Bdisplay%3Ainline%2Dblock%7D%2Emarkdown%2Dbody%20summary%20h1%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h2%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h3%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h4%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h5%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h6%20%2Eanchor%7Bmargin%2Dleft%3A%2D40px%7D%2Emarkdown%2Dbody%20summary%20h1%2C%2Emarkdown%2Dbody%20summary%20h2%7Bpadding%2Dbottom%3A0%3Bborder%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20ol%2Eno%2Dlist%2C%2Emarkdown%2Dbody%20ul%2Eno%2Dlist%7Bpadding%3A0%3Blist%2Dstyle%2Dtype%3Anone%7D%2Emarkdown%2Dbody%20ol%5Btype%3D%22a%20s%22%5D%7Blist%2Dstyle%2Dtype%3Alower%2Dalpha%7D%2Emarkdown%2Dbody%20ol%5Btype%3D%22A%20s%22%5D%7Blist%2Dstyle%2Dtype%3Aupper%2Dalpha%7D%2Emarkdown%2Dbody%20ol%5Btype%3D%22i%20s%22%5D%7Blist%2Dstyle%2Dtype%3Alower%2Droman%7D%2Emarkdown%2Dbody%20ol%5Btype%3D%22I%20s%22%5D%7Blist%2Dstyle%2Dtype%3Aupper%2Droman%7D%2Emarkdown%2Dbody%20ol%5Btype%3D%221%22%5D%7Blist%2Dstyle%2Dtype%3Adecimal%7D%2Emarkdown%2Dbody%20div%3Eol%3Anot%28%5Btype%5D%29%7Blist%2Dstyle%2Dtype%3Adecimal%7D%2Emarkdown%2Dbody%20ol%20ol%2C%2Emarkdown%2Dbody%20ol%20ul%2C%2Emarkdown%2Dbody%20ul%20ol%2C%2Emarkdown%2Dbody%20ul%20ul%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20li%3Ep%7Bmargin%2Dtop%3Avar%28%2D%2Dbase%2Dsize%2D16%29%7D%2Emarkdown%2Dbody%20li%2Bli%7Bmargin%2Dtop%3A%2E25em%7D%2Emarkdown%2Dbody%20dl%7Bpadding%3A0%7D%2Emarkdown%2Dbody%20dl%20dt%7Bpadding%3A0%3Bmargin%2Dtop%3Avar%28%2D%2Dbase%2Dsize%2D16%29%3Bfont%2Dsize%3A1em%3Bfont%2Dstyle%3Aitalic%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%7D%2Emarkdown%2Dbody%20dl%20dd%7Bpadding%3A0%20var%28%2D%2Dbase%2Dsize%2D16%29%3Bmargin%2Dbottom%3Avar%28%2D%2Dbase%2Dsize%2D16%29%7D%2Emarkdown%2Dbody%20table%20th%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%7D%2Emarkdown%2Dbody%20table%20td%2C%2Emarkdown%2Dbody%20table%20th%7Bpadding%3A6px%2013px%3Bborder%3A1px%20solid%20var%28%2D%2DborderColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20table%20td%3E%3Alast%2Dchild%7Bmargin%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20table%20tr%7Bbackground%2Dcolor%3Avar%28%2D%2DbgColor%2Ddefault%29%3Bborder%2Dtop%3A1px%20solid%20var%28%2D%2DborderColor%2Dmuted%29%7D%2Emarkdown%2Dbody%20table%20tr%3Anth%2Dchild%282n%29%7Bbackground%2Dcolor%3Avar%28%2D%2DbgColor%2Dmuted%29%7D%2Emarkdown%2Dbody%20table%20img%7Bbackground%2Dcolor%3Argba%280%2C0%2C0%2C0%29%7D%2Emarkdown%2Dbody%20img%5Balign%3Dright%5D%7Bpadding%2Dleft%3A20px%7D%2Emarkdown%2Dbody%20img%5Balign%3Dleft%5D%7Bpadding%2Dright%3A20px%7D%2Emarkdown%2Dbody%20%2Eemoji%7Bmax%2Dwidth%3Anone%3Bvertical%2Dalign%3Atext%2Dtop%3Bbackground%2Dcolor%3Argba%280%2C0%2C0%2C0%29%7D%2Emarkdown%2Dbody%20span%2Eframe%7Bdisplay%3Ablock%3Boverflow%3Ahidden%7D%2Emarkdown%2Dbody%20span%2Eframe%3Espan%7Bdisplay%3Ablock%3Bfloat%3Aleft%3Bwidth%3Aauto%3Bpadding%3A7px%3Bmargin%3A13px%200%200%3Boverflow%3Ahidden%3Bborder%3A1px%20solid%20var%28%2D%2DborderColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20span%2Eframe%20span%20img%7Bdisplay%3Ablock%3Bfloat%3Aleft%7D%2Emarkdown%2Dbody%20span%2Eframe%20span%20span%7Bdisplay%3Ablock%3Bpadding%3A5px%200%200%3Bclear%3Aboth%3Bcolor%3Avar%28%2D%2DfgColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dcenter%7Bdisplay%3Ablock%3Boverflow%3Ahidden%3Bclear%3Aboth%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dcenter%3Espan%7Bdisplay%3Ablock%3Bmargin%3A13px%20auto%200%3Boverflow%3Ahidden%3Btext%2Dalign%3Acenter%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dcenter%20span%20img%7Bmargin%3A0%20auto%3Btext%2Dalign%3Acenter%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dright%7Bdisplay%3Ablock%3Boverflow%3Ahidden%3Bclear%3Aboth%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dright%3Espan%7Bdisplay%3Ablock%3Bmargin%3A13px%200%200%3Boverflow%3Ahidden%3Btext%2Dalign%3Aright%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dright%20span%20img%7Bmargin%3A0%3Btext%2Dalign%3Aright%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dleft%7Bdisplay%3Ablock%3Bfloat%3Aleft%3Bmargin%2Dright%3A13px%3Boverflow%3Ahidden%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dleft%20span%7Bmargin%3A13px%200%200%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dright%7Bdisplay%3Ablock%3Bfloat%3Aright%3Bmargin%2Dleft%3A13px%3Boverflow%3Ahidden%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dright%3Espan%7Bdisplay%3Ablock%3Bmargin%3A13px%20auto%200%3Boverflow%3Ahidden%3Btext%2Dalign%3Aright%7D%2Emarkdown%2Dbody%20code%2C%2Emarkdown%2Dbody%20tt%7Bpadding%3A%2E2em%20%2E4em%3Bmargin%3A0%3Bfont%2Dsize%3A85%25%3Bwhite%2Dspace%3Abreak%2Dspaces%3Bbackground%2Dcolor%3Avar%28%2D%2DbgColor%2Dneutral%2Dmuted%29%3Bborder%2Dradius%3A6px%7D%2Emarkdown%2Dbody%20code%20br%2C%2Emarkdown%2Dbody%20tt%20br%7Bdisplay%3Anone%7D%2Emarkdown%2Dbody%20del%20code%7Btext%2Ddecoration%3Ainherit%7D%2Emarkdown%2Dbody%20samp%7Bfont%2Dsize%3A85%25%7D%2Emarkdown%2Dbody%20pre%20code%7Bfont%2Dsize%3A100%25%7D%2Emarkdown%2Dbody%20pre%3Ecode%7Bpadding%3A0%3Bmargin%3A0%3Bword%2Dbreak%3Anormal%3Bwhite%2Dspace%3Apre%3Bbackground%3Argba%280%2C0%2C0%2C0%29%3Bborder%3A0%7D%2Emarkdown%2Dbody%20%2Ehighlight%7Bmargin%2Dbottom%3Avar%28%2D%2Dbase%2Dsize%2D16%29%7D%2Emarkdown%2Dbody%20%2Ehighlight%20pre%7Bmargin%2Dbottom%3A0%3Bword%2Dbreak%3Anormal%7D%2Emarkdown%2Dbody%20%2Ehighlight%20pre%2C%2Emarkdown%2Dbody%20pre%7Bpadding%3Avar%28%2D%2Dbase%2Dsize%2D16%29%3Boverflow%3Aauto%3Bfont%2Dsize%3A85%25%3Bline%2Dheight%3A1%2E45%3Bcolor%3Avar%28%2D%2DfgColor%2Ddefault%29%3Bbackground%2Dcolor%3Avar%28%2D%2DbgColor%2Dmuted%29%3Bborder%2Dradius%3A6px%7D%2Emarkdown%2Dbody%20pre%20code%2C%2Emarkdown%2Dbody%20pre%20tt%7Bdisplay%3Ainline%3Bpadding%3A0%3Bmargin%3A0%3Boverflow%3Avisible%3Bline%2Dheight%3Ainherit%3Bword%2Dwrap%3Anormal%3Bbackground%2Dcolor%3Argba%280%2C0%2C0%2C0%29%3Bborder%3A0%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20td%2C%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20th%7Bpadding%3A5px%3Boverflow%3Ahidden%3Bfont%2Dsize%3A12px%3Bline%2Dheight%3A1%3Btext%2Dalign%3Aleft%3Bwhite%2Dspace%3Anowrap%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20%2Eblob%2Dnum%7Bpadding%3A10px%20var%28%2D%2Dbase%2Dsize%2D8%29%209px%3Btext%2Dalign%3Aright%3Bbackground%3Avar%28%2D%2DbgColor%2Ddefault%29%3Bborder%3A0%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20tr%7Bborder%2Dtop%3A0%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20th%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bbackground%3Avar%28%2D%2DbgColor%2Dmuted%29%3Bborder%2Dtop%3A0%7D%2Emarkdown%2Dbody%20%5Bdata%2Dfootnote%2Dref%5D%3A%3Abefore%7Bcontent%3A%22%5B%22%7D%2Emarkdown%2Dbody%20%5Bdata%2Dfootnote%2Dref%5D%3A%3Aafter%7Bcontent%3A%22%5D%22%7D%2Emarkdown%2Dbody%20%2Efootnotes%7Bfont%2Dsize%3A12px%3Bcolor%3Avar%28%2D%2DfgColor%2Dmuted%29%3Bborder%2Dtop%3A1px%20solid%20var%28%2D%2DborderColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20%2Efootnotes%20ol%7Bpadding%2Dleft%3Avar%28%2D%2Dbase%2Dsize%2D16%29%7D%2Emarkdown%2Dbody%20%2Efootnotes%20ol%20ul%7Bdisplay%3Ainline%2Dblock%3Bpadding%2Dleft%3Avar%28%2D%2Dbase%2Dsize%2D16%29%3Bmargin%2Dtop%3Avar%28%2D%2Dbase%2Dsize%2D16%29%7D%2Emarkdown%2Dbody%20%2Efootnotes%20li%7Bposition%3Arelative%7D%2Emarkdown%2Dbody%20%2Efootnotes%20li%3Atarget%3A%3Abefore%7Bposition%3Aabsolute%3Btop%3Acalc%28var%28%2D%2Dbase%2Dsize%2D8%29%2A%2D1%29%3Bright%3Acalc%28var%28%2D%2Dbase%2Dsize%2D8%29%2A%2D1%29%3Bbottom%3Acalc%28var%28%2D%2Dbase%2Dsize%2D8%29%2A%2D1%29%3Bleft%3Acalc%28var%28%2D%2Dbase%2Dsize%2D24%29%2A%2D1%29%3Bpointer%2Devents%3Anone%3Bcontent%3A%22%22%3Bborder%3A2px%20solid%20var%28%2D%2DborderColor%2Daccent%2Demphasis%29%3Bborder%2Dradius%3A6px%7D%2Emarkdown%2Dbody%20%2Efootnotes%20li%3Atarget%7Bcolor%3Avar%28%2D%2DfgColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20%2Efootnotes%20%2Edata%2Dfootnote%2Dbackref%20g%2Demoji%7Bfont%2Dfamily%3Amonospace%7D%2Emarkdown%2Dbody%20%2Epl%2Dc%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcomment%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dc1%2C%2Emarkdown%2Dbody%20%2Epl%2Ds%20%2Epl%2Dv%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%29%7D%2Emarkdown%2Dbody%20%2Epl%2De%2C%2Emarkdown%2Dbody%20%2Epl%2Den%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%29%7D%2Emarkdown%2Dbody%20%2Epl%2Ds%20%2Epl%2Ds1%2C%2Emarkdown%2Dbody%20%2Epl%2Dsmi%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstorage%2Dmodifier%2Dimport%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dent%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%2Dtag%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dk%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dkeyword%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dpds%2C%2Emarkdown%2Dbody%20%2Epl%2Ds%2C%2Emarkdown%2Dbody%20%2Epl%2Ds%20%2Epl%2Dpse%20%2Epl%2Ds1%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dcce%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dsra%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dsre%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dsmw%2C%2Emarkdown%2Dbody%20%2Epl%2Dv%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dvariable%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dbu%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dunmatched%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dii%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dc2%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dcce%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%2Dregexp%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dml%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dlist%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmh%2C%2Emarkdown%2Dbody%20%2Epl%2Dmh%20%2Epl%2Den%2C%2Emarkdown%2Dbody%20%2Epl%2Dms%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dheading%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmi%7Bfont%2Dstyle%3Aitalic%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ditalic%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmb%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dbold%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmd%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmi1%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmc%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmi2%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmdr%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmeta%2Ddiff%2Drange%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dba%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dangle%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dsg%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dsublimelinter%2Dgutter%2Dmark%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dcorl%7Btext%2Ddecoration%3Aunderline%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%2Dother%2Dreference%2Dlink%29%7D%2Emarkdown%2Dbody%20%5Brole%3Dbutton%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20%5Brole%3Dtabpanel%5D%5Btabindex%3D%220%22%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20a%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20button%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20summary%3Afocus%3Anot%28%3Afocus%2Dvisible%29%7Boutline%3A0%3Bbox%2Dshadow%3Anone%7D%2Emarkdown%2Dbody%20%5Btabindex%3D%220%22%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20details%2Ddialog%3Afocus%3Anot%28%3Afocus%2Dvisible%29%7Boutline%3A0%7D%2Emarkdown%2Dbody%20g%2Demoji%7Bdisplay%3Ainline%2Dblock%3Bmin%2Dwidth%3A1ch%3Bfont%2Dfamily%3A%22Apple%20Color%20Emoji%22%2C%22Segoe%20UI%20Emoji%22%2C%22Segoe%20UI%20Symbol%22%3Bfont%2Dsize%3A1em%3Bfont%2Dstyle%3Anormal%21important%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dnormal%2C400%29%3Bline%2Dheight%3A1%3Bvertical%2Dalign%3A%2D%2E075em%7D%2Emarkdown%2Dbody%20g%2Demoji%20img%7Bwidth%3A1em%3Bheight%3A1em%7D%2Emarkdown%2Dbody%20a%3Ahas%28%3Ep%2C%3Ediv%2C%3Epre%2C%3Eblockquote%29%7Bdisplay%3Ablock%7D%2Emarkdown%2Dbody%20a%3Ahas%28%3Ep%2C%3Ediv%2C%3Epre%2C%3Eblockquote%29%3Anot%28%3Ahas%28%2Esnippet%2Dclipboard%2Dcontent%2C%3Epre%29%29%7Bwidth%3Afit%2Dcontent%7D%2Emarkdown%2Dbody%20a%3Ahas%28%3Ep%2C%3Ediv%2C%3Epre%2C%3Eblockquote%29%3Ahas%28%2Esnippet%2Dclipboard%2Dcontent%2C%3Epre%29%3Afocus%2Dvisible%7Boutline%3A2px%20solid%20var%28%2D%2Dfocus%2DoutlineColor%29%3Boutline%2Doffset%3A2px%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%7Blist%2Dstyle%2Dtype%3Anone%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%20label%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dnormal%2C400%29%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%2Eenabled%20label%7Bcursor%3Apointer%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%2B%2Etask%2Dlist%2Ditem%7Bmargin%2Dtop%3Avar%28%2D%2Dbase%2Dsize%2D4%29%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%20%2Ehandle%7Bdisplay%3Anone%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%2Dcheckbox%7Bmargin%3A0%20%2E2em%20%2E25em%20%2D1%2E4em%3Bvertical%2Dalign%3Amiddle%7D%2Emarkdown%2Dbody%20ul%3Adir%28rtl%29%20%2Etask%2Dlist%2Ditem%2Dcheckbox%7Bmargin%3A0%20%2D1%2E6em%20%2E25em%20%2E2em%7D%2Emarkdown%2Dbody%20ol%3Adir%28rtl%29%20%2Etask%2Dlist%2Ditem%2Dcheckbox%7Bmargin%3A0%20%2D1%2E6em%20%2E25em%20%2E2em%7D%2Emarkdown%2Dbody%20%2Econtains%2Dtask%2Dlist%3Afocus%2Dwithin%20%2Etask%2Dlist%2Ditem%2Dconvert%2Dcontainer%2C%2Emarkdown%2Dbody%20%2Econtains%2Dtask%2Dlist%3Ahover%20%2Etask%2Dlist%2Ditem%2Dconvert%2Dcontainer%7Bdisplay%3Ablock%3Bwidth%3Aauto%3Bheight%3A24px%3Boverflow%3Avisible%3Bclip%2Dpath%3Anone%7D%2Emarkdown%2Dbody%20%3A%3A%2Dwebkit%2Dcalendar%2Dpicker%2Dindicator%7Bfilter%3Ainvert%2850%25%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%7Bpadding%3Avar%28%2D%2Dbase%2Dsize%2D8%29%20var%28%2D%2Dbase%2Dsize%2D16%29%3Bmargin%2Dbottom%3Avar%28%2D%2Dbase%2Dsize%2D16%29%3Bcolor%3Ainherit%3Bborder%2Dleft%3A%2E25em%20solid%20var%28%2D%2DborderColor%2Ddefault%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%3E%3Afirst%2Dchild%7Bmargin%2Dtop%3A0%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%3E%3Alast%2Dchild%7Bmargin%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%20%2Emarkdown%2Dalert%2Dtitle%7Bdisplay%3Aflex%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dmedium%2C500%29%3Balign%2Ditems%3Acenter%3Bline%2Dheight%3A1%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dnote%7Bborder%2Dleft%2Dcolor%3Avar%28%2D%2DborderColor%2Daccent%2Demphasis%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dnote%20%2Emarkdown%2Dalert%2Dtitle%7Bcolor%3Avar%28%2D%2DfgColor%2Daccent%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dimportant%7Bborder%2Dleft%2Dcolor%3Avar%28%2D%2DborderColor%2Ddone%2Demphasis%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dimportant%20%2Emarkdown%2Dalert%2Dtitle%7Bcolor%3Avar%28%2D%2DfgColor%2Ddone%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dwarning%7Bborder%2Dleft%2Dcolor%3Avar%28%2D%2DborderColor%2Dattention%2Demphasis%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dwarning%20%2Emarkdown%2Dalert%2Dtitle%7Bcolor%3Avar%28%2D%2DfgColor%2Dattention%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dtip%7Bborder%2Dleft%2Dcolor%3Avar%28%2D%2DborderColor%2Dsuccess%2Demphasis%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dtip%20%2Emarkdown%2Dalert%2Dtitle%7Bcolor%3Avar%28%2D%2DfgColor%2Dsuccess%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dcaution%7Bborder%2Dleft%2Dcolor%3Avar%28%2D%2DborderColor%2Ddanger%2Demphasis%29%7D%2Emarkdown%2Dbody%20%2Emarkdown%2Dalert%2Emarkdown%2Dalert%2Dcaution%20%2Emarkdown%2Dalert%2Dtitle%7Bcolor%3Avar%28%2D%2DfgColor%2Ddanger%29%7D%2Emarkdown%2Dbody%3E%3Afirst%2Dchild%3E%2Eheading%2Delement%3Afirst%2Dchild%7Bmargin%2Dtop%3A0%21important%7D%2Emarkdown%2Dbody%20%2Ehighlight%20pre%3Ahas%28%2B%2Ezeroclipboard%2Dcontainer%29%7Bmin%2Dheight%3A52px%7D%0A" rel="stylesheet" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Deep Research Agent: Landscape Report &amp;
+Architectural Analysis</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#deep-research-agent-landscape-report-architectural-analysis" id="toc-deep-research-agent-landscape-report-architectural-analysis">Deep
+Research Agent: Landscape Report &amp; Architectural Analysis</a>
+<ul>
+<li><a href="#table-of-contents" id="toc-table-of-contents">Table of
+Contents</a></li>
+<li><a href="#executive-summary" id="toc-executive-summary">1. Executive
+Summary</a></li>
+<li><a href="#key-architectural-patterns" id="toc-key-architectural-patterns">2. Key Architectural
+Patterns</a></li>
+<li><a href="#tech-stack-components" id="toc-tech-stack-components">3.
+Tech Stack Components</a></li>
+<li><a href="#comparative-analysis-pros-cons" id="toc-comparative-analysis-pros-cons">4. Comparative Analysis: Pros
+&amp; Cons</a></li>
+<li><a href="#state-of-the-art-findings-june-2026" id="toc-state-of-the-art-findings-june-2026">5. State-of-the-Art
+Findings (June 2026)</a></li>
+<li><a href="#gaps-in-the-current-landscape" id="toc-gaps-in-the-current-landscape">6. Gaps in the Current
+Landscape</a></li>
+<li><a href="#recommendations" id="toc-recommendations">7.
+Recommendations</a></li>
+<li><a href="#source-index" id="toc-source-index">8. Source
+Index</a></li>
+<li><a href="#appendix-your-dra-design-validation" id="toc-appendix-your-dra-design-validation">Appendix: Your DRA Design
+Validation</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="deep-research-agent-landscape-report-architectural-analysis">Deep
+Research Agent: Landscape Report &amp; Architectural Analysis</h1>
+<blockquote>
+<p><strong>Compiled:</strong> 2026-06-10<br />
+<strong>Sources:</strong> GitHub (20+ repos), YouTube (47+
+videos/talks), Arxiv (40+ papers)<br />
+<strong>Scope:</strong> Architectures, tech stacks, design choices,
+pros/cons, and recommendations for building a production-grade Deep
+Research Agent system.</p>
+</blockquote>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#1-executive-summary">Executive Summary</a></li>
+<li><a href="#2-key-architectural-patterns">Key Architectural
+Patterns</a></li>
+<li><a href="#3-tech-stack-components">Tech Stack Components</a></li>
+<li><a href="#4-comparative-analysis-pros--cons">Comparative Analysis:
+Pros &amp; Cons</a></li>
+<li><a href="#5-state-of-the-art-findings-june-2026">State-of-the-Art
+Findings (June 2026)</a></li>
+<li><a href="#6-gaps-in-the-current-landscape">Gaps in the Current
+Landscape</a></li>
+<li><a href="#7-recommendations">Recommendations</a></li>
+<li><a href="#8-source-index">Source Index</a></li>
+</ol>
+<hr />
+<h2 id="executive-summary">1. Executive Summary</h2>
+<p>The Deep Research Agent space has exploded in 2025-2026. There are
+now <strong>20+ significant open-source implementations</strong> (from
+172 to 35K+ stars), <strong>40+ academic papers</strong> directly
+addressing research agents, and a rich ecosystem of tutorials and
+framework-level tooling.</p>
+<p><strong>The field converges around a core insight:</strong> the hard
+problem is not generating research reports – it’s <em>verifying</em>
+them. Most systems (GPT-Researcher, STORM, LangChain Open Deep Research)
+produce plausible output but lack rigorous claim verification. The
+academic frontier (Search-R1, VERITAS, Self-RAG) is pushing toward
+RL-trained search, process-level rewards, and adaptive retrieval – but
+almost no deployed system combines independent verification, calibrated
+confidence, and adaptive retrieval in a single loop.</p>
+<h3 id="key-takeaways">Key Takeaways</h3>
+<ul>
+<li><strong>Architecture:</strong> The field is settling on
+plan-decompose-search-synthesize as the base loop, with verification as
+the differentiator</li>
+<li><strong>Training vs. Prompting:</strong> RL-trained agents
+(Search-R1 family) outperform prompt-engineered ones on benchmarks, but
+require significant GPU resources</li>
+<li><strong>Verification:</strong> Independent model-diverse judges
+outperform homogeneous panels; self-evaluation provides zero calibration
+information without external labels</li>
+<li><strong>Retrieval:</strong> Adaptive retrieval (triggered by
+uncertainty/verification failure) is strictly superior to fixed
+retrieval strategies</li>
+<li><strong>Evaluation:</strong> Best current systems achieve only
+~19.9% on structural verification tasks – this is an unsolved
+problem</li>
+</ul>
+<hr />
+<h2 id="key-architectural-patterns">2. Key Architectural Patterns</h2>
+<h3 id="pattern-a-recursive-tree-exploration">Pattern A: Recursive Tree
+Exploration</h3>
+<p><strong>How it works:</strong> Breadth-first recursive search with
+configurable depth and width. Each iteration generates sub-queries,
+processes results to extract learnings and new directions, recurses
+until depth=0.</p>
+<p><strong>Examples:</strong> dzhng/deep-research (19.1K stars),
+GPT-Researcher Deep Mode</p>
+<p><strong>Flow:</strong></p>
+<pre><code>Query → Generate sub-queries → Search each → Extract learnings
+  ↓
+New directions discovered? → Recurse (depth-1) → Compile final report</code></pre>
+<p><strong>Characteristics:</strong> - Simplest architecture (&lt;500
+LoC in minimal form) - Configurable breadth (3-10) and depth (1-5) - No
+explicit verification step - Relies on iterative refinement over
+correctness checking</p>
+<hr />
+<h3 id="pattern-b-plan-and-execute-with-specialized-agents">Pattern B:
+Plan-and-Execute with Specialized Agents</h3>
+<p><strong>How it works:</strong> A planner decomposes the query into
+sub-tasks. Specialized agents (searcher, analyzer, writer) execute in
+parallel or sequence. A publisher/synthesizer aggregates results.</p>
+<p><strong>Examples:</strong> GPT-Researcher (27.6K stars), LangChain
+Open Deep Research (11.7K stars), AWS Strands 5-agent framework</p>
+<p><strong>Flow:</strong></p>
+<pre><code>Query → Planner (decompose into sub-questions)
+  ↓
+Parallel Execution: Agent₁(search q1) | Agent₂(search q2) | Agent₃(search q3)
+  ↓
+Aggregator/Editor → Structured Report</code></pre>
+<p><strong>Characteristics:</strong> - Most production-deployed pattern
+- Different models for different roles (cheap for search/summarization,
+expensive for synthesis) - Parallelizable for latency reduction - No
+per-claim verification – relies on multi-source aggregation to reduce
+bias</p>
+<hr />
+<h3 id="pattern-c-multi-perspective-simulation-storm">Pattern C:
+Multi-Perspective Simulation (STORM)</h3>
+<p><strong>How it works:</strong> Discovers diverse expert perspectives
+on a topic, simulates conversations between perspectives grounded in
+retrieved sources, curates into outline, then generates cited
+article.</p>
+<p><strong>Examples:</strong> Stanford STORM (28.3K stars), Co-STORM</p>
+<p><strong>Flow:</strong></p>
+<pre><code>Topic → Discover Perspectives (N experts)
+  ↓
+Simulate Grounded Conversations (perspective × questions)
+  ↓
+Curate Knowledge → Generate Outline → Write Cited Article → Polish</code></pre>
+<p><strong>Characteristics:</strong> - Multi-perspective ensures
+coverage breadth - 4-module pipeline (Knowledge Curation, Outline,
+Article, Polish) - Published at NAACL 2024 / EMNLP 2024 - No explicit
+verification – relies on multi-source grounding - Best for
+Wikipedia-style comprehensive coverage</p>
+<hr />
+<h3 id="pattern-d-rl-trained-search-agent-search-r1-family">Pattern D:
+RL-Trained Search Agent (Search-R1 Family)</h3>
+<p><strong>How it works:</strong> Train the model itself via
+reinforcement learning to decide when/what to search during step-by-step
+reasoning. The model generates special tokens to invoke search, then
+continues reasoning with retrieved results.</p>
+<p><strong>Examples:</strong> Search-R1 (4.9K stars), R1-Searcher,
+Alibaba DeepResearch (19.4K stars), WebThinker (1.5K stars),
+DeepDiver</p>
+<p><strong>Flow:</strong></p>
+<pre><code>Query → Model generates reasoning tokens
+  ↓ (model decides to search)
+&lt;search&gt;generated query&lt;/search&gt; → Retrieval system returns results
+  ↓
+Model continues reasoning with results → May search again → Final answer</code></pre>
+<p><strong>Training:</strong></p>
+<pre><code>SFT warmup (optional) → RL with GRPO/PPO → Outcome reward (correctness)
+  + Process rewards (faithfulness, step quality)</code></pre>
+<p><strong>Characteristics:</strong> - SOTA on benchmarks (BrowseComp,
+FRAMES, HLE) - 7B models can match GPT-4o-mini performance - Requires
+significant GPU resources for training (8xA100+) - Most principled but
+least accessible - “Search Intensity Scaling” emerges – model escalates
+search frequency on harder problems</p>
+<hr />
+<h3 id="pattern-e-self-critique-with-reflection-tokens-self-rag">Pattern
+E: Self-Critique with Reflection Tokens (Self-RAG)</h3>
+<p><strong>How it works:</strong> The model generates special reflection
+tokens during generation:
+<code>[Retrieval]</code>/<code>[No Retrieval]</code> (decides when to
+retrieve), <code>[Relevant]</code> (relevance check),
+<code>[Fully supported]</code> (grounding check), <code>[Utility]</code>
+(quality). Segment-wise beam search over these critique dimensions.</p>
+<p><strong>Examples:</strong> Self-RAG (2.4K stars, ICLR 2024 Oral),
+FLARE (CMU)</p>
+<p><strong>Flow:</strong></p>
+<pre><code>Generate segment → [Retrieval] token? 
+  → Yes: Retrieve → [Relevant]? → Generate with evidence → [Fully Supported]?
+  → No: Continue generation
+  ↓
+Segment-wise beam search over (relevance × support × utility)</code></pre>
+<p><strong>Characteristics:</strong> - Most elegant adaptive retrieval
+with learned verification - On-demand retrieval (not always-retrieve) -
+Configurable inference weights for different dimensions - Requires full
+model training (Llama-2 base) - ICLR 2024 Oral (top 1% of
+submissions)</p>
+<hr />
+<h3 id="pattern-f-adversarial-multi-agent-verification">Pattern F:
+Adversarial Multi-Agent Verification</h3>
+<p><strong>How it works:</strong> Separate agent roles
+(Builder/Proposer, Skeptic/Verifier, Arbiter/Judge) with deliberately
+different models to prevent “theatrical disagreement.” Claims are
+structured as a DAG with epistemic layers.</p>
+<p><strong>Examples:</strong> MARs (Builder/Skeptic/Arbiter), PROClaim
+(Plaintiff/Defense/Judge), SAGE (Challenger/Planner/Solver/Critic)</p>
+<p><strong>Flow:</strong></p>
+<pre><code>Builder proposes claims with evidence
+  ↓
+Skeptic (different model) attempts to refute each claim
+  ↓
+Arbiter adjudicates: Supported | Contested | Insufficient
+  ↓
+Rejected claims → limitations section (not deleted)
+Insufficient claims → trigger more retrieval</code></pre>
+<p><strong>Characteristics:</strong> - Most rigorous for scientific
+methodology - Model independence prevents correlated errors -
+Computationally expensive (multiple expensive model calls per claim) -
+Small community adoption - Best suited for high-stakes research where
+correctness &gt;&gt; speed</p>
+<hr />
+<h3 id="pattern-g-iterative-verify-then-retrieve-loop">Pattern G:
+Iterative Verify-then-Retrieve Loop</h3>
+<p><strong>How it works:</strong> Generate claims with citations,
+independently verify each claim against its evidence, route by
+verification verdict (supported → accept, insufficient → re-search,
+refuted → revise, weak → switch tool). Loop until convergence.</p>
+<p><strong>Examples:</strong> Your DRA design (proposed), AlignRAG
+(NeurIPS 2025), ADORE (enterprise)</p>
+<p><strong>Flow:</strong></p>
+<pre><code>Generate claims + citation links → Independent Verifier scores each
+  ↓
+Verdict routing:
+  supported (≥τ) → accept to final report
+  insufficient → re-search with refined query
+  refuted → revise claim or mark as contested
+  weak → switch retrieval tool
+  ↓
+Loop until: all claims resolved | max_iters | no-progress | budget exhausted
+  ↓
+Compile ResearchReport (supported + contested + insufficient claims)</code></pre>
+<p><strong>Characteristics:</strong> - Verification drives retrieval
+(not the other way around) - Naturally produces per-claim confidence -
+Separates generation from verification (model independence) - Most
+architecturally novel – few implementations exist - Requires careful
+convergence criteria</p>
+<hr />
+<h2 id="tech-stack-components">3. Tech Stack Components</h2>
+<h3 id="orchestration-frameworks">3.1 Orchestration Frameworks</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 16%" />
+<col style="width: 14%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Stars</th>
+<th>Type</th>
+<th>Best For</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LangGraph</strong></td>
+<td>11.7K (Open DR)</td>
+<td>Graph-based state machines</td>
+<td>Complex branching, conditional loops, parallel processing</td>
+<td>Active, dominant</td>
+</tr>
+<tr>
+<td><strong>CrewAI</strong></td>
+<td>~15K</td>
+<td>Role-based multi-agent</td>
+<td>Quick prototyping, role specialization</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>AutoGen</strong> (Microsoft)</td>
+<td>58.8K</td>
+<td>Message-passing agents</td>
+<td>Distributed, event-driven systems</td>
+<td><strong>Maintenance mode</strong> (deprecated for MAF)</td>
+</tr>
+<tr>
+<td><strong>DSPy</strong></td>
+<td>~15K</td>
+<td>Declarative prompt programming</td>
+<td>Optimization, modular pipelines</td>
+<td>Active (used by STORM)</td>
+</tr>
+<tr>
+<td><strong>veRL</strong></td>
+<td>~5K</td>
+<td>RL training framework</td>
+<td>Training search-augmented agents</td>
+<td>Active (Search-R1 family)</td>
+</tr>
+<tr>
+<td><strong>AWS Strands</strong></td>
+<td>New</td>
+<td>Agent framework</td>
+<td>AWS Bedrock integration</td>
+<td>Active, enterprise</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict:</strong> LangGraph dominates for deployed research
+agents. DSPy for modular pipeline optimization. veRL/OpenRLHF for
+training-based approaches.</p>
+<h3 id="llm-providers-models">3.2 LLM Providers &amp; Models</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 63%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Role</th>
+<th>Recommended Models</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Generator</strong> (report writing)</td>
+<td>Claude Opus/Sonnet, GPT-4.1, Qwen3-235B</td>
+<td>Best long-form quality</td>
+</tr>
+<tr>
+<td><strong>Planner</strong> (query decomposition)</td>
+<td>GPT-4.1-mini, Claude Haiku, Qwen3-8B</td>
+<td>Fast, cheap, structured output</td>
+</tr>
+<tr>
+<td><strong>In-loop Verifier</strong></td>
+<td>Different family from generator (e.g., if generator=Claude,
+verifier=GPT or Gemini)</td>
+<td>Model independence prevents correlated errors</td>
+</tr>
+<tr>
+<td><strong>Judge Panel</strong></td>
+<td>Mix of families: Claude + GPT + Gemini + open-source</td>
+<td>Diversity &gt; homogeneity (validated by research)</td>
+</tr>
+<tr>
+<td><strong>Reasoning-heavy</strong></td>
+<td>o3/o4-mini, DeepSeek-R1, QwQ-32B</td>
+<td>Extended reasoning chains</td>
+</tr>
+<tr>
+<td><strong>Local/Cost-efficient</strong></td>
+<td>Qwen3-8B, LLaMA-3-8B, Mistral</td>
+<td>Development/testing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key insight from literature:</strong> “Nine Judges, Two
+Effective Votes” (arXiv 2605.29800) proves that using 9 LLM judges from
+correlated families effectively provides only ~2 independent votes.
+<strong>Model-family diversity is non-negotiable for judge
+panels.</strong></p>
+<h3 id="searchretrieval-apis">3.3 Search/Retrieval APIs</h3>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 26%" />
+<col style="width: 29%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Type</th>
+<th>Strengths</th>
+<th>Weaknesses</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tavily</strong></td>
+<td>AI-native search API</td>
+<td>Most popular in agent ecosystem; structured output; fast</td>
+<td>Limited depth per result</td>
+<td>$0.01/search</td>
+</tr>
+<tr>
+<td><strong>Exa</strong></td>
+<td>Neural/semantic search</td>
+<td>Semantic understanding; finds conceptually related content;
+citation-native</td>
+<td>Smaller index than Google</td>
+<td>Free tier available</td>
+</tr>
+<tr>
+<td><strong>SearXNG</strong></td>
+<td>Meta-search (self-hosted)</td>
+<td>Privacy; no API costs; aggregates 70+ engines</td>
+<td>Requires hosting; rate limits from upstream</td>
+<td>Free (self-host)</td>
+</tr>
+<tr>
+<td><strong>Jina Reader</strong></td>
+<td>Page extraction</td>
+<td>Clean text from any URL; handles JS-rendered pages</td>
+<td>Rate limited on free tier</td>
+<td>Free tier + paid</td>
+</tr>
+<tr>
+<td><strong>Firecrawl</strong></td>
+<td>Web scraping + search</td>
+<td>Deep extraction; structured data</td>
+<td>Rate limits</td>
+<td>Free tier + paid</td>
+</tr>
+<tr>
+<td><strong>Serper</strong></td>
+<td>Google SERP API</td>
+<td>Google-quality results</td>
+<td>$50/5000 searches</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td><strong>Semantic Scholar</strong></td>
+<td>Academic papers</td>
+<td>Best for scientific literature; free</td>
+<td>Limited to academic content</td>
+<td>Free</td>
+</tr>
+<tr>
+<td><strong>Brave Search</strong></td>
+<td>Web search API</td>
+<td>Good privacy; decent quality</td>
+<td>Smaller index</td>
+<td>Free tier</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict:</strong> Tavily is the default for general web
+research. Exa for semantic/conceptual search. Semantic Scholar for
+academic papers. Multi-tool strategy is ideal (route by query type).</p>
+<h3 id="vector-databases-for-ragprivate-data">3.4 Vector Databases (for
+RAG/Private Data)</h3>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 35%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>Database</th>
+<th>Strengths</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Milvus/Zilliz</strong></td>
+<td>Scalable, cloud-native</td>
+<td>Enterprise private data research</td>
+</tr>
+<tr>
+<td><strong>Qdrant</strong></td>
+<td>Rust-native performance</td>
+<td>High-throughput retrieval</td>
+</tr>
+<tr>
+<td><strong>ChromaDB</strong></td>
+<td>Simple, embedded</td>
+<td>Prototyping, small datasets</td>
+</tr>
+<tr>
+<td><strong>FAISS</strong></td>
+<td>Facebook, CPU/GPU</td>
+<td>Training pipelines, offline indexing</td>
+</tr>
+<tr>
+<td><strong>Pinecone</strong></td>
+<td>Managed, serverless</td>
+<td>Production without ops overhead</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evaluation-observability">3.5 Evaluation &amp;
+Observability</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 40%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LangSmith</strong></td>
+<td>LLM tracing, evaluation</td>
+<td>LangChain ecosystem native</td>
+</tr>
+<tr>
+<td><strong>Weights &amp; Biases</strong></td>
+<td>Experiment tracking</td>
+<td>Standard for RL training runs</td>
+</tr>
+<tr>
+<td><strong>Braintrust</strong></td>
+<td>LLM evaluation platform</td>
+<td>Purpose-built for LLM-as-judge</td>
+</tr>
+<tr>
+<td><strong>Verdict</strong> (arXiv 2502.18018)</td>
+<td>Judge-time compute scaling</td>
+<td>Open-source; applies inference scaling to judges</td>
+</tr>
+<tr>
+<td><strong>DeepEval</strong></td>
+<td>LLM evaluation framework</td>
+<td>Multiple metrics, easy integration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deployment-infrastructure">3.6 Deployment Infrastructure</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>FastAPI, Docker, LangGraph Platform, AWS Lambda</td>
+</tr>
+<tr>
+<td><strong>Compute</strong></td>
+<td>AWS Bedrock, local GPU (NVIDIA), cloud VMs</td>
+</tr>
+<tr>
+<td><strong>Frontend</strong></td>
+<td>Next.js, Streamlit, Chainlit, Gradio</td>
+</tr>
+<tr>
+<td><strong>CI/CD</strong></td>
+<td>Standard (GitHub Actions), LangGraph Cloud</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="comparative-analysis-pros-cons">4. Comparative Analysis: Pros
+&amp; Cons</h2>
+<h3 id="architecture-comparison-matrix">Architecture Comparison
+Matrix</h3>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr>
+<th>Dimension</th>
+<th style="text-align: center;">Recursive Tree (A)</th>
+<th style="text-align: center;">Plan-Execute (B)</th>
+<th style="text-align: center;">STORM (C)</th>
+<th style="text-align: center;">RL-Trained (D)</th>
+<th style="text-align: center;">Self-RAG (E)</th>
+<th style="text-align: center;">Adversarial (F)</th>
+<th style="text-align: center;">Verify-Loop (G)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simplicity</strong></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr>
+<td><strong>Verification rigor</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr>
+<td><strong>Confidence scoring</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr>
+<td><strong>Adaptive retrieval</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr>
+<td><strong>Production readiness</strong></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr>
+<td><strong>Cost efficiency</strong></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td><strong>Academic grounding</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td><strong>Community/ecosystem</strong></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p><em>(Scale: 1=weakest, 5=strongest)</em></p>
+<h3 id="detailed-proscons-by-pattern">Detailed Pros/Cons by Pattern</h3>
+<h4 id="pattern-a-recursive-tree-exploration-1">Pattern A: Recursive
+Tree Exploration</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extremely simple to implement (&lt;500 LoC)</td>
+<td>No verification – hallucinations propagate</td>
+</tr>
+<tr>
+<td>Easy to understand and debug</td>
+<td>No confidence scoring</td>
+</tr>
+<tr>
+<td>Configurable depth/breadth trade-off</td>
+<td>Depth explosion on broad topics</td>
+</tr>
+<tr>
+<td>Fast iteration for prototyping</td>
+<td>Quality ceiling – refinement ≠ correctness</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pattern-b-plan-and-execute-multi-agent">Pattern B:
+Plan-and-Execute (Multi-Agent)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Most battle-tested in production</td>
+<td>Multi-source aggregation ≠ verification</td>
+</tr>
+<tr>
+<td>Parallelizable (fast wall-clock time)</td>
+<td>Agent coordination overhead</td>
+</tr>
+<tr>
+<td>Role specialization (use cheap models where possible)</td>
+<td>Error propagation across agents</td>
+</tr>
+<tr>
+<td>Extensive tooling (LangGraph, GPT-Researcher)</td>
+<td>Debugging multi-agent workflows is hard</td>
+</tr>
+<tr>
+<td>~$0.40/run for deep research</td>
+<td>No per-claim confidence</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pattern-c-multi-perspective-simulation-storm-1">Pattern C:
+Multi-Perspective Simulation (STORM)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Excellent topic coverage (multi-perspective)</td>
+<td>No explicit fact-checking</td>
+</tr>
+<tr>
+<td>Academic rigor (NAACL 2024)</td>
+<td>Cannot produce publication-ready output</td>
+</tr>
+<tr>
+<td>Great for Wikipedia-style articles</td>
+<td>Source bias transfers to output</td>
+</tr>
+<tr>
+<td>Modular 4-stage pipeline</td>
+<td>Over-association of unrelated facts</td>
+</tr>
+<tr>
+<td>DSPy-based (optimizable)</td>
+<td>Static perspectives (doesn’t adapt mid-research)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pattern-d-rl-trained-search-agent">Pattern D: RL-Trained Search
+Agent</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SOTA benchmarks (BrowseComp, FRAMES, HLE)</td>
+<td>Requires 8xA100+ for training</td>
+</tr>
+<tr>
+<td>Model learns optimal search behavior</td>
+<td>Not accessible without GPU infrastructure</td>
+</tr>
+<tr>
+<td>Emergent “Search Intensity Scaling”</td>
+<td>Static training corpus (Wikipedia)</td>
+</tr>
+<tr>
+<td>7B models match GPT-4o-mini</td>
+<td>Coarse credit assignment (outcome-only)</td>
+</tr>
+<tr>
+<td>Most principled long-term approach</td>
+<td>Non-reproducible (web content changes)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pattern-e-self-critique-self-rag">Pattern E: Self-Critique /
+Self-RAG</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Elegant adaptive retrieval</td>
+<td>Requires full model training</td>
+</tr>
+<tr>
+<td>On-demand retrieval (not always-retrieve)</td>
+<td>Older base model (Llama-2)</td>
+</tr>
+<tr>
+<td>Configurable at inference time</td>
+<td>High training cost</td>
+</tr>
+<tr>
+<td>ICLR 2024 Oral (top 1%)</td>
+<td>Implicit confidence (beam weights, not explicit scores)</td>
+</tr>
+<tr>
+<td>Preserves LLM versatility when retrieval not needed</td>
+<td>Static corpus</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pattern-f-adversarial-multi-agent">Pattern F: Adversarial
+Multi-Agent</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Most rigorous verification</td>
+<td>Very expensive (multiple expensive model calls per claim)</td>
+</tr>
+<tr>
+<td>Model independence prevents correlated errors</td>
+<td>Complex orchestration</td>
+</tr>
+<tr>
+<td>Principled falsification methodology</td>
+<td>Slow (sequential claim processing)</td>
+</tr>
+<tr>
+<td>Rejected claims preserved (not deleted)</td>
+<td>Tiny community (&lt;20 stars)</td>
+</tr>
+<tr>
+<td>Epistemic layer tracking</td>
+<td>Requires careful prompt engineering for each role</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pattern-g-verify-then-retrieve-loop">Pattern G:
+Verify-then-Retrieve Loop</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verification drives retrieval (causally correct)</td>
+<td>Few existing implementations to reference</td>
+</tr>
+<tr>
+<td>Natural per-claim confidence output</td>
+<td>Convergence criteria need tuning</td>
+</tr>
+<tr>
+<td>Separates concerns (generate ≠ verify)</td>
+<td>Multiple model calls per claim per iteration</td>
+</tr>
+<tr>
+<td>Handles all verdict types (supported/contested/insufficient)</td>
+<td>Risk of infinite loops without proper termination</td>
+</tr>
+<tr>
+<td>Evidence stays verbatim (not summarized)</td>
+<td>Cold-start problem (first-pass claims may all be weak)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="state-of-the-art-findings-june-2026">5. State-of-the-Art
+Findings (June 2026)</h2>
+<h3 id="critical-research-findings">Critical Research Findings</h3>
+<ol type="1">
+<li><p><strong>Citation quality ≠ factual accuracy</strong> — “Cited but
+Not Verified” (arXiv 2605.06635) shows best models achieve &gt;94% valid
+links but only 39-77% factual accuracy. More retrieval does NOT equal
+better grounding – accuracy drops ~42% as tool calls scale from 2 to
+150.</p></li>
+<li><p><strong>Self-evaluation provides zero calibration
+information</strong> without external labels — “The Verification Tax”
+(arXiv 2604.12951) proves this formally. Implications: you MUST
+calibrate against ground truth, not self-assess.</p></li>
+<li><p><strong>Best systems achieve only 19.9% on structural
+verification</strong> — “Intent to Evidence” (arXiv 2603.25342) shows
+agents struggle with “long-horizon synthesis and intersection-heavy
+verification.”</p></li>
+<li><p><strong>Faithfulness ≠ correctness</strong> — VERITAS (arXiv
+2510.13272) shows outcome-correct agents can still reason unfaithfully.
+Step-level faithfulness rewards are needed beyond outcome
+rewards.</p></li>
+<li><p><strong>Diverse judges &gt;&gt; homogeneous panels</strong> —
+Diverse medium-capacity models (Gemini-Pro + Mixtral + PaLM 2-M) achieve
+91% on GSM-8K, surpassing GPT-4 alone. But 9 correlated judges provide
+only ~2 effective independent votes (arXiv 2605.29800).</p></li>
+<li><p><strong>Search Intensity Scaling is emergent</strong> — DeepDiver
+(arXiv 2505.24332, NeurIPS 2025 Spotlight) shows 7B models autonomously
+escalate search frequency on harder problems when trained with RL. This
+validates adaptive retrieval as a learnable behavior.</p></li>
+<li><p><strong>Sequential scaling &gt;&gt; parallel scaling</strong> for
+reasoning — “Let Me Think” (arXiv 2505.21825, NeurIPS 2025) proves
+theoretically that long sequential reasoning chains offer exponential
+advantages over breadth-first parallel sampling for certain
+tasks.</p></li>
+<li><p><strong>Verification is the bottleneck for test-time
+scaling</strong> — “Large Language Monkeys” (arXiv 2407.21787) shows
+coverage scales log-linearly with samples, but selection methods plateau
+without automatic verifiers.</p></li>
+</ol>
+<h3 id="performance-benchmarks-top-systems">Performance Benchmarks (Top
+Systems)</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr>
+<th>System</th>
+<th style="text-align: center;">BrowseComp</th>
+<th style="text-align: center;">GAIA</th>
+<th style="text-align: center;">FRAMES</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MiroThinker H1</td>
+<td style="text-align: center;">74.0%</td>
+<td style="text-align: center;">82.7%</td>
+<td style="text-align: center;">-</td>
+<td>300-600 tool calls per task</td>
+</tr>
+<tr>
+<td>Alibaba DeepResearch-30B</td>
+<td style="text-align: center;">SOTA</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">SOTA</td>
+<td>Fine-tuned MoE, 3.3B active</td>
+</tr>
+<tr>
+<td>DeepDive-32B</td>
+<td style="text-align: center;">SOTA (open)</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td>KG-augmented training</td>
+</tr>
+<tr>
+<td>Search-R1 (Qwen2.5-7B)</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">+41% over RAG</td>
+<td>RL-trained</td>
+</tr>
+<tr>
+<td>WebThinker (QwQ-32B)</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td>Outperforms Grok3 DeeperSearch</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="gaps-in-the-current-landscape">6. Gaps in the Current
+Landscape</h2>
+<p>These represent <strong>opportunities for differentiation</strong> –
+areas where no existing system provides a strong solution:</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 40%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Description</th>
+<th>Who’s Closest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Combined verification + confidence + adaptive
+retrieval</strong></td>
+<td>No system unifies all three in one loop</td>
+<td>Self-RAG (2/3), your DRA (3/3)</td>
+</tr>
+<tr>
+<td><strong>Calibrated confidence (ECE, isotonic
+regression)</strong></td>
+<td>Almost no system provides calibrated per-claim confidence</td>
+<td>None deployed; only academic papers</td>
+</tr>
+<tr>
+<td><strong>Verbatim evidence preservation</strong></td>
+<td>Most systems summarize evidence before verification</td>
+<td>MARs (partial)</td>
+</tr>
+<tr>
+<td><strong>Model independence enforcement</strong></td>
+<td>Few systems explicitly enforce distinct model families for generator
+vs. verifier</td>
+<td>MARs only</td>
+</tr>
+<tr>
+<td><strong>Statistical evaluation rigor</strong></td>
+<td>No open-source system uses Cohen’s kappa / McNemar / Holm for
+evaluation</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Verification-driven retrieval</strong></td>
+<td>Retrieval triggered by verification failure (not by generation
+confidence)</td>
+<td>ADORE (closest), your DRA</td>
+</tr>
+<tr>
+<td><strong>Claim-level granularity with epistemic status</strong></td>
+<td>Tracking supported/contested/insufficient per atomic claim</td>
+<td>MARs (admission gate), your DRA</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="recommendations">7. Recommendations</h2>
+<h3 id="recommended-architecture-hybrid-pattern-b-g-elements-of-f">7.1
+Recommended Architecture: Hybrid Pattern (B + G + elements of F)</h3>
+<p>For the Deep Research Agent MVP, I recommend combining:</p>
+<ol type="1">
+<li><strong>Plan-and-Execute (Pattern B)</strong> for the outer loop —
+decompose query, parallel search, synthesize</li>
+<li><strong>Verify-then-Retrieve Loop (Pattern G)</strong> as the inner
+verification loop — the core differentiator</li>
+<li><strong>Adversarial elements (Pattern F)</strong> for the verifier
+design — different model family from generator</li>
+</ol>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│  OUTER LOOP: Plan-and-Execute                                    │
+│                                                                   │
+│  Query → Router/Planner → Parallel Search (Exa/Tavily/Scholar)  │
+│    ↓                                                              │
+│  Synthesis → Atomic Claims + Citation Links                      │
+│    ↓                                                              │
+│  ┌───────────────────────────────────────────────────────────┐   │
+│  │  INNER LOOP: Verify-then-Retrieve                          │   │
+│  │                                                             │   │
+│  │  For each claim:                                            │   │
+│  │    Verifier (independent model) → verdict + confidence      │   │
+│  │      ↓                                                      │   │
+│  │    Route: supported(≥τ) → accept                            │   │
+│  │           insufficient → re-search (refined query)          │   │
+│  │           refuted → revise or mark contested                │   │
+│  │           weak → switch retrieval tool                      │   │
+│  │      ↓                                                      │   │
+│  │    Loop until convergence                                   │   │
+│  └───────────────────────────────────────────────────────────┘   │
+│    ↓                                                              │
+│  Calibrate confidence (temperature scaling / isotonic)           │
+│    ↓                                                              │
+│  Generate Report (supported + contested + insufficient claims)   │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="recommended-tech-stack">7.2 Recommended Tech Stack</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 26%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Choice</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Orchestration</strong></td>
+<td>LangGraph</td>
+<td>Dominant ecosystem; graph-based = natural for branching/looping;
+studio for debugging</td>
+</tr>
+<tr>
+<td><strong>Generator LLM</strong></td>
+<td>AWS Bedrock (Claude Sonnet)</td>
+<td>Your existing infra; strong long-form quality</td>
+</tr>
+<tr>
+<td><strong>Verifier LLM</strong></td>
+<td>AWS Bedrock (different family: e.g., Llama 3 or Mistral via
+Bedrock)</td>
+<td>Model independence; same API surface</td>
+</tr>
+<tr>
+<td><strong>Judge Panel</strong></td>
+<td>3 models from distinct families via Bedrock</td>
+<td>Diversity maximizes effective independent votes</td>
+</tr>
+<tr>
+<td><strong>Primary Search</strong></td>
+<td>Exa (semantic) + Tavily (web)</td>
+<td>Exa for conceptual search; Tavily for breadth; route by query
+type</td>
+</tr>
+<tr>
+<td><strong>Academic Search</strong></td>
+<td>Semantic Scholar API</td>
+<td>Free; purpose-built for papers</td>
+</tr>
+<tr>
+<td><strong>Confidence Calibration</strong></td>
+<td>Isotonic regression on held-out set</td>
+<td>Validated by Verification Tax paper; simple and effective</td>
+</tr>
+<tr>
+<td><strong>Evaluation</strong></td>
+<td>Custom harness (ECE + Cohen’s kappa + McNemar)</td>
+<td>No existing tool does this; build it</td>
+</tr>
+<tr>
+<td><strong>Frontend/CLI</strong></td>
+<td>CLI first (Python Typer) → FastAPI + Streamlit for demo</td>
+<td>Matches MVP timeline</td>
+</tr>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Docker + AWS Bedrock (no GPU needed for inference)</td>
+<td>Accessible; no training infrastructure needed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-design-decisions-rationale">7.3 Key Design Decisions &amp;
+Rationale</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 34%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Recommendation</th>
+<th>Literature Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Single-agent vs. multi-agent?</strong></td>
+<td>Hybrid: single orchestrator + specialized tools (not full
+multi-agent)</td>
+<td>Multi-agent adds debugging complexity without proportional quality
+gain for research tasks (GPT-Researcher finding)</td>
+</tr>
+<tr>
+<td><strong>Verification approach?</strong></td>
+<td>Independent LLM-judge (different model family from generator)</td>
+<td>Diversity of Thought paper; Nine Judges paper; avoid correlated
+errors</td>
+</tr>
+<tr>
+<td><strong>When to retrieve more?</strong></td>
+<td>Verification verdict drives retrieval (not generation
+confidence)</td>
+<td>DeepDiver SIS; FLARE; causally correct</td>
+</tr>
+<tr>
+<td><strong>Confidence representation?</strong></td>
+<td>Raw score → isotonic regression → calibrated probability</td>
+<td>Verification Tax proves self-eval = zero info; must calibrate
+externally</td>
+</tr>
+<tr>
+<td><strong>Evidence handling?</strong></td>
+<td>Verbatim passages only; never summarize before verification</td>
+<td>“Cited but Not Verified” shows summarization breaks grounding</td>
+</tr>
+<tr>
+<td><strong>Claim granularity?</strong></td>
+<td>Atomic claims (one verifiable fact per claim)</td>
+<td>Intent-to-Evidence paper; CHARM (cascading hallucination)</td>
+</tr>
+<tr>
+<td><strong>Report format?</strong></td>
+<td>Claim ledger with epistemic status
+(supported/contested/insufficient)</td>
+<td>Novel; no existing system does this well</td>
+</tr>
+<tr>
+<td><strong>Ablation choice?</strong></td>
+<td>Verifier A (LLM-judge) vs. Verifier B (cross-encoder); measure ECE
+before/after calibration</td>
+<td>Isolates verification method AND calibration impact</td>
+</tr>
+<tr>
+<td><strong>Convergence criteria?</strong></td>
+<td>τ threshold + max_iters + no-progress detection + budget cap</td>
+<td>Standard in RL literature; prevents infinite loops</td>
+</tr>
+<tr>
+<td><strong>Cost management?</strong></td>
+<td>Cheap models for planning/search, expensive for
+synthesis/verification only</td>
+<td>LangChain Open DR pattern; validated cost-quality trade-off</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-not-to-do">7.4 What NOT to Do</h3>
+<p>Based on landscape analysis, avoid these common pitfalls:</p>
+<ol type="1">
+<li><p><strong>Don’t conflate multi-source aggregation with
+verification</strong> — Having 20+ sources (GPT-Researcher approach)
+does NOT verify claims. Source count ≠ grounding.</p></li>
+<li><p><strong>Don’t use the same model family for generation and
+verification</strong> — Correlated errors make this theater, not
+verification.</p></li>
+<li><p><strong>Don’t summarize evidence before checking claims against
+it</strong> — Summarization loses the grounding signal.</p></li>
+<li><p><strong>Don’t rely on self-evaluation for confidence</strong> —
+Formally proven to provide zero calibration information.</p></li>
+<li><p><strong>Don’t over-engineer the multi-agent coordination</strong>
+— AutoGen is deprecated; even Microsoft moved away. Simple orchestration
+(LangGraph) with clear role separation beats complex agent
+negotiation.</p></li>
+<li><p><strong>Don’t train a model unless you have 8xA100+</strong> —
+RL-trained approaches (Search-R1) are SOTA but inaccessible for MVP.
+Prompt-based verification with calibration is the pragmatic
+choice.</p></li>
+<li><p><strong>Don’t skip the evaluation harness</strong> — Most repos
+have no rigorous evaluation. This is your differentiator – “spine =
+evaluation” is architecturally novel.</p></li>
+</ol>
+<h3 id="priority-order-for-implementation">7.5 Priority Order for
+Implementation</h3>
+<p>Given the ~2 day timeline in the assessment:</p>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 42%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Component</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>Claim extraction + independent verification loop</td>
+<td>Core differentiator; proves the thesis</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Calibrated confidence (before/after comparison)</td>
+<td>Required ablation; demonstrates rigor</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Adaptive retrieval (verdict → re-search)</td>
+<td>Completes the loop; shows it works E2E</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Structured report with claim ledger</td>
+<td>Required output format; separates claims from evidence</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Multi-tool search routing</td>
+<td>Nice-to-have; use Exa or Tavily alone for MVP</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Judge panel (3+ models)</td>
+<td>Defer to evaluation phase; single judge sufficient for MVP</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Full evaluation harness (ECE, kappa, McNemar)</td>
+<td>Include in design doc; implement subset for MVP</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="source-index">8. Source Index</h2>
+<h3 id="top-github-repositories-by-relevance">Top GitHub Repositories
+(by relevance)</h3>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 28%" />
+<col style="width: 18%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Repository</th>
+<th>Stars</th>
+<th>Key Contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="https://github.com/stanford-oval/storm">stanford-oval/storm</a></td>
+<td>28.3K</td>
+<td>Multi-perspective research (NAACL 2024)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://github.com/assafelovic/gpt-researcher">assafelovic/gpt-researcher</a></td>
+<td>27.6K</td>
+<td>Production plan-execute-publish pipeline</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://github.com/Alibaba-NLP/DeepResearch">Alibaba-NLP/DeepResearch</a></td>
+<td>19.4K</td>
+<td>RL-trained MoE research model</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://github.com/dzhng/deep-research">dzhng/deep-research</a></td>
+<td>19.1K</td>
+<td>Minimal recursive exploration (&lt;500 LoC)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://github.com/langchain-ai/open_deep_research">langchain-ai/open_deep_research</a></td>
+<td>11.7K</td>
+<td>Official LangGraph reference implementation</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://github.com/MiroMindAI/MiroThinker">MiroMindAI/MiroThinker</a></td>
+<td>8.3K</td>
+<td>Interactive scaling, SOTA BrowseComp</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://github.com/zilliztech/deep-searcher">zilliztech/deep-searcher</a></td>
+<td>7.9K</td>
+<td>Agentic RAG for private data</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://github.com/jina-ai/node-DeepResearch">jina-ai/node-DeepResearch</a></td>
+<td>5.2K</td>
+<td>Iterative search-read-reason with token budget</td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="https://github.com/PeterGriffinJin/Search-R1">PeterGriffinJin/Search-R1</a></td>
+<td>4.9K</td>
+<td>RL framework for search-augmented reasoning</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="https://github.com/SkyworkAI/DeepResearchAgent">SkyworkAI/DeepResearchAgent</a></td>
+<td>3.4K</td>
+<td>Self-evolution protocol (RSPL + SEPL)</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="https://github.com/AkariAsai/self-rag">AkariAsai/self-rag</a></td>
+<td>2.4K</td>
+<td>Adaptive retrieval with reflection tokens (ICLR 2024)</td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="https://github.com/RUC-NLPIR/WebThinker">RUC-NLPIR/WebThinker</a></td>
+<td>1.5K</td>
+<td>Single-generation in-thinking tools (NeurIPS 2025)</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="https://github.com/Tencent/CognitiveKernel-Pro">Tencent/CognitiveKernel-Pro</a></td>
+<td>517</td>
+<td>Hierarchical multi-agent with inference-time verification</td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="https://github.com/FredFang1216/MARs">FredFang1216/MARs</a></td>
+<td>18</td>
+<td>Adversarial Builder/Skeptic/Arbiter with claim DAG</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="https://github.com/tarun7r/deep-research-agent">tarun7r/deep-research-agent</a></td>
+<td>172</td>
+<td>LangGraph with credibility scoring</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-arxiv-papers-by-theme">Key Arxiv Papers (by theme)</h3>
+<p><strong>Agent Architectures:</strong> - Search-R1 (2503.09516) — RL
+for interleaved search and reasoning - DeepResearch-9K (2603.01152) —
+Benchmark + training framework - DeepDiver (2505.24332) — Search
+Intensity Scaling (NeurIPS 2025 Spotlight) - WebThinker —
+Single-generation in-thinking tools (NeurIPS 2025) - STORM (2402.14207)
+— Multi-perspective research (NAACL 2024) - Co-STORM (2408.15232) —
+Collaborative research (EMNLP 2024)</p>
+<p><strong>Verification &amp; Grounding:</strong> - Veri-R1 (2510.01932)
+— RL-trained claim verification with search - VERITAS (2510.13272) —
+Faithfulness rewards beyond correctness (TMLR) - Cited but Not Verified
+(2605.06635) — Source attribution evaluation - Intent to Evidence
+(2603.25342) — Category-theoretic structural evaluation - CHARM
+(2606.04435) — Cascading hallucination in agentic RAG - PROClaim
+(2603.28488) — Courtroom-style adversarial verification</p>
+<p><strong>Multi-Agent &amp; Debate:</strong> - Multi-agent Debate
+(2305.14325) — Foundational debate paper (MIT) - Diversity of Thought
+(2410.12853) — Diverse models &gt; homogeneous - Nine Judges
+(2605.29800) — Correlated errors limit panel effectiveness - SAGE
+(2603.15255) — Multi-agent self-evolution - MAD-Fact (2510.22967) —
+Debate for long-form factuality</p>
+<p><strong>Test-Time Compute:</strong> - Scaling Test-Time Compute
+(2408.03314) — Foundational theory (Google DeepMind) - Large Language
+Monkeys (2407.21787) — Repeated sampling scaling - Let Me Think
+(2505.21825) — Sequential &gt; parallel (NeurIPS 2025) - Kimi k1.5
+(2501.12599) — Long context RL scaling</p>
+<p><strong>Adaptive Retrieval:</strong> - Self-RAG (2310.11511) —
+Reflection tokens (ICLR 2024 Oral) - FLARE (2305.06983) — Active
+retrieval (EMNLP 2023) - AlignRAG (2504.14858) — Critic Language Model
+(NeurIPS 2025) - ADORE (2601.18267) — Enterprise iterative
+retrieval-reflection</p>
+<p><strong>Evaluation:</strong> - MT-Bench / Chatbot Arena (2306.05685)
+— LLM-as-judge (NeurIPS 2023) - The Verification Tax (2604.12951) —
+Fundamental limits of self-evaluation - Verdict (2502.18018) —
+Judge-time compute scaling library - FLAMe (2407.10817) — Foundational
+autorater models</p>
+<p><strong>Process Rewards:</strong> - PRA (2604.09482) — Process
+rewards for frozen policies (ICML 2026) - TreePS-RAG (2601.06922) —
+Monte Carlo tree process supervision - HiPRAG (2510.07794) —
+Hierarchical rewards (ICLR 2026) - SLATE (2602.23440) — Truncated
+step-level sampling</p>
+<p><strong>Self-Correction:</strong> - SCoRe (2409.12917) — Multi-turn
+RL self-correction (Google DeepMind) - RAAT (2405.20978) — Adaptive
+adversarial training for noise robustness (ACL 2024)</p>
+<h3 id="key-youtube-resources">Key YouTube Resources</h3>
+<ul>
+<li><strong>LangChain Open Deep Research (Official Build)</strong> —
+Architecture walkthrough with benchmarks</li>
+<li><strong>GPT-Researcher Creator Talk (Assaf Elovic)</strong> —
+Production multi-agent patterns</li>
+<li><strong>Self-reflective RAG with LangGraph</strong> — CRAG/Self-RAG
+implementation patterns</li>
+<li><strong>Stanford STORM Demos</strong> — Multi-perspective research
+approach</li>
+<li><strong>NVIDIA Deep Research Agent Course</strong> — Enterprise
+deployment patterns</li>
+<li><strong>AWS Strands 5-Agent Framework</strong> — Bedrock-native
+research agents</li>
+</ul>
+<hr />
+<h2 id="appendix-your-dra-design-validation">Appendix: Your DRA Design
+Validation</h2>
+<p>Based on the landscape analysis, your current design choices are
+<strong>well-validated by the literature</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Your Design Choice</th>
+<th>Validation Source</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generator ≠ Verifier (model independence)</td>
+<td>Diversity of Thought (2410.12853); Nine Judges (2605.29800)</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Per-claim verification, not end-to-end</td>
+<td>CHARM (2606.04435); Intent-to-Evidence (2603.25342)</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Calibrated confidence (not raw scores)</td>
+<td>Verification Tax (2604.12951)</td>
+<td>Strong (formal proof)</td>
+</tr>
+<tr>
+<td>Adaptive retrieval triggered by verification</td>
+<td>DeepDiver (2505.24332); FLARE (2305.06983); Self-RAG</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Process rewards &gt; outcome-only</td>
+<td>VERITAS (2510.13272); HiPRAG; TreePS-RAG</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Evidence is verbatim, never summarized</td>
+<td>Cited but Not Verified (2605.06635)</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>DeBERTa cross-encoder as Verifier B</td>
+<td>Standard NLI approach; fast + interpretable</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>LangGraph orchestration</td>
+<td>Dominant ecosystem; graph-native for loops</td>
+<td>Strong (pragmatic)</td>
+</tr>
+<tr>
+<td>Exa/Tavily/Semantic Scholar for retrieval</td>
+<td>Community standard; free tiers available</td>
+<td>Strong</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Novel elements with no direct precedent (your
+differentiators):</strong> - Combined verification + calibrated
+confidence + adaptive retrieval in one loop - ECE metric applied to
+deployed research agent confidence - Isotonic regression for confidence
+recalibration - Full statistical evaluation harness (Cohen’s kappa +
+McNemar + Holm) - Explicit “claim ledger” with
+supported/contested/insufficient epistemic states</p>
+<hr />
+<p><em>End of report.</em></p>
+</body>
+</html>
