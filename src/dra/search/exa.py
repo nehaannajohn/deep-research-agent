@@ -29,6 +29,9 @@ class ExaSearch(SearchTool):
         self._client = client
         self.max_chars = max_chars
 
+    def cache_key_params(self) -> dict[str, object]:
+        return {"max_chars": self.max_chars}
+
     @property
     def client(self):
         if self._client is None:  # pragma: no cover - live path

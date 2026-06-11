@@ -81,3 +81,11 @@ def test_semantic_scholar_maps_abstract_and_sends_key():
     assert res.passages[1].text == ""  # missing abstract -> empty, not crash
     assert http.last["headers"]["x-api-key"] == "kk"
     assert http.last["params"]["limit"] == 2
+
+
+def test_exa_cache_key_params_exposes_max_chars():
+    assert ExaSearch(api_key="k", max_chars=2000).cache_key_params() == {"max_chars": 2000}
+
+
+def test_searchtool_default_cache_key_params_is_empty():
+    assert SemanticScholarSearch(api_key="k").cache_key_params() == {}

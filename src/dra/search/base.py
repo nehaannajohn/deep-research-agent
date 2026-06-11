@@ -26,3 +26,8 @@ class SearchTool(ABC):
     def search(self, query: str, k: int = 10) -> SearchResult:
         """Return up to `k` ranked passages with provenance for `query`."""
         raise NotImplementedError
+
+    def cache_key_params(self) -> dict[str, object]:
+        """Result-affecting params beyond (query, k) that must enter a cache key.
+        Default: none. Backends override when an instance setting changes results."""
+        return {}
