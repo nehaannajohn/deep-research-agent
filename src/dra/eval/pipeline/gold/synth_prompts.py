@@ -18,6 +18,7 @@ distinct queries per type, then user review — is marked `# pragma: no cover`.
 """
 from __future__ import annotations
 
+import re
 from typing import List
 
 from dra.eval.pipeline.contracts import EvalItem
@@ -27,8 +28,48 @@ __all__ = [
     "expected_behavior_for",
     "also_acceptable",
     "build_prompt_item",
+    "parse_query_lines",
     "synthesize_prompts",
 ]
+
+# Strip a leading list marker: "1.", "1)", "- ", "* ", "• " etc.
+_LEADING_MARKER = re.compile(r"^\s*(?:\d+[.)]|[-*•])\s+")
+# Lines the model sometimes emits as preamble/headers we must drop.
+_PREAMBLE = re.compile(r"^\s*(?:here|below|sure|certainly|the following)\b", re.IGNORECASE)
+
+
+def parse_query_lines(raw: str, *, limit: int) -> List[str]:
+    """Robustly extract up to `limit` distinct question lines from model output.
+
+    Handles numbered lines (``1.``/``2)``), bullet markers (``-``/``*``/``•``),
+    surrounding markdown emphasis, and a leading preamble sentence. Lines that
+    look like headers/preamble or carry no real content are dropped, and exact
+    duplicates are removed while preserving order.
+    """
+    seen: set[str] = set()
+    out: List[str] = []
+    for line in (raw or "").splitlines():
+        s = line.strip()
+        if not s:
+            continue
+        s = _LEADING_MARKER.sub("", s)
+        # Strip markdown emphasis / header hashes and surrounding quotes/backticks.
+        s = s.lstrip("#").strip()
+        s = s.strip("*_`").strip()
+        s = s.strip('"').strip("'").strip()
+        if not s:
+            continue
+        # Drop obvious preamble lines that aren't actual questions.
+        if _PREAMBLE.match(s) and "?" not in s:
+            continue
+        key = s.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(s)
+        if len(out) >= limit:
+            break
+    return out
 
 
 # Per-type specification. `constraints` are the per-type constraints stamped onto
@@ -139,7 +180,7 @@ def synthesize_prompts(llm, *, per_type: int = 50) -> List[EvalItem]:  # pragma:
             f"Return one question per line, no numbering."
         )
         raw = llm.complete(prompt) or ""
-        queries = [line.strip() for line in raw.splitlines() if line.strip()]
-        for idx, query in enumerate(queries[:per_type]):
+        queries = parse_query_lines(raw, limit=per_type)
+        for idx, query in enumerate(queries):
             items.append(build_prompt_item(type_key, query, idx))
     return items
