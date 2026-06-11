@@ -1,0 +1,38 @@
+{
+  "tc1_straightforward": {
+    "subquestions_match": false,
+    "augmented_wants_visual": true,
+    "augmented_has_mermaid": true,
+    "augmented_diagram_lines": 20,
+    "plain_has_mermaid": false,
+    "contradictions_plain": 0,
+    "contradictions_augmented": 0
+  },
+  "tc2_contradictory": {
+    "subquestions_match": false,
+    "augmented_wants_visual": true,
+    "augmented_has_mermaid": true,
+    "augmented_diagram_lines": 17,
+    "plain_has_mermaid": false,
+    "contradictions_plain": 0,
+    "contradictions_augmented": 0
+  },
+  "tc3_sparse": {
+    "subquestions_match": false,
+    "augmented_wants_visual": true,
+    "augmented_has_mermaid": true,
+    "augmented_diagram_lines": 26,
+    "plain_has_mermaid": false,
+    "contradictions_plain": 0,
+    "contradictions_augmented": 0
+  },
+  "tc4_multimodal": {
+    "subquestions_match": false,
+    "augmented_wants_visual": true,
+    "augmented_has_mermaid": true,
+    "augmented_diagram_lines": 56,
+    "plain_has_mermaid": true,
+    "contradictions_plain": 0,
+    "contradictions_augmented": 0
+  }
+}
