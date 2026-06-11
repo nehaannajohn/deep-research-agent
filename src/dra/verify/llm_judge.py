@@ -22,7 +22,7 @@ Labels:
 - "insufficient": the passages neither entail nor contradict it
 - "contested": the passages are split — at least one supports AND at least one refutes the claim
 
-Also give a short reasoning and a recommendation:
+Also give a brief ONE-SENTENCE reasoning (under 30 words) and a recommendation:
 - "accept" (supported), "gather_more"/"reformulate" (insufficient), "revise" (refuted), "flag_contested" (contested)
 
 Answer ONLY JSON: {{"label": "...", "reasoning": "...", "recommendation": "..."}}
@@ -47,15 +47,22 @@ class LLMJudgeVerifier(Verifier):
         self.n_samples = n_samples
         self.temperature = temperature
 
+    def _sample(self, prompt) -> dict:
+        """One judge sample. A truncated/unparseable/raised response -> {} (an
+        insufficient vote) so a single bad response never crashes verification."""
+        try:
+            d = self.llm.complete_json(prompt, temperature=self.temperature)
+        except Exception:
+            return {}
+        return d if isinstance(d, dict) else {}
+
     def verify(self, claim: str, passages: list[Passage]) -> VerifierResult:
         if not passages:
             return VerifierResult(label="insufficient", confidence=1.0,
                                   reasoning="no cited passages", recommendation="gather_more")
         rendered = "\n".join(f"[{p.source_id}] {p.text}" for p in passages)
         prompt = _PROMPT.format(claim=claim, passages=rendered)
-        raw = [self.llm.complete_json(prompt, temperature=self.temperature)
-               for _ in range(self.n_samples)]
-        samples = [s if isinstance(s, dict) else {} for s in raw]
+        samples = [self._sample(prompt) for _ in range(self.n_samples)]
         labels = [_coerce_label(s.get("label")) for s in samples]
         tally = Counter(labels)
         # ties break on first-seen sample order (Counter.most_common is a stable count sort);

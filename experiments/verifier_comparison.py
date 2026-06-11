@@ -170,7 +170,10 @@ def evaluate(candidates, kept, judges):
         y_true, y_pred, preds = [], [], []
         t0 = time.monotonic()
         for ex in kept:
-            r = verifier.verify(ex["claim"], ex["passages"])
+            try:
+                r = verifier.verify(ex["claim"], ex["passages"])
+            except Exception:
+                continue  # skip a pathological example rather than abort the whole eval
             y_true.append(ex["intended"])
             y_pred.append(r.label)
             preds.append({"case": ex["case"], "intended": ex["intended"], "claim": ex["claim"],

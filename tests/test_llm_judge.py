@@ -64,3 +64,38 @@ def test_tie_breaks_on_first_seen_sample_order():
     assert r.label == "refuted"
     assert r.confidence == 0.5
     assert r.votes == {"refuted": 1, "supported": 1}
+
+
+class RaisingLLM:
+    """Like SeqLLM, but an Exception element in the queue is raised when reached
+    (simulates a truncated/unparseable judge response)."""
+    def __init__(self, payloads):
+        self.payloads = list(payloads)
+        self.calls = 0
+
+    def complete_json(self, prompt, **kw):
+        self.calls += 1
+        item = self.payloads.pop(0)
+        if isinstance(item, Exception):
+            raise item
+        return item
+
+
+def test_unparseable_sample_does_not_crash():
+    # one sample raises (e.g. truncated JSON) -> counts as an insufficient vote, no crash
+    llm = RaisingLLM([
+        ValueError("No JSON found in model output"),
+        {"label": "supported", "reasoning": "r", "recommendation": "accept"},
+        {"label": "supported", "reasoning": "r", "recommendation": "accept"},
+    ])
+    r = LLMJudgeVerifier(llm, n_samples=3).verify("claim", P)
+    assert r.label == "supported"
+    assert r.confidence == 2 / 3
+    assert r.votes == {"insufficient": 1, "supported": 2}
+
+
+def test_all_samples_raise_yields_insufficient():
+    llm = RaisingLLM([ValueError("x"), ValueError("y")])
+    r = LLMJudgeVerifier(llm, n_samples=2).verify("claim", P)
+    assert r.label == "insufficient"
+    assert r.votes == {"insufficient": 2}
