@@ -61,3 +61,18 @@ def test_complete_retries_without_temperature_when_rejected():
     assert len(c.calls) == 2
     assert "temperature" in c.calls[0]["inferenceConfig"]
     assert "temperature" not in c.calls[1]["inferenceConfig"]
+
+
+def test_boto_config_sets_bounded_timeouts():
+    from dra.llm.bedrock import _boto_config
+    cfg = _boto_config(read_timeout=45)
+    assert cfg.read_timeout == 45
+    assert cfg.connect_timeout == 10
+    assert cfg.retries["max_attempts"] == 2
+
+
+def test_bedrock_chat_accepts_timeout_param():
+    from dra.llm.bedrock import BedrockChat
+    # injected client -> no live boto; just confirm the param is accepted and stored
+    chat = BedrockChat("m", client=object(), region="us-east-1", timeout=30)
+    assert chat.timeout == 30

@@ -32,13 +32,22 @@ def _extract_json(text: str):
     raise ValueError(f"No JSON found in model output: {t[:200]!r}")
 
 
+def _boto_config(read_timeout: int, connect_timeout: int = 10):
+    """Build a botocore Config with bounded timeouts so stuck/expired-creds calls fail fast."""
+    from botocore.config import Config
+
+    return Config(read_timeout=read_timeout, connect_timeout=connect_timeout,
+                  retries={"max_attempts": 2, "mode": "standard"})
+
+
 class BedrockChat:
-    def __init__(self, model_id: str, client=None, region: str = "us-east-1"):
+    def __init__(self, model_id: str, client=None, region: str = "us-east-1", timeout: int = 60):
         self.model_id = model_id
+        self.timeout = timeout
         if client is None:  # pragma: no cover - exercised only with real AWS creds
             import boto3
 
-            client = boto3.client("bedrock-runtime", region_name=region)
+            client = boto3.client("bedrock-runtime", region_name=region, config=_boto_config(timeout))
         self.client = client
 
     def complete(
