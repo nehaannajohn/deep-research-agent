@@ -161,12 +161,12 @@ def test_render_appendix_unverified_renders_contradiction_disclaimer():
         claim_a, claim_b = "c0", "c1"
 
     gen = FakeGen("## Summary\n[c0] vs [c1].")
-    claims = [_claim("c0", "X improved", "sq A", "contested"),
-              _claim("c1", "X unchanged", "sq A", "contested")]
-    rep = compose_report("q", PLAN, claims, [], gen, contradictions=[Rec()])
-    assert "## Disclaimers" in rep.report_markdown
+    claims = [_claim("c0", "X improved", "sq A"), _claim("c1", "X unchanged", "sq A")]  # unverified
+    rep = compose_report("q", PLAN, claims, [], gen, with_verification=False, contradictions=[Rec()])
+    assert "## Disclaimers" in rep.report_markdown          # disclaimer renders in unverified mode
     assert "contradict each other" in rep.report_markdown
-    assert "[c0]" in gen.last_prompt and "vs" in gen.last_prompt.lower()  # present-together instruction
+    assert "Verdict" not in rep.report_markdown             # still unverified (no Verdict column)
+    assert "[c0]" in gen.last_prompt                        # present-together instruction reached the prompt
 
 
 def test_compose_report_no_contradictions_unchanged():

@@ -52,6 +52,7 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
     from dra.contradiction import detect_and_resolve
     claims, contradictions = detect_and_resolve(claims, deps.contradiction_judge)
     return compose_report(query, p, claims, list(sources.values()), deps.generator,
+                          with_verification=True,
                           diagram_generator=deps.diagram_generator, contradictions=contradictions)
 
 

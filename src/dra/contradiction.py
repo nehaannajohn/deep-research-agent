@@ -23,18 +23,13 @@ def _keywords(text: str) -> set[str]:
 
 
 def candidate_pairs(claims: list[Claim]) -> list[tuple[Claim, Claim]]:
-    """Pairs worth judging: same section OR sharing >=2 significant keywords. Deduped.
-    Limits the expensive LLM judging to plausibly-related pairs (skips unrelated ones)."""
+    """Pairs worth judging: same section OR sharing >=2 significant keywords. Deduped by the
+    upper-triangular iteration. Limits expensive LLM judging to plausibly-related pairs."""
     kw = {c.id: _keywords(c.text) for c in claims}
-    pairs, seen = [], set()
+    pairs = []
     for i, a in enumerate(claims):
         for b in claims[i + 1:]:
-            key = (a.id, b.id)
-            if key in seen:
-                continue
-            related = (a.section == b.section) or (len(kw[a.id] & kw[b.id]) >= 2)
-            if related:
-                seen.add(key)
+            if (a.section == b.section) or (len(kw[a.id] & kw[b.id]) >= 2):
                 pairs.append((a, b))
     return pairs
 
