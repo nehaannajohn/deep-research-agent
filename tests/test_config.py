@@ -95,3 +95,9 @@ def test_independence_passes_for_clean_verifier_ensemble():
         "BEDROCK_VERIFIER_MODELS": "global.anthropic.claude-sonnet-4-6,mistral.mistral-large-3-675b-instruct,us.amazon.nova-pro-v1:0",
     }
     load_config(env).assert_independence()  # no meta member -> no raise
+
+
+def test_load_config_diagram_model_optional():
+    from dra.config import load_config
+    assert load_config(env={"BEDROCK_DIAGRAM_MODEL": "x.y"}).roles["diagram"] == "x.y"
+    assert load_config(env={}).roles.get("diagram", "") == ""

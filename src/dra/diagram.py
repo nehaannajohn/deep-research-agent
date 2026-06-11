@@ -49,3 +49,36 @@ def insert_diagram(narrative: str, block: str, heading: str = "Architecture") ->
             break
     out = lines[:insert_at] + ["", section, ""] + lines[insert_at:]
     return "\n".join(out).strip() + "\n"
+
+
+_DIAGRAM_PROMPT = """Produce a detailed, accurate Mermaid diagram of the architecture, pipeline,
+or process described in the research report below.
+- Use a suitable Mermaid type (flowchart/graph LR or TD, sequenceDiagram, etc.).
+- Be detailed: enough nodes/steps to be informative, with LABELED edges and subgraphs where helpful.
+- Base it ONLY on the report content; do not invent components the report does not imply.
+- Output ONLY a single ```mermaid ... ``` code block — no prose before or after.
+
+QUERY: {query}
+
+REPORT:
+{narrative}"""
+
+
+def _extract_mermaid(text: str) -> str:
+    m = re.search(r"```mermaid\s*\n.*?```", text or "", re.DOTALL)
+    return m.group(0) if m else ""
+
+
+class LLMDiagramGenerator:
+    """Focused, single-purpose Mermaid generator — a dedicated LLM call (separate from
+    narrative composition) so it produces richer diagrams. Returns "" on failure/empty/invalid."""
+    def __init__(self, llm):
+        self.llm = llm
+
+    def generate(self, query: str, claims, narrative: str) -> str:
+        try:
+            out = self.llm.complete(_DIAGRAM_PROMPT.format(query=query, narrative=narrative))
+        except Exception:
+            return ""
+        block = _extract_mermaid(out or "")
+        return block if validate_mermaid(block) else ""

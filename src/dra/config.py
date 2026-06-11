@@ -87,6 +87,7 @@ def load_config(env: "dict | None" = None) -> Config:
         roles={
             "generator": env.get("BEDROCK_GENERATOR_MODEL", ""),
             "inloop_judge": env.get("BEDROCK_INLOOP_JUDGE_MODEL", ""),
+            "diagram": env.get("BEDROCK_DIAGRAM_MODEL", ""),
         },
         panel_models=panel,
         verifier_models=verifiers,

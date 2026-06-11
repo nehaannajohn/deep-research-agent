@@ -26,6 +26,7 @@ class Deps:
     generator: object  # BedrockChat-like: planner/synthesis (complete_json) + router (complete)
     verifier: Verifier
     search: object  # SearchTool
+    diagram_generator: object = None  # DiagramGenerator-like; None = no diagram
 
 
 def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
@@ -47,14 +48,18 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
             c.verdict, c.confidence = r.label, r.confidence
         claims.extend(new)
 
-    return compose_report(query, p, claims, list(sources.values()), deps.generator)
+    return compose_report(query, p, claims, list(sources.values()), deps.generator,
+                          diagram_generator=deps.diagram_generator)
 
 
 def build_deps(cfg) -> Deps:
+    from dra.diagram import LLMDiagramGenerator
     from dra.llm.bedrock import BedrockChat
     from dra.search import default_search_tool
     from dra.verify.ensemble import EnsembleVerifier
     from dra.verify.llm_judge import LLMJudgeVerifier
+
+    diagram_model = cfg.roles.get("diagram") or cfg.roles["generator"]
 
     # Selected verifier (provisional): the 3-model ensemble {Sonnet, Mistral, Nova} with
     # cross-model agreement as confidence. Falls back to the single in-loop judge if no
@@ -70,4 +75,5 @@ def build_deps(cfg) -> Deps:
         generator=BedrockChat(cfg.roles["generator"], region=cfg.region),
         verifier=verifier,
         search=default_search_tool(cfg),
+        diagram_generator=LLMDiagramGenerator(BedrockChat(diagram_model, region=cfg.region)),
     )
