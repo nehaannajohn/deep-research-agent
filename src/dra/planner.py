@@ -12,6 +12,11 @@ Rules:
   sub-question. A single sub-question is a valid and common answer — do not pad.
 - This mirrors atomic claim extraction: prefer the fewest sub-questions that fully
   cover the query, each likely to surface different evidence.
+- Sub-questions cover ONLY the research CONTENT of the query. IGNORE presentation / format /
+  length / modality instructions (e.g. "include a diagram", "add a visual", "as a table",
+  "in 500 words") when forming sub-questions — capture those in `constraints` (set
+  wants_visual / format accordingly) instead. The sub-questions MUST be IDENTICAL whether or
+  not such formatting instructions are present in the query.
 
 Return ONLY JSON of the form:
 {{"subquestions": ["one or more specific, answerable sub-questions"],

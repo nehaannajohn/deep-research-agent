@@ -48,3 +48,19 @@ def test_llm_diagram_generator_empty_on_invalid_output():
         def complete(self, prompt, **kw):
             return "sorry, no diagram"
     assert LLMDiagramGenerator(LLM()).generate("q", [], "n") == ""
+
+
+def test_sanitize_mermaid_fixes_stray_gt():
+    from dra.diagram import _sanitize_mermaid
+    out = _sanitize_mermaid("```mermaid\ngraph LR\n  A -->|selects|> B\n  B --> C\n```")
+    assert "|>" not in out
+    assert "-->|selects| B" in out
+
+
+def test_llm_diagram_generator_sanitizes_output():
+    from dra.diagram import LLMDiagramGenerator
+    class LLM:
+        def complete(self, prompt, **kw):
+            return "```mermaid\nflowchart LR\n  A -->|does x|> B\n  B --> C\n```"
+    out = LLMDiagramGenerator(LLM()).generate("q", [], "n")
+    assert out and "|>" not in out

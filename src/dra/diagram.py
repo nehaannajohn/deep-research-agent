@@ -57,6 +57,7 @@ or process described in the research report below.
 - Be detailed: enough nodes/steps to be informative, with LABELED edges and subgraphs where helpful.
 - Base it ONLY on the report content; do not invent components the report does not imply.
 - Output ONLY a single ```mermaid ... ``` code block — no prose before or after.
+- Use VALID Mermaid syntax. Labeled edges are written `A -->|label| B` — a single closing '|', NO trailing '>'.
 
 QUERY: {query}
 
@@ -67,6 +68,11 @@ REPORT:
 def _extract_mermaid(text: str) -> str:
     m = re.search(r"```mermaid\s*\n.*?```", text or "", re.DOTALL)
     return m.group(0) if m else ""
+
+
+def _sanitize_mermaid(block: str) -> str:
+    """Fix common LLM Mermaid quirks: a labeled edge `-->|label|>` (stray '>') -> `-->|label|`."""
+    return block.replace("|>", "|")
 
 
 class LLMDiagramGenerator:
@@ -80,5 +86,5 @@ class LLMDiagramGenerator:
             out = self.llm.complete(_DIAGRAM_PROMPT.format(query=query, narrative=narrative))
         except Exception:
             return ""
-        block = _extract_mermaid(out or "")
+        block = _sanitize_mermaid(_extract_mermaid(out or ""))
         return block if validate_mermaid(block) else ""
