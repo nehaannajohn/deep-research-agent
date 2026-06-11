@@ -154,6 +154,28 @@ def test_compose_report_no_diagram_without_generator():
     assert "```mermaid" not in rep.report_markdown
 
 
+def test_render_appendix_unverified_renders_contradiction_disclaimer():
+    from dra.report import compose_report
+
+    class Rec:
+        claim_a, claim_b = "c0", "c1"
+
+    gen = FakeGen("## Summary\n[c0] vs [c1].")
+    claims = [_claim("c0", "X improved", "sq A", "contested"),
+              _claim("c1", "X unchanged", "sq A", "contested")]
+    rep = compose_report("q", PLAN, claims, [], gen, contradictions=[Rec()])
+    assert "## Disclaimers" in rep.report_markdown
+    assert "contradict each other" in rep.report_markdown
+    assert "[c0]" in gen.last_prompt and "vs" in gen.last_prompt.lower()  # present-together instruction
+
+
+def test_compose_report_no_contradictions_unchanged():
+    from dra.report import compose_report
+    gen = FakeGen("## Summary\n[c0]")
+    rep = compose_report("q", PLAN, [_claim("c0", "x", "sq A")], [], gen)  # contradictions=None
+    assert "contradict each other" not in rep.report_markdown
+
+
 def test_compose_report_empty_ledger_is_minimal():
     from dra.report import compose_report
     gen = FakeGen("unused")

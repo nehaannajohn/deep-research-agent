@@ -27,6 +27,7 @@ class Deps:
     verifier: Verifier
     search: object  # SearchTool
     diagram_generator: object = None  # DiagramGenerator-like; None = no diagram
+    contradiction_judge: object = None  # PairContradictionJudge-like; None = skip
 
 
 def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
@@ -48,8 +49,10 @@ def run_query(query: str, deps: "Deps | None" = None) -> ResearchReport:
             c.verdict, c.confidence = r.label, r.confidence
         claims.extend(new)
 
+    from dra.contradiction import detect_and_resolve
+    claims, contradictions = detect_and_resolve(claims, deps.contradiction_judge)
     return compose_report(query, p, claims, list(sources.values()), deps.generator,
-                          diagram_generator=deps.diagram_generator)
+                          diagram_generator=deps.diagram_generator, contradictions=contradictions)
 
 
 def build_deps(cfg) -> Deps:
@@ -71,9 +74,12 @@ def build_deps(cfg) -> Deps:
         )
     else:
         verifier = LLMJudgeVerifier(BedrockChat(cfg.roles["inloop_judge"], region=cfg.region))
+    from dra.contradiction import PairContradictionJudge
+    judge_model = cfg.verifier_models[0] if cfg.verifier_models else cfg.roles["inloop_judge"]
     return Deps(
         generator=BedrockChat(cfg.roles["generator"], region=cfg.region),
         verifier=verifier,
         search=default_search_tool(cfg),
         diagram_generator=LLMDiagramGenerator(BedrockChat(diagram_model, region=cfg.region)),
+        contradiction_judge=PairContradictionJudge(BedrockChat(judge_model, region=cfg.region)),
     )

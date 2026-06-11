@@ -69,13 +69,13 @@ def render_appendix(claims, sources, md: ReportMetadata, verified: bool) -> str:
                 f"   ·   Coverage: {md.coverage if md.coverage is not None else '—'}"]
         if md.confidence_breakdown:
             out.append("- Breakdown: " + " · ".join(f"{k} {v['count']}" for k, v in md.confidence_breakdown.items()))
-        if md.disclaimers:
-            out += ["", "## Disclaimers"] + [f"- {d}" for d in md.disclaimers]
     else:
         out += ["| # | Claim | Sources |", "|---|---|---|"]
         for c in claims:
             cites = ", ".join(sorted({cit.source_id for cit in c.citations}))
             out.append(f"| {c.id} | {c.text} | {cites} |")
+    if md.disclaimers:
+        out += ["", "## Disclaimers"] + [f"- {d}" for d in md.disclaimers]
     out += ["", "## Sources"]
     for p in sources:
         out.append(f"- [{p.source_id}] {(p.title or p.url or '').strip()}")
@@ -87,7 +87,7 @@ Rules:
 - Every factual sentence MUST cite a claim id in square brackets, e.g. [c1]; use only the ids listed.
 - Do NOT introduce any fact that is not one of the claims.
 - Start with a "## Summary" section, then logical "## <topic>" sections.
-{table}- Be concise.
+{table}{contradictions}- Be concise.
 
 QUERY: {query}
 
@@ -113,12 +113,18 @@ def strip_unknown_claim_refs(text: str, valid_ids: set) -> str:
     return re.sub(r"\[(c\d+)\]", lambda m: m.group(0) if m.group(1) in valid_ids else "", text)
 
 
-def compose_narrative(query, plan, claims, generator, verified: bool) -> str:
+def compose_narrative(query, plan, claims, generator, verified: bool, contradictions=None) -> str:
     constraints = plan.constraints or {}
     table = ("- Present the core comparison as a Markdown table.\n"
              if constraints.get("format") == "table" else "")
+    pairs_note = ""
+    if contradictions:
+        pairs = "; ".join(f"[{r.claim_a}] vs [{r.claim_b}]" for r in contradictions)
+        pairs_note = ("- These claim pairs CONTRADICT each other — present EACH pair TOGETHER as a single "
+                      "contested finding, e.g. \"one source indicates [cA] …, while another indicates [cB] …\". "
+                      f"Pairs: {pairs}\n")
     prompt = _NARRATIVE_PROMPT.format(query=query, claims=_claims_block(claims, verified),
-                                      table=table)
+                                      table=table, contradictions=pairs_note)
     try:
         text = (generator.complete(prompt) or "").strip()
     except Exception:
@@ -129,7 +135,7 @@ def compose_narrative(query, plan, claims, generator, verified: bool) -> str:
 
 
 def compose_report(query, plan, claims, sources, generator, with_verification=None,
-                   diagram_generator=None) -> ResearchReport:
+                   diagram_generator=None, contradictions=None) -> ResearchReport:
     brief = " ; ".join(plan.subquestions)
     if not claims:
         return ResearchReport(
@@ -141,11 +147,15 @@ def compose_report(query, plan, claims, sources, generator, with_verification=No
         )
     verified = (with_verification if with_verification is not None
                 else any(c.verdict != "unverified" for c in claims))
-    narrative = compose_narrative(query, plan, claims, generator, verified)
+    narrative = compose_narrative(query, plan, claims, generator, verified, contradictions=contradictions)
     if (plan.constraints or {}).get("wants_visual") and diagram_generator is not None:
         from dra.diagram import insert_diagram
         narrative = insert_diagram(narrative, diagram_generator.generate(query, claims, narrative))
     md = rollup_metadata(plan, claims, verified)
+    if contradictions:
+        md.disclaimers = list(md.disclaimers) + [
+            f"Findings [{r.claim_a}] and [{r.claim_b}] contradict each other; both sides are shown."
+            for r in contradictions]
     appendix = render_appendix(claims, sources, md, verified)
     report_markdown = f"# Research Report\n**Query:** {query}\n\n{narrative}\n\n---\n\n{appendix}"
     return ResearchReport(query=query, resolved_brief=brief, report_markdown=report_markdown,

@@ -86,14 +86,21 @@ class ContradictionRecord(BaseModel):
 
 
 def detect_and_resolve(claims, judge, *, policy: str = "flag", threshold: float = 0.5):
-    """Filter -> judge each candidate pair -> collect 'contradict' records (conf >= threshold).
-    B1: DETECTION ONLY — the claim set is returned UNCHANGED (policy application is Phase B2).
-    No-op (claims, []) when judge is None or fewer than 2 claims."""
+    """Filter -> judge candidate pairs -> records for 'contradict' (conf >= threshold).
+    policy='flag' (the decided MVP): set BOTH claims in each contradicting pair to
+    verdict='contested' (kept, never dropped); record action='flagged'. No-op (claims, [])
+    when judge is None or < 2 claims."""
     if judge is None or len(claims) < 2:
         return claims, []
     records = []
     for a, b in candidate_pairs(claims):
         rel, conf = judge.judge(a.text, b.text)
         if rel == "contradict" and conf >= threshold:
-            records.append(ContradictionRecord(claim_a=a.id, claim_b=b.id, confidence=conf))
+            records.append(ContradictionRecord(claim_a=a.id, claim_b=b.id, confidence=conf,
+                                                action=("flagged" if policy == "flag" else "detected")))
+    if policy == "flag":
+        flagged = {r.claim_a for r in records} | {r.claim_b for r in records}
+        by_id = {c.id: c for c in claims}
+        for cid in flagged:
+            by_id[cid].verdict = "contested"
     return claims, records

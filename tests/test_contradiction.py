@@ -39,7 +39,7 @@ def test_judge_bad_output_coerced_to_independent():
     assert rel == "independent"
 
 
-def test_detect_returns_records_but_leaves_claims_unchanged():
+def test_flag_policy_marks_both_claims_contested():
     claims = [_c("c0", "Latency improved thirty percent overall", "perf"),
               _c("c1", "Latency was unchanged overall always", "perf")]
 
@@ -47,11 +47,10 @@ def test_detect_returns_records_but_leaves_claims_unchanged():
         def judge(self, a, b):
             return "contradict", 0.9
 
-    out_claims, records = detect_and_resolve(claims, Judge())
-    assert out_claims == claims                     # B1: detection only, claims untouched
-    assert len(records) == 1
-    assert records[0].claim_a == "c0" and records[0].claim_b == "c1"
-    assert records[0].action == "detected"
+    out, records = detect_and_resolve(claims, Judge(), policy="flag")
+    assert {c.verdict for c in out} == {"contested"}      # both flagged, neither dropped
+    assert len(out) == 2 and len(records) == 1
+    assert records[0].action == "flagged"
 
 
 def test_detect_noop_when_judge_none():
