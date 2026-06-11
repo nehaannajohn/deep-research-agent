@@ -102,3 +102,22 @@ def test_corrupt_file_refetches(tmp_path):
         (tmp_path / fname).write_text("{not valid json")
     tool.search("q", k=5)
     assert inner.calls == 2  # corrupt -> treated as miss
+
+
+def test_default_search_tool_wraps_when_enabled():
+    from dra.config import load_config
+    from dra.search import default_search_tool
+    cfg = load_config(env={"EXA_API_KEY": "k"})
+    tool = default_search_tool(cfg)
+    assert isinstance(tool, CachingSearchTool)
+    assert tool.name == "exa"
+    assert tool.ttl_seconds == 259200
+
+
+def test_default_search_tool_bare_when_disabled():
+    from dra.config import load_config
+    from dra.search import default_search_tool
+    from dra.search.exa import ExaSearch
+    cfg = load_config(env={"EXA_API_KEY": "k", "DRA_RETRIEVAL_CACHE": "0"})
+    tool = default_search_tool(cfg)
+    assert isinstance(tool, ExaSearch)

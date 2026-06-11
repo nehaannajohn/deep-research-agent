@@ -11,7 +11,20 @@ def default_search_tool(cfg):
     (0.33 overall, 0.80 on technical), and fastest (1.4s) — and it covers both
     academic and general/web, so one backend suffices for the MVP. Tavily is a
     viable but slower/lower-relevance fallback; Semantic Scholar was deprioritized
-    (keyless rate-limiting; redundant with Exa for papers)."""
+    (keyless rate-limiting; redundant with Exa for papers).
+
+    Wrapped in a TTL'd retrieval cache when `cfg.retrieval_cache_enabled`
+    (default on) so repeated eval runs reuse passages; experiment scripts build
+    ExaSearch directly to bypass it."""
     from dra.search.exa import ExaSearch
 
-    return ExaSearch(cfg.exa_key, max_chars=EXA_MAX_CHARS)
+    exa = ExaSearch(cfg.exa_key, max_chars=EXA_MAX_CHARS)
+    if getattr(cfg, "retrieval_cache_enabled", True):  # on by default; matches Config default
+        from dra.search.cache import CachingSearchTool
+
+        return CachingSearchTool(
+            exa,
+            cache_dir=cfg.retrieval_cache_dir,
+            ttl_seconds=cfg.retrieval_cache_ttl_s,
+        )
+    return exa
