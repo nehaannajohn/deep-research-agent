@@ -128,3 +128,23 @@ def compose_narrative(query, plan, claims, generator, verified: bool) -> str:
     if not text:
         text = f"## Summary\nThis report summarizes {len(claims)} finding(s) for: {query}."
     return strip_unknown_claim_refs(text, {c.id for c in claims})
+
+
+def compose_report(query, plan, claims, sources, generator, with_verification=None) -> ResearchReport:
+    brief = " ; ".join(plan.subquestions)
+    if not claims:
+        return ResearchReport(
+            query=query, resolved_brief=brief,
+            report_markdown=f"# Research Report\n**Query:** {query}\n\n"
+                            "No findings could be established for this query.",
+            claims=[], sources=sources,
+            metadata=ReportMetadata(descriptive_summary="No findings."),
+        )
+    verified = (with_verification if with_verification is not None
+                else any(c.verdict != "unverified" for c in claims))
+    narrative = compose_narrative(query, plan, claims, generator, verified)
+    md = rollup_metadata(plan, claims, verified)
+    appendix = render_appendix(claims, sources, md, verified)
+    report_markdown = f"# Research Report\n**Query:** {query}\n\n{narrative}\n\n---\n\n{appendix}"
+    return ResearchReport(query=query, resolved_brief=brief, report_markdown=report_markdown,
+                          claims=claims, sources=sources, metadata=md)

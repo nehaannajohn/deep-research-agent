@@ -107,3 +107,34 @@ def test_compose_narrative_falls_back_on_llm_failure():
 
     out = compose_narrative("the query", PLAN, [_claim("c0", "x", "sq A")], BoomGen(), verified=False)
     assert "## Summary" in out and "the query" in out  # deterministic fallback narrative
+
+
+def test_compose_report_verified_combines_narrative_and_appendix():
+    from dra.report import compose_report
+    gen = FakeGen("## Summary\nFinding [c0].")
+    claims = [_claim("c0", "A supported finding", "sq A", "supported", 0.9)]
+    src = [Passage(source_id="s1", text="t", title="T1")]
+    rep = compose_report("the query", PLAN, claims, src, gen)
+    assert rep.query == "the query"
+    assert "## Summary" in rep.report_markdown
+    assert "## Detailed Citation Results" in rep.report_markdown
+    assert "\n---\n" in rep.report_markdown                 # narrative / appendix separator
+    assert rep.metadata.overall_confidence == 0.9           # verified mode auto-detected
+    assert rep.claims == claims and rep.sources == src
+
+
+def test_compose_report_auto_detects_unverified():
+    from dra.report import compose_report
+    gen = FakeGen("## Summary\n[c0]")
+    claims = [_claim("c0", "x", "sq A")]  # verdict defaults to "unverified"
+    rep = compose_report("q", PLAN, claims, [], gen)
+    assert rep.metadata.overall_confidence is None
+    assert "Verdict" not in rep.report_markdown
+
+
+def test_compose_report_empty_ledger_is_minimal():
+    from dra.report import compose_report
+    gen = FakeGen("unused")
+    rep = compose_report("the query", PLAN, [], [], gen)
+    assert "No findings" in rep.report_markdown
+    assert rep.claims == []
