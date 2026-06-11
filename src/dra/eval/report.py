@@ -105,6 +105,8 @@ def build_report(
     predictions_by_dataset: dict,
     *,
     calib_split_rows=None,
+    calib_split: "float | None" = None,
+    calib_seed: int = 13,
     manifest=None,
     price_table=None,
     verifier_id: str = "A",
@@ -139,10 +141,20 @@ def build_report(
             "gold_counts": _gold_counts(rows),
         }
 
-    # Calibration: pool all public rows for the eval signal; fit on the calib split.
+    # Calibration: when calib_split is set, hold out a DISJOINT partition — fit Platt
+    # on it, evaluate ECE on the rest (the honest, out-of-sample number). Else use an
+    # explicit calib_split_rows, or fall back to in-sample on the pooled rows.
     pooled = [r for rows in public.values() for r in rows]
-    calibration = _calibration_block(
-        pooled, calib_split_rows, bins=bins, diagram_path=diagram_path)
+    if calib_split and 0.0 < calib_split < 1.0 and len(pooled) > 1:
+        import random
+        shuffled = pooled[:]
+        random.Random(calib_seed).shuffle(shuffled)
+        k = max(1, min(len(shuffled) - 1, round(len(shuffled) * calib_split)))
+        calibration = _calibration_block(
+            shuffled[k:], shuffled[:k], bins=bins, diagram_path=diagram_path)
+    else:
+        calibration = _calibration_block(
+            pooled, calib_split_rows, bins=bins, diagram_path=diagram_path)
 
     contested = _metric_table(contested_rows) if contested_rows else None
 

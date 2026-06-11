@@ -148,7 +148,7 @@ def main(argv=None) -> int:  # pragma: no cover - live orchestration
     diagram_path = os.path.join(out_dir, f"reliability_{cfg.verifier}.png")
     report = build_report(
         predictions, manifest=manifest, verifier_id=cfg.verifier,
-        diagram_path=diagram_path,
+        diagram_path=diagram_path, calib_split=cfg.calib_split,
     )
     # Write reports FIRST so a plotting/matplotlib failure never loses them.
     with open(os.path.join(out_dir, f"report_{cfg.verifier}.json"), "w") as f:

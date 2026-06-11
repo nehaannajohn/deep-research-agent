@@ -143,6 +143,15 @@ def test_calibration_falls_back_to_eval_rows_when_no_split():
     assert "ece_before" in rep["calibration"]
 
 
+def test_calibration_disjoint_split_when_calib_split_set():
+    rows = _fever_rows() * 4  # enough rows to partition
+    rep = build_report({"fever": rows}, calib_split=0.5)
+    c = rep["calibration"]
+    assert c["fit_on_disjoint_split"] is True
+    assert c["n_fit"] >= 1 and c["n_eval"] >= 1
+    assert c["n_fit"] + c["n_eval"] == len(rows)
+
+
 # ---------------------------------------------------------------- contested subset
 
 
