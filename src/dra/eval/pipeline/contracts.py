@@ -55,3 +55,4 @@ class EvalItem(BaseModel):
     seed_sources: list[str] = Field(default_factory=list)
     expected_behavior: Optional[str] = None
     label_corpus: Optional[str] = None
+    meta: dict = Field(default_factory=dict)
