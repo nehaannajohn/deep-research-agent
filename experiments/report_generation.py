@@ -38,13 +38,16 @@ def main():  # pragma: no cover - live path
     def build(query):
         p = plan(query, gen)
         claims = []
+        sources = {}
         for sq in p.subquestions:
             passages = search.search(sq, k=5).passages
+            for psg in passages:
+                sources[psg.source_id] = psg
             try:
                 claims.extend(synthesize(query, sq, passages, gen, start_index=len(claims)))
             except Exception:
                 pass
-        return p, compose_report(query, p, claims, [], gen)  # unverified baseline mode
+        return p, compose_report(query, p, claims, list(sources.values()), gen)  # unverified baseline mode
 
     summary = {}
     for case_id, query in TEST_CASES:
