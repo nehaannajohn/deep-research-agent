@@ -78,3 +78,27 @@ def test_writes_valid_json_entry(tmp_path):
     assert entry["query"] == "q" and entry["k"] == 5
     assert entry["params"] == {"max_chars": 2000}
     assert "fetched_at" in entry and "result" in entry
+
+
+def test_ttl_expiry_refetches(tmp_path):
+    inner = FakeInner()
+    now = {"t": 1000.0}
+    tool = CachingSearchTool(inner, cache_dir=str(tmp_path),
+                             ttl_seconds=100, clock=lambda: now["t"])
+    tool.search("q", k=5)
+    now["t"] = 1050.0  # within ttl
+    tool.search("q", k=5)
+    assert inner.calls == 1  # still cached
+    now["t"] = 1101.0  # past ttl
+    tool.search("q", k=5)
+    assert inner.calls == 2  # stale -> refetched
+
+
+def test_corrupt_file_refetches(tmp_path):
+    inner = FakeInner()
+    tool = CachingSearchTool(inner, cache_dir=str(tmp_path))
+    tool.search("q", k=5)  # writes a valid entry
+    for fname in os.listdir(tmp_path):
+        (tmp_path / fname).write_text("{not valid json")
+    tool.search("q", k=5)
+    assert inner.calls == 2  # corrupt -> treated as miss
