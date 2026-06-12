@@ -17,7 +17,7 @@ import pytest
 from dra.eval.pipeline.contracts import EvalItem
 from dra.eval.pipeline.datasets.dra_bench import load_dra_bench
 from dra.eval.pipeline.datasets.agentic import frames_row_to_item
-from dra.eval.pipeline.harness import PipelineDeps, evaluate_item, run_eval
+from dra.eval.pipeline.harness import PipelineDeps, _aggregate, evaluate_item, run_eval
 
 from dra.schemas import (
     Citation,
@@ -295,6 +295,48 @@ def test_run_eval_aggregates_and_writes(tmp_path):
     assert "task_accuracy" in overall
     assert "abstention_rate" in overall
     assert "agentic" in summary["per_tier"]
+
+
+def _agg_row(grounding, rel, qual):
+    return {
+        "id": "x",
+        "tier": "dra_bench",
+        "grounding": grounding,
+        "relevance": {"aggregate": rel},
+        "quality": {"aggregate": qual},
+        "formatting": {"pass_rate": 1.0},
+        "task_accuracy": None,
+        "expected_behavior_match": None,
+    }
+
+
+def test_aggregate_excludes_na_grounding_from_means_and_counts_them():
+    """N/A grounding (None or applicable=False or missing rate) is excluded from
+    grounding means and counted; relevance/quality cover all items."""
+    rows = [
+        _agg_row({"grounding_rate": 1.0, "hallucination_rate": 0.0}, 4, 5),
+        _agg_row({"applicable": False}, 2, 3),
+        _agg_row(None, 3, 4),
+    ]
+    summary = _aggregate(rows)
+    assert summary["n"] == 3
+    # only the one applicable item counts toward grounding means
+    assert summary["grounding_rate"] == pytest.approx(1.0)
+    assert summary["hallucination_rate"] == pytest.approx(0.0)
+    assert summary["n_grounding_applicable"] == 1
+    assert summary["n_grounding_na"] == 2
+    # citation-independent axes cover ALL items
+    assert summary["relevance_mean"] == pytest.approx(3.0)
+    assert summary["quality_mean"] == pytest.approx(4.0)
+
+
+def test_aggregate_all_na_grounding_means_none():
+    rows = [_agg_row({"applicable": False}, 4, 5), _agg_row(None, 2, 3)]
+    summary = _aggregate(rows)
+    assert summary["grounding_rate"] is None
+    assert summary["hallucination_rate"] is None
+    assert summary["n_grounding_applicable"] == 0
+    assert summary["n_grounding_na"] == 2
 
 
 def test_run_eval_skips_raising_item_not_fatal(tmp_path):

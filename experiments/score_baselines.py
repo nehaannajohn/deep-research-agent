@@ -197,6 +197,45 @@ def keyword_matcher(claim_text: str, sources: list[Passage]) -> list[Citation]:
     return citations
 
 
+def baseline_grounding(gradable, grounding_judge) -> Optional[dict]:
+    """Judge a black-box baseline's grounding against its FULL source set.
+
+    A black-box system exposes sources but never the claim->source links, so the
+    keyword matcher under-counts and (for title-only sources like OpenAI's)
+    matches nothing — making the matcher-based grounding meaningless. Instead we
+    let the independent grounding judge reason over the system's OWN evidence:
+    each claim is judged against ALL of the report's text-bearing sources.
+
+    Applicability: grounding is **N/A** (``{"applicable": False}``) when no source
+    carries usable evidence text (no `Passage` with non-empty ``text``) — we
+    literally cannot check grounding, so we don't fabricate a 0. The judge is not
+    called in that case.
+
+    When applicable: ``grounding_rate`` = supported / n_claims,
+    ``hallucination_rate`` = (n_claims - supported) / n_claims. Citation
+    precision/recall are ``None`` (a black-box system's claim->source links are
+    unrecoverable). Returns ``applicable: True`` plus ``n_claims``.
+    """
+    text_sources = [p for p in gradable.sources if (p.text or "").strip()]
+    if not text_sources:
+        return {"applicable": False}
+
+    claims = gradable.claims
+    n = len(claims)
+    supported = sum(
+        1 for c in claims if grounding_judge.verdict(c.text, text_sources) == "supported"
+    )
+
+    return {
+        "applicable": True,
+        "grounding_rate": (supported / n) if n else 0.0,
+        "hallucination_rate": ((n - supported) / n) if n else 0.0,
+        "citation_precision": None,
+        "citation_recall": None,
+        "n_claims": n,
+    }
+
+
 def score_record(record: dict, item: EvalItem, adapter, deps: PipelineDeps, *,
                  seed: int = SEED) -> dict:
     """Score one saved baseline response through the Layer-2 instrument.
@@ -214,7 +253,11 @@ def score_record(record: dict, item: EvalItem, adapter, deps: PipelineDeps, *,
         "constraints": item.constraints,
     }
     gradable = adapter.to_gradable(raw_response)
-    return score_gradable(gradable, item, deps, seed=seed)
+    result = score_gradable(gradable, item, deps, seed=seed)
+    # Overwrite the matcher-based grounding with the full-source-set judgement:
+    # for a black box, grounding is either judged over its own evidence or N/A.
+    result["grounding"] = baseline_grounding(gradable, deps.grounding_judge)
+    return result
 
 
 def aggregate(results: list[dict]) -> dict:

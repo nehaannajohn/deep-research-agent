@@ -270,9 +270,24 @@ def _aggregate(results: list[dict]) -> dict:
 
     relevance_mean = _mean(r["relevance"].get("aggregate") for r in results)
     quality_mean = _mean(r["quality"].get("aggregate") for r in results)
-    grounding_rate = _mean(r["grounding"].get("grounding_rate") for r in results)
-    hallucination_rate = _mean(r["grounding"].get("hallucination_rate") for r in results)
     formatting_pass_rate = _mean(r["formatting"].get("pass_rate") for r in results)
+
+    # Grounding can be N/A for a black-box baseline that exposes no usable
+    # citations (``None`` / ``{"applicable": False}`` / missing ``grounding_rate``).
+    # Such items are excluded from the means and counted separately; the means
+    # are over the applicable subset only (None when none apply). The our-pipeline
+    # path always carries an applicable grounding dict, so its aggregates are
+    # unchanged.
+    grounding_applicable = [
+        r["grounding"] for r in results
+        if isinstance(r.get("grounding"), dict)
+        and r["grounding"].get("applicable") is not False
+        and r["grounding"].get("grounding_rate") is not None
+    ]
+    n_grounding_applicable = len(grounding_applicable)
+    n_grounding_na = n - n_grounding_applicable
+    grounding_rate = _mean(g.get("grounding_rate") for g in grounding_applicable)
+    hallucination_rate = _mean(g.get("hallucination_rate") for g in grounding_applicable)
 
     # task accuracy + abstention over items that carry a gold answer.
     graded = [r["task_accuracy"] for r in results if r["task_accuracy"] is not None]
@@ -293,6 +308,8 @@ def _aggregate(results: list[dict]) -> dict:
         "quality_mean": quality_mean,
         "grounding_rate": grounding_rate,
         "hallucination_rate": hallucination_rate,
+        "n_grounding_applicable": n_grounding_applicable,
+        "n_grounding_na": n_grounding_na,
         "formatting_pass_rate": formatting_pass_rate,
         "task_accuracy": task_accuracy,
         "abstention_rate": abstention_rate,

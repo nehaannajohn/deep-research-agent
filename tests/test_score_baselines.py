@@ -318,3 +318,82 @@ def test_load_record_reads_json(tmp_path):
     rec = load_record(str(p))
     assert rec["id"] == "dra-type1-011"
     assert rec["provider"] == "perplexity"
+
+
+# --------------------------------------------------------------------------- #
+# baseline_grounding: judged against the FULL source set, N/A when no text
+# --------------------------------------------------------------------------- #
+def _gradable(claims, sources):
+    return GradableReport(query="q", claims=claims, sources=sources)
+
+
+def test_baseline_grounding_applicable_judges_all_sources():
+    """Text-bearing sources -> the judge runs per claim over ALL sources;
+    grounding/hallucination rates reflect the verdicts; precision/recall None."""
+    from experiments.score_baselines import baseline_grounding
+
+    sources = [
+        Passage(source_id="s0", text="Paris is the capital of France.", url="http://a"),
+        Passage(source_id="s1", text="The city lies on the Seine.", url="http://b"),
+    ]
+    claims = [
+        GradableClaim(id="c0", text="Paris is the capital of France."),
+        GradableClaim(id="c1", text="It is on the Seine."),
+        GradableClaim(id="c2", text="Unrelated fabricated claim."),
+    ]
+
+    seen_passages = []
+
+    class CountingJudge:
+        def verdict(self, claim_text, passages):
+            seen_passages.append(list(passages))
+            return "supported" if "Paris" in claim_text or "Seine" in claim_text else "insufficient"
+
+    out = baseline_grounding(_gradable(claims, sources), CountingJudge())
+    assert out["applicable"] is True
+    assert out["n_claims"] == 3
+    assert out["grounding_rate"] == pytest.approx(2 / 3)
+    assert out["hallucination_rate"] == pytest.approx(1 / 3)
+    assert out["citation_precision"] is None
+    assert out["citation_recall"] is None
+    # every claim was judged against the FULL text-bearing source set
+    assert all(len(p) == 2 for p in seen_passages)
+
+
+def test_baseline_grounding_na_when_no_text_sources_and_judge_not_called():
+    """OpenAI title-only sources (no Passage text) -> N/A, judge never called."""
+    from experiments.score_baselines import baseline_grounding
+
+    sources = [
+        Passage(source_id="s0", text="", url="http://a", title="In-Context Learning"),
+        Passage(source_id="s1", text="", url="http://b", title="Few-shot"),
+    ]
+    claims = [GradableClaim(id="c0", text="LLMs learn in context.")]
+
+    class ExplodingJudge:
+        def verdict(self, claim_text, passages):
+            raise AssertionError("judge must not be called when grounding is N/A")
+
+    out = baseline_grounding(_gradable(claims, sources), ExplodingJudge())
+    assert out == {"applicable": False}
+
+
+def test_score_record_openai_grounding_na_but_other_axes_present():
+    """OpenAI-style record (title-only sources) -> grounding N/A, but
+    relevance/quality/formatting are still reported."""
+    from experiments.score_baselines import keyword_matcher, score_record
+    from dra.eval.pipeline.adapters.openai import OpenAIAdapter
+
+    record = _openai_record()
+    item = EvalItem(id="dra-type1-011", tier="dra_bench", query=record["query"])
+
+    def fake_decomposer(narrative):
+        return ["LLMs learn in context.", "Few-shot prompting steers them."]
+
+    adapter = OpenAIAdapter(decomposer=fake_decomposer, matcher=keyword_matcher)
+    result = score_record(record, item, adapter, _deps(), seed=13)
+
+    assert result["grounding"] == {"applicable": False}
+    assert result["relevance"]["aggregate"] == 4
+    assert result["quality"]["aggregate"] == 4
+    assert "pass_rate" in result["formatting"]
