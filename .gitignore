@@ -21,8 +21,14 @@ checkpoints/
 *.safetensors
 data/raw/
 data/cache/
-# Offline eval harness benchmark data (downloaded, never pushed)
-/eval/
+# Offline eval harness artifacts — ignored EXCEPT the curated DRA-Bench prompt set
+# (the benchmark definition: small, reviewed, reproducible — tracked so eval runs
+# on any host have their inputs). Large generated artifacts stay ignored.
+/eval/*
+!/eval/dra_bench/
+/eval/dra_bench/*
+!/eval/dra_bench/prompts.jsonl
+!/eval/dra_bench/prompts_review.md
 
 # OS / editor
 .DS_Store
