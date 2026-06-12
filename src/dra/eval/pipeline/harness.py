@@ -46,7 +46,7 @@ from dra.eval.pipeline.scoring.task_accuracy import score_task_accuracy
 
 logger = logging.getLogger(__name__)
 
-__all__ = ["PipelineDeps", "evaluate_item", "run_eval"]
+__all__ = ["PipelineDeps", "score_gradable", "evaluate_item", "run_eval"]
 
 
 @dataclass
@@ -175,8 +175,14 @@ def _obtain_report(item: EvalItem, deps: PipelineDeps) -> ResearchReport:
     return report
 
 
-def evaluate_item(item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict:
-    """Run the pipeline on one item and score every axis. Returns a result dict.
+def score_gradable(g: GradableReport, item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict:
+    """Score every Layer-2 axis on an already-built `GradableReport`.
+
+    This is the scoring half of `evaluate_item`, factored out so both our
+    pipeline (`evaluate_item`, after generating + adapting a `ResearchReport`)
+    and the black-box baseline driver (after `adapter.to_gradable(...)`) drive
+    the *identical* instrument over the *identical* system-agnostic view. The
+    only thing the caller owns is how `g` is produced.
 
     Result schema (per item)::
 
@@ -192,10 +198,11 @@ def evaluate_item(item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict
           "expected_behavior": <str | None>,
           "expected_behavior_match": <bool | None>,
         }
-    """
-    report = _obtain_report(item, deps)
-    g = to_gradable(report, constraints=item.constraints)
 
+    ECE is computed from ``g.claims`` (the surfaced verdict/confidence carried
+    over verbatim by the adapter); a black-box claim with no confidence is
+    simply skipped (``n=0``), so the same scorer applies to both paths.
+    """
     # Reference claims for citation-recall: prefer the item's own, else consult
     # the injected reference_lookup (e.g. a Fable reference loaded from disk).
     # The lookup may yield a list of claim texts or a GradableReport; both are
@@ -207,7 +214,7 @@ def evaluate_item(item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict
     relevance = score_relevance(g, item.query, deps.panel, seed=seed)
     quality = score_quality(g, item.query, deps.panel, seed=seed)
     formatting = score_formatting(g, item.constraints)
-    ece = system_ece(report.claims)
+    ece = system_ece(g.claims)
 
     extracted_answer: Optional[str] = None
     task_accuracy: Optional[dict] = None
@@ -237,6 +244,19 @@ def evaluate_item(item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict
         "expected_behavior": item.expected_behavior,
         "expected_behavior_match": _expected_behavior_match(item, g, task_accuracy),
     }
+
+
+def evaluate_item(item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict:
+    """Run the pipeline on one item and score every axis. Returns a result dict.
+
+    Generates (or loads-from-cache) the item's `ResearchReport`, adapts it to a
+    `GradableReport`, then delegates all axis scoring to `score_gradable` — the
+    same helper the baseline driver calls, so the two paths are scored
+    identically. See `score_gradable` for the result schema.
+    """
+    report = _obtain_report(item, deps)
+    g = to_gradable(report, constraints=item.constraints)
+    return score_gradable(g, item, deps, seed=seed)
 
 
 def _mean(values) -> Optional[float]:
