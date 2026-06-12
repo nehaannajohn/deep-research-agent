@@ -84,4 +84,28 @@ Swap the offline filter for the verifier as a **live process reward** and train 
 
 ---
 
+## 4. LangGraph for adaptive retrieval orchestration
+
+**What.** Replace the plain Python `while`-loop controller in the adaptive retrieval layer with a [LangGraph](https://langchain-ai.github.io/langgraph/) state machine — declarative nodes (`retrieve`, `verify`, `route`, `act`) connected by conditional edges, with built-in checkpointing and graph visualization.
+
+**Why we chose a plain loop for MVP.** The adaptive loop is a small, linear state machine (3-4 states, one conditional branch point, sequential execution, max 2-3 iterations). A plain loop with injected deps is trivially fake-testable per our repo convention (scripted verifiers + canned retrievers, no live calls), easy to step-debug, and adds zero dependencies. LangGraph's value propositions — declarative edges, automatic visualization, checkpointing — don't justify the cost for a loop this small.
+
+**Why it might be worth it later.** Two triggers would change the calculus: (1) **concurrent sub-question processing** — if we parallelize the adaptive loop across sub-questions (today it's sequential), LangGraph's built-in fan-out/fan-in and per-branch state isolation become genuinely useful vs. hand-rolled `asyncio` coordination; (2) **checkpointing for long-running queries** — if queries grow expensive enough that mid-loop resume matters (e.g., multi-backend Phase 2 with 5+ iterations), LangGraph's automatic state persistence avoids us building our own serialization. A third, softer trigger: if the action menu expands (Phase 3: gap-classifier, learned policy, per-claim branching), the declarative graph becomes more readable than nested `if/elif` chains.
+
+**Rough scope.** Wrap the existing `AdaptiveRetriever` controller as a LangGraph `StateGraph`; each current method becomes a node; the route decision becomes conditional edges. Preserve the injectable-deps contract so the same fakes work. Add a `--visualize` flag that emits the graph PNG for debugging/docs.
+
+---
+
+## 5. Judge *panel* for grounding & hallucination (vs. the single judge)
+
+**What.** Score grounding/hallucination with the **3-model blind panel + adjudication** (the same robustness machinery we use for relevance/quality) instead of the single independent grounding judge (GPT-OSS) used today.
+
+**Why we chose a single judge for the MVP.** Grounding is a near-**objective**, claim-level NLI check ("does *this* cited passage support *this* claim?") — closer to a factual verdict than a subjective rubric — and it runs **per claim**, by far the highest-volume axis. So a single strong **independent** judge is the cost-effective standard choice; a panel's value (capturing *legitimate* disagreement) is strongest on the subjective rubric axes (relevance/quality), not on a near-binary grounding call.
+
+**Why it might be worth it.** A single judge carries its own bias / blind spots, and on the hard or ambiguous claims its call is shakiest. A panel + adjudication would make grounding/hallucination **more robust**, and would let us report **inter-judge κ on the grounding axis** too (today κ is only meaningful for the rubric axes). It also strengthens the headline grounding numbers against the "but it's one model's opinion" critique.
+
+**Rough scope.** Wrap `scoring/grounding.py` to accept a `JudgePanel` (reuse the existing panel) in place of a single `GroundingJudge`; aggregate per-claim verdicts by majority, adjudicate on disagreement, and record per-judge votes for κ. Measure the cost increase (≈**3×** on the highest-volume axis) against the robustness gain (κ, stability of `grounding_rate` across judges) on a sample. Keep the single-judge mode as the default/cheap path; make the panel a flag.
+
+---
+
 <!-- Add further candidate directions below as they come up. -->
