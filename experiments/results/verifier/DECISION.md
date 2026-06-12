@@ -1,12 +1,12 @@
-# Verifier Selection — Decision (provisional)
+# Verifier Selection — Decision (CONFIRMED at Layer 1)
 
 **Date:** 2026-06-11 · **Experiment:** `experiments/verifier_comparison.py` · **Bench:** 60 panel-validated adversarial examples (supported 16 · refuted 15 · insufficient 16 · contested 13), built from the 4 brief cases.
 
 ## Decision
 
-**Selected verifier (provisional): the 3-model ENSEMBLE `{Sonnet, Mistral, Amazon Nova}`** — majority-vote label, cross-model **agreement** as the (raw) confidence.
+**Selected verifier (CONFIRMED): the 3-model ENSEMBLE `{Sonnet, Mistral, Amazon Nova}`** — majority-vote label, cross-model **agreement** as the (raw) confidence.
 
-> **Provisional — revisit at Layer 1.** This selection is made on a small, by-construction-easy bench (see caveats). It **must be revisited at the full Layer-1 verifier evaluation** on the real benchmarks (FEVER / SciFact / VitaminC) with the complete metric set (macro-F1, confusion matrix, **ECE/Brier/AUROC**, κ, latency/cost), per `docs/research-and-experiments/2026-06-11-evaluation-strategy.md`. If the ranking changes there, the selection changes.
+> **CONFIRMED at Layer 1 (2026-06-11).** The provisional selection was validated on the real benchmarks — FEVER (n=1000) + SciFact (n=300) + 75/dataset constructed contested — and the ranking did **not** change. 4-way macro-F1 **0.845** (FEVER) / **0.842** (SciFact); held-out ECE **0.102 → 0.031**; **AUROC 0.936**; conservative error profile (small false-confidence cells; misses go to `refuted`, not `supported`); contested precision ~1.0 with **zero** false positives. Full write-up + caveats — including the contested **upper-bound** construction — in [`docs/research-and-experiments/2026-06-11-layer1-verifier-eval-findings.md`](../../../docs/research-and-experiments/2026-06-11-layer1-verifier-eval-findings.md). The final A-vs-B word waits on the **Layer-2 cross-check** once Verifier B (DeBERTa) lands.
 
 ## Results
 
