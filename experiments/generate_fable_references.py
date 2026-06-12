@@ -84,7 +84,9 @@ def build_fable_llm(via: str, model: "str | None" = None):
 
     region = os.environ.get("AWS_REGION", "us-east-1")
     m = model or FABLE_BEDROCK_MODEL_ID
-    llm = BedrockChat(m, region=region)
+    # Long reports can take well over the default 60s read-timeout (esp. under
+    # Bedrock load); a generous per-call timeout avoids ReadTimeoutError churn.
+    llm = BedrockChat(m, region=region, timeout=300)
     return llm, f"bedrock:{m} region={region}"
 
 
