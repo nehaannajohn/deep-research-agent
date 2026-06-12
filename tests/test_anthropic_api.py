@@ -48,6 +48,26 @@ def test_response_text_parse():
     assert chat.complete("q") == "the answer"
 
 
+def test_parse_skips_thinking_block():
+    # Fable returns [thinking, text] on complex prompts; we must skip thinking.
+    http = FakeHttp([(200, {"content": [
+        {"type": "thinking", "thinking": "...", "signature": "abc"},
+        {"type": "text", "text": "the report"},
+    ]})])
+    chat = AnthropicChat("k", http=http)
+    assert chat.complete("write a report") == "the report"
+
+
+def test_parse_thinking_only_raises():
+    # No text block (e.g. max_tokens consumed during thinking) -> surfaced, not "".
+    http = FakeHttp([(200, {"content": [
+        {"type": "thinking", "thinking": "", "signature": "abc"},
+    ]})])
+    chat = AnthropicChat("k", http=http)
+    with pytest.raises(AnthropicAPIError):
+        chat.complete("q")
+
+
 def test_429_then_success_retry():
     http = FakeHttp([
         (429, {"error": {"type": "rate_limit_error"}}),

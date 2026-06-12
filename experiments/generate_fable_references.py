@@ -73,7 +73,10 @@ def build_fable_llm(via: str):
             raise SystemExit(
                 "ANTHROPIC_API_KEY is not set (env or .env). Set it or use --via bedrock."
             )
-        llm = AnthropicChat(api_key, model=FABLE_ANTHROPIC_MODEL_ID)
+        # Fable uses extended thinking on complex prompts; a detailed report can
+        # exceed a small cap (thinking + text), so give it generous headroom to
+        # avoid truncating the gold reference mid-sentence.
+        llm = AnthropicChat(api_key, model=FABLE_ANTHROPIC_MODEL_ID, max_tokens=16000)
         return llm, f"anthropic-api:{FABLE_ANTHROPIC_MODEL_ID}"
 
     region = os.environ.get("AWS_REGION", "us-east-1")

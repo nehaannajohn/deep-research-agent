@@ -131,7 +131,23 @@ class AnthropicChat:
 
     @staticmethod
     def _parse_text(resp: dict) -> str:
+        """Join all `text`-type content blocks, skipping non-text ones.
+
+        Models with extended thinking return ``content = [{type:thinking,...},
+        {type:text,...}]`` (Fable does this on complex prompts), so taking
+        ``content[0]`` grabs the thinking block. We concatenate every text block
+        and ignore thinking/redacted ones. An empty result raises, so a
+        thinking-only / max-tokens-during-thinking response is surfaced rather
+        than silently returned as "".
+        """
         try:
-            return resp["content"][0]["text"]
-        except (KeyError, IndexError, TypeError) as e:
+            blocks = resp.get("content", []) or []
+            text = "".join(
+                b.get("text", "") for b in blocks
+                if isinstance(b, dict) and b.get("type") == "text"
+            )
+        except (AttributeError, TypeError) as e:
             raise AnthropicAPIError(200, resp) from e
+        if not text:
+            raise AnthropicAPIError(200, resp)
+        return text
