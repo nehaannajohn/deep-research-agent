@@ -1,0 +1,148 @@
+{
+  "id": "dra-type4-027",
+  "provider": "openai",
+  "query": "When will artificial general intelligence be achieved?",
+  "narrative": "Artificial General Intelligence (AGI) refers to AI systems capable of understanding, learning, and applying knowledge across a wide range of tasks at a human-like level. Predicting the exact timeline for achieving AGI is challenging, as expert opinions vary significantly.\n\n**Recent Claims of Achieving AGI**\n\n- **Marc Andreessen's Assertion**: In a June 2026 interview, Marc Andreessen, co-founder of a16z, claimed that AGI had been achieved approximately three months prior, citing models like GPT-5.5, Claude 4.6, and Gemini 3.0 as evidence. He stated these systems are \"as smart as a person\" and often outperform human experts. ([techradar.com](https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai))\n\n- **Jensen Huang's Perspective**: Nvidia CEO Jensen Huang, in a recent podcast, expressed his belief that AGI has been realized, highlighting autonomous systems such as OpenClaw as examples. However, he acknowledged that current AI agents are not yet capable of managing complex operations like running Nvidia. ([tomsguide.com](https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai))\n\n**Diverse Expert Predictions**\n\n- **Sam Altman's Forecast**: OpenAI CEO Sam Altman predicted in September 2025 that \"superintelligence\" would be achieved by 2030, with AI taking over 30-40% of tasks in the economy in the near future. ([techspot.com](https://www.techspot.com/news/109644-sam-altman-predicts-artificial-general-intelligence-2030-ai.html?utm_source=openai))\n\n- **Demis Hassabis's Estimate**: Demis Hassabis, CEO of Google DeepMind, suggested that AGI could arrive around 2030, possibly a few years later. ([aiwiki.ai](https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai))\n\n- **Elon Musk's Prediction**: Elon Musk, founder of xAI and Tesla, predicted in 2024 that AI would be smarter than the smartest human by 2026. ([aiwiki.ai](https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai))\n\n- **Geoffrey Hinton's View**: AI pioneer Geoffrey Hinton estimated in 2023 a 50% chance of AGI being achieved within 5 to 20 years. ([aiwiki.ai](https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai))\n\n**Survey Insights**\n\n- A 2023 survey of AI researchers estimated a 50% chance of \"unaided machines outperforming humans in every possible task\" by 2047, 13 years earlier than similar studies conducted a year prior. ([ibm.com](https://www.ibm.com/think/topics/artificial-general-intelligence?utm_source=openai))\n\n**Conclusion**\n\nThe timeline for achieving AGI remains uncertain, with predictions ranging from claims of recent attainment to projections extending several decades into the future. The variability in expert opinions underscores the complexity and unpredictability of advancements in artificial intelligence.\n\n\n## Highlights:\n- ['We crossed that about 3 months ago': A16z's Marc Andreessen drops huge bombshell about AGI on Joe Rogan's podcast](https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai), Published on Saturday, June 06\n- ['I think we've achieved AGI' - Nvidia's CEO believes we've finally reached artificial general intelligence](https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai), Published on Tuesday, March 24\n- [Do You Feel the AGI Yet?](https://www.theatlantic.com/technology/2026/02/do-you-feel-agi-yet/685845/?utm_source=openai), Published on Monday, February 02 ",
+  "sources": [
+    "https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai",
+    "https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai",
+    "https://www.techspot.com/news/109644-sam-altman-predicts-artificial-general-intelligence-2030-ai.html?utm_source=openai",
+    "https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai",
+    "https://www.ibm.com/think/topics/artificial-general-intelligence?utm_source=openai",
+    "https://www.theatlantic.com/technology/2026/02/do-you-feel-agi-yet/685845/?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai",
+    "https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai",
+    "https://www.techspot.com/news/109644-sam-altman-predicts-artificial-general-intelligence-2030-ai.html?utm_source=openai",
+    "https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai",
+    "https://www.ibm.com/think/topics/artificial-general-intelligence?utm_source=openai",
+    "https://www.theatlantic.com/technology/2026/02/do-you-feel-agi-yet/685845/?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-3be7ac2a-e475-4ee1-99d5-c4bc16c258f7",
+    "object": "chat.completion",
+    "created": 1781224862,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Artificial General Intelligence (AGI) refers to AI systems capable of understanding, learning, and applying knowledge across a wide range of tasks at a human-like level. Predicting the exact timeline for achieving AGI is challenging, as expert opinions vary significantly.\n\n**Recent Claims of Achieving AGI**\n\n- **Marc Andreessen's Assertion**: In a June 2026 interview, Marc Andreessen, co-founder of a16z, claimed that AGI had been achieved approximately three months prior, citing models like GPT-5.5, Claude 4.6, and Gemini 3.0 as evidence. He stated these systems are \"as smart as a person\" and often outperform human experts. ([techradar.com](https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai))\n\n- **Jensen Huang's Perspective**: Nvidia CEO Jensen Huang, in a recent podcast, expressed his belief that AGI has been realized, highlighting autonomous systems such as OpenClaw as examples. However, he acknowledged that current AI agents are not yet capable of managing complex operations like running Nvidia. ([tomsguide.com](https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai))\n\n**Diverse Expert Predictions**\n\n- **Sam Altman's Forecast**: OpenAI CEO Sam Altman predicted in September 2025 that \"superintelligence\" would be achieved by 2030, with AI taking over 30-40% of tasks in the economy in the near future. ([techspot.com](https://www.techspot.com/news/109644-sam-altman-predicts-artificial-general-intelligence-2030-ai.html?utm_source=openai))\n\n- **Demis Hassabis's Estimate**: Demis Hassabis, CEO of Google DeepMind, suggested that AGI could arrive around 2030, possibly a few years later. ([aiwiki.ai](https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai))\n\n- **Elon Musk's Prediction**: Elon Musk, founder of xAI and Tesla, predicted in 2024 that AI would be smarter than the smartest human by 2026. ([aiwiki.ai](https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai))\n\n- **Geoffrey Hinton's View**: AI pioneer Geoffrey Hinton estimated in 2023 a 50% chance of AGI being achieved within 5 to 20 years. ([aiwiki.ai](https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai))\n\n**Survey Insights**\n\n- A 2023 survey of AI researchers estimated a 50% chance of \"unaided machines outperforming humans in every possible task\" by 2047, 13 years earlier than similar studies conducted a year prior. ([ibm.com](https://www.ibm.com/think/topics/artificial-general-intelligence?utm_source=openai))\n\n**Conclusion**\n\nThe timeline for achieving AGI remains uncertain, with predictions ranging from claims of recent attainment to projections extending several decades into the future. The variability in expert opinions underscores the complexity and unpredictability of advancements in artificial intelligence.\n\n\n## Highlights:\n- ['We crossed that about 3 months ago': A16z's Marc Andreessen drops huge bombshell about AGI on Joe Rogan's podcast](https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai), Published on Saturday, June 06\n- ['I think we've achieved AGI' - Nvidia's CEO believes we've finally reached artificial general intelligence](https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai), Published on Tuesday, March 24\n- [Do You Feel the AGI Yet?](https://www.theatlantic.com/technology/2026/02/do-you-feel-agi-yet/685845/?utm_source=openai), Published on Monday, February 02 ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 808,
+                "start_index": 632,
+                "title": "'We crossed that about 3 months ago': A16z's Marc Andreessen drops huge bombshell about AGI on Joe Rogan's podcast",
+                "url": "https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1287,
+                "start_index": 1121,
+                "title": "'I think we've achieved AGI' - Nvidia's CEO believes we've finally reached artificial general intelligence",
+                "url": "https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1660,
+                "start_index": 1523,
+                "title": "Sam Altman predicts Artificial General Intelligence by 2030, says AI will take over 40% of tasks | TechSpot",
+                "url": "https://www.techspot.com/news/109644-sam-altman-predicts-artificial-general-intelligence-2030-ai.html?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1895,
+                "start_index": 1808,
+                "title": "Artificial General Intelligence | AI Wiki",
+                "url": "https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2127,
+                "start_index": 2040,
+                "title": "Artificial General Intelligence | AI Wiki",
+                "url": "https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2348,
+                "start_index": 2261,
+                "title": "Artificial General Intelligence | AI Wiki",
+                "url": "https://aiwiki.ai/wiki/artificial_general_intelligence?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2660,
+                "start_index": 2565,
+                "title": "What is Artificial General Intelligence (AGI)? | IBM",
+                "url": "https://www.ibm.com/think/topics/artificial-general-intelligence?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3265,
+                "start_index": 2990,
+                "title": "'We crossed that about 3 months ago': A16z's Marc Andreessen drops huge bombshell about AGI on Joe Rogan's podcast",
+                "url": "https://www.techradar.com/pro/we-crossed-that-about-3-months-ago-a16zs-marc-andreessen-drops-huge-bombshell-about-agi-on-joe-rogans-podcast?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3557,
+                "start_index": 3300,
+                "title": "'I think we've achieved AGI' - Nvidia's CEO believes we've finally reached artificial general intelligence",
+                "url": "https://www.tomsguide.com/ai/i-think-weve-achieved-agi-nvidias-ceo-believes-weve-finally-achieved-artificial-general-intelligence?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3712,
+                "start_index": 3592,
+                "title": "Do You Feel the AGI Yet?",
+                "url": "https://www.theatlantic.com/technology/2026/02/do-you-feel-agi-yet/685845/?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 47,
+      "completion_tokens": 917,
+      "total_tokens": 964,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:41:18Z"
+}

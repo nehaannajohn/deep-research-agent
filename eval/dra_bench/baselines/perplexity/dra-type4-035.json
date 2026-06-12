@@ -1,0 +1,133 @@
+{
+  "id": "dra-type4-035",
+  "provider": "perplexity",
+  "query": "Who will win the next election?",
+  "narrative": "No one can say with certainty who will win the \u201cnext election\u201d without specifying the country and office, and even then current data only provide **probabilities**, not guarantees. Current polling and prediction markets suggest likely *frontrunners* in several major cases, but outcomes remain uncertain.\n\nBelow I\u2019ll interpret your question as asking broadly about upcoming major elections and summarize what current evidence says. If you had a specific country or election in mind (e.g., UK general election, U.S. midterms, India\u2019s next general election), tell me and I can go into detail.\n\n---\n\n## 1. Why no one can reliably say \u201cwho will win\u201d\n\n**Claim (high confidence):** It is not possible to state definitively who will win a future election; only probabilistic forecasts based on polls, models, and betting/markets are available.\n\n**Evidence:**\n\n- Professional forecasters and sites like Electoral Calculus, Sabato\u2019s Crystal Ball, and Race to the WH present **probabilities and seat/EV ranges**, not certainties, precisely because polls change and events intervene.[1][2][6]  \n- Prediction/betting markets (e.g., Kalshi) similarly quote **percent odds** (like 15\u201320%) for possible winners in the 2028 U.S. presidential race, not definitive outcomes.[3]\n\nGiven typical polling error, campaign events, scandals, economic shocks, and turnout uncertainty, any precise \u201cX will win\u201d statement today would be speculation rather than evidence-based.\n\n---\n\n## 2. United Kingdom \u2013 next general election\n\n**Claim (medium confidence):** If a UK general election were held very soon, **Reform UK would be forecast as the largest party by seats, but short of a majority**, with Conservatives second and Labour third, according to one major model; however, this is only one model and UK polling remains volatile.\n\n**Evidence:**\n\n- Electoral Calculus\u2019 current prediction (using UK polls from 5\u201327 May 2026, ~15,475 respondents) projects:  \n  - Reform: about **27% vote share**, and a **central projection of 245 seats**, with a range 109\u2013376.[1]  \n  - Conservatives: about **18.3% vote share**, **116 seats** (range 22\u2013240).[1]  \n  - Labour: about **18.8% vote share**, **83 seats** (range 20\u2013245).[1]  \n- The model summary states: \u201cIf there were a general election soon, **Reform would be the largest party, but short of an overall majority. The Conservatives would be in second place** \u2026 **Labour would be the third largest party**.\u201d[1]\n\n**Caveats (very important):**\n\n- This is one model based on a particular polling period and set of assumptions about how national vote share maps to seats in a first\u2011past\u2011the\u2011post system.[1]  \n- Other pollsters (e.g., YouGov\u2019s ongoing UK voting intention tracker) show changing support patterns over time; they do not themselves declare a winner but supply raw preference data, which forecasters interpret.[7]  \n- With no election date fixed in the data you provided and potentially years to go, treating any current projection as \u201cwho will win\u201d would be overstating its reliability.\n\n---\n\n## 3. United States \u2013 2026 midterms and 2028 presidential election\n\n### 3.1 2026 U.S. congressional midterms\n\n**Claim (medium confidence):** Current expert analysis slightly favors **Democrats to gain or solidify control of the U.S. House in 2026**, but any projection is early and conditional.\n\n**Evidence:**\n\n- Sabato\u2019s Crystal Ball (UVA Center for Politics) notes that **Democrats are favored to flip the House**, while emphasizing that the map is highly sorted and large swings in seat numbers are unlikely.[2]  \n- Brookings\u2019 analysis of midterm history stresses that midterms often reflect public judgment on the sitting president and congressional majority; it frames 2026 outcomes in terms of historical patterns and structural factors rather than firm predictions.[8]\n\nBecause midterms are strongly affected by presidential approval, economic conditions, and issues environment closer to the election, any present \u201cwho will win\u201d is only a lean, not a lock.\n\n### 3.2 2028 U.S. presidential election\n\n**Claim (low\u2013medium confidence):** Prediction markets currently see a **cluster of potential 2028 U.S. presidential nominees** (e.g., Marco Rubio, J.D. Vance, Gavin Newsom) with relatively low, similar probabilities; there is no clear single \u201cexpected winner\u201d yet.\n\n**Evidence:**\n\n- Kalshi\u2019s prediction market for \u201c2028 U.S. Presidential Election winner?\u201d lists:  \n  - Marco Rubio (Republican) around **17%** implied chance.[3]  \n  - J.D. Vance (Republican) around **16%**.[3]  \n  - Gavin Newsom (Democrat) around **15%**.[3]  \n- No candidate is above ~20%, illustrating that market participants see **substantial uncertainty** this far out.[3]\n\nForecasting models (like those at 270toWin, which offers an interactive 2028 map) allow scenario-building but do not currently present a consensus national winner.[4]\n\n---\n\n## 4. India \u2013 next general election (expected by 2029)\n\n**Claim (medium confidence):** Current national preference polling for prime minister suggests **Narendra Modi remains the most preferred figure for PM by a substantial margin**, but this does not automatically translate to a guaranteed overall election outcome several years from now.\n\n**Evidence:**\n\n- India Today\u2013CVoter polling (February 2026) shows preferred PM: **Narendra Modi 55%, Rahul Gandhi 27%, others/none 18%**.[5]  \n- Earlier waves (2024\u20132025) show Modi consistently above 49% vs. Gandhi in the mid\u201120s.[5]\n\nThese are **leadership preference** polls, not direct seat projections for the Lok Sabha, and the general election is expected only by May/June 2029, leaving years for alliances, regional dynamics, and economic conditions to shift.[5]\n\n---\n\n## 5. How to interpret \u201cwho will win\u201d responsibly\n\nTo answer your question in a way that matches current evidence:\n\n- **No deterministic answer is justified.** All credible sources frame outcomes as probabilities or leans, not certainties.[1][2][3][6][8]  \n- For any specific election, the **best available answer** is:  \n  - *Who is leading in the most recent high\u2011quality polls?*  \n  - *What do reputable forecast models (seat models, probabilistic rankings) suggest?*  \n  - *What do prediction or betting markets imply about probabilities?*\n\nIf you tell me:\n\n- The **country** (e.g., UK, U.S., India),  \n- The **level** (national, state, local), and  \n- The **exact election** (e.g., \u201cnext UK general election,\u201d \u201c2026 U.S. Senate races,\u201d \u201c2029 Indian Lok Sabha\u201d),\n\nI can give you a focused, evidence-backed snapshot: current poll averages, leading parties/candidates, and the most respected models\u2019 probability ranges, clearly separated into *claims vs. evidence* and labeled with confidence levels.",
+  "sources": [
+    "https://www.electoralcalculus.co.uk/prediction_main.html",
+    "https://centerforpolitics.org/crystalball/",
+    "https://kalshi.com/markets/kxpresperson/pres-person/kxpresperson-28",
+    "https://www.270towin.com",
+    "https://en.wikipedia.org/wiki/Opinion_polling_for_the_next_Indian_general_election",
+    "https://www.racetothewh.com",
+    "https://yougov.com/en-gb/trackers/voting-intention",
+    "https://www.brookings.edu/articles/what-history-tells-us-about-the-2026-midterm-elections/"
+  ],
+  "citations": [
+    "https://www.electoralcalculus.co.uk/prediction_main.html",
+    "https://centerforpolitics.org/crystalball/",
+    "https://kalshi.com/markets/kxpresperson/pres-person/kxpresperson-28",
+    "https://www.270towin.com",
+    "https://en.wikipedia.org/wiki/Opinion_polling_for_the_next_Indian_general_election",
+    "https://www.racetothewh.com",
+    "https://yougov.com/en-gb/trackers/voting-intention",
+    "https://www.brookings.edu/articles/what-history-tells-us-about-the-2026-midterm-elections/"
+  ],
+  "raw": {
+    "id": "18b9f5df-6ef9-4577-b0c0-692a9ae97ea9",
+    "model": "sonar-pro",
+    "created": 1781224378,
+    "usage": {
+      "prompt_tokens": 38,
+      "completion_tokens": 1524,
+      "total_tokens": 1562,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00011,
+        "output_tokens_cost": 0.02286,
+        "request_cost": 0.006,
+        "total_cost": 0.02897
+      }
+    },
+    "citations": [
+      "https://www.electoralcalculus.co.uk/prediction_main.html",
+      "https://centerforpolitics.org/crystalball/",
+      "https://kalshi.com/markets/kxpresperson/pres-person/kxpresperson-28",
+      "https://www.270towin.com",
+      "https://en.wikipedia.org/wiki/Opinion_polling_for_the_next_Indian_general_election",
+      "https://www.racetothewh.com",
+      "https://yougov.com/en-gb/trackers/voting-intention",
+      "https://www.brookings.edu/articles/what-history-tells-us-about-the-2026-midterm-elections/"
+    ],
+    "search_results": [
+      {
+        "title": "General Election Prediction - Electoral Calculus",
+        "url": "https://www.electoralcalculus.co.uk/prediction_main.html",
+        "date": "2026-05-28",
+        "last_updated": "2026-06-10",
+        "snippet": "Prediction based on opinion polls from 05 May 2026 to 27 May 2026, sampling 15,475 people. Probability of possible outcomes. Reform minority. 38 ...",
+        "source": "web"
+      },
+      {
+        "title": "Sabato's Crystal Ball - UVA Center for Politics",
+        "url": "https://centerforpolitics.org/crystalball/",
+        "date": "2024-03-26",
+        "last_updated": "2025-07-24",
+        "snippet": "Iowa's guberatorial and Senate races each move a step away from Republicans; in the former, state Auditor Rob Sand (D) will face Zach Lahn, a Republican who ...",
+        "source": "web"
+      },
+      {
+        "title": "2028 U.S. Presidential Election winner? Odds & Predictions - Kalshi",
+        "url": "https://kalshi.com/markets/kxpresperson/pres-person/kxpresperson-28",
+        "last_updated": "2026-06-11",
+        "snippet": "Track what Kalshi's markets predict for \"2028 U.S. Presidential Election winner?\", or trade it yourself.",
+        "source": "web"
+      },
+      {
+        "title": "270toWin - 2028 Presidential Election Interactive Map",
+        "url": "https://www.270towin.com",
+        "date": "2025-07-24",
+        "last_updated": "2025-07-24",
+        "snippet": "Create your own forecast for the 2028 presidential election.",
+        "source": "web"
+      },
+      {
+        "title": "Opinion polling for the next Indian general election - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Opinion_polling_for_the_next_Indian_general_election",
+        "date": "2023-12-23",
+        "last_updated": "2026-06-02",
+        "snippet": "In the run-up to the next Indian general election, which is expected to be held by May/June 2029 to elect members to the 19th Lok Sabha, various media ...",
+        "source": "web"
+      },
+      {
+        "title": "Predicting the 2026 Elections | Polls and Political News",
+        "url": "https://www.racetothewh.com",
+        "last_updated": "2026-05-03",
+        "snippet": "Predicts the Winner of the 2026 Elections, and Tracks the Latest Polling. One of the Nation's Most Accurate Forecasters. Updated Every Day with the Latest ...",
+        "source": "web"
+      },
+      {
+        "title": "Voting intention 2025-2026 - YouGov",
+        "url": "https://yougov.com/en-gb/trackers/voting-intention",
+        "date": "2026-05-11",
+        "last_updated": "2026-06-10",
+        "snippet": "Voting intention. If there were a general election held tomorrow, which party would you vote for? Con Lab Lib Dem SNP Plaid Cymru Reform UK",
+        "source": "web"
+      },
+      {
+        "title": "What history tells us about the 2026 midterm elections | Brookings",
+        "url": "https://www.brookings.edu/articles/what-history-tells-us-about-the-2026-midterm-elections/",
+        "date": "2025-08-28",
+        "last_updated": "2026-06-09",
+        "snippet": "Since reentering the White House in January, President Trump has enjoyed the support of narrow but unified Republican majorities in both the ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "No one can say with certainty who will win the \u201cnext election\u201d without specifying the country and office, and even then current data only provide **probabilities**, not guarantees. Current polling and prediction markets suggest likely *frontrunners* in several major cases, but outcomes remain uncertain.\n\nBelow I\u2019ll interpret your question as asking broadly about upcoming major elections and summarize what current evidence says. If you had a specific country or election in mind (e.g., UK general election, U.S. midterms, India\u2019s next general election), tell me and I can go into detail.\n\n---\n\n## 1. Why no one can reliably say \u201cwho will win\u201d\n\n**Claim (high confidence):** It is not possible to state definitively who will win a future election; only probabilistic forecasts based on polls, models, and betting/markets are available.\n\n**Evidence:**\n\n- Professional forecasters and sites like Electoral Calculus, Sabato\u2019s Crystal Ball, and Race to the WH present **probabilities and seat/EV ranges**, not certainties, precisely because polls change and events intervene.[1][2][6]  \n- Prediction/betting markets (e.g., Kalshi) similarly quote **percent odds** (like 15\u201320%) for possible winners in the 2028 U.S. presidential race, not definitive outcomes.[3]\n\nGiven typical polling error, campaign events, scandals, economic shocks, and turnout uncertainty, any precise \u201cX will win\u201d statement today would be speculation rather than evidence-based.\n\n---\n\n## 2. United Kingdom \u2013 next general election\n\n**Claim (medium confidence):** If a UK general election were held very soon, **Reform UK would be forecast as the largest party by seats, but short of a majority**, with Conservatives second and Labour third, according to one major model; however, this is only one model and UK polling remains volatile.\n\n**Evidence:**\n\n- Electoral Calculus\u2019 current prediction (using UK polls from 5\u201327 May 2026, ~15,475 respondents) projects:  \n  - Reform: about **27% vote share**, and a **central projection of 245 seats**, with a range 109\u2013376.[1]  \n  - Conservatives: about **18.3% vote share**, **116 seats** (range 22\u2013240).[1]  \n  - Labour: about **18.8% vote share**, **83 seats** (range 20\u2013245).[1]  \n- The model summary states: \u201cIf there were a general election soon, **Reform would be the largest party, but short of an overall majority. The Conservatives would be in second place** \u2026 **Labour would be the third largest party**.\u201d[1]\n\n**Caveats (very important):**\n\n- This is one model based on a particular polling period and set of assumptions about how national vote share maps to seats in a first\u2011past\u2011the\u2011post system.[1]  \n- Other pollsters (e.g., YouGov\u2019s ongoing UK voting intention tracker) show changing support patterns over time; they do not themselves declare a winner but supply raw preference data, which forecasters interpret.[7]  \n- With no election date fixed in the data you provided and potentially years to go, treating any current projection as \u201cwho will win\u201d would be overstating its reliability.\n\n---\n\n## 3. United States \u2013 2026 midterms and 2028 presidential election\n\n### 3.1 2026 U.S. congressional midterms\n\n**Claim (medium confidence):** Current expert analysis slightly favors **Democrats to gain or solidify control of the U.S. House in 2026**, but any projection is early and conditional.\n\n**Evidence:**\n\n- Sabato\u2019s Crystal Ball (UVA Center for Politics) notes that **Democrats are favored to flip the House**, while emphasizing that the map is highly sorted and large swings in seat numbers are unlikely.[2]  \n- Brookings\u2019 analysis of midterm history stresses that midterms often reflect public judgment on the sitting president and congressional majority; it frames 2026 outcomes in terms of historical patterns and structural factors rather than firm predictions.[8]\n\nBecause midterms are strongly affected by presidential approval, economic conditions, and issues environment closer to the election, any present \u201cwho will win\u201d is only a lean, not a lock.\n\n### 3.2 2028 U.S. presidential election\n\n**Claim (low\u2013medium confidence):** Prediction markets currently see a **cluster of potential 2028 U.S. presidential nominees** (e.g., Marco Rubio, J.D. Vance, Gavin Newsom) with relatively low, similar probabilities; there is no clear single \u201cexpected winner\u201d yet.\n\n**Evidence:**\n\n- Kalshi\u2019s prediction market for \u201c2028 U.S. Presidential Election winner?\u201d lists:  \n  - Marco Rubio (Republican) around **17%** implied chance.[3]  \n  - J.D. Vance (Republican) around **16%**.[3]  \n  - Gavin Newsom (Democrat) around **15%**.[3]  \n- No candidate is above ~20%, illustrating that market participants see **substantial uncertainty** this far out.[3]\n\nForecasting models (like those at 270toWin, which offers an interactive 2028 map) allow scenario-building but do not currently present a consensus national winner.[4]\n\n---\n\n## 4. India \u2013 next general election (expected by 2029)\n\n**Claim (medium confidence):** Current national preference polling for prime minister suggests **Narendra Modi remains the most preferred figure for PM by a substantial margin**, but this does not automatically translate to a guaranteed overall election outcome several years from now.\n\n**Evidence:**\n\n- India Today\u2013CVoter polling (February 2026) shows preferred PM: **Narendra Modi 55%, Rahul Gandhi 27%, others/none 18%**.[5]  \n- Earlier waves (2024\u20132025) show Modi consistently above 49% vs. Gandhi in the mid\u201120s.[5]\n\nThese are **leadership preference** polls, not direct seat projections for the Lok Sabha, and the general election is expected only by May/June 2029, leaving years for alliances, regional dynamics, and economic conditions to shift.[5]\n\n---\n\n## 5. How to interpret \u201cwho will win\u201d responsibly\n\nTo answer your question in a way that matches current evidence:\n\n- **No deterministic answer is justified.** All credible sources frame outcomes as probabilities or leans, not certainties.[1][2][3][6][8]  \n- For any specific election, the **best available answer** is:  \n  - *Who is leading in the most recent high\u2011quality polls?*  \n  - *What do reputable forecast models (seat models, probabilistic rankings) suggest?*  \n  - *What do prediction or betting markets imply about probabilities?*\n\nIf you tell me:\n\n- The **country** (e.g., UK, U.S., India),  \n- The **level** (national, state, local), and  \n- The **exact election** (e.g., \u201cnext UK general election,\u201d \u201c2026 U.S. Senate races,\u201d \u201c2029 Indian Lok Sabha\u201d),\n\nI can give you a focused, evidence-backed snapshot: current poll averages, leading parties/candidates, and the most respected models\u2019 probability ranges, clearly separated into *claims vs. evidence* and labeled with confidence levels."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:32:59Z"
+}

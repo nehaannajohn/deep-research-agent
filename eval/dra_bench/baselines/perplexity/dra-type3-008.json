@@ -1,0 +1,146 @@
+{
+  "id": "dra-type3-008",
+  "provider": "perplexity",
+  "query": "Does spending more time on social media cause depression in teenagers or is the correlation largely spurious?",
+  "narrative": "Spending more time on social media is **reliably associated** with more depressive symptoms in teenagers, and **there is now moderate evidence that heavier use can contribute causally to later depression for at least some teens**, but a large part of the correlation is explained by *bidirectional and confounded* relationships (depressed teens also go online more; other risk factors drive both). The effect, where it exists, is usually **small-to-moderate, highly variable across individuals, and not purely time\u2011based**.\n\nBelow is a structured, evidence\u2011focused answer.\n\n---\n\n## 1. What has been observed?\n\n### Claim 1  \nThere is a consistent **correlation** between higher social media use and more depressive symptoms in adolescents.\n\n- **Evidence (high confidence)**  \n  - A 2020 scoping review of adolescent social media and depression concluded that \u201cextensive research on the quantity and quality of social media use has shown an association between social media use and depression in adolescents.\u201d[4]  \n  - Johns Hopkins summarizes the literature: \u201cRecent research indicates that those who spend more time on social media tend to show more symptoms of depression.\u201d[3]  \n  - A 2023\u201324 JAMA Network Open longitudinal study (early adolescence) found that more time on social media was associated with higher depressive symptoms over time.[6]  \n\n**Assessment:** High confidence the correlation is real and reproducible, especially at very high levels of use.\n\n---\n\n## 2. Does social media use *cause* depression?\n\n### Claim 2  \nLongitudinal studies now provide **moderate evidence of a directional effect**: heavier social media use in early adolescence predicts *increases* in depressive symptoms later, even after adjusting for prior mood.\n\n- **Evidence (moderate\u2013high confidence)**  \n  - A JAMA Network Open study of early adolescents (large sample, multiple waves of data) reported: \u201cThe findings suggest that more time spent on social media during early adolescence may contribute to increased depressive symptoms over time.\u201d[6] This is prospective (A before B) and adjusts for baseline symptoms, which supports a causal contribution.  \n  - A large UCSF cohort of ~12,000 preteens (9\u201311 years) followed for three years found that annual increases in social media use were linked to the *emergence* of depressive symptoms in the *subsequent* year, not just concurrently.[1] The authors note this provides \u201cstronger evidence suggesting that social media acts as a risk factor for future depression\u201d in these children.[1]  \n  - The 2023 U.S. Surgeon General\u2019s advisory, summarized by Johns Hopkins, states that evidence suggests social media has \u201cpotential to harm the mental health of children and adolescents,\u201d including possible brain changes related to emotion and reward processing.[3]  \n\n**Assessment:**  \n- Directional, prospective data point to **social media as a contributory risk factor**, especially when use is heavy, emotionally overinvolved, or tied to harmful content.  \n- Effect sizes, where reported, are typically **small to modest** relative to core risk factors like family adversity, trauma, or genetic vulnerability (inference from broader literature; not fully quantified in the provided excerpts).\n\n---\n\n## 3. Is the correlation spurious or confounded?\n\n### Claim 3  \nA substantial part of the correlation is **bidirectional and confounded**: adolescents with existing or emerging depression tend to use social media more, and multiple third factors link both social media time and depression.\n\n- **Evidence (high confidence)**  \n  - Johns Hopkins explicitly notes: \u201cResearch is showing that those who are more depressed tend to use social media more, and vice versa. But it is not clear that the cause of depression is social media use.\u201d[3]  \n  - The same source emphasizes that depression is \u201ccomplex and has many risk factors, including a genetic predisposition, aspects of the surrounding environment and personal experiences, which are not so directly related to social media use patterns.\u201d[3]  \n  - The UTSouthwestern 2025 study in clinically depressed/suicidal youth finds that **problematic social media use** and high screen time are associated with more severe depression, anxiety, and suicidality.[2] However, these youth already have mental health problems, and the study leaders caution that \u201cthe relationship is not fully understood,\u201d acknowledging likely bidirectionality.[2]  \n\n**Confounders / third variables commonly identified** (evidence summarized by Johns Hopkins and UTSW):  \n- **Sleep deprivation:** Social media use, especially at night, disrupts sleep; sleep deprivation is a well\u2011established risk factor for depression.[3]  \n- **Social comparison and self\u2011esteem:** Social media encourages upward comparison and exposure to idealized lives, which can worsen mood and body image.[3]  \n- **Cyberbullying and negative content:** Exposure to harassment or self\u2011harm content is linked to worse mood and suicidal thoughts.[3][8]  \n- **Pre\u2011existing vulnerability:** Youth with anxiety, depression, or social difficulties may gravitate toward heavier, more problematic online engagement.[2][3]  \n\n**Assessment:**  \n- High confidence that **not all** of the correlation is causal.  \n- High confidence that **reverse causation** (depressed teens going online more) and **confounding factors** explain a meaningful portion of the observed association.\n\n---\n\n## 4. Severity and *type* of use matter more than raw hours\n\n### Claim 4  \nThe **nature and emotional quality of social media use** and its impact on daily functioning are more predictive of harm than time alone.\n\n- **Evidence (moderate\u2013high confidence)**  \n  - The UTSW 2025 study emphasizes \u201cproblematic social media use,\u201d defined by addiction\u2011like signs\u2014distress when not using, cravings, interference with daily tasks, deception, interpersonal disruption\u2014and finds these youth show more severe depressive and suicidal symptoms.[2]  \n  - Johns Hopkins notes research showing **high depression at both very low and very high levels** of social media use, suggesting a \u201csweet spot\u201d that varies by child and their protective factors.[3]  \n  - The same source stresses mechanisms like poor sleep, increased social comparisons, academic impacts, and exposure to bullying and negative content as pathways by which *excessive* use may worsen symptoms.[3]  \n\n**Assessment:**  \n- High confidence that **problematic, emotionally overattached, socially toxic, or nighttime use** is more risky than simply \u201c2 vs 4 hours per day.\u201d  \n- Evidence supports **individual variability**: what is excessive and harmful for one teen may be neutral for another.[2][3]\n\n---\n\n## 5. How strong is the causal claim overall?\n\nPutting the strands together:\n\n### Claim 5  \nCurrent evidence supports viewing social media as a **modifiable risk factor** and *maintainer* of depressive symptoms, not as a single dominant cause of teen depression.\n\n- **Evidence & synthesis (moderate confidence)**  \n  - Longitudinal data show that increased use can precede and predict later depressive symptoms, even controlling for prior mood.[1][6]  \n  - Clinical and advisory bodies (e.g., U.S. Surgeon General, academic medical centers) now explicitly flag social media as a potential harm to adolescent mental health, while acknowledging the evidence is not fully causal or uniform.[3][7]  \n  - Depression and suicidality *have* increased in youth as social media adoption and platforms have proliferated, but experts emphasize this trend is **correlational**, with many simultaneous societal changes.[3][5]  \n\n**Assessment:**  \n- **Causal contribution:** Moderate confidence. Social media can *contribute* to onset or worsening of depression for a subset of teens, especially under high\u2011risk usage patterns.  \n- **Spuriousness:** Low confidence that the relationship is \u201clargely spurious.\u201d Too many independent, prospective and mechanistic findings now show plausible pathways from certain patterns of use to worse mood.  \n- **Effect size:** Moderate confidence that, on average, effects are **small to moderate**, and far smaller than core determinants like severe family conflict, trauma, or major economic hardship (inference from broader epidemiology; not directly in the excerpts).\n\n---\n\n## 6. Practical implications (based on evidence, not moral advice)\n\nIf the goal is to *reduce* depression risk linked to social media, the evidence points to focusing on **how** and **when** teens use it, not only \u201chow many minutes.\u201d\n\nKey risk\u2011linked patterns (supported by sources):  \n- **Nighttime / pre\u2011bed use** that cuts into sleep.[3]  \n- **Emotionally overattached, compulsive use** with distress when not online and interference with daily tasks.[2][3]  \n- Heavy exposure to **cyberbullying, self\u2011harm content, or hostile environments**.[3][8]  \n- Use that repeatedly triggers **upward comparison**, shame, or low self\u2011worth.[3]  \n\nKey protective directions suggested in clinical guidance and advisory summaries:  \n- Monitoring for problematic use signs rather than banning all use.[2][3]  \n- Prioritizing **sleep, offline friendships, physical activity, and family connection**, which buffer depression risk.[3][7]  \n- Helping teens curate feeds and privacy to reduce harmful content and social comparison (inference from mechanisms described in [3][7]).\n\n---\n\n### Direct answer to your question\n\n- The correlation between time on social media and teen depression is **real and not purely spurious**.  \n- Longitudinal evidence indicates that **increased use can contribute causally to later depressive symptoms** for some adolescents, especially under high\u2011risk patterns of use.[1][6]  \n- At the same time, a **large part of the observed association reflects bidirectional and confounded relationships**: depressed or vulnerable teens are more likely to use social media heavily, and factors like sleep loss, bullying, and social comparison mediate the link.[2][3]\n\nIf you want, I can next:  \n- Walk through specific effect sizes from key longitudinal studies, or  \n- Outline evidence\u2011based practical guidelines for safer social media use in teens.",
+  "sources": [
+    "https://www.pbs.org/newshour/show/new-study-finds-link-between-pre-teen-use-of-social-media-and-depression",
+    "https://www.utsouthwestern.edu/newsroom/articles/year-2025/march-social-media-youth-depression.html",
+    "https://www.hopkinsmedicine.org/health/wellness-and-prevention/social-media-and-mental-health-in-children-and-teens",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7392374/",
+    "https://childmind.org/article/is-social-media-use-causing-depression/",
+    "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349",
+    "https://www.yalemedicine.org/news/social-media-teen-mental-health-a-parents-guide",
+    "https://www.nature.com/articles/s41598-025-89762-y",
+    "https://www.instagram.com/reel/DMkcN-9KALq/?hl=en"
+  ],
+  "citations": [
+    "https://www.pbs.org/newshour/show/new-study-finds-link-between-pre-teen-use-of-social-media-and-depression",
+    "https://www.utsouthwestern.edu/newsroom/articles/year-2025/march-social-media-youth-depression.html",
+    "https://www.hopkinsmedicine.org/health/wellness-and-prevention/social-media-and-mental-health-in-children-and-teens",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7392374/",
+    "https://childmind.org/article/is-social-media-use-causing-depression/",
+    "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349",
+    "https://www.yalemedicine.org/news/social-media-teen-mental-health-a-parents-guide",
+    "https://www.nature.com/articles/s41598-025-89762-y",
+    "https://www.instagram.com/reel/DMkcN-9KALq/?hl=en"
+  ],
+  "raw": {
+    "id": "e490b217-b245-4016-ac79-d8bb3f33fe98",
+    "model": "sonar-pro",
+    "created": 1781224053,
+    "usage": {
+      "prompt_tokens": 50,
+      "completion_tokens": 2104,
+      "total_tokens": 2154,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00015,
+        "output_tokens_cost": 0.03156,
+        "request_cost": 0.006,
+        "total_cost": 0.03771
+      }
+    },
+    "citations": [
+      "https://www.pbs.org/newshour/show/new-study-finds-link-between-pre-teen-use-of-social-media-and-depression",
+      "https://www.utsouthwestern.edu/newsroom/articles/year-2025/march-social-media-youth-depression.html",
+      "https://www.hopkinsmedicine.org/health/wellness-and-prevention/social-media-and-mental-health-in-children-and-teens",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7392374/",
+      "https://childmind.org/article/is-social-media-use-causing-depression/",
+      "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349",
+      "https://www.yalemedicine.org/news/social-media-teen-mental-health-a-parents-guide",
+      "https://www.nature.com/articles/s41598-025-89762-y",
+      "https://www.instagram.com/reel/DMkcN-9KALq/?hl=en"
+    ],
+    "search_results": [
+      {
+        "title": "New study finds link between pre-teen use of social media ... - PBS",
+        "url": "https://www.pbs.org/newshour/show/new-study-finds-link-between-pre-teen-use-of-social-media-and-depression",
+        "date": "2025-05-24",
+        "last_updated": "2025-11-18",
+        "snippet": "Researchers at the University of California, San Francisco have found a link between use of social media by pre-teens and future depression.",
+        "source": "web"
+      },
+      {
+        "title": "Social media may heighten depression severity in youth",
+        "url": "https://www.utsouthwestern.edu/newsroom/articles/year-2025/march-social-media-youth-depression.html",
+        "date": "2025-03-24",
+        "last_updated": "2026-03-16",
+        "snippet": "UTSW study finds many young people with mental health issues report problematic social media habits and more severe symptoms.",
+        "source": "web"
+      },
+      {
+        "title": "Social Media and Mental Health in Children and Teens",
+        "url": "https://www.hopkinsmedicine.org/health/wellness-and-prevention/social-media-and-mental-health-in-children-and-teens",
+        "date": "2024-09-25",
+        "last_updated": "2025-03-05",
+        "snippet": "The advisory indicates that frequent social media use could be associated with changes in parts of the brain related to emotions and learning.",
+        "source": "web"
+      },
+      {
+        "title": "Social media use and depression in adolescents: a scoping review",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7392374/",
+        "date": "2020-02-17",
+        "last_updated": "2026-06-10",
+        "snippet": "In summary, extensive research on the quantity and quality of SM use has shown an association between SM use and depression in adolescents. Given that most ...",
+        "source": "web"
+      },
+      {
+        "title": "Does Social Media Use Cause Depression? - Child Mind Institute",
+        "url": "https://childmind.org/article/is-social-media-use-causing-depression/",
+        "date": "2026-05-06",
+        "last_updated": "2026-06-11",
+        "snippet": "Depression among teens has increased alongside social media use, perhaps because online connections are less fulfilling than in-person ones.",
+        "source": "web"
+      },
+      {
+        "title": "Social Media Use and Depressive Symptoms During Early ...",
+        "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349",
+        "date": "2025-05-21",
+        "last_updated": "2025-08-29",
+        "snippet": "The findings suggest that more time spent on social media during early adolescence may contribute to increased depressive symptoms over time.",
+        "source": "web"
+      },
+      {
+        "title": "How Social Media Affects Your Teen's Mental Health: A Parent's Guide",
+        "url": "https://www.yalemedicine.org/news/social-media-teen-mental-health-a-parents-guide",
+        "date": "2024-06-17",
+        "last_updated": "2026-06-10",
+        "snippet": "Social media use may be associated with distinct changes in the developing brain, potentially affecting such functions as emotional learning and behavior.",
+        "source": "web"
+      },
+      {
+        "title": "A harsher reality for adolescents with depression on social media",
+        "url": "https://www.nature.com/articles/s41598-025-89762-y",
+        "date": "2025-03-31",
+        "last_updated": "2025-03-31",
+        "snippet": "Social media use is often highlighted as an important cause of the recent rise in depression among adolescents.",
+        "source": "web"
+      },
+      {
+        "title": "social media or depression? A new JAMA Network Open study ...",
+        "url": "https://www.instagram.com/reel/DMkcN-9KALq/?hl=en",
+        "date": "2025-07-26",
+        "last_updated": "2026-05-29",
+        "snippet": "Adolescents & Mental Health Social media use contributes to comparison, anxiety, and low self esteem #Teenagers #SocialMedia #Adolescents # ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Spending more time on social media is **reliably associated** with more depressive symptoms in teenagers, and **there is now moderate evidence that heavier use can contribute causally to later depression for at least some teens**, but a large part of the correlation is explained by *bidirectional and confounded* relationships (depressed teens also go online more; other risk factors drive both). The effect, where it exists, is usually **small-to-moderate, highly variable across individuals, and not purely time\u2011based**.\n\nBelow is a structured, evidence\u2011focused answer.\n\n---\n\n## 1. What has been observed?\n\n### Claim 1  \nThere is a consistent **correlation** between higher social media use and more depressive symptoms in adolescents.\n\n- **Evidence (high confidence)**  \n  - A 2020 scoping review of adolescent social media and depression concluded that \u201cextensive research on the quantity and quality of social media use has shown an association between social media use and depression in adolescents.\u201d[4]  \n  - Johns Hopkins summarizes the literature: \u201cRecent research indicates that those who spend more time on social media tend to show more symptoms of depression.\u201d[3]  \n  - A 2023\u201324 JAMA Network Open longitudinal study (early adolescence) found that more time on social media was associated with higher depressive symptoms over time.[6]  \n\n**Assessment:** High confidence the correlation is real and reproducible, especially at very high levels of use.\n\n---\n\n## 2. Does social media use *cause* depression?\n\n### Claim 2  \nLongitudinal studies now provide **moderate evidence of a directional effect**: heavier social media use in early adolescence predicts *increases* in depressive symptoms later, even after adjusting for prior mood.\n\n- **Evidence (moderate\u2013high confidence)**  \n  - A JAMA Network Open study of early adolescents (large sample, multiple waves of data) reported: \u201cThe findings suggest that more time spent on social media during early adolescence may contribute to increased depressive symptoms over time.\u201d[6] This is prospective (A before B) and adjusts for baseline symptoms, which supports a causal contribution.  \n  - A large UCSF cohort of ~12,000 preteens (9\u201311 years) followed for three years found that annual increases in social media use were linked to the *emergence* of depressive symptoms in the *subsequent* year, not just concurrently.[1] The authors note this provides \u201cstronger evidence suggesting that social media acts as a risk factor for future depression\u201d in these children.[1]  \n  - The 2023 U.S. Surgeon General\u2019s advisory, summarized by Johns Hopkins, states that evidence suggests social media has \u201cpotential to harm the mental health of children and adolescents,\u201d including possible brain changes related to emotion and reward processing.[3]  \n\n**Assessment:**  \n- Directional, prospective data point to **social media as a contributory risk factor**, especially when use is heavy, emotionally overinvolved, or tied to harmful content.  \n- Effect sizes, where reported, are typically **small to modest** relative to core risk factors like family adversity, trauma, or genetic vulnerability (inference from broader literature; not fully quantified in the provided excerpts).\n\n---\n\n## 3. Is the correlation spurious or confounded?\n\n### Claim 3  \nA substantial part of the correlation is **bidirectional and confounded**: adolescents with existing or emerging depression tend to use social media more, and multiple third factors link both social media time and depression.\n\n- **Evidence (high confidence)**  \n  - Johns Hopkins explicitly notes: \u201cResearch is showing that those who are more depressed tend to use social media more, and vice versa. But it is not clear that the cause of depression is social media use.\u201d[3]  \n  - The same source emphasizes that depression is \u201ccomplex and has many risk factors, including a genetic predisposition, aspects of the surrounding environment and personal experiences, which are not so directly related to social media use patterns.\u201d[3]  \n  - The UTSouthwestern 2025 study in clinically depressed/suicidal youth finds that **problematic social media use** and high screen time are associated with more severe depression, anxiety, and suicidality.[2] However, these youth already have mental health problems, and the study leaders caution that \u201cthe relationship is not fully understood,\u201d acknowledging likely bidirectionality.[2]  \n\n**Confounders / third variables commonly identified** (evidence summarized by Johns Hopkins and UTSW):  \n- **Sleep deprivation:** Social media use, especially at night, disrupts sleep; sleep deprivation is a well\u2011established risk factor for depression.[3]  \n- **Social comparison and self\u2011esteem:** Social media encourages upward comparison and exposure to idealized lives, which can worsen mood and body image.[3]  \n- **Cyberbullying and negative content:** Exposure to harassment or self\u2011harm content is linked to worse mood and suicidal thoughts.[3][8]  \n- **Pre\u2011existing vulnerability:** Youth with anxiety, depression, or social difficulties may gravitate toward heavier, more problematic online engagement.[2][3]  \n\n**Assessment:**  \n- High confidence that **not all** of the correlation is causal.  \n- High confidence that **reverse causation** (depressed teens going online more) and **confounding factors** explain a meaningful portion of the observed association.\n\n---\n\n## 4. Severity and *type* of use matter more than raw hours\n\n### Claim 4  \nThe **nature and emotional quality of social media use** and its impact on daily functioning are more predictive of harm than time alone.\n\n- **Evidence (moderate\u2013high confidence)**  \n  - The UTSW 2025 study emphasizes \u201cproblematic social media use,\u201d defined by addiction\u2011like signs\u2014distress when not using, cravings, interference with daily tasks, deception, interpersonal disruption\u2014and finds these youth show more severe depressive and suicidal symptoms.[2]  \n  - Johns Hopkins notes research showing **high depression at both very low and very high levels** of social media use, suggesting a \u201csweet spot\u201d that varies by child and their protective factors.[3]  \n  - The same source stresses mechanisms like poor sleep, increased social comparisons, academic impacts, and exposure to bullying and negative content as pathways by which *excessive* use may worsen symptoms.[3]  \n\n**Assessment:**  \n- High confidence that **problematic, emotionally overattached, socially toxic, or nighttime use** is more risky than simply \u201c2 vs 4 hours per day.\u201d  \n- Evidence supports **individual variability**: what is excessive and harmful for one teen may be neutral for another.[2][3]\n\n---\n\n## 5. How strong is the causal claim overall?\n\nPutting the strands together:\n\n### Claim 5  \nCurrent evidence supports viewing social media as a **modifiable risk factor** and *maintainer* of depressive symptoms, not as a single dominant cause of teen depression.\n\n- **Evidence & synthesis (moderate confidence)**  \n  - Longitudinal data show that increased use can precede and predict later depressive symptoms, even controlling for prior mood.[1][6]  \n  - Clinical and advisory bodies (e.g., U.S. Surgeon General, academic medical centers) now explicitly flag social media as a potential harm to adolescent mental health, while acknowledging the evidence is not fully causal or uniform.[3][7]  \n  - Depression and suicidality *have* increased in youth as social media adoption and platforms have proliferated, but experts emphasize this trend is **correlational**, with many simultaneous societal changes.[3][5]  \n\n**Assessment:**  \n- **Causal contribution:** Moderate confidence. Social media can *contribute* to onset or worsening of depression for a subset of teens, especially under high\u2011risk usage patterns.  \n- **Spuriousness:** Low confidence that the relationship is \u201clargely spurious.\u201d Too many independent, prospective and mechanistic findings now show plausible pathways from certain patterns of use to worse mood.  \n- **Effect size:** Moderate confidence that, on average, effects are **small to moderate**, and far smaller than core determinants like severe family conflict, trauma, or major economic hardship (inference from broader epidemiology; not directly in the excerpts).\n\n---\n\n## 6. Practical implications (based on evidence, not moral advice)\n\nIf the goal is to *reduce* depression risk linked to social media, the evidence points to focusing on **how** and **when** teens use it, not only \u201chow many minutes.\u201d\n\nKey risk\u2011linked patterns (supported by sources):  \n- **Nighttime / pre\u2011bed use** that cuts into sleep.[3]  \n- **Emotionally overattached, compulsive use** with distress when not online and interference with daily tasks.[2][3]  \n- Heavy exposure to **cyberbullying, self\u2011harm content, or hostile environments**.[3][8]  \n- Use that repeatedly triggers **upward comparison**, shame, or low self\u2011worth.[3]  \n\nKey protective directions suggested in clinical guidance and advisory summaries:  \n- Monitoring for problematic use signs rather than banning all use.[2][3]  \n- Prioritizing **sleep, offline friendships, physical activity, and family connection**, which buffer depression risk.[3][7]  \n- Helping teens curate feeds and privacy to reduce harmful content and social comparison (inference from mechanisms described in [3][7]).\n\n---\n\n### Direct answer to your question\n\n- The correlation between time on social media and teen depression is **real and not purely spurious**.  \n- Longitudinal evidence indicates that **increased use can contribute causally to later depressive symptoms** for some adolescents, especially under high\u2011risk patterns of use.[1][6]  \n- At the same time, a **large part of the observed association reflects bidirectional and confounded relationships**: depressed or vulnerable teens are more likely to use social media heavily, and factors like sleep loss, bullying, and social comparison mediate the link.[2][3]\n\nIf you want, I can next:  \n- Walk through specific effect sizes from key longitudinal studies, or  \n- Outline evidence\u2011based practical guidelines for safer social media use in teens."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:27:33Z"
+}

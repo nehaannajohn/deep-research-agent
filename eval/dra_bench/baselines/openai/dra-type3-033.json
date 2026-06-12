@@ -1,0 +1,113 @@
+{
+  "id": "dra-type3-033",
+  "provider": "openai",
+  "query": "Is rent control an effective tool for housing affordability or does it reduce housing supply and quality?",
+  "narrative": "Rent control policies, designed to cap rent increases and enhance housing affordability, have been widely implemented with the intention of protecting tenants from escalating housing costs. However, extensive empirical research indicates that while rent control can provide short-term relief for existing tenants, it often leads to unintended negative consequences, including reduced housing supply and diminished housing quality.\n\n**Impact on Housing Affordability**\n\n*Claim:* Rent control can provide immediate affordability benefits to current tenants by limiting rent increases.\n\n*Evidence:* Studies have shown that rent control measures can effectively stabilize rents for existing tenants, preventing sudden and substantial rent hikes. For instance, research by the Urban Institute found that rent control is associated with statistically significant increases in units affordable to extremely low-income households (those making less than 30 percent of area median income) ([urban.org](https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai)).\n\n*Confidence Level:* High.\n\n**Impact on Housing Supply**\n\n*Claim:* Rent control policies often lead to a reduction in the overall supply of rental housing.\n\n*Evidence:* A comprehensive analysis by Dr. Konstantin A. Kholodilin, which reviewed 196 studies, found that rent control leads to reduced supply of rental housing and decreased construction ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)). Similarly, a study by the Urban Institute observed that rent control is associated with a reduction in the total number of rental units in a city ([urban.org](https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai)).\n\n*Confidence Level:* High.\n\n**Impact on Housing Quality**\n\n*Claim:* Rent control can lead to a decline in housing quality due to reduced maintenance and investment by landlords.\n\n*Evidence:* The same analysis by Dr. Kholodilin noted that rent control results in reduced housing quality ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)). This decline is often attributed to landlords' decreased incentives to invest in property upkeep when rental income is restricted.\n\n*Confidence Level:* High.\n\n**Additional Considerations**\n\nBeyond supply and quality concerns, rent control can have other unintended effects:\n\n- **Reduced Mobility:** Tenants in rent-controlled units may be less inclined to move, leading to decreased labor mobility and potential misallocation of housing resources ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)).\n\n- **Increased Rents in Uncontrolled Units:** To compensate for capped rents in controlled units, landlords may raise rents in non-controlled units, potentially exacerbating affordability issues for those not benefiting from rent control ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)).\n\n- **Discrimination and Black Markets:** Market distortions caused by rent controls can lead to discrimination against marginalized groups and the emergence of black-market activities ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)).\n\nIn summary, while rent control aims to enhance housing affordability, substantial evidence suggests it often results in reduced housing supply and quality, along with other unintended negative consequences. Policymakers should carefully weigh these trade-offs and consider comprehensive cost-benefit analyses before implementing such measures. ",
+  "sources": [
+    "https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai",
+    "https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai",
+    "https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-76b44605-aa2b-4009-b8a4-a8f474b265e4",
+    "object": "chat.completion",
+    "created": 1781224787,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Rent control policies, designed to cap rent increases and enhance housing affordability, have been widely implemented with the intention of protecting tenants from escalating housing costs. However, extensive empirical research indicates that while rent control can provide short-term relief for existing tenants, it often leads to unintended negative consequences, including reduced housing supply and diminished housing quality.\n\n**Impact on Housing Affordability**\n\n*Claim:* Rent control can provide immediate affordability benefits to current tenants by limiting rent increases.\n\n*Evidence:* Studies have shown that rent control measures can effectively stabilize rents for existing tenants, preventing sudden and substantial rent hikes. For instance, research by the Urban Institute found that rent control is associated with statistically significant increases in units affordable to extremely low-income households (those making less than 30 percent of area median income) ([urban.org](https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai)).\n\n*Confidence Level:* High.\n\n**Impact on Housing Supply**\n\n*Claim:* Rent control policies often lead to a reduction in the overall supply of rental housing.\n\n*Evidence:* A comprehensive analysis by Dr. Konstantin A. Kholodilin, which reviewed 196 studies, found that rent control leads to reduced supply of rental housing and decreased construction ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)). Similarly, a study by the Urban Institute observed that rent control is associated with a reduction in the total number of rental units in a city ([urban.org](https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai)).\n\n*Confidence Level:* High.\n\n**Impact on Housing Quality**\n\n*Claim:* Rent control can lead to a decline in housing quality due to reduced maintenance and investment by landlords.\n\n*Evidence:* The same analysis by Dr. Kholodilin noted that rent control results in reduced housing quality ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)). This decline is often attributed to landlords' decreased incentives to invest in property upkeep when rental income is restricted.\n\n*Confidence Level:* High.\n\n**Additional Considerations**\n\nBeyond supply and quality concerns, rent control can have other unintended effects:\n\n- **Reduced Mobility:** Tenants in rent-controlled units may be less inclined to move, leading to decreased labor mobility and potential misallocation of housing resources ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)).\n\n- **Increased Rents in Uncontrolled Units:** To compensate for capped rents in controlled units, landlords may raise rents in non-controlled units, potentially exacerbating affordability issues for those not benefiting from rent control ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)).\n\n- **Discrimination and Black Markets:** Market distortions caused by rent controls can lead to discrimination against marginalized groups and the emergence of black-market activities ([iea.org.uk](https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai)).\n\nIn summary, while rent control aims to enhance housing affordability, substantial evidence suggests it often results in reduced housing supply and quality, along with other unintended negative consequences. Policymakers should carefully weigh these trade-offs and consider comprehensive cost-benefit analyses before implementing such measures. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1098,
+                "start_index": 980,
+                "title": "Rent Control and the Supply of Affordable Housing | Urban Institute",
+                "url": "https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1539,
+                "start_index": 1448,
+                "title": "Rent Control: Does it work? \u2014 Institute of Economic Affairs",
+                "url": "https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1805,
+                "start_index": 1687,
+                "title": "Rent Control and the Supply of Affordable Housing | Urban Institute",
+                "url": "https://www.urban.org/research/publication/rent-control-and-supply-affordable-housing?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2184,
+                "start_index": 2093,
+                "title": "Rent Control: Does it work? \u2014 Institute of Economic Affairs",
+                "url": "https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2724,
+                "start_index": 2633,
+                "title": "Rent Control: Does it work? \u2014 Institute of Economic Affairs",
+                "url": "https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3055,
+                "start_index": 2964,
+                "title": "Rent Control: Does it work? \u2014 Institute of Economic Affairs",
+                "url": "https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3332,
+                "start_index": 3241,
+                "title": "Rent Control: Does it work? \u2014 Institute of Economic Affairs",
+                "url": "https://iea.org.uk/publications/rent-control-does-it-work?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 57,
+      "completion_tokens": 707,
+      "total_tokens": 764,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:40:11Z"
+}

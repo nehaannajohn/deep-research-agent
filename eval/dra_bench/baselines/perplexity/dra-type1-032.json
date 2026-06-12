@@ -1,0 +1,133 @@
+{
+  "id": "dra-type1-032",
+  "provider": "perplexity",
+  "query": "How do sparse attention patterns like those in Longformer and BigBird achieve sub-quadratic scaling while preserving long-range modeling?",
+  "narrative": "Sparse attention patterns in models like **Longformer** and **BigBird** achieve **sub-quadratic (often near-linear) complexity** by restricting each token to attend to only a small, structured subset of other tokens (local, global, random), while the *graph formed by these connections still allows information to propagate between any pair of positions in a few hops*, preserving long-range modeling.[3][5][6]\n\n---\n\n## 1. Why standard attention is quadratic\n\nIn a vanilla Transformer with sequence length \\(n\\):\n\n- Each of the \\(n\\) queries attends to all \\(n\\) keys \u2192 **\\(O(n^2)\\)** dot products and memory for the attention matrix.[4]  \n- This limits maximum context length on fixed hardware.\n\nSparse attention changes the *pattern* of connections so each query interacts with only \\(O(1)\\) or \\(O(\\log n)\\) keys, instead of \\(O(n)\\).[3][6]\n\n---\n\n## 2. General idea of sparse attention (masking)\n\nSparse attention introduces a **binary mask** \\(G \\in \\{0,1\\}^{n \\times n}\\) that specifies which query\u2013key pairs are allowed to interact:[3]\n\n\\[\nS = G \\odot \\left(\\frac{QK^\\top}{\\sqrt{d}}\\right), \\quad Z = \\text{softmax}(S)V\n\\]\n\n- If \\(G_{i,j} = 0\\), token \\(i\\) cannot attend to token \\(j\\); that dot product is skipped.[3]  \n- The number of non-zero entries per row of \\(G\\) determines the complexity of attention.\n\nIf each token only attends to \\(k\\) others, the cost becomes \\(O(nk)\\) instead of \\(O(n^2)\\).[3]\n\n---\n\n## 3. Longformer: sliding-window + global attention\n\n**Longformer** uses a **fixed, block-sparse pattern** with:\n\n- **Local sliding-window attention:** each token attends to its neighbors within a fixed-size window.  \n- **Global attention tokens:** a small set of positions (e.g., special markers, task-specific tokens) can attend to and be attended by all tokens.[3][6]\n\nMechanism (conceptually):\n\n- For each token:\n  - Attend to \\(w\\) local neighbors \u2192 cost \\(O(w)\\) per token.  \n  - Optionally attend to a small number \\(g\\) of global tokens.  \n\nIf \\(w\\) and \\(g\\) are constants independent of \\(n\\), total attention cost is **\\(O(n(w+g)) = O(n)\\)** \u2192 **linear / sub-quadratic scaling**.[3][6][7]\n\n**How long-range dependencies are preserved:**\n\n- **Local edges:** like a 1D chain; information moves across the sequence via multiple layers or steps.\n- **Global tokens:** act as hubs. Any token can send information to a global token and receive information from it in **1\u20132 hops**, so distant tokens communicate through these hubs rather than direct dense attention.[6]\n\nThus, even though the attention matrix is sparse, the induced **attention graph is still connected**, and long-range signals can propagate, just in a few steps instead of one dense hop.[3][6]\n\n*(Longformer is mostly \u201clocal + selected global\u201d; it does not rely on random edges.)*\n\n---\n\n## 4. BigBird: local + global + random = sparse but expressive\n\n**BigBird** explicitly designs a sparse pattern that is both **linear-time** and **theoretically as expressive as full attention**.[5][6]\n\nEach token\u2019s attention set includes:[5][6]\n\n- **Local neighbors** (sliding window of size \\(w\\))  \n- **Global tokens** (a small set \\(g\\), like CLS, that attend to everything)  \n- **Random tokens** (each token attends to \\(r\\) randomly selected positions)\n\nSo for each token, number of attended keys \\(k = w + g + r = O(1)\\), independent of \\(n\\).  \nTotal complexity: **\\(O(nk) = O(n)\\)**.[5]\n\n### How BigBird preserves long-range modeling\n\nBigBird\u2019s pattern is designed so the underlying **sparse attention graph** has strong connectivity properties:\n\n- **Local edges** ensure rich modeling of nearby context.  \n- **Global tokens** provide hubs similar to Longformer, enabling fast document-level communication.[5][6]  \n- **Random edges** act like shortcuts in a small-world graph:\n  - Any token can reach any other token in **\\(O(\\log n)\\)** or even constant number of hops with high probability.\n  - This prevents \u201cinformation islands\u201d where distant tokens cannot influence each other.[5][6]\n\nThe BigBird paper shows:\n\n- The sparse pattern is a **universal approximator of sequence-to-sequence functions** (matching full-attention transformers in expressive power).[5]  \n- The model is **Turing complete**, like full attention.[5]  \n\nThese results formalize that, despite sparsity and linear-time complexity, the model can in principle represent the same long-range computations as dense attention.\n\n---\n\n## 5. Why \u201cfew hops\u201d is enough\n\nIn a multi-layer transformer:\n\n- Each layer provides one step of message passing along edges defined by the attention pattern.  \n- With **local + global + random** edges, the graph diameter is small (any node reaches any other in very few steps).[6]  \n- Stacking \\(L\\) such layers allows information to propagate globally even when single-layer attention is sparse.\n\nIntuitively:\n\n- Local edges capture **fine-grained** context.\n- Global tokens capture **document-level** context.\n- Random edges drastically shrink the path lengths between distant tokens.[6]\n\nSo the model trades **single-hop dense connectivity** for **multi-hop sparse connectivity**, but with a carefully designed topology that keeps the number of hops small, preserving effective long-range modeling.\n\n---\n\n## 6. Summary: how sub-quadratic scaling and long-range capacity coexist\n\n**Sub-quadratic scaling comes from:**\n\n- Replacing \u201cevery token attends to all \\(n\\) tokens\u201d with \u201cevery token attends to \\(k \\ll n\\) tokens,\u201d where \\(k\\) is constant or slowly growing.[3][5][6]  \n- This yields \\(O(nk)\\) operations, which is **linear / sub-quadratic** in sequence length, instead of \\(O(n^2)\\).[3][5]\n\n**Long-range modeling is preserved by:**\n\n- Designing the sparse pattern so the induced **attention graph is highly connected**:\n  - **Local** edges for nearby dependencies.  \n  - **Global** tokens as hubs for document-wide communication.[5][6]  \n  - **Random** edges (BigBird) to guarantee short paths between any pair of tokens and theoretical expressiveness.[5][6]\n- Using multiple layers so information can traverse the graph in a small number of hops.\n\n---\n\n### Claims and confidence\n\n1. **Longformer and BigBird achieve sub-quadratic (often linear) complexity by restricting each token to a fixed-size sparse attention neighborhood (local + global, plus random for BigBird).**  \n   - Evidence: Descriptions of fixed sparse patterns and linear complexity in BigBird and general sparse attention surveys.[3][5][6][7]  \n   - Confidence: **High**\n\n2. **BigBird\u2019s specific local + global + random pattern is theoretically as expressive as full attention (universal approximator, Turing complete).**  \n   - Evidence: BigBird paper\u2019s formal results.[5]  \n   - Confidence: **High**\n\n3. **These patterns preserve long-range modeling by ensuring the attention graph has small diameter, so any tokens can communicate in few hops across layers.**  \n   - Evidence: Discussion of hybrid sparse attention, connectivity, and small-hop communication in BigBird and expository sources.[5][6][3]  \n   - Confidence: **High**\n\nIf you want, I can next draw explicit graphs and compute approximate diameters/hop counts for Longformer vs BigBird patterns, or walk through a concrete example sequence to show how a dependency at positions \\(i\\) and \\(j\\) flows through layers.",
+  "sources": [
+    "https://arxiv.org/html/2605.22476v1",
+    "https://ai.plainenglish.io/sub-quadratic-context-scaling-in-large-language-models-llms-1c4f15936b97",
+    "https://www.emergentmind.com/topics/sparse-attention-algorithms",
+    "https://phosseini.github.io/transformers/quadratic-complexity/",
+    "https://proceedings.neurips.cc/paper_files/paper/2020/file/c8512d142a2d849725f31a9a7a361ab9-Paper.pdf",
+    "https://cenrax.substack.com/p/the-illustrated-sparse-attention",
+    "https://dev.to/jayavelubalaji/sub-quadratic-sparse-attention-how-ssa-solves-the-long-context-problem-5c4g",
+    "https://www.mindstudio.ai/blog/sub-quadratic-sparse-attention-vs-standard-transformer-subcube/"
+  ],
+  "citations": [
+    "https://arxiv.org/html/2605.22476v1",
+    "https://ai.plainenglish.io/sub-quadratic-context-scaling-in-large-language-models-llms-1c4f15936b97",
+    "https://www.emergentmind.com/topics/sparse-attention-algorithms",
+    "https://phosseini.github.io/transformers/quadratic-complexity/",
+    "https://proceedings.neurips.cc/paper_files/paper/2020/file/c8512d142a2d849725f31a9a7a361ab9-Paper.pdf",
+    "https://cenrax.substack.com/p/the-illustrated-sparse-attention",
+    "https://dev.to/jayavelubalaji/sub-quadratic-sparse-attention-how-ssa-solves-the-long-context-problem-5c4g",
+    "https://www.mindstudio.ai/blog/sub-quadratic-sparse-attention-vs-standard-transformer-subcube/"
+  ],
+  "raw": {
+    "id": "77dfe251-4d11-4a7c-aa30-db2bcb00eca7",
+    "model": "sonar-pro",
+    "created": 1781223697,
+    "usage": {
+      "prompt_tokens": 55,
+      "completion_tokens": 1694,
+      "total_tokens": 1749,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00016,
+        "output_tokens_cost": 0.02541,
+        "request_cost": 0.006,
+        "total_cost": 0.03157
+      }
+    },
+    "citations": [
+      "https://arxiv.org/html/2605.22476v1",
+      "https://ai.plainenglish.io/sub-quadratic-context-scaling-in-large-language-models-llms-1c4f15936b97",
+      "https://www.emergentmind.com/topics/sparse-attention-algorithms",
+      "https://phosseini.github.io/transformers/quadratic-complexity/",
+      "https://proceedings.neurips.cc/paper_files/paper/2020/file/c8512d142a2d849725f31a9a7a361ab9-Paper.pdf",
+      "https://cenrax.substack.com/p/the-illustrated-sparse-attention",
+      "https://dev.to/jayavelubalaji/sub-quadratic-sparse-attention-how-ssa-solves-the-long-context-problem-5c4g",
+      "https://www.mindstudio.ai/blog/sub-quadratic-sparse-attention-vs-standard-transformer-subcube/"
+    ],
+    "search_results": [
+      {
+        "title": "Structured-Sparse Attention for Entity Tracking with Subquadratic ...",
+        "url": "https://arxiv.org/html/2605.22476v1",
+        "date": "2026-05-21",
+        "last_updated": "2026-05-23",
+        "snippet": "In the following section, we present a blockwise evaluation scheme for resolvent-style attention. The construction is motivated by the sparsity ...",
+        "source": "web"
+      },
+      {
+        "title": "Sub-Quadratic Context Scaling in Large Language Models (LLMs)",
+        "url": "https://ai.plainenglish.io/sub-quadratic-context-scaling-in-large-language-models-llms-1c4f15936b97",
+        "date": "2025-07-23",
+        "snippet": "BigBird formally shows that this sparse pattern allows O(n) inner products and still can approximate full-attention functions. Trade-offs: ...",
+        "source": "web"
+      },
+      {
+        "title": "Sparse-Attention Algorithms - Emergent Mind",
+        "url": "https://www.emergentmind.com/topics/sparse-attention-algorithms",
+        "date": "2026-01-13",
+        "last_updated": "2026-02-18",
+        "snippet": "Sparse-attention algorithms are techniques that restrict attention computations to selected token pairs, reducing quadratic complexity to ...",
+        "source": "web"
+      },
+      {
+        "title": "Quadratic Complexity in Transformers | Pedram Hosseini, PhD",
+        "url": "https://phosseini.github.io/transformers/quadratic-complexity/",
+        "date": "2025-01-29",
+        "last_updated": "2026-06-11",
+        "snippet": "Sparse attention (Longformer, BigBird, Reformer) \u2014 instead of full pairwise attention, restricting attention to local windows or sampled keys.",
+        "source": "web"
+      },
+      {
+        "title": "[PDF] Big Bird: Transformers for Longer Sequences",
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2020/file/c8512d142a2d849725f31a9a7a361ab9-Paper.pdf",
+        "last_updated": "2026-05-18",
+        "snippet": "In this paper, we address both the above questions and produce a sparse attention mechanism that improves performance on a multitude of tasks that require long ...",
+        "source": "web"
+      },
+      {
+        "title": "The Illustrated Sparse Attention - by Subham Kundu",
+        "url": "https://cenrax.substack.com/p/the-illustrated-sparse-attention",
+        "date": "2025-11-04",
+        "last_updated": "2026-05-10",
+        "snippet": "This is the quadratic scaling problem of attention mechanisms. ... Let's explore the three fundamental patterns that make sparse attention work.",
+        "source": "web"
+      },
+      {
+        "title": "Sub-Quadratic Sparse Attention: How SSA Solves the Long-Context ...",
+        "url": "https://dev.to/jayavelubalaji/sub-quadratic-sparse-attention-how-ssa-solves-the-long-context-problem-5c4g",
+        "date": "2026-05-18",
+        "last_updated": "2026-06-01",
+        "snippet": "Fixed-Pattern Sparse Attention. Architectures like Longformer and BigBird define in advance which tokens each query is allowed to attend to ...",
+        "source": "web"
+      },
+      {
+        "title": "Sub-Quadratic Sparse Attention vs. Standard Transformer Attention",
+        "url": "https://www.mindstudio.ai/blog/sub-quadratic-sparse-attention-vs-standard-transformer-subcube/",
+        "date": "2026-05-06",
+        "last_updated": "2026-06-09",
+        "snippet": "The idea that attention can be made sparse without catastrophic quality loss has real support in the literature. Longformer, BigBird, and other ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Sparse attention patterns in models like **Longformer** and **BigBird** achieve **sub-quadratic (often near-linear) complexity** by restricting each token to attend to only a small, structured subset of other tokens (local, global, random), while the *graph formed by these connections still allows information to propagate between any pair of positions in a few hops*, preserving long-range modeling.[3][5][6]\n\n---\n\n## 1. Why standard attention is quadratic\n\nIn a vanilla Transformer with sequence length \\(n\\):\n\n- Each of the \\(n\\) queries attends to all \\(n\\) keys \u2192 **\\(O(n^2)\\)** dot products and memory for the attention matrix.[4]  \n- This limits maximum context length on fixed hardware.\n\nSparse attention changes the *pattern* of connections so each query interacts with only \\(O(1)\\) or \\(O(\\log n)\\) keys, instead of \\(O(n)\\).[3][6]\n\n---\n\n## 2. General idea of sparse attention (masking)\n\nSparse attention introduces a **binary mask** \\(G \\in \\{0,1\\}^{n \\times n}\\) that specifies which query\u2013key pairs are allowed to interact:[3]\n\n\\[\nS = G \\odot \\left(\\frac{QK^\\top}{\\sqrt{d}}\\right), \\quad Z = \\text{softmax}(S)V\n\\]\n\n- If \\(G_{i,j} = 0\\), token \\(i\\) cannot attend to token \\(j\\); that dot product is skipped.[3]  \n- The number of non-zero entries per row of \\(G\\) determines the complexity of attention.\n\nIf each token only attends to \\(k\\) others, the cost becomes \\(O(nk)\\) instead of \\(O(n^2)\\).[3]\n\n---\n\n## 3. Longformer: sliding-window + global attention\n\n**Longformer** uses a **fixed, block-sparse pattern** with:\n\n- **Local sliding-window attention:** each token attends to its neighbors within a fixed-size window.  \n- **Global attention tokens:** a small set of positions (e.g., special markers, task-specific tokens) can attend to and be attended by all tokens.[3][6]\n\nMechanism (conceptually):\n\n- For each token:\n  - Attend to \\(w\\) local neighbors \u2192 cost \\(O(w)\\) per token.  \n  - Optionally attend to a small number \\(g\\) of global tokens.  \n\nIf \\(w\\) and \\(g\\) are constants independent of \\(n\\), total attention cost is **\\(O(n(w+g)) = O(n)\\)** \u2192 **linear / sub-quadratic scaling**.[3][6][7]\n\n**How long-range dependencies are preserved:**\n\n- **Local edges:** like a 1D chain; information moves across the sequence via multiple layers or steps.\n- **Global tokens:** act as hubs. Any token can send information to a global token and receive information from it in **1\u20132 hops**, so distant tokens communicate through these hubs rather than direct dense attention.[6]\n\nThus, even though the attention matrix is sparse, the induced **attention graph is still connected**, and long-range signals can propagate, just in a few steps instead of one dense hop.[3][6]\n\n*(Longformer is mostly \u201clocal + selected global\u201d; it does not rely on random edges.)*\n\n---\n\n## 4. BigBird: local + global + random = sparse but expressive\n\n**BigBird** explicitly designs a sparse pattern that is both **linear-time** and **theoretically as expressive as full attention**.[5][6]\n\nEach token\u2019s attention set includes:[5][6]\n\n- **Local neighbors** (sliding window of size \\(w\\))  \n- **Global tokens** (a small set \\(g\\), like CLS, that attend to everything)  \n- **Random tokens** (each token attends to \\(r\\) randomly selected positions)\n\nSo for each token, number of attended keys \\(k = w + g + r = O(1)\\), independent of \\(n\\).  \nTotal complexity: **\\(O(nk) = O(n)\\)**.[5]\n\n### How BigBird preserves long-range modeling\n\nBigBird\u2019s pattern is designed so the underlying **sparse attention graph** has strong connectivity properties:\n\n- **Local edges** ensure rich modeling of nearby context.  \n- **Global tokens** provide hubs similar to Longformer, enabling fast document-level communication.[5][6]  \n- **Random edges** act like shortcuts in a small-world graph:\n  - Any token can reach any other token in **\\(O(\\log n)\\)** or even constant number of hops with high probability.\n  - This prevents \u201cinformation islands\u201d where distant tokens cannot influence each other.[5][6]\n\nThe BigBird paper shows:\n\n- The sparse pattern is a **universal approximator of sequence-to-sequence functions** (matching full-attention transformers in expressive power).[5]  \n- The model is **Turing complete**, like full attention.[5]  \n\nThese results formalize that, despite sparsity and linear-time complexity, the model can in principle represent the same long-range computations as dense attention.\n\n---\n\n## 5. Why \u201cfew hops\u201d is enough\n\nIn a multi-layer transformer:\n\n- Each layer provides one step of message passing along edges defined by the attention pattern.  \n- With **local + global + random** edges, the graph diameter is small (any node reaches any other in very few steps).[6]  \n- Stacking \\(L\\) such layers allows information to propagate globally even when single-layer attention is sparse.\n\nIntuitively:\n\n- Local edges capture **fine-grained** context.\n- Global tokens capture **document-level** context.\n- Random edges drastically shrink the path lengths between distant tokens.[6]\n\nSo the model trades **single-hop dense connectivity** for **multi-hop sparse connectivity**, but with a carefully designed topology that keeps the number of hops small, preserving effective long-range modeling.\n\n---\n\n## 6. Summary: how sub-quadratic scaling and long-range capacity coexist\n\n**Sub-quadratic scaling comes from:**\n\n- Replacing \u201cevery token attends to all \\(n\\) tokens\u201d with \u201cevery token attends to \\(k \\ll n\\) tokens,\u201d where \\(k\\) is constant or slowly growing.[3][5][6]  \n- This yields \\(O(nk)\\) operations, which is **linear / sub-quadratic** in sequence length, instead of \\(O(n^2)\\).[3][5]\n\n**Long-range modeling is preserved by:**\n\n- Designing the sparse pattern so the induced **attention graph is highly connected**:\n  - **Local** edges for nearby dependencies.  \n  - **Global** tokens as hubs for document-wide communication.[5][6]  \n  - **Random** edges (BigBird) to guarantee short paths between any pair of tokens and theoretical expressiveness.[5][6]\n- Using multiple layers so information can traverse the graph in a small number of hops.\n\n---\n\n### Claims and confidence\n\n1. **Longformer and BigBird achieve sub-quadratic (often linear) complexity by restricting each token to a fixed-size sparse attention neighborhood (local + global, plus random for BigBird).**  \n   - Evidence: Descriptions of fixed sparse patterns and linear complexity in BigBird and general sparse attention surveys.[3][5][6][7]  \n   - Confidence: **High**\n\n2. **BigBird\u2019s specific local + global + random pattern is theoretically as expressive as full attention (universal approximator, Turing complete).**  \n   - Evidence: BigBird paper\u2019s formal results.[5]  \n   - Confidence: **High**\n\n3. **These patterns preserve long-range modeling by ensuring the attention graph has small diameter, so any tokens can communicate in few hops across layers.**  \n   - Evidence: Discussion of hybrid sparse attention, connectivity, and small-hop communication in BigBird and expository sources.[5][6][3]  \n   - Confidence: **High**\n\nIf you want, I can next draw explicit graphs and compute approximate diameters/hop counts for Longformer vs BigBird patterns, or walk through a concrete example sequence to show how a dependency at positions \\(i\\) and \\(j\\) flows through layers."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:21:37Z"
+}

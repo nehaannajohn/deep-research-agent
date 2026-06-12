@@ -1,0 +1,68 @@
+{
+  "id": "dra-type5-031",
+  "provider": "openai",
+  "query": "Illustrate the AWS Well-Architected Framework's five pillars as a diagram with associated best practices.",
+  "narrative": "The AWS Well-Architected Framework is structured around six pillars, each representing a key aspect of building and operating secure, high-performing, resilient, efficient, and sustainable systems in the cloud. These pillars are:\n\n1. **Operational Excellence**: Focuses on running and monitoring systems to deliver business value and continually improving processes and procedures.\n2. **Security**: Emphasizes protecting information, systems, and assets while delivering business value through risk assessments and mitigation strategies.\n3. **Reliability**: Ensures a workload performs its intended function correctly and consistently when it's expected to.\n4. **Performance Efficiency**: Involves using computing resources efficiently to meet system requirements and to maintain that efficiency as demand changes and technologies evolve.\n5. **Cost Optimization**: Focuses on avoiding unnecessary costs and suboptimal resources.\n6. **Sustainability**: Concentrates on minimizing the environmental impacts of running cloud workloads.\n\nEach pillar encompasses specific best practices to guide the design and operation of AWS workloads.\n\nFor a visual representation of these pillars along with their associated best practices, you can refer to the following diagram:\n\n[Power of AWS Well-Architected Framework | by Nishanth Gotte | Medium](https://medium.com/%40nish.raja/unleashing-the-power-of-aws-well-architected-framework-my-journey-to-building-cloud-solutions-for-a4bb77c3ba7d?utm_source=openai)\n\nThis diagram illustrates the six pillars of the AWS Well-Architected Framework and highlights key best practices associated with each pillar.\n\nFor a more in-depth understanding, you might find the following video helpful:\n\n[The Five Pillars of the AWS Well-Architected Framework](https://www.youtube.com/watch?v=KvEDbPmha6o&utm_source=openai)\n ",
+  "sources": [
+    "https://medium.com/%40nish.raja/unleashing-the-power-of-aws-well-architected-framework-my-journey-to-building-cloud-solutions-for-a4bb77c3ba7d?utm_source=openai",
+    "https://www.youtube.com/watch?v=KvEDbPmha6o&utm_source=openai"
+  ],
+  "citations": [
+    "https://medium.com/%40nish.raja/unleashing-the-power-of-aws-well-architected-framework-my-journey-to-building-cloud-solutions-for-a4bb77c3ba7d?utm_source=openai",
+    "https://www.youtube.com/watch?v=KvEDbPmha6o&utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-ac473642-9332-4d57-8294-31944af258a9",
+    "object": "chat.completion",
+    "created": 1781225088,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The AWS Well-Architected Framework is structured around six pillars, each representing a key aspect of building and operating secure, high-performing, resilient, efficient, and sustainable systems in the cloud. These pillars are:\n\n1. **Operational Excellence**: Focuses on running and monitoring systems to deliver business value and continually improving processes and procedures.\n2. **Security**: Emphasizes protecting information, systems, and assets while delivering business value through risk assessments and mitigation strategies.\n3. **Reliability**: Ensures a workload performs its intended function correctly and consistently when it's expected to.\n4. **Performance Efficiency**: Involves using computing resources efficiently to meet system requirements and to maintain that efficiency as demand changes and technologies evolve.\n5. **Cost Optimization**: Focuses on avoiding unnecessary costs and suboptimal resources.\n6. **Sustainability**: Concentrates on minimizing the environmental impacts of running cloud workloads.\n\nEach pillar encompasses specific best practices to guide the design and operation of AWS workloads.\n\nFor a visual representation of these pillars along with their associated best practices, you can refer to the following diagram:\n\n[Power of AWS Well-Architected Framework | by Nishanth Gotte | Medium](https://medium.com/%40nish.raja/unleashing-the-power-of-aws-well-architected-framework-my-journey-to-building-cloud-solutions-for-a4bb77c3ba7d?utm_source=openai)\n\nThis diagram illustrates the six pillars of the AWS Well-Architected Framework and highlights key best practices associated with each pillar.\n\nFor a more in-depth understanding, you might find the following video helpful:\n\n[The Five Pillars of the AWS Well-Architected Framework](https://www.youtube.com/watch?v=KvEDbPmha6o&utm_source=openai)\n ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1497,
+                "start_index": 1265,
+                "title": "Power of AWS Well-Architected Framework | by Nishanth Gotte | Medium",
+                "url": "https://medium.com/%40nish.raja/unleashing-the-power-of-aws-well-architected-framework-my-journey-to-building-cloud-solutions-for-a4bb77c3ba7d?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1841,
+                "start_index": 1722,
+                "title": "The Five Pillars of the AWS Well-Architected Framework",
+                "url": "https://www.youtube.com/watch?v=KvEDbPmha6o&utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 364,
+      "total_tokens": 423,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:44:59Z"
+}

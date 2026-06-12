@@ -1,0 +1,144 @@
+{
+  "id": "dra-type5-028",
+  "provider": "perplexity",
+  "query": "Compare the major frontend state management libraries (Redux, MobX, Zustand, Recoil) in a feature table.",
+  "narrative": "Here is a feature table comparing **Redux**, **MobX**, **Zustand**, and **Recoil** for frontend state management. The comparison is based on the sources provided, with emphasis on the libraries\u2019 architecture, ergonomics, and typical use cases.[2][3][4]\n\n| Feature | Redux | MobX | Zustand | Recoil |\n|---|---|---|---|---|\n| **Primary model** | **Global store** with actions and reducers; Flux-style single source of truth.[2][4] | **Reactive observable state**; state changes are tracked automatically.[2][3] | **Global store** with a minimal hook-based API; simpler, less opinionated than Redux.[3][4] | **Atom/selector graph**; shared state is broken into atoms with derived state via selectors.[2][3][4] |\n| **State organization** | Centralized and structured; often used with a consistent file pattern.[2][4] | Flexible and framework-agnostic; state can be managed independently of UI.[2][3] | Small, store-based, and usually lightweight to set up.[3][4] | Fine-grained, component-adjacent state stored in the React tree.[3][4] |\n| **Boilerplate** | Historically high, though **Redux Toolkit** reduces setup and boilerplate significantly.[2][3] | **Low boilerplate**; updates can be simple JavaScript assignments.[2][3] | **Very low boilerplate**; minimal API and no need for a Provider in common usage.[3] | **Low to moderate**; atoms/selectors are conceptually simple but can take time to structure well.[3][4] |\n| **Reactivity model** | Explicit updates through dispatched actions and reducers.[2][4] | **Automatic dependency tracking**; components react to observed changes.[2][3] | Hook-based subscriptions; updates are localized to affected components.[3] | Fine-grained updates through atoms and selectors.[2][3] |\n| **Debuggability** | Strong debugging story; Redux is known for predictable updates and time-travel-style tooling.[2][3] | Less formal than Redux; easier to reason about locally, but less standardized flow than Redux.[2][3] | Simple model can be easy to follow, but it lacks Redux\u2019s strict structure.[3][4] | Debugging can be straightforward at the atom level, but the graph model can be harder to reason about in larger apps.[4] |\n| **Performance characteristics** | Predictable, but may require more architectural discipline for optimal rendering.[2][3] | Efficient rendering through fine-grained tracking of only the data that changes.[2][3] | Designed to be small and fast; often chosen for performance-sensitive UI state.[3] | Fine-grained reactivity and React-friendly atom updates.[3][4] |\n| **React integration** | Excellent; especially with **React-Redux** and **Redux Toolkit**.[2][3] | Works with React, but is also framework-agnostic.[2][3] | Very React-friendly and commonly used in React apps.[3][4] | **React-specific** and built by Meta for React.[2][3][4] |\n| **TypeScript support** | Strong, especially with Redux Toolkit.[2][3] | Supported, but not usually highlighted as its biggest advantage in the sources.[2] | Generally good; one source notes it as simpler and less cumbersome than Recoil.[4] | Supported, but one source describes Zustand as having better TypeScript support than Recoil.[4] |\n| **Learning curve** | Moderate to high if using classic Redux patterns; lower with Redux Toolkit.[2][3] | Moderate; conceptually simple but based on reactive programming ideas.[2][3] | **Low**; often the easiest to adopt for small-to-medium React state.[3][4] | Moderate; atom/selector concepts are approachable, but implementation can be less intuitive for some teams.[3][4] |\n| **Best fit** | Large, long-lived applications that need structure, consistency, and strong tooling.[3][4] | Apps that benefit from **implicit reactivity** and minimal code.[2][3] | Apps that want **simplicity**, small API surface, and fast adoption.[3][4] | React apps needing **fine-grained shared state** with atom-based composition.[2][3][4] |\n| **Framework scope** | Primarily associated with React in practice, though the core idea is framework-agnostic.[2] | **Framework-agnostic**; can be used outside React.[2][3] | Primarily used with React, though the store pattern itself is lightweight.[3][4] | **React-only** in the provided sources.[3][4] |\n\n**Evidence-backed takeaways**\n- **Redux** is the most structured and the most mature choice when predictability and tooling matter more than minimal code.[2][3][4]\n- **MobX** is strongest when you want the least manual wiring and prefer automatic reactivity.[2][3]\n- **Zustand** is the simplest \u201cglobal store\u201d option here and is often positioned as a pragmatic middle ground between Redux\u2019s structure and MobX\u2019s reactivity.[3][4]\n- **Recoil** is the most explicitly **React-native** of the four, using atoms and selectors for fine-grained shared state.[2][3][4]\n\n**Confidence levels**\n- **Redux comparison:** High\n- **MobX comparison:** High\n- **Zustand comparison:** High\n- **Recoil comparison:** High\n- **Relative \u201cbest fit\u201d guidance:** Medium-High, because this depends on team preferences and app architecture rather than library features alone.",
+  "sources": [
+    "https://www.developerway.com/posts/react-state-management-2025",
+    "https://blog.logrocket.com/comparing-typescript-state-management-solutions/",
+    "https://www.syncfusion.com/blogs/post/react-state-management-libraries",
+    "https://www.matillion.com/blog/react-state-management-libraries-which-one",
+    "https://www.youtube.com/watch?v=Qbaw_ZQdfWo",
+    "https://strapi.io/blog/built-in-vs-external-state-management-libraries",
+    "https://dev.to/abbeyperini/state-management-in-front-end-web-development-state-101-48g3",
+    "https://www.toptal.com/developers/react/react-state-management-tools-enterprise",
+    "https://frontendmastery.com/posts/the-new-wave-of-react-state-management/"
+  ],
+  "citations": [
+    "https://www.developerway.com/posts/react-state-management-2025",
+    "https://blog.logrocket.com/comparing-typescript-state-management-solutions/",
+    "https://www.syncfusion.com/blogs/post/react-state-management-libraries",
+    "https://www.matillion.com/blog/react-state-management-libraries-which-one",
+    "https://www.youtube.com/watch?v=Qbaw_ZQdfWo",
+    "https://strapi.io/blog/built-in-vs-external-state-management-libraries",
+    "https://dev.to/abbeyperini/state-management-in-front-end-web-development-state-101-48g3",
+    "https://www.toptal.com/developers/react/react-state-management-tools-enterprise",
+    "https://frontendmastery.com/posts/the-new-wave-of-react-state-management/"
+  ],
+  "raw": {
+    "id": "aad20014-0113-463b-88dc-838fc8e8c9e3",
+    "model": "sonar-pro",
+    "created": 1781224419,
+    "usage": {
+      "prompt_tokens": 55,
+      "completion_tokens": 1197,
+      "total_tokens": 1252,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00016,
+        "output_tokens_cost": 0.01795,
+        "request_cost": 0.006,
+        "total_cost": 0.02412
+      }
+    },
+    "citations": [
+      "https://www.developerway.com/posts/react-state-management-2025",
+      "https://blog.logrocket.com/comparing-typescript-state-management-solutions/",
+      "https://www.syncfusion.com/blogs/post/react-state-management-libraries",
+      "https://www.matillion.com/blog/react-state-management-libraries-which-one",
+      "https://www.youtube.com/watch?v=Qbaw_ZQdfWo",
+      "https://strapi.io/blog/built-in-vs-external-state-management-libraries",
+      "https://dev.to/abbeyperini/state-management-in-front-end-web-development-state-101-48g3",
+      "https://www.toptal.com/developers/react/react-state-management-tools-enterprise",
+      "https://frontendmastery.com/posts/the-new-wave-of-react-state-management/"
+    ],
+    "search_results": [
+      {
+        "title": "React State Management in 2025: What You Actually Need",
+        "url": "https://www.developerway.com/posts/react-state-management-2025",
+        "date": "2025-09-25",
+        "last_updated": "2026-05-04",
+        "snippet": "Learn how to manage state in modern React apps, what is remote, URL, local, and shared state, and when you actually need a state management ...",
+        "source": "web"
+      },
+      {
+        "title": "Comparing TypeScript state management solutions - LogRocket Blog",
+        "url": "https://blog.logrocket.com/comparing-typescript-state-management-solutions/",
+        "date": "2024-02-02",
+        "last_updated": "2026-05-28",
+        "snippet": "Although most state management solutions are biased toward React, there are a few for other frontend frameworks, and the number of solutions ...",
+        "source": "web"
+      },
+      {
+        "title": "Top 5 React State Management Tools Developers Actually Use in ...",
+        "url": "https://www.syncfusion.com/blogs/post/react-state-management-libraries",
+        "date": "2026-04-30",
+        "last_updated": "2026-06-11",
+        "snippet": "Discover why state management matters for modern React apps. Explore top tools like Redux Toolkit, Zustand, MobX, Jotai, and Hookstate, ...",
+        "source": "web"
+      },
+      {
+        "title": "React State Management Libraries: Which one? - Matillion",
+        "url": "https://www.matillion.com/blog/react-state-management-libraries-which-one",
+        "date": "2022-09-08",
+        "last_updated": "2026-03-11",
+        "snippet": "A State Management Library is a pre-built code bundle that can be added to a front end such as React. Its purpose is to help manage an application's state.",
+        "source": "web"
+      },
+      {
+        "title": "Comparing the Top 5 React State Management Libraries - YouTube",
+        "url": "https://www.youtube.com/watch?v=Qbaw_ZQdfWo",
+        "date": "2025-02-07",
+        "last_updated": "2026-06-11",
+        "snippet": "Project React \u2192 https://cosden.solutions/project-react Import React (Newsletter) \u2192 https://cosden.solutions/newsletter?s=ytd Repo ...",
+        "source": "web"
+      },
+      {
+        "title": "Compare Built-In vs. External State Management JS Libraries - Strapi",
+        "url": "https://strapi.io/blog/built-in-vs-external-state-management-libraries",
+        "date": "2025-11-17",
+        "last_updated": "2026-06-10",
+        "snippet": "This analysis examines the practical differences between built-in state management (what your framework provides natively) and external state ...",
+        "source": "web"
+      },
+      {
+        "title": "State Management in Front-end Web Development: State 101",
+        "url": "https://dev.to/abbeyperini/state-management-in-front-end-web-development-state-101-48g3",
+        "date": "2025-06-02",
+        "last_updated": "2026-06-01",
+        "snippet": "State refers to all the variables within a program. Variables represent data held in memory. Global state refers to variables that are globally scoped.",
+        "source": "web"
+      },
+      {
+        "title": "React State Management Libraries: Top Options and Practices - Toptal",
+        "url": "https://www.toptal.com/developers/react/react-state-management-tools-enterprise",
+        "snippet": "Streamline your React apps with the right state management library. Explore top solutions, benefits, and strategies for building scalable, maintainable UIs.",
+        "source": "web"
+      },
+      {
+        "title": "The new wave of React state management - Frontend Mastery",
+        "url": "https://frontendmastery.com/posts/the-new-wave-of-react-state-management/",
+        "date": "2022-06-30",
+        "last_updated": "2026-05-28",
+        "snippet": "This post will flesh out the core problems global state management libraries need to solve. Understanding the underlying problems will help us assess the ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Here is a feature table comparing **Redux**, **MobX**, **Zustand**, and **Recoil** for frontend state management. The comparison is based on the sources provided, with emphasis on the libraries\u2019 architecture, ergonomics, and typical use cases.[2][3][4]\n\n| Feature | Redux | MobX | Zustand | Recoil |\n|---|---|---|---|---|\n| **Primary model** | **Global store** with actions and reducers; Flux-style single source of truth.[2][4] | **Reactive observable state**; state changes are tracked automatically.[2][3] | **Global store** with a minimal hook-based API; simpler, less opinionated than Redux.[3][4] | **Atom/selector graph**; shared state is broken into atoms with derived state via selectors.[2][3][4] |\n| **State organization** | Centralized and structured; often used with a consistent file pattern.[2][4] | Flexible and framework-agnostic; state can be managed independently of UI.[2][3] | Small, store-based, and usually lightweight to set up.[3][4] | Fine-grained, component-adjacent state stored in the React tree.[3][4] |\n| **Boilerplate** | Historically high, though **Redux Toolkit** reduces setup and boilerplate significantly.[2][3] | **Low boilerplate**; updates can be simple JavaScript assignments.[2][3] | **Very low boilerplate**; minimal API and no need for a Provider in common usage.[3] | **Low to moderate**; atoms/selectors are conceptually simple but can take time to structure well.[3][4] |\n| **Reactivity model** | Explicit updates through dispatched actions and reducers.[2][4] | **Automatic dependency tracking**; components react to observed changes.[2][3] | Hook-based subscriptions; updates are localized to affected components.[3] | Fine-grained updates through atoms and selectors.[2][3] |\n| **Debuggability** | Strong debugging story; Redux is known for predictable updates and time-travel-style tooling.[2][3] | Less formal than Redux; easier to reason about locally, but less standardized flow than Redux.[2][3] | Simple model can be easy to follow, but it lacks Redux\u2019s strict structure.[3][4] | Debugging can be straightforward at the atom level, but the graph model can be harder to reason about in larger apps.[4] |\n| **Performance characteristics** | Predictable, but may require more architectural discipline for optimal rendering.[2][3] | Efficient rendering through fine-grained tracking of only the data that changes.[2][3] | Designed to be small and fast; often chosen for performance-sensitive UI state.[3] | Fine-grained reactivity and React-friendly atom updates.[3][4] |\n| **React integration** | Excellent; especially with **React-Redux** and **Redux Toolkit**.[2][3] | Works with React, but is also framework-agnostic.[2][3] | Very React-friendly and commonly used in React apps.[3][4] | **React-specific** and built by Meta for React.[2][3][4] |\n| **TypeScript support** | Strong, especially with Redux Toolkit.[2][3] | Supported, but not usually highlighted as its biggest advantage in the sources.[2] | Generally good; one source notes it as simpler and less cumbersome than Recoil.[4] | Supported, but one source describes Zustand as having better TypeScript support than Recoil.[4] |\n| **Learning curve** | Moderate to high if using classic Redux patterns; lower with Redux Toolkit.[2][3] | Moderate; conceptually simple but based on reactive programming ideas.[2][3] | **Low**; often the easiest to adopt for small-to-medium React state.[3][4] | Moderate; atom/selector concepts are approachable, but implementation can be less intuitive for some teams.[3][4] |\n| **Best fit** | Large, long-lived applications that need structure, consistency, and strong tooling.[3][4] | Apps that benefit from **implicit reactivity** and minimal code.[2][3] | Apps that want **simplicity**, small API surface, and fast adoption.[3][4] | React apps needing **fine-grained shared state** with atom-based composition.[2][3][4] |\n| **Framework scope** | Primarily associated with React in practice, though the core idea is framework-agnostic.[2] | **Framework-agnostic**; can be used outside React.[2][3] | Primarily used with React, though the store pattern itself is lightweight.[3][4] | **React-only** in the provided sources.[3][4] |\n\n**Evidence-backed takeaways**\n- **Redux** is the most structured and the most mature choice when predictability and tooling matter more than minimal code.[2][3][4]\n- **MobX** is strongest when you want the least manual wiring and prefer automatic reactivity.[2][3]\n- **Zustand** is the simplest \u201cglobal store\u201d option here and is often positioned as a pragmatic middle ground between Redux\u2019s structure and MobX\u2019s reactivity.[3][4]\n- **Recoil** is the most explicitly **React-native** of the four, using atoms and selectors for fine-grained shared state.[2][3][4]\n\n**Confidence levels**\n- **Redux comparison:** High\n- **MobX comparison:** High\n- **Zustand comparison:** High\n- **Recoil comparison:** High\n- **Relative \u201cbest fit\u201d guidance:** Medium-High, because this depends on team preferences and app architecture rather than library features alone."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:33:39Z"
+}

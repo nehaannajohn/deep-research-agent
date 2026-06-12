@@ -29,6 +29,11 @@ data/cache/
 /eval/dra_bench/*
 !/eval/dra_bench/prompts.jsonl
 !/eval/dra_bench/prompts_review.md
+# Baseline responses (Perplexity/OpenAI, the 50-item comparison inputs) — small,
+# tracked so scoring runs on any host. (Gold reference reports stay ignored — they
+# are large and regenerated on the eval host.)
+!/eval/dra_bench/baselines/
+!/eval/dra_bench/baselines/**
 
 # OS / editor
 .DS_Store

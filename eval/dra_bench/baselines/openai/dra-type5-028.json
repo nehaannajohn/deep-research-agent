@@ -1,0 +1,310 @@
+{
+  "id": "dra-type5-028",
+  "provider": "openai",
+  "query": "Compare the major frontend state management libraries (Redux, MobX, Zustand, Recoil) in a feature table.",
+  "narrative": "Here's a comparative analysis of four major frontend state management libraries: Redux, MobX, Zustand, and Recoil.\n\n| Feature                 | Redux                                                                                                                                                                                                                   | MobX                                                                                                                                                                                                                   | Zustand                                                                                                                                                                                                                   | Recoil                                                                                                                                                                                                                   |\n|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **Architecture**        | Centralized store with immutable state and unidirectional data flow. ([selleo.com](https://selleo.com/blog/what-is-redux?utm_source=openai))                                                                                   | Observable state with automatic tracking and reactions. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Minimalistic, hook-based API without the need for context providers. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Atom-based state management with selectors for derived state. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   |\n| **Learning Curve**      | Steep due to concepts like actions, reducers, and middleware. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   | Moderate; intuitive API but requires understanding observables and reactions. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Gentle; simple API with minimal boilerplate. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Moderate; aligns closely with React paradigms but introduces atoms and selectors. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   |\n| **Boilerplate**         | High; requires actions, reducers, and often middleware. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   | Low; minimal setup with automatic reactivity. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Very low; concise API with minimal setup. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Low; minimal setup with built-in async support. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   |\n| **Performance**         | Good; efficient with proper memoization using reselect. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | Excellent; fine-grained updates with automatic dependency tracking. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Excellent; minimal re-render overhead due to selector-based subscriptions. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | Excellent; per-atom subscriptions allow for fine-grained updates. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   |\n| **Bundle Size**         | ~12-15KB minified + gzipped (Redux core), ~40-50KB with Redux Toolkit. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | 16.5 KB minified, 6 KB gzipped. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | 1.2 KB minified + gzipped. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | 29.5 KB gzipped. ([devpick.co](https://devpick.co/recoil-vs-redux?utm_source=openai))                                                                                   |\n| **Async Support**       | Requires middleware like Redux Thunk or Redux Saga. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   | Built-in support for async actions. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Supports async actions natively. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Built-in support for async selectors. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   |\n| **Community & Ecosystem** | Mature ecosystem with extensive community support and middleware options. ([selleo.com](https://selleo.com/blog/what-is-redux?utm_source=openai))                                                                                   | Mature ecosystem with extensive community support and integrations. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Growing community with increasing adoption. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Growing community; React-specific with close alignment to React's development. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   |\n\n**Confidence Level:** High. The information is sourced from recent and reputable articles, providing a comprehensive comparison of these state management libraries. ",
+  "sources": [
+    "https://selleo.com/blog/what-is-redux?utm_source=openai",
+    "https://devpick.co/mobx-vs-recoil?utm_source=openai",
+    "https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai",
+    "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai",
+    "https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai",
+    "https://devpick.co/recoil-vs-redux?utm_source=openai"
+  ],
+  "citations": [
+    "https://selleo.com/blog/what-is-redux?utm_source=openai",
+    "https://devpick.co/mobx-vs-recoil?utm_source=openai",
+    "https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai",
+    "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai",
+    "https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai",
+    "https://devpick.co/recoil-vs-redux?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-0d825c48-a58a-496b-86b7-f5e617df1927",
+    "object": "chat.completion",
+    "created": 1781225085,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Here's a comparative analysis of four major frontend state management libraries: Redux, MobX, Zustand, and Recoil.\n\n| Feature                 | Redux                                                                                                                                                                                                                   | MobX                                                                                                                                                                                                                   | Zustand                                                                                                                                                                                                                   | Recoil                                                                                                                                                                                                                   |\n|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **Architecture**        | Centralized store with immutable state and unidirectional data flow. ([selleo.com](https://selleo.com/blog/what-is-redux?utm_source=openai))                                                                                   | Observable state with automatic tracking and reactions. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Minimalistic, hook-based API without the need for context providers. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Atom-based state management with selectors for derived state. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   |\n| **Learning Curve**      | Steep due to concepts like actions, reducers, and middleware. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   | Moderate; intuitive API but requires understanding observables and reactions. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Gentle; simple API with minimal boilerplate. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Moderate; aligns closely with React paradigms but introduces atoms and selectors. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   |\n| **Boilerplate**         | High; requires actions, reducers, and often middleware. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   | Low; minimal setup with automatic reactivity. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Very low; concise API with minimal setup. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Low; minimal setup with built-in async support. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   |\n| **Performance**         | Good; efficient with proper memoization using reselect. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | Excellent; fine-grained updates with automatic dependency tracking. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Excellent; minimal re-render overhead due to selector-based subscriptions. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | Excellent; per-atom subscriptions allow for fine-grained updates. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   |\n| **Bundle Size**         | ~12-15KB minified + gzipped (Redux core), ~40-50KB with Redux Toolkit. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | 16.5 KB minified, 6 KB gzipped. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | 1.2 KB minified + gzipped. ([index.dev](https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai))                                                                                   | 29.5 KB gzipped. ([devpick.co](https://devpick.co/recoil-vs-redux?utm_source=openai))                                                                                   |\n| **Async Support**       | Requires middleware like Redux Thunk or Redux Saga. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   | Built-in support for async actions. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Supports async actions natively. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Built-in support for async selectors. ([npm-compare.com](https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai))                                                                                   |\n| **Community & Ecosystem** | Mature ecosystem with extensive community support and middleware options. ([selleo.com](https://selleo.com/blog/what-is-redux?utm_source=openai))                                                                                   | Mature ecosystem with extensive community support and integrations. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   | Growing community with increasing adoption. ([zustand.docs.pmnd.rs](https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai))                                                                                   | Growing community; React-specific with close alignment to React's development. ([devpick.co](https://devpick.co/mobx-vs-recoil?utm_source=openai))                                                                                   |\n\n**Confidence Level:** High. The information is sourced from recent and reputable articles, providing a comprehensive comparison of these state management libraries. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2088,
+                "start_index": 2017,
+                "title": "What Is Redux: What Does it Mean for React, Next.js, and React Native?",
+                "url": "https://selleo.com/blog/what-is-redux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2296,
+                "start_index": 2229,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2555,
+                "start_index": 2450,
+                "title": "Comparison - Zustand",
+                "url": "https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2769,
+                "start_index": 2702,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3028,
+                "start_index": 2944,
+                "title": "redux vs mobx vs recoil | React State Management Libraries",
+                "url": "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3258,
+                "start_index": 3191,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3493,
+                "start_index": 3388,
+                "title": "Comparison - Zustand",
+                "url": "https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3727,
+                "start_index": 3660,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3980,
+                "start_index": 3896,
+                "title": "redux vs mobx vs recoil | React State Management Libraries",
+                "url": "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 4178,
+                "start_index": 4111,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 4410,
+                "start_index": 4305,
+                "title": "Comparison - Zustand",
+                "url": "https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 4627,
+                "start_index": 4543,
+                "title": "redux vs mobx vs recoil | React State Management Libraries",
+                "url": "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 4890,
+                "start_index": 4796,
+                "title": "MobX vs Redux vs Zustand: State Management Comparison 2026",
+                "url": "https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 5110,
+                "start_index": 5043,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 5364,
+                "start_index": 5270,
+                "title": "MobX vs Redux vs Zustand: State Management Comparison 2026",
+                "url": "https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 5599,
+                "start_index": 5515,
+                "title": "redux vs mobx vs recoil | React State Management Libraries",
+                "url": "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 5877,
+                "start_index": 5783,
+                "title": "MobX vs Redux vs Zustand: State Management Comparison 2026",
+                "url": "https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 6088,
+                "start_index": 5994,
+                "title": "MobX vs Redux vs Zustand: State Management Comparison 2026",
+                "url": "https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 6294,
+                "start_index": 6200,
+                "title": "MobX vs Redux vs Zustand: State Management Comparison 2026",
+                "url": "https://www.index.dev/skill-vs-skill/redux-vs-mobx-vs-zustand?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 6464,
+                "start_index": 6396,
+                "title": "recoil vs redux (2026) | devpick",
+                "url": "https://devpick.co/recoil-vs-redux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 6713,
+                "start_index": 6629,
+                "title": "redux vs mobx vs recoil | React State Management Libraries",
+                "url": "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 6901,
+                "start_index": 6834,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 7124,
+                "start_index": 7019,
+                "title": "Comparison - Zustand",
+                "url": "https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 7331,
+                "start_index": 7247,
+                "title": "redux vs mobx vs recoil | React State Management Libraries",
+                "url": "https://npm-compare.com/mobx%2Crecoil%2Credux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 7591,
+                "start_index": 7520,
+                "title": "What Is Redux: What Does it Mean for React, Next.js, and React Native?",
+                "url": "https://selleo.com/blog/what-is-redux?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 7811,
+                "start_index": 7744,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 8045,
+                "start_index": 7940,
+                "title": "Comparison - Zustand",
+                "url": "https://zustand.docs.pmnd.rs/learn/getting-started/comparison?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 8276,
+                "start_index": 8209,
+                "title": "mobx vs recoil (2026) | devpick",
+                "url": "https://devpick.co/mobx-vs-recoil?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 62,
+      "completion_tokens": 1298,
+      "total_tokens": 1360,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:45:26Z"
+}

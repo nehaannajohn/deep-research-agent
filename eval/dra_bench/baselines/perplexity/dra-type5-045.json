@@ -1,0 +1,124 @@
+{
+  "id": "dra-type5-045",
+  "provider": "perplexity",
+  "query": "Chart the comparative specifications of the eight planets in our solar system in a structured table.",
+  "narrative": "The eight **planets** of our solar system can be compared across key specifications such as type, distance from the Sun, size, mass, density, gravity, day length, year length, and number of known moons. Values below are rounded, primarily from NASA\u2019s planetary data and comparison tool.[5][7]\n\n---\n\n## Comparative table of the eight planets\n\n**Key:**  \n- Distance = average distance from Sun (semi\u2011major axis)  \n- Day = sidereal rotation period  \n- Year = orbital period around Sun  \n\n| Planet   | Planet type          | Avg. distance from Sun (10\u2076 km) | Orbital period (days / Earth years) | Equatorial radius (km) | Mass (Earth = 1) | Mean density (g/cm\u00b3) | Surface gravity (m/s\u00b2) | Rotation period (length of day) | Known moons* |\n|---------|-----------------------|----------------------------------|-------------------------------------|------------------------|-------------------|-----------------------|-------------------------|----------------------------------|-------------|\n| **Mercury** | Terrestrial (rocky)  | ~57.9[7]                         | 87.97 d / 0.24 yr[2]                | ~2,440[7]              | ~0.055            | ~5.43                 | ~3.7                    | ~58.6 Earth days (prograde, very slow) | 0[5]        |\n| **Venus**   | Terrestrial (rocky)  | ~108.2[7]                        | 224.7 d / 0.62 yr[2]                | ~6,052[7]              | ~0.815            | ~5.24                 | ~8.9                    | ~243 Earth days (retrograde \u2013 spins \u201cbackwards\u201d) | 0[5]        |\n| **Earth**   | Terrestrial (rocky)  | ~149.6[7]                        | 365.26 d / 1.00 yr[2]               | ~6,371[7]              | 1.000             | ~5.51                 | ~9.8                    | ~23.9 h                         | 1[5]        |\n| **Mars**    | Terrestrial (rocky)  | ~227.9[7]                        | 686.98 d / 1.88 yr[2]               | ~3,390[7]              | ~0.107            | ~3.93                 | ~3.7                    | ~24.6 h                         | 2[4][5]     |\n| **Jupiter** | Gas giant           | ~778.3[7]                        | 4,332.6 d / 11.86 yr[2]             | ~69,911[7]             | ~317.8            | ~1.33                 | ~24.8                   | ~9.9 h (fast rotation)          | >90 (80+ confirmed)[5] |\n| **Saturn**  | Gas giant           | ~1,433.5 (1,433.5 = 9.5 AU)[7]   | 10,759 d / 29.46 yr[2]              | ~58,232[7]             | ~95.2             | ~0.69                 | ~10.4                   | ~10.7 h                         | >80 (80+ confirmed)[5] |\n| **Uranus**  | Ice giant           | ~2,872.5[7]                      | 30,688.5 d / 84.0 yr[2]             | ~25,362[7]             | ~14.5             | ~1.27                 | ~8.7                    | ~17.2 h (retrograde / tilted on its side) | 27[5]       |\n| **Neptune** | Ice giant           | ~4,495.1[7]                      | 60,182 d / 164.8 yr[2]              | ~24,622[7]             | ~17.1             | ~1.64                 | ~11.2                   | ~16.1 h                         | 14[5]       |\n\n\\*Moon counts are approximate and periodically updated as new moons are confirmed.[5]\n\n---\n\n### Key comparative notes (claims vs. evidence)\n\n**Claim 1 (High confidence):** The four inner planets (Mercury, Venus, Earth, Mars) are **terrestrial** (rocky) and smaller, while the four outer planets (Jupiter, Saturn, Uranus, Neptune) are **giant planets** (gas/ice giants).  \n- **Evidence:** NASA and Britannica classify Mercury, Venus, Earth, and Mars as terrestrial planets with solid surfaces, and Jupiter/Saturn as gas giants, Uranus/Neptune as ice giants.[2][3][5]  \n- **Confidence:** Very high \u2013 consistent across major space-agency and reference sources.\n\n**Claim 2 (High confidence):** **Jupiter** is the largest and most massive planet; **Mercury** is the smallest and least massive.  \n- **Evidence:** NASA lists Jupiter as the largest planet and Mercury as the smallest.[5] Radii and masses in the table reflect this.[7]  \n- **Confidence:** Very high.\n\n**Claim 3 (High confidence):** **Venus and Neptune** have the most nearly circular orbits (lowest eccentricities) among the planets.  \n- **Evidence:** Britannica notes that Venus and Neptune have the most circular orbits with eccentricities 0.007 and 0.009.[3]  \n- **Confidence:** High.\n\n**Claim 4 (High confidence):** **Jupiter and Saturn** are gas giants; **Uranus and Neptune** are ice giants, all lacking hard surfaces.  \n- **Evidence:** NASA describes Jupiter and Saturn as gas giants and Uranus and Neptune as ice giants and states that the giant planets do not have hard surfaces.[5]  \n- **Confidence:** Very high.\n\n**Claim 5 (High confidence):** **Mercury** has the shortest year; **Neptune** has the longest.  \n- **Evidence:** Orbital periods in the Solar System data show Mercury at ~88 days and Neptune at ~164.8 Earth years.[2]  \n- **Confidence:** Very high.\n\n**Claim 6 (Medium\u2013high confidence):** Day lengths, densities, and gravities in the table are standard rounded values used in NASA fact sheets.  \n- **Evidence:** NASA comparison tools and fact sheets contain these values, and the rounded figures are consistent with them.[5][7]  \n- **Confidence:** Medium\u2013high, because small differences may appear between sources due to rounding and reference-frame choices.\n\nIf you want, I can add more parameters (e.g., orbital eccentricity and inclination, surface temperature ranges, atmospheric composition, or escape velocity) in an extended comparison table.",
+  "sources": [
+    "https://www.msnucleus.org/membership/html/k-6/uc/solar_system/2/ucss2_1a.html",
+    "https://en.wikipedia.org/wiki/Solar_System",
+    "https://www.britannica.com/science/solar-system",
+    "https://www.youtube.com/watch?v=nJ91d-94AIU",
+    "https://science.nasa.gov/solar-system/planets/",
+    "https://www.jpl.nasa.gov/edu/resources/video/solar-system-size-and-distance/",
+    "https://solarsystem.nasa.gov/planet-compare/"
+  ],
+  "citations": [
+    "https://www.msnucleus.org/membership/html/k-6/uc/solar_system/2/ucss2_1a.html",
+    "https://en.wikipedia.org/wiki/Solar_System",
+    "https://www.britannica.com/science/solar-system",
+    "https://www.youtube.com/watch?v=nJ91d-94AIU",
+    "https://science.nasa.gov/solar-system/planets/",
+    "https://www.jpl.nasa.gov/edu/resources/video/solar-system-size-and-distance/",
+    "https://solarsystem.nasa.gov/planet-compare/"
+  ],
+  "raw": {
+    "id": "fca236c8-820e-4946-96ad-e6d86c9d11c4",
+    "model": "sonar-pro",
+    "created": 1781224472,
+    "usage": {
+      "prompt_tokens": 48,
+      "completion_tokens": 1464,
+      "total_tokens": 1512,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00014,
+        "output_tokens_cost": 0.02196,
+        "request_cost": 0.006,
+        "total_cost": 0.0281
+      }
+    },
+    "citations": [
+      "https://www.msnucleus.org/membership/html/k-6/uc/solar_system/2/ucss2_1a.html",
+      "https://en.wikipedia.org/wiki/Solar_System",
+      "https://www.britannica.com/science/solar-system",
+      "https://www.youtube.com/watch?v=nJ91d-94AIU",
+      "https://science.nasa.gov/solar-system/planets/",
+      "https://www.jpl.nasa.gov/edu/resources/video/solar-system-size-and-distance/",
+      "https://solarsystem.nasa.gov/planet-compare/"
+    ],
+    "search_results": [
+      {
+        "title": "Comparing the 9 Planets of Our Solar System",
+        "url": "https://www.msnucleus.org/membership/html/k-6/uc/solar_system/2/ucss2_1a.html",
+        "date": "2016-01-01",
+        "last_updated": "2026-02-24",
+        "snippet": "Mercury is the closest planet to the Sun. \u00b7 Venus, the second planet away from the Sun, is Earth's closest neighbor. \u00b7 Earth is a little more than 12,000 ...",
+        "source": "web"
+      },
+      {
+        "title": "Solar System - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solar_System",
+        "date": "2001-11-07",
+        "last_updated": "2026-06-05",
+        "snippet": "The Solar System is the gravitationally bound system of the Sun and the masses that orbit it, most prominently its eight planets, of which Earth is one.",
+        "source": "web"
+      },
+      {
+        "title": "Solar system | Definition, Planets, Diagram, Videos, & Facts",
+        "url": "https://www.britannica.com/science/solar-system",
+        "date": "2026-06-05",
+        "last_updated": "2026-05-28",
+        "snippet": "Of the eight major planets, Venus and Neptune have the most circular orbits around the Sun, with eccentricities of 0.007 and 0.009, respectively ...",
+        "source": "web"
+      },
+      {
+        "title": "Planets in Our Solar System - YouTube",
+        "url": "https://www.youtube.com/watch?v=nJ91d-94AIU",
+        "date": "2020-11-02",
+        "last_updated": "2026-06-09",
+        "snippet": "solarsystem #ngscience #planets #space https://ngscience.com A quick tour and some fast fun facts about the eight planets in our solar ...",
+        "source": "web"
+      },
+      {
+        "title": "About the Planets - NASA Science",
+        "url": "https://science.nasa.gov/solar-system/planets/",
+        "date": "2023-07-10",
+        "last_updated": "2026-06-01",
+        "snippet": "Our solar system has eight planets: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. There are five officially recognized dwarf planets.",
+        "source": "web"
+      },
+      {
+        "title": "Solar System Size and Distance \u2013 Video | NASA JPL Education",
+        "url": "https://www.jpl.nasa.gov/edu/resources/video/solar-system-size-and-distance/",
+        "date": "2024-09-18",
+        "last_updated": "2026-05-02",
+        "snippet": "See how the sizes of planets and the distances between them compare. And find out why it's so hard to create a scale model of the solar system that accurately ...",
+        "source": "web"
+      },
+      {
+        "title": "Planet Compare - Solar System Exploration - NASA",
+        "url": "https://solarsystem.nasa.gov/planet-compare/",
+        "date": "2018-01-12",
+        "last_updated": "2026-03-23",
+        "snippet": "Mercury \u00b7 Venus \u00b7 Earth \u00b7 Mars \u00b7 Jupiter \u00b7 Saturn \u00b7 Uranus \u00b7 Neptune. Orbit Distance(km), 57,909,227, 108,209,475, 149,598,262, 227,943,824, 778,340,821 ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The eight **planets** of our solar system can be compared across key specifications such as type, distance from the Sun, size, mass, density, gravity, day length, year length, and number of known moons. Values below are rounded, primarily from NASA\u2019s planetary data and comparison tool.[5][7]\n\n---\n\n## Comparative table of the eight planets\n\n**Key:**  \n- Distance = average distance from Sun (semi\u2011major axis)  \n- Day = sidereal rotation period  \n- Year = orbital period around Sun  \n\n| Planet   | Planet type          | Avg. distance from Sun (10\u2076 km) | Orbital period (days / Earth years) | Equatorial radius (km) | Mass (Earth = 1) | Mean density (g/cm\u00b3) | Surface gravity (m/s\u00b2) | Rotation period (length of day) | Known moons* |\n|---------|-----------------------|----------------------------------|-------------------------------------|------------------------|-------------------|-----------------------|-------------------------|----------------------------------|-------------|\n| **Mercury** | Terrestrial (rocky)  | ~57.9[7]                         | 87.97 d / 0.24 yr[2]                | ~2,440[7]              | ~0.055            | ~5.43                 | ~3.7                    | ~58.6 Earth days (prograde, very slow) | 0[5]        |\n| **Venus**   | Terrestrial (rocky)  | ~108.2[7]                        | 224.7 d / 0.62 yr[2]                | ~6,052[7]              | ~0.815            | ~5.24                 | ~8.9                    | ~243 Earth days (retrograde \u2013 spins \u201cbackwards\u201d) | 0[5]        |\n| **Earth**   | Terrestrial (rocky)  | ~149.6[7]                        | 365.26 d / 1.00 yr[2]               | ~6,371[7]              | 1.000             | ~5.51                 | ~9.8                    | ~23.9 h                         | 1[5]        |\n| **Mars**    | Terrestrial (rocky)  | ~227.9[7]                        | 686.98 d / 1.88 yr[2]               | ~3,390[7]              | ~0.107            | ~3.93                 | ~3.7                    | ~24.6 h                         | 2[4][5]     |\n| **Jupiter** | Gas giant           | ~778.3[7]                        | 4,332.6 d / 11.86 yr[2]             | ~69,911[7]             | ~317.8            | ~1.33                 | ~24.8                   | ~9.9 h (fast rotation)          | >90 (80+ confirmed)[5] |\n| **Saturn**  | Gas giant           | ~1,433.5 (1,433.5 = 9.5 AU)[7]   | 10,759 d / 29.46 yr[2]              | ~58,232[7]             | ~95.2             | ~0.69                 | ~10.4                   | ~10.7 h                         | >80 (80+ confirmed)[5] |\n| **Uranus**  | Ice giant           | ~2,872.5[7]                      | 30,688.5 d / 84.0 yr[2]             | ~25,362[7]             | ~14.5             | ~1.27                 | ~8.7                    | ~17.2 h (retrograde / tilted on its side) | 27[5]       |\n| **Neptune** | Ice giant           | ~4,495.1[7]                      | 60,182 d / 164.8 yr[2]              | ~24,622[7]             | ~17.1             | ~1.64                 | ~11.2                   | ~16.1 h                         | 14[5]       |\n\n\\*Moon counts are approximate and periodically updated as new moons are confirmed.[5]\n\n---\n\n### Key comparative notes (claims vs. evidence)\n\n**Claim 1 (High confidence):** The four inner planets (Mercury, Venus, Earth, Mars) are **terrestrial** (rocky) and smaller, while the four outer planets (Jupiter, Saturn, Uranus, Neptune) are **giant planets** (gas/ice giants).  \n- **Evidence:** NASA and Britannica classify Mercury, Venus, Earth, and Mars as terrestrial planets with solid surfaces, and Jupiter/Saturn as gas giants, Uranus/Neptune as ice giants.[2][3][5]  \n- **Confidence:** Very high \u2013 consistent across major space-agency and reference sources.\n\n**Claim 2 (High confidence):** **Jupiter** is the largest and most massive planet; **Mercury** is the smallest and least massive.  \n- **Evidence:** NASA lists Jupiter as the largest planet and Mercury as the smallest.[5] Radii and masses in the table reflect this.[7]  \n- **Confidence:** Very high.\n\n**Claim 3 (High confidence):** **Venus and Neptune** have the most nearly circular orbits (lowest eccentricities) among the planets.  \n- **Evidence:** Britannica notes that Venus and Neptune have the most circular orbits with eccentricities 0.007 and 0.009.[3]  \n- **Confidence:** High.\n\n**Claim 4 (High confidence):** **Jupiter and Saturn** are gas giants; **Uranus and Neptune** are ice giants, all lacking hard surfaces.  \n- **Evidence:** NASA describes Jupiter and Saturn as gas giants and Uranus and Neptune as ice giants and states that the giant planets do not have hard surfaces.[5]  \n- **Confidence:** Very high.\n\n**Claim 5 (High confidence):** **Mercury** has the shortest year; **Neptune** has the longest.  \n- **Evidence:** Orbital periods in the Solar System data show Mercury at ~88 days and Neptune at ~164.8 Earth years.[2]  \n- **Confidence:** Very high.\n\n**Claim 6 (Medium\u2013high confidence):** Day lengths, densities, and gravities in the table are standard rounded values used in NASA fact sheets.  \n- **Evidence:** NASA comparison tools and fact sheets contain these values, and the rounded figures are consistent with them.[5][7]  \n- **Confidence:** Medium\u2013high, because small differences may appear between sources due to rounding and reference-frame choices.\n\nIf you want, I can add more parameters (e.g., orbital eccentricity and inclination, surface temperature ranges, atmospheric composition, or escape velocity) in an extended comparison table."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:34:32Z"
+}

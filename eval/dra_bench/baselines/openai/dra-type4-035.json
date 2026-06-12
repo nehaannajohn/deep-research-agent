@@ -1,0 +1,157 @@
+{
+  "id": "dra-type4-035",
+  "provider": "openai",
+  "query": "Who will win the next election?",
+  "narrative": "The upcoming United States midterm elections, scheduled for November 3, 2026, will determine control of both chambers of Congress and numerous gubernatorial seats. Current forecasts suggest a competitive landscape, with Democrats favored to gain control of the House of Representatives and the Senate remaining a toss-up.\n\n**House of Representatives**\n\n**Claim:** Democrats are favored to gain control of the House of Representatives in the 2026 midterm elections.\n\n**Evidence:**\n\n- The Democratic Party holds a 79% probability of winning control of the House, according to election betting odds. ([electionodds.com](https://www.electionodds.com/house/?utm_source=openai))\n\n- A Bayesian probabilistic model indicates an 81% chance for Democrats to secure a majority, averaging 233 seats. ([electionstatsheet.com](https://www.electionstatsheet.com/?utm_source=openai))\n\n- VoteHub's midterm forecast assigns Democrats an 85% probability of flipping the House, favoring them in 234 seats. ([votehub.com](https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai))\n\n**Confidence Level:** High. Multiple independent sources converge on a strong likelihood of Democratic gains in the House.\n\n**Senate**\n\n**Claim:** Control of the Senate is currently a toss-up, with both parties having nearly equal chances.\n\n**Evidence:**\n\n- Election betting odds place the Republican Party's probability of controlling the Senate at 54%. ([electionodds.com](https://www.electionodds.com/house/?utm_source=openai))\n\n- A Bayesian model estimates a 59% chance for Republicans to maintain control, averaging 50 seats. ([electionstatsheet.com](https://www.electionstatsheet.com/?utm_source=openai))\n\n- VoteHub's forecast indicates a 51% probability for Republicans to hold the Senate, highlighting key toss-up races in Alaska, Ohio, and Texas. ([votehub.com](https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai))\n\n**Confidence Level:** Moderate. The Senate's outcome is highly uncertain, with slight leanings toward Republican control but within the margin of error.\n\n**Gubernatorial Elections**\n\n**Claim:** Several gubernatorial races are expected to be highly competitive, with potential for both parties to gain or lose seats.\n\n**Evidence:**\n\n- Key states with competitive gubernatorial races include Pennsylvania, Michigan, Wisconsin, North Carolina, and Florida. ([uspollingdata.com](https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai))\n\n- Predictions for these races consider factors such as incumbent strength, candidate quality, and state partisan leanings. ([en.wikipedia.org](https://en.wikipedia.org/wiki/2026_United_States_gubernatorial_elections?utm_source=openai))\n\n**Confidence Level:** Moderate. While specific outcomes are uncertain, the identified states are consistently highlighted as battlegrounds.\n\n**Conclusion**\n\nAs of June 12, 2026, forecasts indicate a strong likelihood of the Democratic Party gaining control of the House of Representatives, while the Senate remains highly competitive with no clear favorite. Gubernatorial races in several key states are also expected to be closely contested. These projections are subject to change as the election approaches and more data becomes available.\n\n\n## Highlights:\n- [November 3, 2026 Election Preview: Senate, House, Governors, Ballot Measures | USPollingData.com](https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai), Published on Monday, November 02\n- [Introducing The 2026 VoteHub Midterm Forecast - VoteHub](https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai), Published on Sunday, May 03\n- [2026 Election Results Scenarios: Four Possible Outcomes and Their Probability | USPollingData.com](https://uspollingdata.com/news/2026-election-results-scenarios/?utm_source=openai), Published on Monday, April 06 ",
+  "sources": [
+    "https://www.electionodds.com/house/?utm_source=openai",
+    "https://www.electionstatsheet.com/?utm_source=openai",
+    "https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai",
+    "https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai",
+    "https://en.wikipedia.org/wiki/2026_United_States_gubernatorial_elections?utm_source=openai",
+    "https://uspollingdata.com/news/2026-election-results-scenarios/?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.electionodds.com/house/?utm_source=openai",
+    "https://www.electionstatsheet.com/?utm_source=openai",
+    "https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai",
+    "https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai",
+    "https://en.wikipedia.org/wiki/2026_United_States_gubernatorial_elections?utm_source=openai",
+    "https://uspollingdata.com/news/2026-election-results-scenarios/?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-c581d524-c00d-4ace-a384-860cc714365a",
+    "object": "chat.completion",
+    "created": 1781224915,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The upcoming United States midterm elections, scheduled for November 3, 2026, will determine control of both chambers of Congress and numerous gubernatorial seats. Current forecasts suggest a competitive landscape, with Democrats favored to gain control of the House of Representatives and the Senate remaining a toss-up.\n\n**House of Representatives**\n\n**Claim:** Democrats are favored to gain control of the House of Representatives in the 2026 midterm elections.\n\n**Evidence:**\n\n- The Democratic Party holds a 79% probability of winning control of the House, according to election betting odds. ([electionodds.com](https://www.electionodds.com/house/?utm_source=openai))\n\n- A Bayesian probabilistic model indicates an 81% chance for Democrats to secure a majority, averaging 233 seats. ([electionstatsheet.com](https://www.electionstatsheet.com/?utm_source=openai))\n\n- VoteHub's midterm forecast assigns Democrats an 85% probability of flipping the House, favoring them in 234 seats. ([votehub.com](https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai))\n\n**Confidence Level:** High. Multiple independent sources converge on a strong likelihood of Democratic gains in the House.\n\n**Senate**\n\n**Claim:** Control of the Senate is currently a toss-up, with both parties having nearly equal chances.\n\n**Evidence:**\n\n- Election betting odds place the Republican Party's probability of controlling the Senate at 54%. ([electionodds.com](https://www.electionodds.com/house/?utm_source=openai))\n\n- A Bayesian model estimates a 59% chance for Republicans to maintain control, averaging 50 seats. ([electionstatsheet.com](https://www.electionstatsheet.com/?utm_source=openai))\n\n- VoteHub's forecast indicates a 51% probability for Republicans to hold the Senate, highlighting key toss-up races in Alaska, Ohio, and Texas. ([votehub.com](https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai))\n\n**Confidence Level:** Moderate. The Senate's outcome is highly uncertain, with slight leanings toward Republican control but within the margin of error.\n\n**Gubernatorial Elections**\n\n**Claim:** Several gubernatorial races are expected to be highly competitive, with potential for both parties to gain or lose seats.\n\n**Evidence:**\n\n- Key states with competitive gubernatorial races include Pennsylvania, Michigan, Wisconsin, North Carolina, and Florida. ([uspollingdata.com](https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai))\n\n- Predictions for these races consider factors such as incumbent strength, candidate quality, and state partisan leanings. ([en.wikipedia.org](https://en.wikipedia.org/wiki/2026_United_States_gubernatorial_elections?utm_source=openai))\n\n**Confidence Level:** Moderate. While specific outcomes are uncertain, the identified states are consistently highlighted as battlegrounds.\n\n**Conclusion**\n\nAs of June 12, 2026, forecasts indicate a strong likelihood of the Democratic Party gaining control of the House of Representatives, while the Senate remains highly competitive with no clear favorite. Gubernatorial races in several key states are also expected to be closely contested. These projections are subject to change as the election approaches and more data becomes available.\n\n\n## Highlights:\n- [November 3, 2026 Election Preview: Senate, House, Governors, Ballot Measures | USPollingData.com](https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai), Published on Monday, November 02\n- [Introducing The 2026 VoteHub Midterm Forecast - VoteHub](https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai), Published on Sunday, May 03\n- [2026 Election Results Scenarios: Four Possible Outcomes and Their Probability | USPollingData.com](https://uspollingdata.com/news/2026-election-results-scenarios/?utm_source=openai), Published on Monday, April 06 ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 672,
+                "start_index": 597,
+                "title": "2026 House of Representatives Betting Odds + Control Odds",
+                "url": "https://www.electionodds.com/house/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 867,
+                "start_index": 788,
+                "title": "2026 Forecast \u2014 Overview",
+                "url": "https://www.electionstatsheet.com/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1098,
+                "start_index": 986,
+                "title": "Introducing The 2026 VoteHub Midterm Forecast - VoteHub",
+                "url": "https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1530,
+                "start_index": 1455,
+                "title": "2026 House of Representatives Betting Odds + Control Odds",
+                "url": "https://www.electionodds.com/house/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1710,
+                "start_index": 1631,
+                "title": "2026 Forecast \u2014 Overview",
+                "url": "https://www.electionstatsheet.com/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1968,
+                "start_index": 1856,
+                "title": "Introducing The 2026 VoteHub Midterm Forecast - VoteHub",
+                "url": "https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2527,
+                "start_index": 2424,
+                "title": "November 3, 2026 Election Preview: Senate, House, Governors, Ballot Measures | USPollingData.com",
+                "url": "https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2764,
+                "start_index": 2652,
+                "title": "2026 United States gubernatorial elections",
+                "url": "https://en.wikipedia.org/wiki/2026_United_States_gubernatorial_elections?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3508,
+                "start_index": 3328,
+                "title": "November 3, 2026 Election Preview: Senate, House, Governors, Ballot Measures | USPollingData.com",
+                "url": "https://uspollingdata.com/news/november-2026-election-preview/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3699,
+                "start_index": 3545,
+                "title": "Introducing The 2026 VoteHub Midterm Forecast - VoteHub",
+                "url": "https://votehub.com/2026/05/04/introducing-the-2026-votehub-midterm-forecast/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3913,
+                "start_index": 3731,
+                "title": "2026 Election Results Scenarios: Four Possible Outcomes and Their Probability | USPollingData.com",
+                "url": "https://uspollingdata.com/news/2026-election-results-scenarios/?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 46,
+      "completion_tokens": 872,
+      "total_tokens": 918,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:42:17Z"
+}

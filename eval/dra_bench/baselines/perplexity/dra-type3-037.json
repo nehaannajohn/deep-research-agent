@@ -1,0 +1,123 @@
+{
+  "id": "dra-type3-037",
+  "provider": "perplexity",
+  "query": "Is moderate red meat consumption a significant health risk or has the danger been overstated by weak observational studies?",
+  "narrative": "The best available evidence suggests that **moderate red meat intake is associated with some increased health risk**, but the *size* of the risk is generally **small**, and the evidence is **weaker and more uncertain** than the public debate often implies.[1][2] So the danger has likely been **somewhat overstated in popular discussion**, but it has **not been shown to be absent**.[1][2]\n\n- For **unprocessed red meat**, a 2022 systematic review using Grading of Recommendations Assessment, Development, and Evaluation methods found **weak evidence** of harmful associations with **colorectal cancer, breast cancer, type 2 diabetes, and ischemic heart disease**, and **no evidence** of association with ischemic or hemorrhagic stroke.[1]\n- That same review estimated that going from **no intake to moderate intake** was linked to only **small relative risk increases** for several outcomes, and it emphasized **wide uncertainty intervals** and **low star ratings**, which limit confidence in precise intake thresholds.[1]\n- A large 2019 systematic review of cohort studies found **small associations** between red meat and **all-cause mortality** and also noted that the absolute effect sizes were modest; it identified **stronger associations for processed meat** than for unprocessed red meat.[2]\n- Earlier cohort analyses also reported higher risks of **total, cardiovascular, and cancer mortality** with greater unprocessed red meat intake, but these are **observational** findings and therefore remain vulnerable to residual confounding and measurement error.[3]\n\n**How to interpret this**\n- The evidence does **not** support the claim that red meat is a uniquely dangerous food at ordinary amounts in the way highly processed foods or trans fats are.[1][2]\n- It also does **not** support the claim that the risk is purely an artifact of weak studies; multiple large cohorts and systematic reviews still find **consistent though small associations**, especially for **processed meat**.[1][2][3]\n- The most defensible conclusion is that **moderate red meat consumption is probably not a major health hazard for most people**, but **higher intake is still plausibly associated with a small increase in risk**, and replacing red meat with healthier protein sources may improve risk profiles.[1][2][3]\n\n**Confidence levels**\n- **Moderate confidence** that the risk from *unprocessed* red meat at moderate intake is **small rather than large**, because the best reviews report weak associations and substantial uncertainty.[1][2]\n- **High confidence** that **processed meat** carries clearer and larger health concerns than unprocessed red meat, based on the same reviews and broader literature.[2][4]\n- **Moderate confidence** that some of the apparent red-meat risk is influenced by **confounding** and other limitations typical of observational nutrition studies, since the reviews themselves emphasize uncertainty and low evidence ratings.[1][2]\n\nIf you want, I can also break this down into **cancer risk**, **heart disease**, and **all-cause mortality** separately, or compare red meat with **poultry, fish, and legumes**.",
+  "sources": [
+    "https://www.nature.com/articles/s41591-022-01968-z",
+    "https://www.acpjournals.org/doi/10.7326/M19-0655",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3712342/",
+    "https://www.ox.ac.uk/news/2021-03-02-regular-meat-consumption-linked-wide-range-common-diseases",
+    "https://www.youtube.com/watch?v=8R5otxPq9Kw",
+    "https://www.sciencedirect.com/science/article/pii/S247529912402434X",
+    "https://diabetesjournals.org/care/article/43/2/265/36125/Red-and-Processed-Meats-and-Health-Risks-How"
+  ],
+  "citations": [
+    "https://www.nature.com/articles/s41591-022-01968-z",
+    "https://www.acpjournals.org/doi/10.7326/M19-0655",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3712342/",
+    "https://www.ox.ac.uk/news/2021-03-02-regular-meat-consumption-linked-wide-range-common-diseases",
+    "https://www.youtube.com/watch?v=8R5otxPq9Kw",
+    "https://www.sciencedirect.com/science/article/pii/S247529912402434X",
+    "https://diabetesjournals.org/care/article/43/2/265/36125/Red-and-Processed-Meats-and-Health-Risks-How"
+  ],
+  "raw": {
+    "id": "2acd57e5-ff5e-4481-805f-5703d869bac6",
+    "model": "sonar-pro",
+    "created": 1781224212,
+    "usage": {
+      "prompt_tokens": 52,
+      "completion_tokens": 638,
+      "total_tokens": 690,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00016,
+        "output_tokens_cost": 0.00957,
+        "request_cost": 0.006,
+        "total_cost": 0.01573
+      }
+    },
+    "citations": [
+      "https://www.nature.com/articles/s41591-022-01968-z",
+      "https://www.acpjournals.org/doi/10.7326/M19-0655",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3712342/",
+      "https://www.ox.ac.uk/news/2021-03-02-regular-meat-consumption-linked-wide-range-common-diseases",
+      "https://www.youtube.com/watch?v=8R5otxPq9Kw",
+      "https://www.sciencedirect.com/science/article/pii/S247529912402434X",
+      "https://diabetesjournals.org/care/article/43/2/265/36125/Red-and-Processed-Meats-and-Health-Risks-How"
+    ],
+    "search_results": [
+      {
+        "title": "Health effects associated with consumption of unprocessed red meat",
+        "url": "https://www.nature.com/articles/s41591-022-01968-z",
+        "date": "2022-10-10",
+        "last_updated": "2022-10-10",
+        "snippet": "We found weak evidence of association between unprocessed red meat consumption and colorectal cancer, breast cancer, type 2 diabetes and ischemic heart disease.",
+        "source": "web"
+      },
+      {
+        "title": "Red and Processed Meat Consumption and Risk for All-Cause ...",
+        "url": "https://www.acpjournals.org/doi/10.7326/M19-0655",
+        "date": "2019-10-01",
+        "last_updated": "2025-02-19",
+        "snippet": "This systematic review of 55 large cohort studies examines associations between red meat consumption and mortality, stroke, myocardial infarction, ...",
+        "source": "web"
+      },
+      {
+        "title": "Red Meat Consumption and Mortality: Results from Two Prospective ...",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3712342/",
+        "date": "2012-03-12",
+        "last_updated": "2026-03-29",
+        "snippet": "Both unprocessed and processed red meat intakes were associated with an increased risk of total, CVD and cancer mortality in both men and women.",
+        "source": "web"
+      },
+      {
+        "title": "Regular meat consumption linked with a wide range of common ...",
+        "url": "https://www.ox.ac.uk/news/2021-03-02-regular-meat-consumption-linked-wide-range-common-diseases",
+        "date": "2021-03-02",
+        "last_updated": "2026-04-13",
+        "snippet": "The results associate regular meat intake with a higher risk of various diseases, including heart disease, pneumonia and diabetes, but a lower risk of iron- ...",
+        "source": "web"
+      },
+      {
+        "title": "Unprocessed Red Meat and Its Link to Cancer and Heart Disease",
+        "url": "https://www.youtube.com/watch?v=8R5otxPq9Kw",
+        "date": "2023-08-04",
+        "last_updated": "2026-03-28",
+        "snippet": "The debate surrounding the potential health risks of consuming unprocessed red meat has been ongoing for years, and it seems that every so ...",
+        "source": "web"
+      },
+      {
+        "title": "Beef Consumption and Cardiovascular Disease Risk Factors",
+        "url": "https://www.sciencedirect.com/science/article/pii/S247529912402434X",
+        "last_updated": "2025-09-07",
+        "snippet": "Results from observational studies suggest associations of red meat intake with increased risk of cardiovascular disease (CVD); however, RCTs have not clearly",
+        "source": "web"
+      },
+      {
+        "title": "Red and Processed Meats and Health Risks: How Strong Is the ...",
+        "url": "https://diabetesjournals.org/care/article/43/2/265/36125/Red-and-Processed-Meats-and-Health-Risks-How",
+        "date": "2020-01-13",
+        "last_updated": "2025-03-29",
+        "snippet": "diets high in red and processed meats are associated with increased risk of type 2 diabetes (T2D), cardiovascular disease (CVD), cancer ( ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The best available evidence suggests that **moderate red meat intake is associated with some increased health risk**, but the *size* of the risk is generally **small**, and the evidence is **weaker and more uncertain** than the public debate often implies.[1][2] So the danger has likely been **somewhat overstated in popular discussion**, but it has **not been shown to be absent**.[1][2]\n\n- For **unprocessed red meat**, a 2022 systematic review using Grading of Recommendations Assessment, Development, and Evaluation methods found **weak evidence** of harmful associations with **colorectal cancer, breast cancer, type 2 diabetes, and ischemic heart disease**, and **no evidence** of association with ischemic or hemorrhagic stroke.[1]\n- That same review estimated that going from **no intake to moderate intake** was linked to only **small relative risk increases** for several outcomes, and it emphasized **wide uncertainty intervals** and **low star ratings**, which limit confidence in precise intake thresholds.[1]\n- A large 2019 systematic review of cohort studies found **small associations** between red meat and **all-cause mortality** and also noted that the absolute effect sizes were modest; it identified **stronger associations for processed meat** than for unprocessed red meat.[2]\n- Earlier cohort analyses also reported higher risks of **total, cardiovascular, and cancer mortality** with greater unprocessed red meat intake, but these are **observational** findings and therefore remain vulnerable to residual confounding and measurement error.[3]\n\n**How to interpret this**\n- The evidence does **not** support the claim that red meat is a uniquely dangerous food at ordinary amounts in the way highly processed foods or trans fats are.[1][2]\n- It also does **not** support the claim that the risk is purely an artifact of weak studies; multiple large cohorts and systematic reviews still find **consistent though small associations**, especially for **processed meat**.[1][2][3]\n- The most defensible conclusion is that **moderate red meat consumption is probably not a major health hazard for most people**, but **higher intake is still plausibly associated with a small increase in risk**, and replacing red meat with healthier protein sources may improve risk profiles.[1][2][3]\n\n**Confidence levels**\n- **Moderate confidence** that the risk from *unprocessed* red meat at moderate intake is **small rather than large**, because the best reviews report weak associations and substantial uncertainty.[1][2]\n- **High confidence** that **processed meat** carries clearer and larger health concerns than unprocessed red meat, based on the same reviews and broader literature.[2][4]\n- **Moderate confidence** that some of the apparent red-meat risk is influenced by **confounding** and other limitations typical of observational nutrition studies, since the reviews themselves emphasize uncertainty and low evidence ratings.[1][2]\n\nIf you want, I can also break this down into **cancer risk**, **heart disease**, and **all-cause mortality** separately, or compare red meat with **poultry, fish, and legumes**."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:30:12Z"
+}

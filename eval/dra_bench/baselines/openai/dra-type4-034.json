@@ -1,0 +1,108 @@
+{
+  "id": "dra-type4-034",
+  "provider": "openai",
+  "query": "What is the ideal body weight?",
+  "narrative": "Ideal Body Weight (IBW) is a clinical estimate of a person's optimal weight based on height and sex, primarily used for medical purposes such as drug dosing and nutritional assessments. Several formulas have been developed to calculate IBW, each with its own methodology.\n\n**Common IBW Formulas:**\n\n1. **Devine Formula (1974):**\n   - *Men:* IBW (kg) = 50 + 2.3 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 45.5 + 2.3 \u00d7 (height in inches over 5 feet)\n\n   This formula is widely used in clinical settings for drug dosing and other medical calculations. ([clincalc.com](https://clincalc.com/kinetics/idealbw.aspx?utm_source=openai))\n\n2. **Hamwi Formula (1964):**\n   - *Men:* IBW (kg) = 48.0 + 2.7 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 45.5 + 2.2 \u00d7 (height in inches over 5 feet)\n\n   Originally developed for medical dosing, this formula provides a slightly different estimate. ([calcipedia.org](https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai))\n\n3. **Robinson Formula (1983):**\n   - *Men:* IBW (kg) = 52 + 1.9 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 49 + 1.7 \u00d7 (height in inches over 5 feet)\n\n   This formula offers another variation in IBW estimation. ([calcipedia.org](https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai))\n\n4. **Miller Formula (1983):**\n   - *Men:* IBW (kg) = 56.2 + 1.41 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 53.1 + 1.36 \u00d7 (height in inches over 5 feet)\n\n   Another method providing different IBW values. ([calcipedia.org](https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai))\n\n**Example Calculation:**\n\nFor a 6-foot-tall (72 inches) male using the Devine formula:\n\nIBW = 50 + 2.3 \u00d7 (72 - 60) = 50 + 2.3 \u00d7 12 = 50 + 27.6 = 77.6 kg\n\n**Limitations and Considerations:**\n\nWhile these formulas provide standardized estimates, they do not account for individual variations such as muscle mass, bone density, or body composition. Therefore, IBW should not be used as a sole indicator of health. It's essential to consider other factors, including Body Mass Index (BMI), waist circumference, and overall health status. ([verywellfit.com](https://www.verywellfit.com/ideal-weight-calculator-chart-3878254?utm_source=openai))\n\n**Conclusion:**\n\nIBW formulas offer a general guideline for assessing weight based on height and sex, primarily for clinical applications. However, determining an individual's healthy weight should involve a comprehensive evaluation of various health indicators and personal factors.\n\nFor a visual explanation of IBW calculations, you may find the following video helpful:\n\n[Ideal Body Weight (IBW) - Calculation Explained](https://www.youtube.com/watch?v=5jj3425zDBY&utm_source=openai)\n ",
+  "sources": [
+    "https://clincalc.com/kinetics/idealbw.aspx?utm_source=openai",
+    "https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai",
+    "https://www.verywellfit.com/ideal-weight-calculator-chart-3878254?utm_source=openai",
+    "https://www.youtube.com/watch?v=5jj3425zDBY&utm_source=openai"
+  ],
+  "citations": [
+    "https://clincalc.com/kinetics/idealbw.aspx?utm_source=openai",
+    "https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai",
+    "https://www.verywellfit.com/ideal-weight-calculator-chart-3878254?utm_source=openai",
+    "https://www.youtube.com/watch?v=5jj3425zDBY&utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-87f08768-9aeb-4c1e-b26f-801810914eba",
+    "object": "chat.completion",
+    "created": 1781224899,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Ideal Body Weight (IBW) is a clinical estimate of a person's optimal weight based on height and sex, primarily used for medical purposes such as drug dosing and nutritional assessments. Several formulas have been developed to calculate IBW, each with its own methodology.\n\n**Common IBW Formulas:**\n\n1. **Devine Formula (1974):**\n   - *Men:* IBW (kg) = 50 + 2.3 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 45.5 + 2.3 \u00d7 (height in inches over 5 feet)\n\n   This formula is widely used in clinical settings for drug dosing and other medical calculations. ([clincalc.com](https://clincalc.com/kinetics/idealbw.aspx?utm_source=openai))\n\n2. **Hamwi Formula (1964):**\n   - *Men:* IBW (kg) = 48.0 + 2.7 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 45.5 + 2.2 \u00d7 (height in inches over 5 feet)\n\n   Originally developed for medical dosing, this formula provides a slightly different estimate. ([calcipedia.org](https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai))\n\n3. **Robinson Formula (1983):**\n   - *Men:* IBW (kg) = 52 + 1.9 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 49 + 1.7 \u00d7 (height in inches over 5 feet)\n\n   This formula offers another variation in IBW estimation. ([calcipedia.org](https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai))\n\n4. **Miller Formula (1983):**\n   - *Men:* IBW (kg) = 56.2 + 1.41 \u00d7 (height in inches over 5 feet)\n   - *Women:* IBW (kg) = 53.1 + 1.36 \u00d7 (height in inches over 5 feet)\n\n   Another method providing different IBW values. ([calcipedia.org](https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai))\n\n**Example Calculation:**\n\nFor a 6-foot-tall (72 inches) male using the Devine formula:\n\nIBW = 50 + 2.3 \u00d7 (72 - 60) = 50 + 2.3 \u00d7 12 = 50 + 27.6 = 77.6 kg\n\n**Limitations and Considerations:**\n\nWhile these formulas provide standardized estimates, they do not account for individual variations such as muscle mass, bone density, or body composition. Therefore, IBW should not be used as a sole indicator of health. It's essential to consider other factors, including Body Mass Index (BMI), waist circumference, and overall health status. ([verywellfit.com](https://www.verywellfit.com/ideal-weight-calculator-chart-3878254?utm_source=openai))\n\n**Conclusion:**\n\nIBW formulas offer a general guideline for assessing weight based on height and sex, primarily for clinical applications. However, determining an individual's healthy weight should involve a comprehensive evaluation of various health indicators and personal factors.\n\nFor a visual explanation of IBW calculations, you may find the following video helpful:\n\n[Ideal Body Weight (IBW) - Calculation Explained](https://www.youtube.com/watch?v=5jj3425zDBY&utm_source=openai)\n ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 642,
+                "start_index": 564,
+                "title": "Ideal, Adjusted, and Nutritional Body Weight Calculator - ClinCalc.com",
+                "url": "https://clincalc.com/kinetics/idealbw.aspx?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1013,
+                "start_index": 907,
+                "title": "Ideal Body Weight Calculator | Calcipedia",
+                "url": "https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1346,
+                "start_index": 1240,
+                "title": "Ideal Body Weight Calculator | Calcipedia",
+                "url": "https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1673,
+                "start_index": 1567,
+                "title": "Ideal Body Weight Calculator | Calcipedia",
+                "url": "https://www.calcipedia.org/calculators/ideal-body-weight-calculator/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2313,
+                "start_index": 2209,
+                "title": "Calculate Your Ideal Weight: Weight, Height, and BMI Charts",
+                "url": "https://www.verywellfit.com/ideal-weight-calculator-chart-3878254?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2801,
+                "start_index": 2689,
+                "title": "Ideal Body Weight (IBW) - Calculation Explained",
+                "url": "https://www.youtube.com/watch?v=5jj3425zDBY&utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 46,
+      "completion_tokens": 760,
+      "total_tokens": 806,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:42:01Z"
+}

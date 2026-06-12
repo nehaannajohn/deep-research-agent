@@ -1,0 +1,130 @@
+{
+  "id": "dra-type1-046",
+  "provider": "openai",
+  "query": "How do circuit-level interpretability methods identify and validate computational subgraphs responsible for specific behaviors in transformers?",
+  "narrative": "Circuit-level interpretability methods aim to dissect transformer models by identifying and validating specific computational subgraphs, or \"circuits,\" responsible for particular behaviors. These methods involve several key steps:\n\n**1. Formalizing Circuits and Interpretability Criteria**\n\nA circuit is defined as a minimal subgraph within the model's computational graph that is both necessary and sufficient for a specific function. The criteria for identifying such circuits include:\n\n- **Sufficiency**: The circuit alone can reproduce the model's behavior on the task of interest.\n\n- **Necessity**: Components within the circuit are essential; removing or altering them significantly impairs task performance.\n\n- **Minimality**: The circuit contains no superfluous components; each element is crucial for the behavior.\n\n- **Locality and Robustness**: The circuit should be compact, understandable, and resilient to minor perturbations.\n\nThese principles guide the identification of circuits that faithfully represent the model's internal computations. ([emergentmind.com](https://www.emergentmind.com/topics/circuit-analysis-interpretability?utm_source=openai))\n\n**2. Identifying Computational Subgraphs**\n\nTo pinpoint circuits, researchers employ various techniques:\n\n- **Activation Patching**: This method involves replacing activations in specific model components with those from a different context to observe changes in behavior, helping to identify components critical to specific functions. ([huggingface.co](https://huggingface.co/papers/2304.14997?utm_source=openai))\n\n- **Contextual Decomposition for Transformers (CD-T)**: CD-T isolates the contributions of model features by recursively computing the impact of all nodes in the computational graph, enabling efficient identification of circuits at various levels of abstraction. ([par.nsf.gov](https://par.nsf.gov/biblio/10635746?utm_source=openai))\n\n- **Singular Vector-Based Analysis**: This approach decomposes model components into orthogonal singular directions, revealing overlapping subfunctions within a single attention head or MLP, thus uncovering the distributed nature of computations. ([papers.nips.cc](https://papers.nips.cc/paper_files/paper/2025/hash/f51afa708f3d4b3cae8dc9a8a9bbea87-Abstract-Conference.html?utm_source=openai))\n\n**3. Validating Identified Circuits**\n\nOnce potential circuits are identified, their validity is assessed through:\n\n- **Causal Ablations**: Systematically removing or modifying components within the circuit to observe the impact on model behavior, confirming the necessity and sufficiency of the circuit. ([huggingface.co](https://huggingface.co/papers/2304.14997?utm_source=openai))\n\n- **Performance Metrics**: Evaluating the circuit's ability to replicate the model's behavior using specific performance measures, ensuring the circuit's faithfulness to the original model. ([emergentmind.com](https://www.emergentmind.com/topics/circuit-discovery-pipelines?utm_source=openai))\n\n**4. Automating Circuit Discovery**\n\nTo scale the interpretability process, automated methods have been developed:\n\n- **Automatic Circuit Discovery (ACDC)**: ACDC automates the identification of circuits by systematically applying activation patching and other techniques, reducing the reliance on manual effort and intuition. ([huggingface.co](https://huggingface.co/papers/2304.14997?utm_source=openai))\n\n- **InterpBench**: A benchmark suite that evaluates mechanistic interpretability techniques using semi-synthetic transformers with known circuits, facilitating the validation and comparison of different methods. ([arxiv.org](https://arxiv.org/abs/2407.14494?utm_source=openai))\n\nThese automated approaches enhance the efficiency and scalability of circuit-level interpretability in transformer models.\n\n**Conclusion**\n\nCircuit-level interpretability methods systematically identify and validate computational subgraphs within transformer models by defining clear criteria, employing targeted identification techniques, and rigorously validating the discovered circuits. The development of automated tools further streamlines this process, contributing to a deeper understanding of model behaviors. ",
+  "sources": [
+    "https://www.emergentmind.com/topics/circuit-analysis-interpretability?utm_source=openai",
+    "https://huggingface.co/papers/2304.14997?utm_source=openai",
+    "https://par.nsf.gov/biblio/10635746?utm_source=openai",
+    "https://papers.nips.cc/paper_files/paper/2025/hash/f51afa708f3d4b3cae8dc9a8a9bbea87-Abstract-Conference.html?utm_source=openai",
+    "https://www.emergentmind.com/topics/circuit-discovery-pipelines?utm_source=openai",
+    "https://arxiv.org/abs/2407.14494?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.emergentmind.com/topics/circuit-analysis-interpretability?utm_source=openai",
+    "https://huggingface.co/papers/2304.14997?utm_source=openai",
+    "https://par.nsf.gov/biblio/10635746?utm_source=openai",
+    "https://papers.nips.cc/paper_files/paper/2025/hash/f51afa708f3d4b3cae8dc9a8a9bbea87-Abstract-Conference.html?utm_source=openai",
+    "https://www.emergentmind.com/topics/circuit-discovery-pipelines?utm_source=openai",
+    "https://arxiv.org/abs/2407.14494?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-480e2c75-8b18-4066-889a-36f09bd21bc0",
+    "object": "chat.completion",
+    "created": 1781224578,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Circuit-level interpretability methods aim to dissect transformer models by identifying and validating specific computational subgraphs, or \"circuits,\" responsible for particular behaviors. These methods involve several key steps:\n\n**1. Formalizing Circuits and Interpretability Criteria**\n\nA circuit is defined as a minimal subgraph within the model's computational graph that is both necessary and sufficient for a specific function. The criteria for identifying such circuits include:\n\n- **Sufficiency**: The circuit alone can reproduce the model's behavior on the task of interest.\n\n- **Necessity**: Components within the circuit are essential; removing or altering them significantly impairs task performance.\n\n- **Minimality**: The circuit contains no superfluous components; each element is crucial for the behavior.\n\n- **Locality and Robustness**: The circuit should be compact, understandable, and resilient to minor perturbations.\n\nThese principles guide the identification of circuits that faithfully represent the model's internal computations. ([emergentmind.com](https://www.emergentmind.com/topics/circuit-analysis-interpretability?utm_source=openai))\n\n**2. Identifying Computational Subgraphs**\n\nTo pinpoint circuits, researchers employ various techniques:\n\n- **Activation Patching**: This method involves replacing activations in specific model components with those from a different context to observe changes in behavior, helping to identify components critical to specific functions. ([huggingface.co](https://huggingface.co/papers/2304.14997?utm_source=openai))\n\n- **Contextual Decomposition for Transformers (CD-T)**: CD-T isolates the contributions of model features by recursively computing the impact of all nodes in the computational graph, enabling efficient identification of circuits at various levels of abstraction. ([par.nsf.gov](https://par.nsf.gov/biblio/10635746?utm_source=openai))\n\n- **Singular Vector-Based Analysis**: This approach decomposes model components into orthogonal singular directions, revealing overlapping subfunctions within a single attention head or MLP, thus uncovering the distributed nature of computations. ([papers.nips.cc](https://papers.nips.cc/paper_files/paper/2025/hash/f51afa708f3d4b3cae8dc9a8a9bbea87-Abstract-Conference.html?utm_source=openai))\n\n**3. Validating Identified Circuits**\n\nOnce potential circuits are identified, their validity is assessed through:\n\n- **Causal Ablations**: Systematically removing or modifying components within the circuit to observe the impact on model behavior, confirming the necessity and sufficiency of the circuit. ([huggingface.co](https://huggingface.co/papers/2304.14997?utm_source=openai))\n\n- **Performance Metrics**: Evaluating the circuit's ability to replicate the model's behavior using specific performance measures, ensuring the circuit's faithfulness to the original model. ([emergentmind.com](https://www.emergentmind.com/topics/circuit-discovery-pipelines?utm_source=openai))\n\n**4. Automating Circuit Discovery**\n\nTo scale the interpretability process, automated methods have been developed:\n\n- **Automatic Circuit Discovery (ACDC)**: ACDC automates the identification of circuits by systematically applying activation patching and other techniques, reducing the reliance on manual effort and intuition. ([huggingface.co](https://huggingface.co/papers/2304.14997?utm_source=openai))\n\n- **InterpBench**: A benchmark suite that evaluates mechanistic interpretability techniques using semi-synthetic transformers with known circuits, facilitating the validation and comparison of different methods. ([arxiv.org](https://arxiv.org/abs/2407.14494?utm_source=openai))\n\nThese automated approaches enhance the efficiency and scalability of circuit-level interpretability in transformer models.\n\n**Conclusion**\n\nCircuit-level interpretability methods systematically identify and validate computational subgraphs within transformer models by defining clear criteria, employing targeted identification techniques, and rigorously validating the discovered circuits. The development of automated tools further streamlines this process, contributing to a deeper understanding of model behaviors. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1166,
+                "start_index": 1057,
+                "title": "Circuit Analysis Interpretability",
+                "url": "https://www.emergentmind.com/topics/circuit-analysis-interpretability?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1582,
+                "start_index": 1504,
+                "title": "Paper page - Towards Automated Circuit Discovery for Mechanistic Interpretability",
+                "url": "https://huggingface.co/papers/2304.14997?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1917,
+                "start_index": 1847,
+                "title": "EFFICIENT AUTOMATED CIRCUIT DISCOVERY IN TRANSFORMERS USING CONTEXTUAL DECOMPOSI- TION | NSF Public Access Repository",
+                "url": "https://par.nsf.gov/biblio/10635746?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2312,
+                "start_index": 2166,
+                "title": "Beyond Components: Singular Vector-Based Interpretability of Transformer Circuits",
+                "url": "https://papers.nips.cc/paper_files/paper/2025/hash/f51afa708f3d4b3cae8dc9a8a9bbea87-Abstract-Conference.html?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2697,
+                "start_index": 2619,
+                "title": "Paper page - Towards Automated Circuit Discovery for Mechanistic Interpretability",
+                "url": "https://huggingface.co/papers/2304.14997?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2992,
+                "start_index": 2889,
+                "title": "Circuit Discovery Pipelines",
+                "url": "https://www.emergentmind.com/topics/circuit-discovery-pipelines?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3399,
+                "start_index": 3321,
+                "title": "Paper page - Towards Automated Circuit Discovery for Mechanistic Interpretability",
+                "url": "https://huggingface.co/papers/2304.14997?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3678,
+                "start_index": 3613,
+                "title": "InterpBench: Semi-Synthetic Transformers for Evaluating Mechanistic Interpretability Techniques",
+                "url": "https://arxiv.org/abs/2407.14494?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 829,
+      "total_tokens": 888,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:36:28Z"
+}

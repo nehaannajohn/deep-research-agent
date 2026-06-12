@@ -1,0 +1,68 @@
+{
+  "id": "dra-type5-045",
+  "provider": "openai",
+  "query": "Chart the comparative specifications of the eight planets in our solar system in a structured table.",
+  "narrative": "The following table presents a comparative overview of the eight planets in our solar system, detailing key physical and orbital characteristics.\n\n| Planet   | Mean Radius (km) | Mass (\u00d710\u00b2\u2074 kg) | Gravity (m/s\u00b2) | Orbital Period (Earth days) | Rotational Period (hours) | Distance from Sun (AU) | Number of Moons | Atmosphere Composition           |\n|----------|------------------|------------------|----------------|-----------------------------|---------------------------|-----------------------|-----------------|----------------------------------|\n| Mercury  | 2,439.7          | 0.330            | 3.7            | 87.97                       | 1,408                     | 0.39                  | 0               | Thin exosphere: helium, sodium   |\n| Venus    | 6,051.8          | 4.87             | 8.87           | 224.70                      | -5,832                    | 0.72                  | 0               | Dense: carbon dioxide, nitrogen  |\n| Earth    | 6,371.0          | 5.97             | 9.8            | 365.26                      | 24                        | 1.00                  | 1               | Nitrogen, oxygen                 |\n| Mars     | 3,389.5          | 0.642            | 3.71           | 686.98                      | 24.6                      | 1.52                  | 2               | Thin: carbon dioxide, nitrogen   |\n| Jupiter  | 69,911           | 1,898            | 23.1           | 4,332.59                    | 9.9                       | 5.20                  | 95              | Hydrogen, helium                 |\n| Saturn   | 58,232           | 568              | 9.0            | 10,759.22                   | 10.7                      | 9.58                  | 146             | Hydrogen, helium                 |\n| Uranus   | 25,362           | 86.8             | 8.7            | 30,688.5                    | -17.2                     | 19.18                 | 27              | Hydrogen, helium, methane        |\n| Neptune  | 24,622           | 102              | 11.0           | 60,182                      | 16.1                      | 30.07                 | 16              | Hydrogen, helium, methane        |\n\n**Notes:**\n\n- **Rotational Period:** A negative value indicates retrograde rotation, meaning the planet rotates in the opposite direction to its orbit around the Sun.\n\n- **Distance from Sun (AU):** One Astronomical Unit (AU) is the average distance from Earth to the Sun, approximately 149.6 million kilometers.\n\n- **Atmosphere Composition:** The primary components of each planet's atmosphere are listed.\n\n**Sources:**\n\n- Mean radius, mass, gravity, orbital period, rotational period, and number of moons: ([planet-five.vercel.app](https://planet-five.vercel.app/?utm_source=openai))\n\n- Distance from Sun and atmosphere composition: ([encyclopedia.com](https://www.encyclopedia.com/reference/encyclopedias-almanacs-transcripts-and-maps/major-planets-solar-system-table?utm_source=openai))\n\nThis table provides a concise comparison of the planets, highlighting their diverse characteristics and emphasizing the vast differences among them. ",
+  "sources": [
+    "https://planet-five.vercel.app/?utm_source=openai",
+    "https://www.encyclopedia.com/reference/encyclopedias-almanacs-transcripts-and-maps/major-planets-solar-system-table?utm_source=openai"
+  ],
+  "citations": [
+    "https://planet-five.vercel.app/?utm_source=openai",
+    "https://www.encyclopedia.com/reference/encyclopedias-almanacs-transcripts-and-maps/major-planets-solar-system-table?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-82396257-d0d7-4aef-875a-a5fc8bf37ca6",
+    "object": "chat.completion",
+    "created": 1781225126,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The following table presents a comparative overview of the eight planets in our solar system, detailing key physical and orbital characteristics.\n\n| Planet   | Mean Radius (km) | Mass (\u00d710\u00b2\u2074 kg) | Gravity (m/s\u00b2) | Orbital Period (Earth days) | Rotational Period (hours) | Distance from Sun (AU) | Number of Moons | Atmosphere Composition           |\n|----------|------------------|------------------|----------------|-----------------------------|---------------------------|-----------------------|-----------------|----------------------------------|\n| Mercury  | 2,439.7          | 0.330            | 3.7            | 87.97                       | 1,408                     | 0.39                  | 0               | Thin exosphere: helium, sodium   |\n| Venus    | 6,051.8          | 4.87             | 8.87           | 224.70                      | -5,832                    | 0.72                  | 0               | Dense: carbon dioxide, nitrogen  |\n| Earth    | 6,371.0          | 5.97             | 9.8            | 365.26                      | 24                        | 1.00                  | 1               | Nitrogen, oxygen                 |\n| Mars     | 3,389.5          | 0.642            | 3.71           | 686.98                      | 24.6                      | 1.52                  | 2               | Thin: carbon dioxide, nitrogen   |\n| Jupiter  | 69,911           | 1,898            | 23.1           | 4,332.59                    | 9.9                       | 5.20                  | 95              | Hydrogen, helium                 |\n| Saturn   | 58,232           | 568              | 9.0            | 10,759.22                   | 10.7                      | 9.58                  | 146             | Hydrogen, helium                 |\n| Uranus   | 25,362           | 86.8             | 8.7            | 30,688.5                    | -17.2                     | 19.18                 | 27              | Hydrogen, helium, methane        |\n| Neptune  | 24,622           | 102              | 11.0           | 60,182                      | 16.1                      | 30.07                 | 16              | Hydrogen, helium, methane        |\n\n**Notes:**\n\n- **Rotational Period:** A negative value indicates retrograde rotation, meaning the planet rotates in the opposite direction to its orbit around the Sun.\n\n- **Distance from Sun (AU):** One Astronomical Unit (AU) is the average distance from Earth to the Sun, approximately 149.6 million kilometers.\n\n- **Atmosphere Composition:** The primary components of each planet's atmosphere are listed.\n\n**Sources:**\n\n- Mean radius, mass, gravity, orbital period, rotational period, and number of moons: ([planet-five.vercel.app](https://planet-five.vercel.app/?utm_source=openai))\n\n- Distance from Sun and atmosphere composition: ([encyclopedia.com](https://www.encyclopedia.com/reference/encyclopedias-almanacs-transcripts-and-maps/major-planets-solar-system-table?utm_source=openai))\n\nThis table provides a concise comparison of the planets, highlighting their diverse characteristics and emphasizing the vast differences among them. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2762,
+                "start_index": 2685,
+                "title": "Solar System Planet Data",
+                "url": "https://planet-five.vercel.app/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2967,
+                "start_index": 2812,
+                "title": "Major Planets of the Solar System ( (table)) | Encyclopedia.com",
+                "url": "https://www.encyclopedia.com/reference/encyclopedias-almanacs-transcripts-and-maps/major-planets-solar-system-table?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 56,
+      "completion_tokens": 724,
+      "total_tokens": 780,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:45:57Z"
+}

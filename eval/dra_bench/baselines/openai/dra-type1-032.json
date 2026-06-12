@@ -1,0 +1,86 @@
+{
+  "id": "dra-type1-032",
+  "provider": "openai",
+  "query": "How do sparse attention patterns like those in Longformer and BigBird achieve sub-quadratic scaling while preserving long-range modeling?",
+  "narrative": "Sparse attention patterns, as implemented in models like Longformer and BigBird, achieve sub-quadratic scaling by selectively limiting the number of token interactions during the self-attention process. This approach reduces computational complexity while preserving the model's ability to capture long-range dependencies.\n\n**Longformer:**\n\nLongformer introduces a combination of local windowed attention and task-motivated global attention:\n\n- **Sliding Window Attention:** Each token attends to a fixed number of neighboring tokens within a local window. This design captures local context and reduces the number of attention computations, leading to linear scaling with sequence length. ([arxiv.org](https://arxiv.org/abs/2004.05150?utm_source=openai))\n\n- **Global Attention:** Certain tokens are designated to attend to all other tokens in the sequence, enabling the model to capture broader context and long-range dependencies. ([arxiv.org](https://arxiv.org/abs/2004.05150?utm_source=openai))\n\nBy combining these attention mechanisms, Longformer processes long sequences efficiently while maintaining the ability to model long-range interactions.\n\n**BigBird:**\n\nBigBird employs a sparse attention mechanism that integrates three types of attention:\n\n- **Local (Window) Attention:** Similar to Longformer, each token attends to its immediate neighbors within a fixed window, capturing local context.\n\n- **Global Attention:** A set of global tokens attend to all tokens in the sequence, and all tokens attend to these global tokens, facilitating the modeling of long-range dependencies.\n\n- **Random Attention:** Each token attends to a random subset of tokens in the sequence, introducing randomness that helps in capturing diverse patterns and dependencies.\n\nThis combination allows BigBird to approximate full attention with reduced computational complexity, achieving linear scaling with sequence length. ([arxiv.org](https://arxiv.org/abs/2007.14062?utm_source=openai))\n\n**Theoretical Foundations:**\n\nBoth models have been shown to retain the expressive power of full attention mechanisms:\n\n- **Universal Approximation and Turing Completeness:** BigBird has been demonstrated to be a universal approximator of sequence functions and Turing complete, ensuring that the sparse attention mechanism does not compromise the model's capacity to learn complex functions. ([arxiv.org](https://arxiv.org/abs/2007.14062?utm_source=openai))\n\nBy strategically designing sparse attention patterns, Longformer and BigBird effectively reduce the computational burden associated with processing long sequences while preserving the ability to model intricate long-range dependencies. ",
+  "sources": [
+    "https://arxiv.org/abs/2004.05150?utm_source=openai",
+    "https://arxiv.org/abs/2007.14062?utm_source=openai"
+  ],
+  "citations": [
+    "https://arxiv.org/abs/2004.05150?utm_source=openai",
+    "https://arxiv.org/abs/2007.14062?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-765dd391-6e11-4a12-9cf5-afcc4d925f52",
+    "object": "chat.completion",
+    "created": 1781224559,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Sparse attention patterns, as implemented in models like Longformer and BigBird, achieve sub-quadratic scaling by selectively limiting the number of token interactions during the self-attention process. This approach reduces computational complexity while preserving the model's ability to capture long-range dependencies.\n\n**Longformer:**\n\nLongformer introduces a combination of local windowed attention and task-motivated global attention:\n\n- **Sliding Window Attention:** Each token attends to a fixed number of neighboring tokens within a local window. This design captures local context and reduces the number of attention computations, leading to linear scaling with sequence length. ([arxiv.org](https://arxiv.org/abs/2004.05150?utm_source=openai))\n\n- **Global Attention:** Certain tokens are designated to attend to all other tokens in the sequence, enabling the model to capture broader context and long-range dependencies. ([arxiv.org](https://arxiv.org/abs/2004.05150?utm_source=openai))\n\nBy combining these attention mechanisms, Longformer processes long sequences efficiently while maintaining the ability to model long-range interactions.\n\n**BigBird:**\n\nBigBird employs a sparse attention mechanism that integrates three types of attention:\n\n- **Local (Window) Attention:** Similar to Longformer, each token attends to its immediate neighbors within a fixed window, capturing local context.\n\n- **Global Attention:** A set of global tokens attend to all tokens in the sequence, and all tokens attend to these global tokens, facilitating the modeling of long-range dependencies.\n\n- **Random Attention:** Each token attends to a random subset of tokens in the sequence, introducing randomness that helps in capturing diverse patterns and dependencies.\n\nThis combination allows BigBird to approximate full attention with reduced computational complexity, achieving linear scaling with sequence length. ([arxiv.org](https://arxiv.org/abs/2007.14062?utm_source=openai))\n\n**Theoretical Foundations:**\n\nBoth models have been shown to retain the expressive power of full attention mechanisms:\n\n- **Universal Approximation and Turing Completeness:** BigBird has been demonstrated to be a universal approximator of sequence functions and Turing complete, ensuring that the sparse attention mechanism does not compromise the model's capacity to learn complex functions. ([arxiv.org](https://arxiv.org/abs/2007.14062?utm_source=openai))\n\nBy strategically designing sparse attention patterns, Longformer and BigBird effectively reduce the computational burden associated with processing long sequences while preserving the ability to model intricate long-range dependencies. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 755,
+                "start_index": 690,
+                "title": "Longformer: The Long-Document Transformer",
+                "url": "https://arxiv.org/abs/2004.05150?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 998,
+                "start_index": 933,
+                "title": "Longformer: The Long-Document Transformer",
+                "url": "https://arxiv.org/abs/2004.05150?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1977,
+                "start_index": 1912,
+                "title": "Big Bird: Transformers for Longer Sequences",
+                "url": "https://arxiv.org/abs/2007.14062?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2437,
+                "start_index": 2372,
+                "title": "Big Bird: Transformers for Longer Sequences",
+                "url": "https://arxiv.org/abs/2007.14062?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 64,
+      "completion_tokens": 503,
+      "total_tokens": 567,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:36:06Z"
+}

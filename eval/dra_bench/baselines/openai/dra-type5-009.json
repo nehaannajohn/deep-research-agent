@@ -1,0 +1,43 @@
+{
+  "id": "dra-type5-009",
+  "provider": "openai",
+  "query": "Diagram the human cardiovascular system showing blood flow direction through the heart chambers, lungs, and major vessels.",
+  "narrative": "**Human Cardiovascular System: Blood Flow Pathway**\n\n**1. Overview**\n\nThe human cardiovascular system comprises the heart, blood vessels, and blood. Its primary function is to transport oxygen, nutrients, hormones, and waste products throughout the body. The heart acts as a pump, propelling blood through a network of arteries, veins, and capillaries.\n\n**2. Blood Flow Pathway**\n\nThe blood flow through the cardiovascular system follows a specific sequence:\n\n**a. Deoxygenated Blood Flow**\n\n1. **Superior and Inferior Vena Cava**: Deoxygenated blood from the upper body returns to the heart via the superior vena cava, while blood from the lower body returns through the inferior vena cava.\n\n2. **Right Atrium**: Blood enters the right atrium from the venae cavae.\n\n3. **Tricuspid Valve**: Blood flows through the tricuspid valve into the right ventricle.\n\n4. **Right Ventricle**: The right ventricle contracts, pushing blood through the pulmonary valve.\n\n5. **Pulmonary Arteries**: Blood is transported via the pulmonary arteries to the lungs for oxygenation.\n\n**b. Oxygenated Blood Flow**\n\n6. **Lungs**: In the lungs, blood releases carbon dioxide and absorbs oxygen.\n\n7. **Pulmonary Veins**: Oxygenated blood returns to the heart through the pulmonary veins.\n\n8. **Left Atrium**: Blood enters the left atrium from the pulmonary veins.\n\n9. **Mitral (Bicuspid) Valve**: Blood flows through the mitral valve into the left ventricle.\n\n10. **Left Ventricle**: The left ventricle contracts, propelling blood through the aortic valve.\n\n11. **Aorta**: Oxygenated blood is distributed from the aorta to the rest of the body.\n\n**3. Diagram**\n\nBelow is a textual representation of the blood flow pathway:\n\n```\nDeoxygenated Blood Flow:\nSuperior/Inferior Vena Cava \u2192 Right Atrium \u2192 Tricuspid Valve \u2192 Right Ventricle \u2192 Pulmonary Valve \u2192 Pulmonary Arteries \u2192 Lungs\n\nOxygenated Blood Flow:\nLungs \u2192 Pulmonary Veins \u2192 Left Atrium \u2192 Mitral Valve \u2192 Left Ventricle \u2192 Aortic Valve \u2192 Aorta \u2192 Body\n```\n\n**4. Confidence Level**\n\nThe described pathway of blood flow through the human cardiovascular system is well-established and widely accepted in medical literature. Therefore, the confidence level in this information is **high**.\n\n**5. References**\n\n- [American Heart Association: How the Heart Works](https://www.heart.org/en/health-topics/how-the-heart-works)\n- [National Heart, Lung, and Blood Institute: How the Heart Works](https://www.nhlbi.nih.gov/health-topics/how-heart-works) ",
+  "sources": [],
+  "citations": [],
+  "raw": {
+    "id": "chatcmpl-16115ba2-e2fc-47be-a2bc-fa99d1c43ca0",
+    "object": "chat.completion",
+    "created": 1781224981,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "**Human Cardiovascular System: Blood Flow Pathway**\n\n**1. Overview**\n\nThe human cardiovascular system comprises the heart, blood vessels, and blood. Its primary function is to transport oxygen, nutrients, hormones, and waste products throughout the body. The heart acts as a pump, propelling blood through a network of arteries, veins, and capillaries.\n\n**2. Blood Flow Pathway**\n\nThe blood flow through the cardiovascular system follows a specific sequence:\n\n**a. Deoxygenated Blood Flow**\n\n1. **Superior and Inferior Vena Cava**: Deoxygenated blood from the upper body returns to the heart via the superior vena cava, while blood from the lower body returns through the inferior vena cava.\n\n2. **Right Atrium**: Blood enters the right atrium from the venae cavae.\n\n3. **Tricuspid Valve**: Blood flows through the tricuspid valve into the right ventricle.\n\n4. **Right Ventricle**: The right ventricle contracts, pushing blood through the pulmonary valve.\n\n5. **Pulmonary Arteries**: Blood is transported via the pulmonary arteries to the lungs for oxygenation.\n\n**b. Oxygenated Blood Flow**\n\n6. **Lungs**: In the lungs, blood releases carbon dioxide and absorbs oxygen.\n\n7. **Pulmonary Veins**: Oxygenated blood returns to the heart through the pulmonary veins.\n\n8. **Left Atrium**: Blood enters the left atrium from the pulmonary veins.\n\n9. **Mitral (Bicuspid) Valve**: Blood flows through the mitral valve into the left ventricle.\n\n10. **Left Ventricle**: The left ventricle contracts, propelling blood through the aortic valve.\n\n11. **Aorta**: Oxygenated blood is distributed from the aorta to the rest of the body.\n\n**3. Diagram**\n\nBelow is a textual representation of the blood flow pathway:\n\n```\nDeoxygenated Blood Flow:\nSuperior/Inferior Vena Cava \u2192 Right Atrium \u2192 Tricuspid Valve \u2192 Right Ventricle \u2192 Pulmonary Valve \u2192 Pulmonary Arteries \u2192 Lungs\n\nOxygenated Blood Flow:\nLungs \u2192 Pulmonary Veins \u2192 Left Atrium \u2192 Mitral Valve \u2192 Left Ventricle \u2192 Aortic Valve \u2192 Aorta \u2192 Body\n```\n\n**4. Confidence Level**\n\nThe described pathway of blood flow through the human cardiovascular system is well-established and widely accepted in medical literature. Therefore, the confidence level in this information is **high**.\n\n**5. References**\n\n- [American Heart Association: How the Heart Works](https://www.heart.org/en/health-topics/how-the-heart-works)\n- [National Heart, Lung, and Blood Institute: How the Heart Works](https://www.nhlbi.nih.gov/health-topics/how-heart-works) ",
+          "refusal": null,
+          "annotations": []
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 582,
+      "total_tokens": 641,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:43:23Z"
+}

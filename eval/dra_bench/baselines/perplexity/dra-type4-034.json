@@ -1,0 +1,143 @@
+{
+  "id": "dra-type4-034",
+  "provider": "perplexity",
+  "query": "What is the ideal body weight?",
+  "narrative": "Ideal body weight is not one exact number but a **range of body weights associated with the lowest risk of illness and death for a given height**, sometimes estimated with formulas like BMI ranges or the Devine formula.[3][4][7]  \n\nBelow is a structured, evidence\u2011based overview.\n\n---\n\n## 1. What is \u201cideal body weight\u201d?\n\n**Claim (high confidence):**  \nIdeal body weight (IBW) in modern medical literature is usually defined as the **weight for a given height at which mortality (risk of death) is lowest.**[3][7]\n\n- Evidence: A review in a medical journal states that IBW is \u201cdefined as weight for height at the lowest risk of mortality,\u201d based on a century of research linking body size and health.[7]  \n- Evidence: Healthline similarly describes ideal body weight as the weight at which a person has \u201cthe lowest risk of death\u201d and adequate nutrition.[3]\n\n**Important caveat (high confidence):**  \nNo single formula can determine a perfect \u201cideal\u201d weight for an individual, because **body composition, genetics, age, sex, ethnicity, and health status** all matter.[1][4][7]\n\n- Medical News Today notes that \u201cno single formula can determine a person\u2019s ideal weight.\u201d[4]  \n- Calculator.net emphasizes that IBW and BMI are *references* only and that individual variation is large.[1]\n\n---\n\n## 2. Common ways to estimate a healthy or \u201cideal\u201d weight\n\n### 2.1 BMI-based healthy weight range\n\n**Claim (high confidence):**  \nA widely used approach is to define a **healthy weight range** as the range that produces a BMI between **18.5 and 24.9** for adults.[1][4][9]\n\n- Evidence: WHO-based guidelines and multiple calculators use 18.5\u201324.9 as the healthy BMI range.[1][4][9]\n\n**How it works (high confidence):**\n\n- BMI \\(=\\) weight (kg) \u00f7 height (m)\u00b2.[4]  \n- A BMI:\n  - < 18.5 \u2192 underweight  \n  - 18.5\u201324.9 \u2192 **healthy weight range**  \n  - 25\u201329.9 \u2192 overweight  \n  - \u2265 30 \u2192 obesity[4]\n\nFrom height alone, you can compute the weight range that corresponds to BMI 18.5\u201324.9.\n\n*Example: 5'4\" (about 163 cm)*  \n- National Heart, Lung, and Blood Institute suggests a \u201cgood weight\u201d range of about **110\u2013140 lb** for someone 5'4\".[4]  \n- Banner Health\u2019s chart lists an \u201cideal body weight\u201d range of **108\u2013132 lb** for a 5'4\" woman and **117\u2013143 lb** for a 5'4\" man, both based on healthy BMI ranges.[5]\n\nSo BMI gives a **range**, not a single number.\n\n---\n\n### 2.2 Devine formula and similar IBW formulas\n\nFormulas such as **Devine**, **Hamwi**, **Miller**, and **Robinson** estimate a single \u201cideal\u201d weight primarily from height and sex.[1][2][6][8]\n\n**Claim (high confidence):**  \nThe **Devine formula** is the most commonly used IBW formula in clinical settings, especially for drug dosing in adults.[2][6][8]\n\n- Evidence: AFPA Fitness notes that the Devine formula is widely used to estimate ideal body weight.[2]  \n- The CDC teaches this same style of formula for overweight or obese adults.[6]\n\n**Devine formula (metric form) for adults**[2][3][6][8]:\n\n- **Men:**  \n  IBW (kg) = 50 + 2.3 \u00d7 (height in inches \u2212 60)  \n- **Women:**  \n  IBW (kg) = 45.5 + 2.3 \u00d7 (height in inches \u2212 60)\n\nCDC presents an equivalent form using centimeters (0.91 \u00d7 (height \u2212 152.4 cm)), which is mathematically the same.[6]\n\n*Example (woman, 65 inches = 5'5\")*  \n- IBW = 45.5 + 2.3 \u00d7 (65 \u2212 60)  \n- = 45.5 + 2.3 \u00d7 5  \n- = 45.5 + 11.5 = **57 kg \u2248 126 lb**[3]\n\n**Other formulas (high confidence):**  \nCalculator.net lists several commonly used IBW formulas:[1]\n\n- **Devine (1974):**  \n  - Men: 50.0 kg + 2.3 kg per inch over 5 ft  \n  - Women: 45.5 kg + 2.3 kg per inch over 5 ft[1][2][6]\n- **Hamwi (1964), Robinson (1983), Miller (1983):** similar linear formulas with slightly different base and per\u2011inch values.[1]\n\nThese formulas usually give *slightly different* numbers but in the same general ballpark.\n\n**Clinical use (high confidence):**  \nIBW is used more for **drug dosing, ventilator settings, and risk assessment** than to tell a person their \u201cperfect\u201d weight.[2][6][7]\n\n---\n\n### 2.3 Height\u2013weight \u201cideal weight\u201d charts\n\n**Claim (high confidence):**  \nSome organizations provide **height\u2013weight charts** that show an \u201cideal\u201d or \u201chealthy\u201d range for each height, usually derived from BMI 18.5\u201324.9.[4][5][9]\n\n- Banner Health\u2019s chart gives an \u201cideal body weight\u201d range for each height and sex, e.g.:\n  - 5'0\": **90\u2013110 lb** (female) and **95\u2013117 lb** (male)[5]  \n  - 5'9\": **131\u2013160 lb** (female) and **144\u2013176 lb** (male)[5]  \n- UVA Health states that its \u201chealthy weight range is based on a healthy BMI of 18.5 to 24.9.\u201d[9]\n\nThese charts are easy visual tools but again are general estimates.\n\n---\n\n## 3. Limitations of the idea of a single \u201cideal\u201d weight\n\n**Claim (high confidence):**  \nIBW and BMI **do not distinguish between fat and muscle** and do not account for body fat distribution or ethnicity.[1][4][7]\n\n- Evidence: Ideal weight calculators emphasize that IBW and BMI are imperfect and cannot definitively state how much a person \u201cshould\u201d weigh.[1][4]  \n- The IBW commentary notes that the model is a quick risk\u2011assessment tool but \u201cknown to be imperfect.\u201d[7]\n\n**Key limitations (high confidence):**\n\n- Two people with the same height and weight can have very different:\n  - Body fat percentage  \n  - Muscle mass  \n  - Bone density  \n  - Visceral fat (fat around organs)  \n- Athletic or very muscular individuals may have a high BMI but low health risk.  \n- Age, sex, and ethnicity influence risk at any given BMI and weight.[4][7]\n\nBecause of this, many experts view \u201cideal weight\u201d numbers as **screening tools**, not absolute targets.\n\n---\n\n## 4. How to interpret \u201cideal weight\u201d for yourself\n\n**Claim (high confidence):**  \nFor most adults, the most useful concept is a **healthy weight range**, not a single ideal number, combined with broader health indicators.[1][3][4][7]\n\n- Evidence: Multiple sources state that the exact number from IBW or BMI matters less than overall health behaviors and risk factors.[1][4][7]\n\n**Practical approach (moderate\u2013high confidence, partly inferential):**\n\n- Use:\n  - **BMI range 18.5\u201324.9** as a starting point for a healthy weight range for your height.[1][4][9]  \n  - **IBW formulas** (Devine, etc.) as one reference point near the *middle* of that range.[1][2][3][6]  \n- Then factor in:\n  - Body composition (muscle vs fat)  \n  - Waist circumference / waist\u2011to\u2011hip ratio  \n  - Blood pressure, blood sugar, lipids  \n  - Fitness level and physical function  \n  - Medical history\n\n**Lifestyle emphasis (high confidence):**  \nCalculator.net explicitly notes that **healthy behaviors** (regular exercise, unprocessed foods, sufficient sleep, etc.) are more important than hitting a specific scale number.[1]\n\n---\n\n## 5. If you want a personalized number or range\n\nIf you share your **sex, age, and height**, I can:\n\n- Calculate:\n  - Your **BMI** at different weights  \n  - A **healthy BMI\u2011based weight range**  \n  - Your **Devine IBW** and the values from other common formulas  \n- Then interpret how strict or flexible to be with that range based on typical clinical practice.",
+  "sources": [
+    "https://www.calculator.net/ideal-weight-calculator.html",
+    "https://www.afpafitness.com/blog/what-is-ideal-body-weight-and-how-to-calculate-it/",
+    "https://www.healthline.com/health/ideal-body-weight",
+    "https://www.medicalnewstoday.com/articles/323446",
+    "https://www.bannerhealth.com/staying-well/health-and-wellness/fitness-nutrition/ideal-weight",
+    "https://www.cdc.gov/dengue/training/cme/ccm/page57681.html",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8646317/",
+    "https://www.youtube.com/watch?v=5jj3425zDBY",
+    "https://www.healthsystem.virginia.edu/assets/UVAHealth/ssi/includes/hbwcalc.html"
+  ],
+  "citations": [
+    "https://www.calculator.net/ideal-weight-calculator.html",
+    "https://www.afpafitness.com/blog/what-is-ideal-body-weight-and-how-to-calculate-it/",
+    "https://www.healthline.com/health/ideal-body-weight",
+    "https://www.medicalnewstoday.com/articles/323446",
+    "https://www.bannerhealth.com/staying-well/health-and-wellness/fitness-nutrition/ideal-weight",
+    "https://www.cdc.gov/dengue/training/cme/ccm/page57681.html",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8646317/",
+    "https://www.youtube.com/watch?v=5jj3425zDBY",
+    "https://www.healthsystem.virginia.edu/assets/UVAHealth/ssi/includes/hbwcalc.html"
+  ],
+  "raw": {
+    "id": "10287391-dfa8-4c24-8437-b9caaea9a258",
+    "model": "sonar-pro",
+    "created": 1781224356,
+    "usage": {
+      "prompt_tokens": 38,
+      "completion_tokens": 1891,
+      "total_tokens": 1929,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00011,
+        "output_tokens_cost": 0.02837,
+        "request_cost": 0.006,
+        "total_cost": 0.03448
+      }
+    },
+    "citations": [
+      "https://www.calculator.net/ideal-weight-calculator.html",
+      "https://www.afpafitness.com/blog/what-is-ideal-body-weight-and-how-to-calculate-it/",
+      "https://www.healthline.com/health/ideal-body-weight",
+      "https://www.medicalnewstoday.com/articles/323446",
+      "https://www.bannerhealth.com/staying-well/health-and-wellness/fitness-nutrition/ideal-weight",
+      "https://www.cdc.gov/dengue/training/cme/ccm/page57681.html",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC8646317/",
+      "https://www.youtube.com/watch?v=5jj3425zDBY",
+      "https://www.healthsystem.virginia.edu/assets/UVAHealth/ssi/includes/hbwcalc.html"
+    ],
+    "search_results": [
+      {
+        "title": "Ideal Weight Calculator",
+        "url": "https://www.calculator.net/ideal-weight-calculator.html",
+        "last_updated": "2026-03-04",
+        "snippet": "The World Health Organization's (WHO) recommended healthy BMI range is 18.5 - 25 for both males and females. Based on the BMI range, it is possible to find out ...",
+        "source": "web"
+      },
+      {
+        "title": "What Is Ideal Body Weight and How to Calculate It - AFPA Fitness",
+        "url": "https://www.afpafitness.com/blog/what-is-ideal-body-weight-and-how-to-calculate-it/",
+        "date": "2022-12-07",
+        "last_updated": "2026-05-29",
+        "snippet": "In this article learn about ideal body weight and how to calculate it swiftly and easily using the AFPA Ideal Body Weight Calculator.",
+        "source": "web"
+      },
+      {
+        "title": "Ideal Body Weight: What Is It and How to Calculate - Healthline",
+        "url": "https://www.healthline.com/health/ideal-body-weight",
+        "date": "2024-08-07",
+        "last_updated": "2026-06-11",
+        "snippet": "How can I calculate my ideal body weight? \u00b7 Women: Ideal body weight in pounds = 45.5 kg + 2.3 kg x (height, in \u2013 60) \u00b7 Men: Ideal body weight ...",
+        "source": "web"
+      },
+      {
+        "title": "How much should I weigh for my height and age? BMI calculator ...",
+        "url": "https://www.medicalnewstoday.com/articles/323446",
+        "date": "2020-01-18",
+        "last_updated": "2026-06-11",
+        "snippet": "A BMI of less than 18.5 suggests underweight. \u00b7 A BMI of between 18.5 and 24.9 suggests a healthy weight range. \u00b7 A BMI of between 25 and 29.9 may indicate ...",
+        "source": "web"
+      },
+      {
+        "title": "Ideal Weight Chart | Staying Well - Banner Health",
+        "url": "https://www.bannerhealth.com/staying-well/health-and-wellness/fitness-nutrition/ideal-weight",
+        "last_updated": "2026-06-11",
+        "snippet": "\"Ideal\" body weight is a target weight derived from your height and gender. The following is a chart that you can use to estimate your \"ideal\" body weight range ...",
+        "source": "web"
+      },
+      {
+        "title": "Ideal Body Weight Estimation \u2014 Adults - CDC",
+        "url": "https://www.cdc.gov/dengue/training/cme/ccm/page57681.html",
+        "date": "2007-01-01",
+        "last_updated": "2025-10-02",
+        "snippet": "IBW for overweight or obese adults can be estimated based on the following formula: Female: 45.5 kg + 0.91(height \u2013 152.4 cm) or 45.5 kg + 2.3 kg for each inch ...",
+        "source": "web"
+      },
+      {
+        "title": "Ideal body weight: a commentary - PMC - NIH",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8646317/",
+        "date": "2021-10-12",
+        "last_updated": "2026-03-14",
+        "snippet": "The Ideal Body Weight (IBW) model has provided dietitians and researchers with a quick method of risk assessment but is known to be imperfect.",
+        "source": "web"
+      },
+      {
+        "title": "Ideal Body Weight (IBW) - Calculation Explained - YouTube",
+        "url": "https://www.youtube.com/watch?v=5jj3425zDBY",
+        "date": "2022-03-23",
+        "last_updated": "2026-06-11",
+        "snippet": "Ideal Body Weight (IBW) - Calculation Explained \u00b7 Comments. 51. Add a comment... 27:51. Go to channel Dr. Jankeel Lectures \u00b7 Types of Body ...",
+        "source": "web"
+      },
+      {
+        "title": "Ideal Body Weight Calculator",
+        "url": "https://www.healthsystem.virginia.edu/assets/UVAHealth/ssi/includes/hbwcalc.html",
+        "last_updated": "2026-04-16",
+        "snippet": "Healthy weight range is based on a healthy body mass index (BMI) of 18.5 to 24.9. The higher weights in each range apply to people with more muscle and bone.",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Ideal body weight is not one exact number but a **range of body weights associated with the lowest risk of illness and death for a given height**, sometimes estimated with formulas like BMI ranges or the Devine formula.[3][4][7]  \n\nBelow is a structured, evidence\u2011based overview.\n\n---\n\n## 1. What is \u201cideal body weight\u201d?\n\n**Claim (high confidence):**  \nIdeal body weight (IBW) in modern medical literature is usually defined as the **weight for a given height at which mortality (risk of death) is lowest.**[3][7]\n\n- Evidence: A review in a medical journal states that IBW is \u201cdefined as weight for height at the lowest risk of mortality,\u201d based on a century of research linking body size and health.[7]  \n- Evidence: Healthline similarly describes ideal body weight as the weight at which a person has \u201cthe lowest risk of death\u201d and adequate nutrition.[3]\n\n**Important caveat (high confidence):**  \nNo single formula can determine a perfect \u201cideal\u201d weight for an individual, because **body composition, genetics, age, sex, ethnicity, and health status** all matter.[1][4][7]\n\n- Medical News Today notes that \u201cno single formula can determine a person\u2019s ideal weight.\u201d[4]  \n- Calculator.net emphasizes that IBW and BMI are *references* only and that individual variation is large.[1]\n\n---\n\n## 2. Common ways to estimate a healthy or \u201cideal\u201d weight\n\n### 2.1 BMI-based healthy weight range\n\n**Claim (high confidence):**  \nA widely used approach is to define a **healthy weight range** as the range that produces a BMI between **18.5 and 24.9** for adults.[1][4][9]\n\n- Evidence: WHO-based guidelines and multiple calculators use 18.5\u201324.9 as the healthy BMI range.[1][4][9]\n\n**How it works (high confidence):**\n\n- BMI \\(=\\) weight (kg) \u00f7 height (m)\u00b2.[4]  \n- A BMI:\n  - < 18.5 \u2192 underweight  \n  - 18.5\u201324.9 \u2192 **healthy weight range**  \n  - 25\u201329.9 \u2192 overweight  \n  - \u2265 30 \u2192 obesity[4]\n\nFrom height alone, you can compute the weight range that corresponds to BMI 18.5\u201324.9.\n\n*Example: 5'4\" (about 163 cm)*  \n- National Heart, Lung, and Blood Institute suggests a \u201cgood weight\u201d range of about **110\u2013140 lb** for someone 5'4\".[4]  \n- Banner Health\u2019s chart lists an \u201cideal body weight\u201d range of **108\u2013132 lb** for a 5'4\" woman and **117\u2013143 lb** for a 5'4\" man, both based on healthy BMI ranges.[5]\n\nSo BMI gives a **range**, not a single number.\n\n---\n\n### 2.2 Devine formula and similar IBW formulas\n\nFormulas such as **Devine**, **Hamwi**, **Miller**, and **Robinson** estimate a single \u201cideal\u201d weight primarily from height and sex.[1][2][6][8]\n\n**Claim (high confidence):**  \nThe **Devine formula** is the most commonly used IBW formula in clinical settings, especially for drug dosing in adults.[2][6][8]\n\n- Evidence: AFPA Fitness notes that the Devine formula is widely used to estimate ideal body weight.[2]  \n- The CDC teaches this same style of formula for overweight or obese adults.[6]\n\n**Devine formula (metric form) for adults**[2][3][6][8]:\n\n- **Men:**  \n  IBW (kg) = 50 + 2.3 \u00d7 (height in inches \u2212 60)  \n- **Women:**  \n  IBW (kg) = 45.5 + 2.3 \u00d7 (height in inches \u2212 60)\n\nCDC presents an equivalent form using centimeters (0.91 \u00d7 (height \u2212 152.4 cm)), which is mathematically the same.[6]\n\n*Example (woman, 65 inches = 5'5\")*  \n- IBW = 45.5 + 2.3 \u00d7 (65 \u2212 60)  \n- = 45.5 + 2.3 \u00d7 5  \n- = 45.5 + 11.5 = **57 kg \u2248 126 lb**[3]\n\n**Other formulas (high confidence):**  \nCalculator.net lists several commonly used IBW formulas:[1]\n\n- **Devine (1974):**  \n  - Men: 50.0 kg + 2.3 kg per inch over 5 ft  \n  - Women: 45.5 kg + 2.3 kg per inch over 5 ft[1][2][6]\n- **Hamwi (1964), Robinson (1983), Miller (1983):** similar linear formulas with slightly different base and per\u2011inch values.[1]\n\nThese formulas usually give *slightly different* numbers but in the same general ballpark.\n\n**Clinical use (high confidence):**  \nIBW is used more for **drug dosing, ventilator settings, and risk assessment** than to tell a person their \u201cperfect\u201d weight.[2][6][7]\n\n---\n\n### 2.3 Height\u2013weight \u201cideal weight\u201d charts\n\n**Claim (high confidence):**  \nSome organizations provide **height\u2013weight charts** that show an \u201cideal\u201d or \u201chealthy\u201d range for each height, usually derived from BMI 18.5\u201324.9.[4][5][9]\n\n- Banner Health\u2019s chart gives an \u201cideal body weight\u201d range for each height and sex, e.g.:\n  - 5'0\": **90\u2013110 lb** (female) and **95\u2013117 lb** (male)[5]  \n  - 5'9\": **131\u2013160 lb** (female) and **144\u2013176 lb** (male)[5]  \n- UVA Health states that its \u201chealthy weight range is based on a healthy BMI of 18.5 to 24.9.\u201d[9]\n\nThese charts are easy visual tools but again are general estimates.\n\n---\n\n## 3. Limitations of the idea of a single \u201cideal\u201d weight\n\n**Claim (high confidence):**  \nIBW and BMI **do not distinguish between fat and muscle** and do not account for body fat distribution or ethnicity.[1][4][7]\n\n- Evidence: Ideal weight calculators emphasize that IBW and BMI are imperfect and cannot definitively state how much a person \u201cshould\u201d weigh.[1][4]  \n- The IBW commentary notes that the model is a quick risk\u2011assessment tool but \u201cknown to be imperfect.\u201d[7]\n\n**Key limitations (high confidence):**\n\n- Two people with the same height and weight can have very different:\n  - Body fat percentage  \n  - Muscle mass  \n  - Bone density  \n  - Visceral fat (fat around organs)  \n- Athletic or very muscular individuals may have a high BMI but low health risk.  \n- Age, sex, and ethnicity influence risk at any given BMI and weight.[4][7]\n\nBecause of this, many experts view \u201cideal weight\u201d numbers as **screening tools**, not absolute targets.\n\n---\n\n## 4. How to interpret \u201cideal weight\u201d for yourself\n\n**Claim (high confidence):**  \nFor most adults, the most useful concept is a **healthy weight range**, not a single ideal number, combined with broader health indicators.[1][3][4][7]\n\n- Evidence: Multiple sources state that the exact number from IBW or BMI matters less than overall health behaviors and risk factors.[1][4][7]\n\n**Practical approach (moderate\u2013high confidence, partly inferential):**\n\n- Use:\n  - **BMI range 18.5\u201324.9** as a starting point for a healthy weight range for your height.[1][4][9]  \n  - **IBW formulas** (Devine, etc.) as one reference point near the *middle* of that range.[1][2][3][6]  \n- Then factor in:\n  - Body composition (muscle vs fat)  \n  - Waist circumference / waist\u2011to\u2011hip ratio  \n  - Blood pressure, blood sugar, lipids  \n  - Fitness level and physical function  \n  - Medical history\n\n**Lifestyle emphasis (high confidence):**  \nCalculator.net explicitly notes that **healthy behaviors** (regular exercise, unprocessed foods, sufficient sleep, etc.) are more important than hitting a specific scale number.[1]\n\n---\n\n## 5. If you want a personalized number or range\n\nIf you share your **sex, age, and height**, I can:\n\n- Calculate:\n  - Your **BMI** at different weights  \n  - A **healthy BMI\u2011based weight range**  \n  - Your **Devine IBW** and the values from other common formulas  \n- Then interpret how strict or flexible to be with that range based on typical clinical practice."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:32:36Z"
+}

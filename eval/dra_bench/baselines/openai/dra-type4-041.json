@@ -1,0 +1,130 @@
+{
+  "id": "dra-type4-041",
+  "provider": "openai",
+  "query": "How many languages will exist in the future?",
+  "narrative": "As of 2026, approximately 7,170 living languages are spoken worldwide. ([en.wikipedia.org](https://en.wikipedia.org/wiki/Language?utm_source=openai)) However, linguistic diversity is declining, with many languages at risk of extinction. UNESCO estimates that around 40% of these languages are endangered. ([en.vijesti.me](https://en.vijesti.me/svijet/globus/797001/unesco-u-svetu-se-koristi-oko-7000-jezika?utm_source=openai))\n\n**Claim 1: The number of languages worldwide is expected to decline significantly by 2100.**\n\n*Evidence:*\n\n- Linguists estimate that a language dies approximately every two weeks. ([howmany.is](https://howmany.is/how-many-languages-in-the-world/?utm_source=openai))\n\n- By the end of this century, it is projected that 50-90% of today's languages will be extinct. ([howmany.is](https://howmany.is/how-many-languages-in-the-world/?utm_source=openai))\n\n*Confidence Level:* High. Multiple sources indicate a significant decline in the number of languages by 2100.\n\n**Claim 2: The majority of the world's population will speak a small number of dominant languages by 2100.**\n\n*Evidence:*\n\n- Currently, the top 23 languages account for more than half of the world's population. ([howmany.is](https://howmany.is/how-many-languages-in-the-world/?utm_source=openai))\n\n- English, Mandarin Chinese, Hindi, and Spanish are among the most spoken languages, with English having approximately 1.49 billion speakers as of 2026. ([statista.com](https://www.statista.com/statistics/266808/the-most-spoken-languages-worldwide/?utm_source=openai))\n\n*Confidence Level:* Moderate to High. Current trends suggest that dominant languages will continue to be widely spoken, but exact future distributions are uncertain.\n\n**Claim 3: Technological advancements and globalization contribute to language extinction.**\n\n*Evidence:*\n\n- Artificial intelligence and digital technologies predominantly support a limited number of languages, creating a new global linguistic hierarchy and marginalizing less widely spoken languages. ([arxiv.org](https://arxiv.org/abs/2602.12018?utm_source=openai))\n\n- Globalization leads to increased use of dominant languages in education, media, and commerce, reducing the use of indigenous and minority languages.\n\n*Confidence Level:* High. There is substantial evidence linking technological and global economic factors to the decline of minority languages.\n\n**Conclusion:**\n\nBy 2100, the number of languages spoken worldwide is expected to decrease significantly, with estimates suggesting that only 10-50% of the current 7,170 languages will remain. This decline is driven by factors such as language death occurring every two weeks, the dominance of a few major languages, and the impact of technology and globalization on linguistic diversity.\n\n\n## Highlights:\n- [The Most Spoken Languages in the World 1900/2026 - YouTube](https://www.youtube.com/watch?v=7lvnj19ekks&utm_source=openai), Published on Monday, January 05 ",
+  "sources": [
+    "https://en.wikipedia.org/wiki/Language?utm_source=openai",
+    "https://en.vijesti.me/svijet/globus/797001/unesco-u-svetu-se-koristi-oko-7000-jezika?utm_source=openai",
+    "https://howmany.is/how-many-languages-in-the-world/?utm_source=openai",
+    "https://www.statista.com/statistics/266808/the-most-spoken-languages-worldwide/?utm_source=openai",
+    "https://arxiv.org/abs/2602.12018?utm_source=openai",
+    "https://www.youtube.com/watch?v=7lvnj19ekks&utm_source=openai"
+  ],
+  "citations": [
+    "https://en.wikipedia.org/wiki/Language?utm_source=openai",
+    "https://en.vijesti.me/svijet/globus/797001/unesco-u-svetu-se-koristi-oko-7000-jezika?utm_source=openai",
+    "https://howmany.is/how-many-languages-in-the-world/?utm_source=openai",
+    "https://www.statista.com/statistics/266808/the-most-spoken-languages-worldwide/?utm_source=openai",
+    "https://arxiv.org/abs/2602.12018?utm_source=openai",
+    "https://www.youtube.com/watch?v=7lvnj19ekks&utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-3cd3537f-edf0-499d-a2a0-95b1110d473a",
+    "object": "chat.completion",
+    "created": 1781224937,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "As of 2026, approximately 7,170 living languages are spoken worldwide. ([en.wikipedia.org](https://en.wikipedia.org/wiki/Language?utm_source=openai)) However, linguistic diversity is declining, with many languages at risk of extinction. UNESCO estimates that around 40% of these languages are endangered. ([en.vijesti.me](https://en.vijesti.me/svijet/globus/797001/unesco-u-svetu-se-koristi-oko-7000-jezika?utm_source=openai))\n\n**Claim 1: The number of languages worldwide is expected to decline significantly by 2100.**\n\n*Evidence:*\n\n- Linguists estimate that a language dies approximately every two weeks. ([howmany.is](https://howmany.is/how-many-languages-in-the-world/?utm_source=openai))\n\n- By the end of this century, it is projected that 50-90% of today's languages will be extinct. ([howmany.is](https://howmany.is/how-many-languages-in-the-world/?utm_source=openai))\n\n*Confidence Level:* High. Multiple sources indicate a significant decline in the number of languages by 2100.\n\n**Claim 2: The majority of the world's population will speak a small number of dominant languages by 2100.**\n\n*Evidence:*\n\n- Currently, the top 23 languages account for more than half of the world's population. ([howmany.is](https://howmany.is/how-many-languages-in-the-world/?utm_source=openai))\n\n- English, Mandarin Chinese, Hindi, and Spanish are among the most spoken languages, with English having approximately 1.49 billion speakers as of 2026. ([statista.com](https://www.statista.com/statistics/266808/the-most-spoken-languages-worldwide/?utm_source=openai))\n\n*Confidence Level:* Moderate to High. Current trends suggest that dominant languages will continue to be widely spoken, but exact future distributions are uncertain.\n\n**Claim 3: Technological advancements and globalization contribute to language extinction.**\n\n*Evidence:*\n\n- Artificial intelligence and digital technologies predominantly support a limited number of languages, creating a new global linguistic hierarchy and marginalizing less widely spoken languages. ([arxiv.org](https://arxiv.org/abs/2602.12018?utm_source=openai))\n\n- Globalization leads to increased use of dominant languages in education, media, and commerce, reducing the use of indigenous and minority languages.\n\n*Confidence Level:* High. There is substantial evidence linking technological and global economic factors to the decline of minority languages.\n\n**Conclusion:**\n\nBy 2100, the number of languages spoken worldwide is expected to decrease significantly, with estimates suggesting that only 10-50% of the current 7,170 languages will remain. This decline is driven by factors such as language death occurring every two weeks, the dominance of a few major languages, and the impact of technology and globalization on linguistic diversity.\n\n\n## Highlights:\n- [The Most Spoken Languages in the World 1900/2026 - YouTube](https://www.youtube.com/watch?v=7lvnj19ekks&utm_source=openai), Published on Monday, January 05 ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 149,
+                "start_index": 71,
+                "title": "Language",
+                "url": "https://en.wikipedia.org/wiki/Language?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 426,
+                "start_index": 305,
+                "title": "UNESCO: About 7.000 languages \u200b\u200bare spoken in the world",
+                "url": "https://en.vijesti.me/svijet/globus/797001/unesco-u-svetu-se-koristi-oko-7000-jezika?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 693,
+                "start_index": 608,
+                "title": "How Many Languages in the World? About 7,168",
+                "url": "https://howmany.is/how-many-languages-in-the-world/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 876,
+                "start_index": 791,
+                "title": "How Many Languages in the World? About 7,168",
+                "url": "https://howmany.is/how-many-languages-in-the-world/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1285,
+                "start_index": 1200,
+                "title": "How Many Languages in the World? About 7,168",
+                "url": "https://howmany.is/how-many-languages-in-the-world/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1555,
+                "start_index": 1440,
+                "title": "The most spoken languages worldwide 2026| Statista",
+                "url": "https://www.statista.com/statistics/266808/the-most-spoken-languages-worldwide/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2091,
+                "start_index": 2026,
+                "title": "Artificial intelligence is creating a new global linguistic hierarchy",
+                "url": "https://arxiv.org/abs/2602.12018?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2921,
+                "start_index": 2798,
+                "title": "The Most Spoken Languages in the World 1900/2026 - YouTube",
+                "url": "https://www.youtube.com/watch?v=7lvnj19ekks&utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 48,
+      "completion_tokens": 649,
+      "total_tokens": 697,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:42:35Z"
+}

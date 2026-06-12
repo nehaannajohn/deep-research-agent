@@ -1,0 +1,118 @@
+{
+  "id": "dra-type3-010",
+  "provider": "perplexity",
+  "query": "Does the death penalty deter violent crime or does it have no measurable deterrent effect?",
+  "narrative": "The best-supported answer is that the **death penalty has no reliable, measurable deterrent effect on violent crime**, especially homicide, and major research reviews have not found evidence strong enough to support deterrence as a policy justification.[4][7] Some econometric studies have reported deterrent effects, but they are disputed, and other studies find no effect or even a possible *brutalization* effect in some settings.[1][2]\n\n**What the evidence says**\n\n- The U.S. National Academy of Sciences concluded that research on capital punishment is **uninformative** about whether it increases, decreases, or has no effect on homicide rates.[4][7]\n- An Office of Justice Programs summary states plainly: **\u201cThere is no proof that the death penalty deters criminals.\u201d**[4]\n- A large survey of leading criminologists found an overwhelming consensus that the empirical research does **not** support the death penalty as a superior deterrent to long imprisonment.[1]\n- Amnesty International summarizes the international evidence as showing the death penalty has **no unique deterrent effect** on crime.[3]\n- Some economists have claimed deterrent effects, but the literature is contested; the same broader research tradition also includes studies finding no deterrence or higher homicide rates in some states or periods.[1][2]\n\n**How to interpret this**\n\n- For most violent crimes, especially those committed impulsively, the offender is unlikely to be making a calculated comparison between execution and prison, which weakens the logic of deterrence.[3][6]\n- The strongest available mainstream institutional reviews do **not** support the claim that executions measurably reduce violent crime overall.[4][7]\n\n**Confidence levels**\n\n- **High confidence:** There is no robust consensus evidence that the death penalty deters violent crime.[4][7]\n- **Moderate confidence:** Some studies report deterrence, but those findings are disputed and not accepted as settled.[1][2]\n- **High confidence:** Policy bodies and major review sources do not treat deterrence as a proven justification for capital punishment.[3][4][7]",
+  "sources": [
+    "https://scholarlycommons.law.northwestern.edu/cgi/viewcontent.cgi?article=7323&context=jclc",
+    "https://scholarlycommons.law.emory.edu/faculty-articles/143/",
+    "https://www.amnesty.org/fr/wp-content/uploads/2021/06/act500062008en.pdf",
+    "https://www.ojp.gov/pdffiles1/nij/247350.pdf",
+    "https://www.nacdl.org/Landing/DeathPenalty",
+    "https://shsu-ir.tdl.org/bitstreams/698213b9-b0ef-4ee1-ba79-7f40e0db2bda/download",
+    "https://www.nationalacademies.org/read/13363/chapter/5"
+  ],
+  "citations": [
+    "https://scholarlycommons.law.northwestern.edu/cgi/viewcontent.cgi?article=7323&context=jclc",
+    "https://scholarlycommons.law.emory.edu/faculty-articles/143/",
+    "https://www.amnesty.org/fr/wp-content/uploads/2021/06/act500062008en.pdf",
+    "https://www.ojp.gov/pdffiles1/nij/247350.pdf",
+    "https://www.nacdl.org/Landing/DeathPenalty",
+    "https://shsu-ir.tdl.org/bitstreams/698213b9-b0ef-4ee1-ba79-7f40e0db2bda/download",
+    "https://www.nationalacademies.org/read/13363/chapter/5"
+  ],
+  "raw": {
+    "id": "5235cdf3-50c6-4eb2-84b4-8079a8fd70fc",
+    "model": "sonar-pro",
+    "created": 1781224057,
+    "usage": {
+      "prompt_tokens": 47,
+      "completion_tokens": 419,
+      "total_tokens": 466,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00014,
+        "output_tokens_cost": 0.00628,
+        "request_cost": 0.006,
+        "total_cost": 0.01243
+      }
+    },
+    "citations": [
+      "https://scholarlycommons.law.northwestern.edu/cgi/viewcontent.cgi?article=7323&context=jclc",
+      "https://scholarlycommons.law.emory.edu/faculty-articles/143/",
+      "https://www.amnesty.org/fr/wp-content/uploads/2021/06/act500062008en.pdf",
+      "https://www.ojp.gov/pdffiles1/nij/247350.pdf",
+      "https://www.nacdl.org/Landing/DeathPenalty",
+      "https://shsu-ir.tdl.org/bitstreams/698213b9-b0ef-4ee1-ba79-7f40e0db2bda/download",
+      "https://www.nationalacademies.org/read/13363/chapter/5"
+    ],
+    "search_results": [
+      {
+        "title": "[PDF] Do Executions Lower Homicide Rates: The Views of Leading ...",
+        "url": "https://scholarlycommons.law.northwestern.edu/cgi/viewcontent.cgi?article=7323&context=jclc",
+        "last_updated": "2025-05-21",
+        "snippet": "In. 1996, 26.9% of the respondents thought that shortening the time between sentence and execution would add to the death penalty's deterrent effect. In. 2008 ...",
+        "source": "web"
+      },
+      {
+        "title": "\"Deterrence versus Brutalization: Capital Punishment's Differing ...",
+        "url": "https://scholarlycommons.law.emory.edu/faculty-articles/143/",
+        "date": "2023-09-27",
+        "last_updated": "2026-06-11",
+        "snippet": "Executions deter murder in only six states. Capital punishment, however, actually increases murder in thirteen states, more than twice as many as experience ...",
+        "source": "web"
+      },
+      {
+        "title": "[PDF] DOES THE DEATH PENALTY DETER CRIME? | Amnesty International",
+        "url": "https://www.amnesty.org/fr/wp-content/uploads/2021/06/act500062008en.pdf",
+        "last_updated": "2026-06-08",
+        "snippet": "The death penalty deters violent crime and ... Evidence from around the world has shown that the death penalty has no unique deterrent effect on crime.",
+        "source": "web"
+      },
+      {
+        "title": "[PDF] Five Things About Deterrence - Office of Justice Programs",
+        "url": "https://www.ojp.gov/pdffiles1/nij/247350.pdf",
+        "last_updated": "2026-06-11",
+        "snippet": "There is no proof that the death penalty deters criminals. According to the National Academy of Sciences, \u201cResearch on the deterrent effect of capital ...",
+        "source": "web"
+      },
+      {
+        "title": "Death Penalty - NACDL",
+        "url": "https://www.nacdl.org/Landing/DeathPenalty",
+        "last_updated": "2026-06-09",
+        "snippet": "Does the death penalty serve as a deterrent for crime? The research says no. Leading criminologists overwhelmingly agree that there is no evidence capital ...",
+        "source": "web"
+      },
+      {
+        "title": "[PDF] Death Penalty as a Deterrent to Crime in the United States",
+        "url": "https://shsu-ir.tdl.org/bitstreams/698213b9-b0ef-4ee1-ba79-7f40e0db2bda/download",
+        "snippet": "The case that the death sentence deters violent crimes is further weakened by the fact that many of them are carried out in the heat of the moment or by people ...",
+        "source": "web"
+      },
+      {
+        "title": "Deterrence and the Death Penalty (2012)",
+        "url": "https://www.nationalacademies.org/read/13363/chapter/5",
+        "date": "2012-04-26",
+        "last_updated": "2026-04-12",
+        "snippet": "The magnitude of the deterrent effect of the death penalty, including the possibility of no effect, will depend both on the scope of the legal authority for its ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The best-supported answer is that the **death penalty has no reliable, measurable deterrent effect on violent crime**, especially homicide, and major research reviews have not found evidence strong enough to support deterrence as a policy justification.[4][7] Some econometric studies have reported deterrent effects, but they are disputed, and other studies find no effect or even a possible *brutalization* effect in some settings.[1][2]\n\n**What the evidence says**\n\n- The U.S. National Academy of Sciences concluded that research on capital punishment is **uninformative** about whether it increases, decreases, or has no effect on homicide rates.[4][7]\n- An Office of Justice Programs summary states plainly: **\u201cThere is no proof that the death penalty deters criminals.\u201d**[4]\n- A large survey of leading criminologists found an overwhelming consensus that the empirical research does **not** support the death penalty as a superior deterrent to long imprisonment.[1]\n- Amnesty International summarizes the international evidence as showing the death penalty has **no unique deterrent effect** on crime.[3]\n- Some economists have claimed deterrent effects, but the literature is contested; the same broader research tradition also includes studies finding no deterrence or higher homicide rates in some states or periods.[1][2]\n\n**How to interpret this**\n\n- For most violent crimes, especially those committed impulsively, the offender is unlikely to be making a calculated comparison between execution and prison, which weakens the logic of deterrence.[3][6]\n- The strongest available mainstream institutional reviews do **not** support the claim that executions measurably reduce violent crime overall.[4][7]\n\n**Confidence levels**\n\n- **High confidence:** There is no robust consensus evidence that the death penalty deters violent crime.[4][7]\n- **Moderate confidence:** Some studies report deterrence, but those findings are disputed and not accepted as settled.[1][2]\n- **High confidence:** Policy bodies and major review sources do not treat deterrence as a proven justification for capital punishment.[3][4][7]"
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:27:37Z"
+}

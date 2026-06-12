@@ -1,0 +1,101 @@
+{
+  "id": "dra-type5-040",
+  "provider": "openai",
+  "query": "Tabulate the screen sizes, resolutions, and pixel densities of the current flagship smartphones from five major manufacturers.",
+  "narrative": "As of June 12, 2026, here is a comparison of the screen sizes, resolutions, and pixel densities of the current flagship smartphones from five major manufacturers:\n\n| Manufacturer | Model                 | Screen Size | Resolution (px) | Pixel Density (ppi) |\n|--------------|-----------------------|-------------|-----------------|---------------------|\n| Apple        | iPhone 17 Pro Max     | 6.9\"        | 1320 \u00d7 2868     | 460                 |\n| Samsung      | Galaxy S26 Ultra      | 6.8\"        | 1440 \u00d7 3120     | ~516                |\n| Google       | Pixel 10 Pro XL       | 6.8\"        | 1344 \u00d7 2992     | 486                 |\n| OnePlus      | OnePlus 15            | 6.7\"        | 1440 \u00d7 3216     | ~525                |\n| Xiaomi       | Xiaomi 15 Ultra       | 6.73\"       | 1440 \u00d7 3200     | ~522                |\n\n**Notes:**\n\n- **Apple iPhone 17 Pro Max**: Features a 6.9-inch display with a resolution of 1320 \u00d7 2868 pixels, resulting in a pixel density of 460 ppi. ([stax.tools](https://stax.tools/mobile-screen-sizes?utm_source=openai))\n\n- **Samsung Galaxy S26 Ultra**: Equipped with a 6.8-inch display at 1440 \u00d7 3120 pixels, yielding approximately 516 ppi. ([androidcentral.com](https://www.androidcentral.com/best-t-mobile-phones?utm_source=openai))\n\n- **Google Pixel 10 Pro XL**: Offers a 6.8-inch LTPO OLED display with a resolution of 1344 \u00d7 2992 pixels and a pixel density of 486 ppi. ([phonearena.com](https://www.phonearena.com/news/best-phone-displays_id128510?utm_source=openai))\n\n- **OnePlus 15**: Comes with a 6.7-inch display at 1440 \u00d7 3216 pixels, resulting in approximately 525 ppi. ([techradar.com](https://www.techradar.com/news/best-phone?utm_source=openai))\n\n- **Xiaomi 15 Ultra**: Features a 6.73-inch display with a resolution of 1440 \u00d7 3200 pixels, leading to approximately 522 ppi. ([techradar.com](https://www.techradar.com/news/best-xiaomi-phones?utm_source=openai))\n\n**Confidence Levels:**\n\n- **High Confidence**: The specifications for the Apple iPhone 17 Pro Max, Google Pixel 10 Pro XL, and Xiaomi 15 Ultra are sourced from reputable and recent publications, providing a high level of confidence in their accuracy.\n\n- **Moderate Confidence**: The details for the Samsung Galaxy S26 Ultra and OnePlus 15 are based on information from sources that, while credible, may not have the most up-to-date data. Therefore, there is a moderate level of confidence in these specifications.\n\nPlease note that pixel density (ppi) is calculated based on screen size and resolution. Minor variations may occur due to rounding or differences in measurement standards. ",
+  "sources": [
+    "https://stax.tools/mobile-screen-sizes?utm_source=openai",
+    "https://www.androidcentral.com/best-t-mobile-phones?utm_source=openai",
+    "https://www.phonearena.com/news/best-phone-displays_id128510?utm_source=openai",
+    "https://www.techradar.com/news/best-phone?utm_source=openai",
+    "https://www.techradar.com/news/best-xiaomi-phones?utm_source=openai"
+  ],
+  "citations": [
+    "https://stax.tools/mobile-screen-sizes?utm_source=openai",
+    "https://www.androidcentral.com/best-t-mobile-phones?utm_source=openai",
+    "https://www.phonearena.com/news/best-phone-displays_id128510?utm_source=openai",
+    "https://www.techradar.com/news/best-phone?utm_source=openai",
+    "https://www.techradar.com/news/best-xiaomi-phones?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-51d7da5e-8d22-429e-8cb0-b337f84adf55",
+    "object": "chat.completion",
+    "created": 1781225099,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "As of June 12, 2026, here is a comparison of the screen sizes, resolutions, and pixel densities of the current flagship smartphones from five major manufacturers:\n\n| Manufacturer | Model                 | Screen Size | Resolution (px) | Pixel Density (ppi) |\n|--------------|-----------------------|-------------|-----------------|---------------------|\n| Apple        | iPhone 17 Pro Max     | 6.9\"        | 1320 \u00d7 2868     | 460                 |\n| Samsung      | Galaxy S26 Ultra      | 6.8\"        | 1440 \u00d7 3120     | ~516                |\n| Google       | Pixel 10 Pro XL       | 6.8\"        | 1344 \u00d7 2992     | 486                 |\n| OnePlus      | OnePlus 15            | 6.7\"        | 1440 \u00d7 3216     | ~525                |\n| Xiaomi       | Xiaomi 15 Ultra       | 6.73\"       | 1440 \u00d7 3200     | ~522                |\n\n**Notes:**\n\n- **Apple iPhone 17 Pro Max**: Features a 6.9-inch display with a resolution of 1320 \u00d7 2868 pixels, resulting in a pixel density of 460 ppi. ([stax.tools](https://stax.tools/mobile-screen-sizes?utm_source=openai))\n\n- **Samsung Galaxy S26 Ultra**: Equipped with a 6.8-inch display at 1440 \u00d7 3120 pixels, yielding approximately 516 ppi. ([androidcentral.com](https://www.androidcentral.com/best-t-mobile-phones?utm_source=openai))\n\n- **Google Pixel 10 Pro XL**: Offers a 6.8-inch LTPO OLED display with a resolution of 1344 \u00d7 2992 pixels and a pixel density of 486 ppi. ([phonearena.com](https://www.phonearena.com/news/best-phone-displays_id128510?utm_source=openai))\n\n- **OnePlus 15**: Comes with a 6.7-inch display at 1440 \u00d7 3216 pixels, resulting in approximately 525 ppi. ([techradar.com](https://www.techradar.com/news/best-phone?utm_source=openai))\n\n- **Xiaomi 15 Ultra**: Features a 6.73-inch display with a resolution of 1440 \u00d7 3200 pixels, leading to approximately 522 ppi. ([techradar.com](https://www.techradar.com/news/best-xiaomi-phones?utm_source=openai))\n\n**Confidence Levels:**\n\n- **High Confidence**: The specifications for the Apple iPhone 17 Pro Max, Google Pixel 10 Pro XL, and Xiaomi 15 Ultra are sourced from reputable and recent publications, providing a high level of confidence in their accuracy.\n\n- **Moderate Confidence**: The details for the Samsung Galaxy S26 Ultra and OnePlus 15 are based on information from sources that, while credible, may not have the most up-to-date data. Therefore, there is a moderate level of confidence in these specifications.\n\nPlease note that pixel density (ppi) is calculated based on screen size and resolution. Minor variations may occur due to rounding or differences in measurement standards. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1055,
+                "start_index": 983,
+                "title": "Mobile Screen Sizes \u2014 iPhone, Android & iPad Resolutions | Stax",
+                "url": "https://stax.tools/mobile-screen-sizes?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1270,
+                "start_index": 1177,
+                "title": "Best T-Mobile phones",
+                "url": "https://www.androidcentral.com/best-t-mobile-phones?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1508,
+                "start_index": 1410,
+                "title": "The best phone displays in 2026 - PhoneArena",
+                "url": "https://www.phonearena.com/news/best-phone-displays_id128510?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1695,
+                "start_index": 1617,
+                "title": "The best phone 2026: we've tested and reviewed all the top phones you should buy",
+                "url": "https://www.techradar.com/news/best-phone?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1910,
+                "start_index": 1824,
+                "title": "Best Xiaomi phones: top Xiaomi, Poco mobiles tried and tested",
+                "url": "https://www.techradar.com/news/best-xiaomi-phones?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 676,
+      "total_tokens": 736,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:45:16Z"
+}

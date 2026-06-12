@@ -1,0 +1,145 @@
+{
+  "id": "dra-type3-008",
+  "provider": "openai",
+  "query": "Does spending more time on social media cause depression in teenagers or is the correlation largely spurious?",
+  "narrative": "The relationship between social media use and depression in teenagers is complex and has been the subject of extensive research. While some studies suggest a potential causal link, others indicate that the correlation may be spurious or influenced by other factors.\n\n**Claim 1: Increased social media use may contribute to depressive symptoms in adolescents.**\n\n*Evidence:*\n\n- A 2023 cohort study involving 11,876 children and adolescents found that within-person increases in social media use during early adolescence were prospectively associated with greater depressive symptoms one year later. ([jamanetwork.com](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349/?utm_source=openai))\n\n- A 2022 meta-analysis reported a positive correlation between time spent on social media and higher levels of depression among adolescents. ([pubmed.ncbi.nlm.nih.gov](https://pubmed.ncbi.nlm.nih.gov/35564559/?utm_source=openai))\n\n*Confidence Level:* Moderate. While these studies suggest a link, they do not establish causation definitively.\n\n**Claim 2: The correlation between social media use and depression in teenagers is largely spurious.**\n\n*Evidence:*\n\n- A 2020 study by Columbia University Mailman School of Public Health found that daily social media use was not a strong or consistent risk factor for depressive symptoms among adolescents. ([publichealth.columbia.edu](https://www.publichealth.columbia.edu/news/teens-social-media-use-does-not-raise-risk-depression-study?utm_source=openai))\n\n- A 2019 longitudinal study published in Clinical Psychological Science found no evidence that social media use predicts later depressive symptoms. ([psychologicalscience.org](https://www.psychologicalscience.org/news/releases/no-evidence-that-teens-social-media-use-predicts-depression.html?utm_source=openai))\n\n*Confidence Level:* Moderate. These studies suggest that the relationship may not be causal, but further research is needed.\n\n**Claim 3: The relationship between social media use and adolescent depression is influenced by individual differences and contextual factors.**\n\n*Evidence:*\n\n- A 2024 review in Nature Reviews Psychology highlighted that research linking social media use and adolescent mental health has produced mixed and inconsistent findings, emphasizing the need to consider individual differences and contextual factors. ([nature.com](https://www.nature.com/articles/s44159-024-00307-y?utm_source=openai))\n\n- A 2020 scoping review found that social media use is associated with depression and other negative outcomes, but emphasized the importance of monitoring social media use and providing support for individuals struggling with depression. ([mdpi.com](https://www.mdpi.com/2076-328X/13/6/475?utm_source=openai))\n\n*Confidence Level:* High. The variability in findings across studies suggests that individual and contextual factors play a significant role.\n\n**Conclusion:**\n\nThe current body of research presents mixed findings regarding the relationship between social media use and depression in teenagers. Some studies suggest a potential causal link, while others indicate that the correlation may be spurious or influenced by other factors. Individual differences and contextual factors appear to play a significant role in this relationship. Therefore, it is essential to consider these variables when evaluating the impact of social media on adolescent mental health.\n\n\n## Highlights:\n- [French health agency warns of social media risks to teenagers](https://www.lemonde.fr/en/science/article/2026/01/17/french-health-agency-warns-of-social-media-risks-to-teenagers_6749516_10.html?utm_source=openai), Published on Friday, January 16\n- [Social Media Hurts Girls More Than Boys](https://time.com/5650266/social-media-girls-mental-health/?utm_source=openai), Published on Tuesday, August 13\n- [Teen Girls Are Facing a Mental Health Epidemic. We're Doing Nothing About It](https://time.com/6255448/teen-girls-mental-health-epidemic-causes/?utm_source=openai), Published on Tuesday, February 14 ",
+  "sources": [
+    "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349/?utm_source=openai",
+    "https://pubmed.ncbi.nlm.nih.gov/35564559/?utm_source=openai",
+    "https://www.publichealth.columbia.edu/news/teens-social-media-use-does-not-raise-risk-depression-study?utm_source=openai",
+    "https://www.psychologicalscience.org/news/releases/no-evidence-that-teens-social-media-use-predicts-depression.html?utm_source=openai",
+    "https://www.nature.com/articles/s44159-024-00307-y?utm_source=openai",
+    "https://www.mdpi.com/2076-328X/13/6/475?utm_source=openai",
+    "https://www.lemonde.fr/en/science/article/2026/01/17/french-health-agency-warns-of-social-media-risks-to-teenagers_6749516_10.html?utm_source=openai",
+    "https://time.com/5650266/social-media-girls-mental-health/?utm_source=openai",
+    "https://time.com/6255448/teen-girls-mental-health-epidemic-causes/?utm_source=openai"
+  ],
+  "citations": [
+    "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349/?utm_source=openai",
+    "https://pubmed.ncbi.nlm.nih.gov/35564559/?utm_source=openai",
+    "https://www.publichealth.columbia.edu/news/teens-social-media-use-does-not-raise-risk-depression-study?utm_source=openai",
+    "https://www.psychologicalscience.org/news/releases/no-evidence-that-teens-social-media-use-predicts-depression.html?utm_source=openai",
+    "https://www.nature.com/articles/s44159-024-00307-y?utm_source=openai",
+    "https://www.mdpi.com/2076-328X/13/6/475?utm_source=openai",
+    "https://www.lemonde.fr/en/science/article/2026/01/17/french-health-agency-warns-of-social-media-risks-to-teenagers_6749516_10.html?utm_source=openai",
+    "https://time.com/5650266/social-media-girls-mental-health/?utm_source=openai",
+    "https://time.com/6255448/teen-girls-mental-health-epidemic-causes/?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-a4e8fb2e-9fcd-4a1c-a3db-a883812d9104",
+    "object": "chat.completion",
+    "created": 1781224711,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The relationship between social media use and depression in teenagers is complex and has been the subject of extensive research. While some studies suggest a potential causal link, others indicate that the correlation may be spurious or influenced by other factors.\n\n**Claim 1: Increased social media use may contribute to depressive symptoms in adolescents.**\n\n*Evidence:*\n\n- A 2023 cohort study involving 11,876 children and adolescents found that within-person increases in social media use during early adolescence were prospectively associated with greater depressive symptoms one year later. ([jamanetwork.com](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349/?utm_source=openai))\n\n- A 2022 meta-analysis reported a positive correlation between time spent on social media and higher levels of depression among adolescents. ([pubmed.ncbi.nlm.nih.gov](https://pubmed.ncbi.nlm.nih.gov/35564559/?utm_source=openai))\n\n*Confidence Level:* Moderate. While these studies suggest a link, they do not establish causation definitively.\n\n**Claim 2: The correlation between social media use and depression in teenagers is largely spurious.**\n\n*Evidence:*\n\n- A 2020 study by Columbia University Mailman School of Public Health found that daily social media use was not a strong or consistent risk factor for depressive symptoms among adolescents. ([publichealth.columbia.edu](https://www.publichealth.columbia.edu/news/teens-social-media-use-does-not-raise-risk-depression-study?utm_source=openai))\n\n- A 2019 longitudinal study published in Clinical Psychological Science found no evidence that social media use predicts later depressive symptoms. ([psychologicalscience.org](https://www.psychologicalscience.org/news/releases/no-evidence-that-teens-social-media-use-predicts-depression.html?utm_source=openai))\n\n*Confidence Level:* Moderate. These studies suggest that the relationship may not be causal, but further research is needed.\n\n**Claim 3: The relationship between social media use and adolescent depression is influenced by individual differences and contextual factors.**\n\n*Evidence:*\n\n- A 2024 review in Nature Reviews Psychology highlighted that research linking social media use and adolescent mental health has produced mixed and inconsistent findings, emphasizing the need to consider individual differences and contextual factors. ([nature.com](https://www.nature.com/articles/s44159-024-00307-y?utm_source=openai))\n\n- A 2020 scoping review found that social media use is associated with depression and other negative outcomes, but emphasized the importance of monitoring social media use and providing support for individuals struggling with depression. ([mdpi.com](https://www.mdpi.com/2076-328X/13/6/475?utm_source=openai))\n\n*Confidence Level:* High. The variability in findings across studies suggests that individual and contextual factors play a significant role.\n\n**Conclusion:**\n\nThe current body of research presents mixed findings regarding the relationship between social media use and depression in teenagers. Some studies suggest a potential causal link, while others indicate that the correlation may be spurious or influenced by other factors. Individual differences and contextual factors appear to play a significant role in this relationship. Therefore, it is essential to consider these variables when evaluating the impact of social media on adolescent mental health.\n\n\n## Highlights:\n- [French health agency warns of social media risks to teenagers](https://www.lemonde.fr/en/science/article/2026/01/17/french-health-agency-warns-of-social-media-risks-to-teenagers_6749516_10.html?utm_source=openai), Published on Friday, January 16\n- [Social Media Hurts Girls More Than Boys](https://time.com/5650266/social-media-girls-mental-health/?utm_source=openai), Published on Tuesday, August 13\n- [Teen Girls Are Facing a Mental Health Epidemic. We're Doing Nothing About It](https://time.com/6255448/teen-girls-mental-health-epidemic-causes/?utm_source=openai), Published on Tuesday, February 14 ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 706,
+                "start_index": 598,
+                "title": "Social Media Use and Depressive Symptoms During Early Adolescence",
+                "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2834349/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 937,
+                "start_index": 849,
+                "title": "Time Spent on Social Media and Risk of Depression in Adolescents: A Dose-Response Meta-Analysis - PubMed",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/35564559/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1510,
+                "start_index": 1359,
+                "title": "Teens' Social Media Use Does Not Raise Risk for Depression: Study | Columbia University Mailman School of Public Health",
+                "url": "https://www.publichealth.columbia.edu/news/teens-social-media-use-does-not-raise-risk-depression-study?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1823,
+                "start_index": 1660,
+                "title": "\ufeffData Show No Evidence That Teens\u2019 Social Media Use Predicts Depression Over Time \u2013 Association for Psychological Science \u2013 APS",
+                "url": "https://www.psychologicalscience.org/news/releases/no-evidence-that-teens-social-media-use-predicts-depression.html?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2445,
+                "start_index": 2361,
+                "title": "Mechanisms linking social media use to adolescent mental health vulnerability | Nature Reviews Psychology",
+                "url": "https://www.nature.com/articles/s44159-024-00307-y?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2756,
+                "start_index": 2685,
+                "title": "Social Media Use and Depression in Adolescents: A Scoping Review",
+                "url": "https://www.mdpi.com/2076-328X/13/6/475?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3650,
+                "start_index": 3437,
+                "title": "French health agency warns of social media risks to teenagers",
+                "url": "https://www.lemonde.fr/en/science/article/2026/01/17/french-health-agency-warns-of-social-media-risks-to-teenagers_6749516_10.html?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3805,
+                "start_index": 3686,
+                "title": "Social Media Hurts Girls More Than Boys",
+                "url": "https://time.com/5650266/social-media-girls-mental-health/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 4005,
+                "start_index": 3841,
+                "title": "Teen Girls Are Facing a Mental Health Epidemic. We're Doing Nothing About It",
+                "url": "https://time.com/6255448/teen-girls-mental-health-epidemic-causes/?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 58,
+      "completion_tokens": 827,
+      "total_tokens": 885,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:38:41Z"
+}

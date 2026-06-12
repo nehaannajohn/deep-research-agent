@@ -1,0 +1,135 @@
+{
+  "id": "dra-type2-020",
+  "provider": "openai",
+  "query": "What are the advantages and disadvantages of remote proctoring software for university examinations?",
+  "narrative": "Remote proctoring software has become increasingly prevalent in university examinations, especially with the rise of online learning. These tools offer several advantages and disadvantages that institutions must consider.\n\n**Advantages:**\n\n1. **Enhanced Accessibility and Flexibility:**\n   - *Claim:* Remote proctoring allows students to take exams from any location, accommodating diverse schedules and reducing the need for physical presence.\n   - *Evidence:* This flexibility is particularly beneficial for students with work commitments, family responsibilities, or those residing in different time zones. ([eleven-magazine.com](https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai))\n   - *Confidence Level:* High\n\n2. **Cost-Effectiveness:**\n   - *Claim:* Implementing remote proctoring can reduce expenses related to physical test centers and on-site proctors.\n   - *Evidence:* By eliminating the need for physical proctors and test centers, institutions can lower costs for both themselves and students. ([blog.imocha.io](https://blog.imocha.io/online-remote-proctoring?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n3. **Scalability:**\n   - *Claim:* Remote proctoring enables institutions to administer exams to a large number of students simultaneously.\n   - *Evidence:* This scalability makes it more efficient than traditional in-person proctoring, allowing organizations to manage large-scale assessments effectively. ([blog.imocha.io](https://blog.imocha.io/online-remote-proctoring?utm_source=openai))\n   - *Confidence Level:* High\n\n4. **Improved Security Measures:**\n   - *Claim:* Advanced technologies in remote proctoring can enhance exam security and deter cheating.\n   - *Evidence:* Features such as webcam monitoring, identity verification, and real-time flagging of suspicious behavior help maintain the integrity of the assessment process. ([blog.imocha.io](https://blog.imocha.io/online-remote-proctoring?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n**Disadvantages:**\n\n1. **Technical Issues:**\n   - *Claim:* Dependence on technology can lead to disruptions during exams.\n   - *Evidence:* Technical challenges, including internet outages and device malfunctions, can disrupt the exam process and disadvantage students with limited access to reliable technology. ([techvalley.ng](https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai))\n   - *Confidence Level:* High\n\n2. **Privacy Concerns:**\n   - *Claim:* Remote proctoring raises significant privacy issues.\n   - *Evidence:* The requirement for access to students' webcams and microphones can make students uncomfortable and lead to potential ethical and legal issues regarding privacy rights. ([eleven-magazine.com](https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai))\n   - *Confidence Level:* High\n\n3. **Bias and Fairness Issues:**\n   - *Claim:* Remote proctoring may inadvertently introduce biases.\n   - *Evidence:* Automated systems may exhibit bias, leading to unfair treatment based on factors such as race, gender, or socio-economic background. ([techvalley.ng](https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n4. **False Positives:**\n   - *Claim:* Proctoring software may incorrectly flag non-cheating behaviors as suspicious.\n   - *Evidence:* Behaviors such as looking away from the screen or background noises can be misinterpreted by the software, leading to false accusations of cheating. ([techvalley.ng](https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n5. **Increased Student Anxiety:**\n   - *Claim:* The monitoring nature of remote proctoring can heighten test anxiety.\n   - *Evidence:* Students may experience increased stress knowing they are being continuously monitored, which can negatively impact performance. ([edintegrity.biomedcentral.com](https://edintegrity.biomedcentral.com/articles/10.1007/s40979-023-00141-4?utm_source=openai))\n   - *Confidence Level:* High\n\nIn conclusion, while remote proctoring software offers flexibility, scalability, and potential cost savings, it also presents challenges related to technical reliability, privacy, fairness, and student well-being. Universities must weigh these factors carefully to ensure that the implementation of such technologies aligns with their educational objectives and ethical standards. ",
+  "sources": [
+    "https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai",
+    "https://blog.imocha.io/online-remote-proctoring?utm_source=openai",
+    "https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai",
+    "https://edintegrity.biomedcentral.com/articles/10.1007/s40979-023-00141-4?utm_source=openai"
+  ],
+  "citations": [
+    "https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai",
+    "https://blog.imocha.io/online-remote-proctoring?utm_source=openai",
+    "https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai",
+    "https://edintegrity.biomedcentral.com/articles/10.1007/s40979-023-00141-4?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-71190083-11c6-4b23-a067-0d90331acbec",
+    "object": "chat.completion",
+    "created": 1781224618,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Remote proctoring software has become increasingly prevalent in university examinations, especially with the rise of online learning. These tools offer several advantages and disadvantages that institutions must consider.\n\n**Advantages:**\n\n1. **Enhanced Accessibility and Flexibility:**\n   - *Claim:* Remote proctoring allows students to take exams from any location, accommodating diverse schedules and reducing the need for physical presence.\n   - *Evidence:* This flexibility is particularly beneficial for students with work commitments, family responsibilities, or those residing in different time zones. ([eleven-magazine.com](https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai))\n   - *Confidence Level:* High\n\n2. **Cost-Effectiveness:**\n   - *Claim:* Implementing remote proctoring can reduce expenses related to physical test centers and on-site proctors.\n   - *Evidence:* By eliminating the need for physical proctors and test centers, institutions can lower costs for both themselves and students. ([blog.imocha.io](https://blog.imocha.io/online-remote-proctoring?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n3. **Scalability:**\n   - *Claim:* Remote proctoring enables institutions to administer exams to a large number of students simultaneously.\n   - *Evidence:* This scalability makes it more efficient than traditional in-person proctoring, allowing organizations to manage large-scale assessments effectively. ([blog.imocha.io](https://blog.imocha.io/online-remote-proctoring?utm_source=openai))\n   - *Confidence Level:* High\n\n4. **Improved Security Measures:**\n   - *Claim:* Advanced technologies in remote proctoring can enhance exam security and deter cheating.\n   - *Evidence:* Features such as webcam monitoring, identity verification, and real-time flagging of suspicious behavior help maintain the integrity of the assessment process. ([blog.imocha.io](https://blog.imocha.io/online-remote-proctoring?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n**Disadvantages:**\n\n1. **Technical Issues:**\n   - *Claim:* Dependence on technology can lead to disruptions during exams.\n   - *Evidence:* Technical challenges, including internet outages and device malfunctions, can disrupt the exam process and disadvantage students with limited access to reliable technology. ([techvalley.ng](https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai))\n   - *Confidence Level:* High\n\n2. **Privacy Concerns:**\n   - *Claim:* Remote proctoring raises significant privacy issues.\n   - *Evidence:* The requirement for access to students' webcams and microphones can make students uncomfortable and lead to potential ethical and legal issues regarding privacy rights. ([eleven-magazine.com](https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai))\n   - *Confidence Level:* High\n\n3. **Bias and Fairness Issues:**\n   - *Claim:* Remote proctoring may inadvertently introduce biases.\n   - *Evidence:* Automated systems may exhibit bias, leading to unfair treatment based on factors such as race, gender, or socio-economic background. ([techvalley.ng](https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n4. **False Positives:**\n   - *Claim:* Proctoring software may incorrectly flag non-cheating behaviors as suspicious.\n   - *Evidence:* Behaviors such as looking away from the screen or background noises can be misinterpreted by the software, leading to false accusations of cheating. ([techvalley.ng](https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai))\n   - *Confidence Level:* Moderate\n\n5. **Increased Student Anxiety:**\n   - *Claim:* The monitoring nature of remote proctoring can heighten test anxiety.\n   - *Evidence:* Students may experience increased stress knowing they are being continuously monitored, which can negatively impact performance. ([edintegrity.biomedcentral.com](https://edintegrity.biomedcentral.com/articles/10.1007/s40979-023-00141-4?utm_source=openai))\n   - *Confidence Level:* High\n\nIn conclusion, while remote proctoring software offers flexibility, scalability, and potential cost savings, it also presents challenges related to technical reliability, privacy, fairness, and student well-being. Universities must weigh these factors carefully to ensure that the implementation of such technologies aligns with their educational objectives and ethical standards. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 727,
+                "start_index": 610,
+                "title": "Pros and Cons of Remote Proctoring Technology",
+                "url": "https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1135,
+                "start_index": 1050,
+                "title": "Online Remote Proctoring \u2013 Extensive Guide | iMocha",
+                "url": "https://blog.imocha.io/online-remote-proctoring?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1562,
+                "start_index": 1477,
+                "title": "Online Remote Proctoring \u2013 Extensive Guide | iMocha",
+                "url": "https://blog.imocha.io/online-remote-proctoring?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1994,
+                "start_index": 1909,
+                "title": "Online Remote Proctoring \u2013 Extensive Guide | iMocha",
+                "url": "https://blog.imocha.io/online-remote-proctoring?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2457,
+                "start_index": 2342,
+                "title": "Remote Proctoring Software: Advantages and Disadvantages",
+                "url": "https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2884,
+                "start_index": 2767,
+                "title": "Pros and Cons of Remote Proctoring Technology",
+                "url": "https://eleven-magazine.com/pros-and-cons-of-remote-proctoring-technology/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3282,
+                "start_index": 3167,
+                "title": "Remote Proctoring Software: Advantages and Disadvantages",
+                "url": "https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3716,
+                "start_index": 3601,
+                "title": "Remote Proctoring Software: Advantages and Disadvantages",
+                "url": "https://techvalley.ng/remote-proctoring-software-advantages-and-disadvantages/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 4142,
+                "start_index": 4016,
+                "title": "\u201cOut of my control\u201d: science undergraduates report mental health concerns and inconsistent conditions when using remote proctoring software | International Journal for Educational Integrity | Full Text",
+                "url": "https://edintegrity.biomedcentral.com/articles/10.1007/s40979-023-00141-4?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 55,
+      "completion_tokens": 966,
+      "total_tokens": 1021,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:37:15Z"
+}

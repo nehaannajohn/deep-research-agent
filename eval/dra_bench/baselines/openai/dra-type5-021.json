@@ -1,0 +1,68 @@
+{
+  "id": "dra-type5-021",
+  "provider": "openai",
+  "query": "Tabulate the boiling points, melting points, and densities of the first 20 elements of the periodic table.",
+  "narrative": "The following table presents the melting points, boiling points, and densities of the first 20 elements in the periodic table. Melting and boiling points are provided in Kelvin (K), and densities are given in grams per cubic centimeter (g/cm\u00b3) for solids and liquids, and grams per liter (g/L) for gases at standard temperature and pressure (STP).\n\n| Element    | Melting Point (K) | Boiling Point (K) | Density (g/cm\u00b3 or g/L) |\n|------------|-------------------|-------------------|------------------------|\n| Hydrogen   | 13.81             | 20.28             | 0.08988 g/L            |\n| Helium     | 0.95              | 4.22              | 0.1785 g/L             |\n| Lithium    | 453.65            | 1615              | 0.534 g/cm\u00b3            |\n| Beryllium  | 1560              | 2744              | 1.85 g/cm\u00b3             |\n| Boron      | 2348              | 4273              | 2.34 g/cm\u00b3             |\n| Carbon     | 3823              | 4098              | 2.267 g/cm\u00b3            |\n| Nitrogen   | 63.15             | 77.36             | 1.2506 g/L             |\n| Oxygen     | 54.36             | 90.2              | 1.429 g/L              |\n| Fluorine   | 53.53             | 85.03             | 1.696 g/L              |\n| Neon       | 24.56             | 27.07             | 0.9002 g/L             |\n| Sodium     | 370.95            | 1156              | 0.97 g/cm\u00b3             |\n| Magnesium  | 923               | 1363              | 1.738 g/cm\u00b3            |\n| Aluminum   | 933.44            | 2792              | 2.70 g/cm\u00b3             |\n| Silicon    | 1687              | 3538              | 2.329 g/cm\u00b3            |\n| Phosphorus | 317.3             | 553.65            | 1.82 g/cm\u00b3             |\n| Sulfur     | 388.36            | 717.75            | 2.07 g/cm\u00b3             |\n| Chlorine   | 171.65            | 239.11            | 3.214 g/L              |\n| Argon      | 83.8              | 87.3              | 1.784 g/L              |\n| Potassium  | 336.53            | 1032              | 0.862 g/cm\u00b3            |\n| Calcium    | 1115              | 1757              | 1.54 g/cm\u00b3             |\n\n**Claims and Evidence:**\n\n1. **Claim:** The melting and boiling points of the first 20 elements vary widely, with helium having the lowest melting point and carbon the highest.\n\n   **Evidence:** According to data from Statista, helium has a melting point of 0.95 K, while carbon has a melting point of 3823 K. ([statista.com](https://www.statista.com/statistics/1379794/periodic-table-elements-melting-boiling-points/?utm_source=openai))\n\n   **Confidence Level:** High.\n\n2. **Claim:** Densities of these elements range from very low values for gases to higher values for solids.\n\n   **Evidence:** Hydrogen, a gas at STP, has a density of 0.08988 g/L, whereas beryllium, a solid, has a density of 1.85 g/cm\u00b3. ([engineeringtoolbox.com](https://www.engineeringtoolbox.com/elements-periodic-table-atomic-weight-melting-boiling-points-density-electronegativity-electron-affinity-configuration-d_999.html?utm_source=openai))\n\n   **Confidence Level:** High.\n\n**Notes:**\n\n- Densities for gases are provided in grams per liter (g/L) at standard temperature and pressure (STP).\n\n- Melting and boiling points are subject to experimental conditions and may vary slightly between sources.\n\n- The data presented is sourced from reputable references, including Statista and Engineering Toolbox. ",
+  "sources": [
+    "https://www.statista.com/statistics/1379794/periodic-table-elements-melting-boiling-points/?utm_source=openai",
+    "https://www.engineeringtoolbox.com/elements-periodic-table-atomic-weight-melting-boiling-points-density-electronegativity-electron-affinity-configuration-d_999.html?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.statista.com/statistics/1379794/periodic-table-elements-melting-boiling-points/?utm_source=openai",
+    "https://www.engineeringtoolbox.com/elements-periodic-table-atomic-weight-melting-boiling-points-density-electronegativity-electron-affinity-configuration-d_999.html?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-9e5b79c3-3e29-40ae-9a00-86c2bfba1b9c",
+    "object": "chat.completion",
+    "created": 1781225067,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The following table presents the melting points, boiling points, and densities of the first 20 elements in the periodic table. Melting and boiling points are provided in Kelvin (K), and densities are given in grams per cubic centimeter (g/cm\u00b3) for solids and liquids, and grams per liter (g/L) for gases at standard temperature and pressure (STP).\n\n| Element    | Melting Point (K) | Boiling Point (K) | Density (g/cm\u00b3 or g/L) |\n|------------|-------------------|-------------------|------------------------|\n| Hydrogen   | 13.81             | 20.28             | 0.08988 g/L            |\n| Helium     | 0.95              | 4.22              | 0.1785 g/L             |\n| Lithium    | 453.65            | 1615              | 0.534 g/cm\u00b3            |\n| Beryllium  | 1560              | 2744              | 1.85 g/cm\u00b3             |\n| Boron      | 2348              | 4273              | 2.34 g/cm\u00b3             |\n| Carbon     | 3823              | 4098              | 2.267 g/cm\u00b3            |\n| Nitrogen   | 63.15             | 77.36             | 1.2506 g/L             |\n| Oxygen     | 54.36             | 90.2              | 1.429 g/L              |\n| Fluorine   | 53.53             | 85.03             | 1.696 g/L              |\n| Neon       | 24.56             | 27.07             | 0.9002 g/L             |\n| Sodium     | 370.95            | 1156              | 0.97 g/cm\u00b3             |\n| Magnesium  | 923               | 1363              | 1.738 g/cm\u00b3            |\n| Aluminum   | 933.44            | 2792              | 2.70 g/cm\u00b3             |\n| Silicon    | 1687              | 3538              | 2.329 g/cm\u00b3            |\n| Phosphorus | 317.3             | 553.65            | 1.82 g/cm\u00b3             |\n| Sulfur     | 388.36            | 717.75            | 2.07 g/cm\u00b3             |\n| Chlorine   | 171.65            | 239.11            | 3.214 g/L              |\n| Argon      | 83.8              | 87.3              | 1.784 g/L              |\n| Potassium  | 336.53            | 1032              | 0.862 g/cm\u00b3            |\n| Calcium    | 1115              | 1757              | 1.54 g/cm\u00b3             |\n\n**Claims and Evidence:**\n\n1. **Claim:** The melting and boiling points of the first 20 elements vary widely, with helium having the lowest melting point and carbon the highest.\n\n   **Evidence:** According to data from Statista, helium has a melting point of 0.95 K, while carbon has a melting point of 3823 K. ([statista.com](https://www.statista.com/statistics/1379794/periodic-table-elements-melting-boiling-points/?utm_source=openai))\n\n   **Confidence Level:** High.\n\n2. **Claim:** Densities of these elements range from very low values for gases to higher values for solids.\n\n   **Evidence:** Hydrogen, a gas at STP, has a density of 0.08988 g/L, whereas beryllium, a solid, has a density of 1.85 g/cm\u00b3. ([engineeringtoolbox.com](https://www.engineeringtoolbox.com/elements-periodic-table-atomic-weight-melting-boiling-points-density-electronegativity-electron-affinity-configuration-d_999.html?utm_source=openai))\n\n   **Confidence Level:** High.\n\n**Notes:**\n\n- Densities for gases are provided in grams per liter (g/L) at standard temperature and pressure (STP).\n\n- Melting and boiling points are subject to experimental conditions and may vary slightly between sources.\n\n- The data presented is sourced from reputable references, including Statista and Engineering Toolbox. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2547,
+                "start_index": 2420,
+                "title": "Periodic table: melting and boiling point of all elements| Statista",
+                "url": "https://www.statista.com/statistics/1379794/periodic-table-elements-melting-boiling-points/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3028,
+                "start_index": 2818,
+                "title": "Elements of the Periodic System",
+                "url": "https://www.engineeringtoolbox.com/elements-periodic-table-atomic-weight-melting-boiling-points-density-electronegativity-electron-affinity-configuration-d_999.html?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 61,
+      "completion_tokens": 909,
+      "total_tokens": 970,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:44:45Z"
+}

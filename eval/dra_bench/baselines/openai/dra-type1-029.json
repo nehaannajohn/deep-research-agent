@@ -1,0 +1,117 @@
+{
+  "id": "dra-type1-029",
+  "provider": "openai",
+  "query": "What are the main approaches to evaluating factual consistency in summarization, and how well do they correlate with human judgments?",
+  "narrative": "Evaluating factual consistency in text summarization is crucial to ensure that generated summaries accurately reflect the content of the source documents. Several automatic evaluation approaches have been developed, each with varying degrees of correlation with human judgments.\n\n**Main Approaches to Evaluating Factual Consistency:**\n\n1. **Natural Language Inference (NLI)-Based Metrics:**\n   - *Description:* These metrics assess whether the information in the summary logically follows from the source document by treating the source as a premise and the summary as a hypothesis.\n   - *Example:* FactCC is a model trained to detect factual inconsistencies by generating synthetic data through rule-based transformations of source documents. ([huggingface.co](https://huggingface.co/papers/1910.12840?utm_source=openai))\n\n2. **Question Answering (QA)-Based Metrics:**\n   - *Description:* This approach involves generating questions from the summary and answering them using both the summary and the source document. Consistency is evaluated based on the similarity of answers.\n   - *Example:* QAGS (Question Answering for Generating Summaries) generates questions from the summary and compares answers derived from the summary and the source to detect inconsistencies. ([aclanthology.org](https://aclanthology.org/2020.acl-main.450/?utm_source=openai))\n\n3. **Counterfactual Estimation:**\n   - *Description:* This method models the causal relationship between the source document, the generated summary, and language priors, aiming to isolate and remove the effect of language priors that may cause factual inconsistencies.\n   - *Example:* A proposed metric evaluates factual consistency by formulating and estimating these causal relationships, providing a simple yet effective evaluation without relying on auxiliary tasks. ([aclanthology.org](https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai))\n\n4. **Large Language Model (LLM)-Based Evaluation:**\n   - *Description:* Utilizing advanced language models like ChatGPT to assess factual consistency by analyzing the coherence and alignment between the source and the summary.\n   - *Example:* ChatGPT has been shown to outperform existing metrics in evaluating factual consistency in a zero-shot setting, though it exhibits biases toward lexical overlap and struggles with complex reasoning. ([papers.lunadong.com](https://papers.lunadong.com/paper/5878?utm_source=openai))\n\n**Correlation with Human Judgments:**\n\n- **NLI-Based Metrics:** While effective in certain contexts, these metrics may not fully capture the nuances of factual consistency as perceived by humans, leading to moderate correlation levels.\n\n- **QA-Based Metrics:** Studies have demonstrated that QA-based metrics like QAGS achieve higher correlations with human judgments compared to traditional metrics, indicating their effectiveness in capturing factual inconsistencies. ([aclanthology.org](https://aclanthology.org/2020.acl-main.450/?utm_source=openai))\n\n- **Counterfactual Estimation:** This approach has shown improvements in aligning with human judgments by addressing the intrinsic causes of factual inconsistencies, though comprehensive correlation data is limited. ([aclanthology.org](https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai))\n\n- **LLM-Based Evaluation:** Preliminary findings suggest that models like ChatGPT can align well with human assessments of factual consistency, but they may be influenced by factors such as lexical overlap and may not fully grasp complex reasoning required for certain factual evaluations. ([papers.lunadong.com](https://papers.lunadong.com/paper/5878?utm_source=openai))\n\n**Conclusion:**\n\nAmong the various approaches, QA-based metrics have demonstrated a higher correlation with human judgments, making them particularly effective for evaluating factual consistency in summarization. However, each method has its strengths and limitations, and the choice of metric may depend on specific requirements and contexts. ",
+  "sources": [
+    "https://huggingface.co/papers/1910.12840?utm_source=openai",
+    "https://aclanthology.org/2020.acl-main.450/?utm_source=openai",
+    "https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai",
+    "https://papers.lunadong.com/paper/5878?utm_source=openai"
+  ],
+  "citations": [
+    "https://huggingface.co/papers/1910.12840?utm_source=openai",
+    "https://aclanthology.org/2020.acl-main.450/?utm_source=openai",
+    "https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai",
+    "https://papers.lunadong.com/paper/5878?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-e96c64cc-4d4b-40a6-b109-6530b6375f43",
+    "object": "chat.completion",
+    "created": 1781224532,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Evaluating factual consistency in text summarization is crucial to ensure that generated summaries accurately reflect the content of the source documents. Several automatic evaluation approaches have been developed, each with varying degrees of correlation with human judgments.\n\n**Main Approaches to Evaluating Factual Consistency:**\n\n1. **Natural Language Inference (NLI)-Based Metrics:**\n   - *Description:* These metrics assess whether the information in the summary logically follows from the source document by treating the source as a premise and the summary as a hypothesis.\n   - *Example:* FactCC is a model trained to detect factual inconsistencies by generating synthetic data through rule-based transformations of source documents. ([huggingface.co](https://huggingface.co/papers/1910.12840?utm_source=openai))\n\n2. **Question Answering (QA)-Based Metrics:**\n   - *Description:* This approach involves generating questions from the summary and answering them using both the summary and the source document. Consistency is evaluated based on the similarity of answers.\n   - *Example:* QAGS (Question Answering for Generating Summaries) generates questions from the summary and compares answers derived from the summary and the source to detect inconsistencies. ([aclanthology.org](https://aclanthology.org/2020.acl-main.450/?utm_source=openai))\n\n3. **Counterfactual Estimation:**\n   - *Description:* This method models the causal relationship between the source document, the generated summary, and language priors, aiming to isolate and remove the effect of language priors that may cause factual inconsistencies.\n   - *Example:* A proposed metric evaluates factual consistency by formulating and estimating these causal relationships, providing a simple yet effective evaluation without relying on auxiliary tasks. ([aclanthology.org](https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai))\n\n4. **Large Language Model (LLM)-Based Evaluation:**\n   - *Description:* Utilizing advanced language models like ChatGPT to assess factual consistency by analyzing the coherence and alignment between the source and the summary.\n   - *Example:* ChatGPT has been shown to outperform existing metrics in evaluating factual consistency in a zero-shot setting, though it exhibits biases toward lexical overlap and struggles with complex reasoning. ([papers.lunadong.com](https://papers.lunadong.com/paper/5878?utm_source=openai))\n\n**Correlation with Human Judgments:**\n\n- **NLI-Based Metrics:** While effective in certain contexts, these metrics may not fully capture the nuances of factual consistency as perceived by humans, leading to moderate correlation levels.\n\n- **QA-Based Metrics:** Studies have demonstrated that QA-based metrics like QAGS achieve higher correlations with human judgments compared to traditional metrics, indicating their effectiveness in capturing factual inconsistencies. ([aclanthology.org](https://aclanthology.org/2020.acl-main.450/?utm_source=openai))\n\n- **Counterfactual Estimation:** This approach has shown improvements in aligning with human judgments by addressing the intrinsic causes of factual inconsistencies, though comprehensive correlation data is limited. ([aclanthology.org](https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai))\n\n- **LLM-Based Evaluation:** Preliminary findings suggest that models like ChatGPT can align well with human assessments of factual consistency, but they may be influenced by factors such as lexical overlap and may not fully grasp complex reasoning required for certain factual evaluations. ([papers.lunadong.com](https://papers.lunadong.com/paper/5878?utm_source=openai))\n\n**Conclusion:**\n\nAmong the various approaches, QA-based metrics have demonstrated a higher correlation with human judgments, making them particularly effective for evaluating factual consistency in summarization. However, each method has its strengths and limitations, and the choice of metric may depend on specific requirements and contexts. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 822,
+                "start_index": 744,
+                "title": "Paper page - Evaluating the Factual Consistency of Abstractive Text Summarization",
+                "url": "https://huggingface.co/papers/1910.12840?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1354,
+                "start_index": 1271,
+                "title": "Asking and Answering Questions to Evaluate the Factual Consistency of Summaries - ACL Anthology",
+                "url": "https://aclanthology.org/2020.acl-main.450/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1915,
+                "start_index": 1827,
+                "title": "Factual Consistency Evaluation for Text Summarization via Counterfactual Estimation - ACL Anthology",
+                "url": "https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2440,
+                "start_index": 2359,
+                "title": "ChatGPT as a Factual Inconsistency Evaluator for Text Summarization - Paper Summary",
+                "url": "https://papers.lunadong.com/paper/5878?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2995,
+                "start_index": 2912,
+                "title": "Asking and Answering Questions to Evaluate the Factual Consistency of Summaries - ACL Anthology",
+                "url": "https://aclanthology.org/2020.acl-main.450/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3301,
+                "start_index": 3213,
+                "title": "Factual Consistency Evaluation for Text Summarization via Counterfactual Estimation - ACL Anthology",
+                "url": "https://aclanthology.org/2021.findings-emnlp.10/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3674,
+                "start_index": 3593,
+                "title": "ChatGPT as a Factual Inconsistency Evaluator for Text Summarization - Paper Summary",
+                "url": "https://papers.lunadong.com/paper/5878?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 62,
+      "completion_tokens": 795,
+      "total_tokens": 857,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:35:47Z"
+}

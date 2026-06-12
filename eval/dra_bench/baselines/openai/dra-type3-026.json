@@ -1,0 +1,104 @@
+{
+  "id": "dra-type3-026",
+  "provider": "openai",
+  "query": "Does mammography screening reduce breast cancer mortality enough to justify its harms or does it lead to net overdiagnosis?",
+  "narrative": "Mammography screening is a widely used method for early detection of breast cancer, aiming to reduce mortality rates. However, it also carries potential harms, including overdiagnosis and overtreatment. Evaluating whether the benefits outweigh the harms involves examining evidence from various studies.\n\n**Claim 1: Mammography screening reduces breast cancer mortality.**\n\n*Evidence:*\n\n- Randomized controlled trials (RCTs) have demonstrated that mammography screening leads to a reduction in breast cancer mortality. A Cochrane review analyzing data from seven trials involving 600,000 women found that screening reduced breast cancer mortality, with relative risk estimates ranging from 0.75 to 0.90, depending on trial quality. ([cochrane.org](https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai))\n\n- A systematic review published in *Breast Cancer Research* reported that relative reductions in breast cancer mortality due to screening varied from about 15% to 25% in RCTs, and 13% to 17% in meta-analyses of observational studies. For 1,000 women invited to biennial screening for 20 years from age 50, approximately 2 to 3 breast cancer deaths were prevented. ([breast-cancer-research.biomedcentral.com](https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai))\n\n**Confidence Level:** Moderate to High. While multiple studies support a reduction in breast cancer mortality due to mammography screening, the exact magnitude of benefit varies among studies.\n\n**Claim 2: Mammography screening leads to overdiagnosis and overtreatment.**\n\n*Evidence:*\n\n- Overdiagnosis refers to the detection of cancers that would not have caused symptoms or death during a patient's lifetime. Estimates of overdiagnosis due to mammography screening vary widely. A review in *Breast Cancer Research* indicated that overdiagnosis rates range from none to 54%, depending on the study design and methodology. The same review noted that, based on recent U.S. estimates, the relative amount of overdiagnosis (including ductal carcinoma in situ and invasive cancer) is 31%. ([breast-cancer-research.biomedcentral.com](https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai))\n\n- The Cochrane review mentioned earlier found that screening led to a 30% increase in overdiagnosis and overtreatment, corresponding to an absolute risk increase of 0.5%. ([cochrane.org](https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai))\n\n**Confidence Level:** Moderate. There is substantial evidence indicating that mammography screening results in overdiagnosis and overtreatment, but the exact rates are variable across studies.\n\n**Claim 3: The net benefit of mammography screening is a balance between mortality reduction and the harms of overdiagnosis.**\n\n*Evidence:*\n\n- The *Breast Cancer Research* review emphasized that mammography screening is a tradeoff between benefits and harms. While it reduces breast cancer mortality, it also increases the incidence of overdiagnosis and overtreatment. The review suggests that women should be informed about both the benefits and harms using absolute effect sizes to make informed decisions. ([breast-cancer-research.biomedcentral.com](https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai))\n\n- The Cochrane review concluded that while screening is likely to reduce breast cancer mortality, the effect was lowest in adequately randomized trials, estimating a 15% reduction. However, this benefit is accompanied by a 30% increase in overdiagnosis and overtreatment. ([cochrane.org](https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai))\n\n**Confidence Level:** Moderate. The net benefit of mammography screening is context-dependent, influenced by individual risk factors, screening protocols, and healthcare systems.\n\n**Conclusion:**\n\nMammography screening has been shown to reduce breast cancer mortality, but it also leads to overdiagnosis and overtreatment. The decision to undergo screening should be individualized, considering personal risk factors and preferences. Healthcare providers should engage in shared decision-making with patients, providing comprehensive information about the potential benefits and harms of mammography screening. ",
+  "sources": [
+    "https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai",
+    "https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai",
+    "https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-baf4e925-649c-4c84-911a-1b11e3da746c",
+    "object": "chat.completion",
+    "created": 1781224758,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Mammography screening is a widely used method for early detection of breast cancer, aiming to reduce mortality rates. However, it also carries potential harms, including overdiagnosis and overtreatment. Evaluating whether the benefits outweigh the harms involves examining evidence from various studies.\n\n**Claim 1: Mammography screening reduces breast cancer mortality.**\n\n*Evidence:*\n\n- Randomized controlled trials (RCTs) have demonstrated that mammography screening leads to a reduction in breast cancer mortality. A Cochrane review analyzing data from seven trials involving 600,000 women found that screening reduced breast cancer mortality, with relative risk estimates ranging from 0.75 to 0.90, depending on trial quality. ([cochrane.org](https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai))\n\n- A systematic review published in *Breast Cancer Research* reported that relative reductions in breast cancer mortality due to screening varied from about 15% to 25% in RCTs, and 13% to 17% in meta-analyses of observational studies. For 1,000 women invited to biennial screening for 20 years from age 50, approximately 2 to 3 breast cancer deaths were prevented. ([breast-cancer-research.biomedcentral.com](https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai))\n\n**Confidence Level:** Moderate to High. While multiple studies support a reduction in breast cancer mortality due to mammography screening, the exact magnitude of benefit varies among studies.\n\n**Claim 2: Mammography screening leads to overdiagnosis and overtreatment.**\n\n*Evidence:*\n\n- Overdiagnosis refers to the detection of cancers that would not have caused symptoms or death during a patient's lifetime. Estimates of overdiagnosis due to mammography screening vary widely. A review in *Breast Cancer Research* indicated that overdiagnosis rates range from none to 54%, depending on the study design and methodology. The same review noted that, based on recent U.S. estimates, the relative amount of overdiagnosis (including ductal carcinoma in situ and invasive cancer) is 31%. ([breast-cancer-research.biomedcentral.com](https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai))\n\n- The Cochrane review mentioned earlier found that screening led to a 30% increase in overdiagnosis and overtreatment, corresponding to an absolute risk increase of 0.5%. ([cochrane.org](https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai))\n\n**Confidence Level:** Moderate. There is substantial evidence indicating that mammography screening results in overdiagnosis and overtreatment, but the exact rates are variable across studies.\n\n**Claim 3: The net benefit of mammography screening is a balance between mortality reduction and the harms of overdiagnosis.**\n\n*Evidence:*\n\n- The *Breast Cancer Research* review emphasized that mammography screening is a tradeoff between benefits and harms. While it reduces breast cancer mortality, it also increases the incidence of overdiagnosis and overtreatment. The review suggests that women should be informed about both the benefits and harms using absolute effect sizes to make informed decisions. ([breast-cancer-research.biomedcentral.com](https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai))\n\n- The Cochrane review concluded that while screening is likely to reduce breast cancer mortality, the effect was lowest in adequately randomized trials, estimating a 15% reduction. However, this benefit is accompanied by a 30% increase in overdiagnosis and overtreatment. ([cochrane.org](https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai))\n\n**Confidence Level:** Moderate. The net benefit of mammography screening is context-dependent, influenced by individual risk factors, screening protocols, and healthcare systems.\n\n**Conclusion:**\n\nMammography screening has been shown to reduce breast cancer mortality, but it also leads to overdiagnosis and overtreatment. The decision to undergo screening should be individualized, considering personal risk factors and preferences. Healthcare providers should engage in shared decision-making with patients, providing comprehensive information about the potential benefits and harms of mammography screening. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 846,
+                "start_index": 732,
+                "title": "Screening for breast cancer with mammography | Cochrane",
+                "url": "https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1359,
+                "start_index": 1212,
+                "title": "Benefits and harms of mammography screening | Breast Cancer Research | Full Text",
+                "url": "https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2292,
+                "start_index": 2145,
+                "title": "Benefits and harms of mammography screening | Breast Cancer Research | Full Text",
+                "url": "https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2579,
+                "start_index": 2465,
+                "title": "Screening for breast cancer with mammography | Cochrane",
+                "url": "https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3431,
+                "start_index": 3284,
+                "title": "Benefits and harms of mammography screening | Breast Cancer Research | Full Text",
+                "url": "https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-015-0525-z?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3819,
+                "start_index": 3705,
+                "title": "Screening for breast cancer with mammography | Cochrane",
+                "url": "https://www.cochrane.org/evidence/CD001877_screening-breast-cancer-mammography?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 62,
+      "completion_tokens": 948,
+      "total_tokens": 1010,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:39:34Z"
+}

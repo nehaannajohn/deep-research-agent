@@ -1,0 +1,123 @@
+{
+  "id": "dra-type3-000",
+  "provider": "perplexity",
+  "query": "Does moderate alcohol consumption provide cardiovascular health benefits or does any amount of alcohol increase mortality risk?",
+  "narrative": "The best-supported answer is that **moderate alcohol consumption has been associated with lower cardiovascular risk in some observational studies, but it is not recommended as a health strategy because the apparent benefit is uncertain and alcohol still increases other risks, including cancer and overall mortality at higher intake levels**.[1][6][5]\n\n- **Cardiovascular benefit claim:** Some studies have found that light to moderate drinking is associated with fewer heart attacks, strokes, and lower cardiovascular disease risk, and proposed mechanisms include higher HDL cholesterol and antiplatelet effects.[1][2][4]  \n- **Why this is not settled:** Major heart-health guidance says these findings are largely observational and do **not** prove that alcohol itself causes better heart health; people who drink moderately may differ in diet, exercise, smoking, and other risk factors.[6][4]  \n- **Mortality-risk claim:** Newer large studies and expert summaries increasingly emphasize that **even low alcohol intake can raise risk**, especially for cancer, and that alcohol intake at all levels is linked to higher cardiovascular risk in some analyses.[1][3][5]  \n- **Dose matters:** Heavy drinking clearly increases cardiovascular harm, while moderate drinking may show a lower-risk pattern in some datasets; however, that pattern does not mean alcohol is protective enough to recommend starting or drinking for heart health.[3][6]\n\nA balanced evidence-based reading is:\n\n- **Moderate alcohol may correlate with lower cardiovascular risk in some populations**.[1][2][4]  \n- **But any amount of alcohol is not \u201csafe\u201d in a broad public-health sense**, because it can increase cancer risk and may increase mortality risk depending on dose, age, and individual factors.[1][5][6]  \n- **Current expert guidance does not recommend drinking alcohol for cardiovascular benefit**.[6][4]\n\n**Confidence levels**\n- **Moderate alcohol is associated with lower CV risk in some observational studies:** **High**[1][2][4]  \n- **This association is not proof of causation:** **High**[6][4]  \n- **Any alcohol increases cancer risk and may increase overall mortality risk:** **High**[1][5]  \n- **Alcohol should be started or continued for heart protection:** **High** that experts say **no**[6]",
+  "sources": [
+    "https://news.harvard.edu/gazette/story/2023/06/is-drinking-in-moderation-good-for-your-heart/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5513687/",
+    "https://www.massgeneral.org/news/press-release/Large-study-challenges-the-theory-that-light-alcohol-consumption-benefits-heart-health",
+    "https://www.munsonhealthcare.org/blog/is-alcohol-heart-healthy",
+    "https://news.stanford.edu/stories/2025/08/moderate-alcohol-consumption-drinking-health-benefits-impacts-research",
+    "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/alcohol-and-heart-health",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7020057/"
+  ],
+  "citations": [
+    "https://news.harvard.edu/gazette/story/2023/06/is-drinking-in-moderation-good-for-your-heart/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5513687/",
+    "https://www.massgeneral.org/news/press-release/Large-study-challenges-the-theory-that-light-alcohol-consumption-benefits-heart-health",
+    "https://www.munsonhealthcare.org/blog/is-alcohol-heart-healthy",
+    "https://news.stanford.edu/stories/2025/08/moderate-alcohol-consumption-drinking-health-benefits-impacts-research",
+    "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/alcohol-and-heart-health",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7020057/"
+  ],
+  "raw": {
+    "id": "4bdae879-31d1-4955-b5ef-c47ffe93de74",
+    "model": "sonar-pro",
+    "created": 1781224032,
+    "usage": {
+      "prompt_tokens": 49,
+      "completion_tokens": 470,
+      "total_tokens": 519,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00015,
+        "output_tokens_cost": 0.00705,
+        "request_cost": 0.006,
+        "total_cost": 0.0132
+      }
+    },
+    "citations": [
+      "https://news.harvard.edu/gazette/story/2023/06/is-drinking-in-moderation-good-for-your-heart/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC5513687/",
+      "https://www.massgeneral.org/news/press-release/Large-study-challenges-the-theory-that-light-alcohol-consumption-benefits-heart-health",
+      "https://www.munsonhealthcare.org/blog/is-alcohol-heart-healthy",
+      "https://news.stanford.edu/stories/2025/08/moderate-alcohol-consumption-drinking-health-benefits-impacts-research",
+      "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/alcohol-and-heart-health",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7020057/"
+    ],
+    "search_results": [
+      {
+        "title": "Is drinking in moderation good for your heart? - Harvard Gazette",
+        "url": "https://news.harvard.edu/gazette/story/2023/06/is-drinking-in-moderation-good-for-your-heart/",
+        "date": "2023-06-12",
+        "last_updated": "2026-06-10",
+        "snippet": "The researchers found that light/moderate alcohol consumption was associated with a substantial reduction in the risk of cardiovascular disease ...",
+        "source": "web"
+      },
+      {
+        "title": "Alcohol's Effects on the Cardiovascular System - PMC",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5513687/",
+        "last_updated": "2026-03-02",
+        "snippet": "This implies that lower alcohol consumption, even in light-to-moderate drinkers, was beneficial for CV health. These results challenge the findings from several ...",
+        "source": "web"
+      },
+      {
+        "title": "Large study challenges the theory that light alcohol consumption ...",
+        "url": "https://www.massgeneral.org/news/press-release/Large-study-challenges-the-theory-that-light-alcohol-consumption-benefits-heart-health",
+        "date": "2022-03-25",
+        "last_updated": "2026-06-10",
+        "snippet": "Consistent with earlier studies, investigators found that light to moderate drinkers had the lowest heart disease risk, followed by people who ...",
+        "source": "web"
+      },
+      {
+        "title": "Is alcohol heart-healthy? | Munson Healthcare",
+        "url": "https://www.munsonhealthcare.org/blog/is-alcohol-heart-healthy",
+        "date": "2022-05-24",
+        "last_updated": "2026-04-11",
+        "snippet": "The American Heart Association says moderate alcohol consumption can help protect against heart disease by raising HDL (\"good\") cholesterol and reducing plaque ...",
+        "source": "web"
+      },
+      {
+        "title": "Is moderate drinking actually healthy? Scientists say the idea is ...",
+        "url": "https://news.stanford.edu/stories/2025/08/moderate-alcohol-consumption-drinking-health-benefits-impacts-research",
+        "date": "2025-08-19",
+        "last_updated": "2025-11-12",
+        "snippet": "For decades, studies suggested that moderate alcohol intake could protect the heart, reduce diabetes risk, or even help you live longer.",
+        "source": "web"
+      },
+      {
+        "title": "Is drinking alcohol part of a healthy lifestyle?",
+        "url": "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/alcohol-and-heart-health",
+        "date": "2025-09-30",
+        "last_updated": "2026-06-05",
+        "snippet": "Recommendation: If you don\u2019t drink alcohol, don\u2019t start. If you choose to drink alcohol, limit your intake.\u00a0\n\nIf you don\u2019t drink already, don\u2019t start. If you do drink, talk with your health care professional about consuming alcohol in moderation. Some people should not drink at all, such as women wh...",
+        "source": "web"
+      },
+      {
+        "title": "Benefits and Risks of Moderate Alcohol Consumption on ... - PMC",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7020057/",
+        "date": "2019-12-30",
+        "last_updated": "2026-06-03",
+        "snippet": "New evidence associating low and moderate alcohol consumption with decreased risk of cardiovascular disease, several questions remain unanswered.",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The best-supported answer is that **moderate alcohol consumption has been associated with lower cardiovascular risk in some observational studies, but it is not recommended as a health strategy because the apparent benefit is uncertain and alcohol still increases other risks, including cancer and overall mortality at higher intake levels**.[1][6][5]\n\n- **Cardiovascular benefit claim:** Some studies have found that light to moderate drinking is associated with fewer heart attacks, strokes, and lower cardiovascular disease risk, and proposed mechanisms include higher HDL cholesterol and antiplatelet effects.[1][2][4]  \n- **Why this is not settled:** Major heart-health guidance says these findings are largely observational and do **not** prove that alcohol itself causes better heart health; people who drink moderately may differ in diet, exercise, smoking, and other risk factors.[6][4]  \n- **Mortality-risk claim:** Newer large studies and expert summaries increasingly emphasize that **even low alcohol intake can raise risk**, especially for cancer, and that alcohol intake at all levels is linked to higher cardiovascular risk in some analyses.[1][3][5]  \n- **Dose matters:** Heavy drinking clearly increases cardiovascular harm, while moderate drinking may show a lower-risk pattern in some datasets; however, that pattern does not mean alcohol is protective enough to recommend starting or drinking for heart health.[3][6]\n\nA balanced evidence-based reading is:\n\n- **Moderate alcohol may correlate with lower cardiovascular risk in some populations**.[1][2][4]  \n- **But any amount of alcohol is not \u201csafe\u201d in a broad public-health sense**, because it can increase cancer risk and may increase mortality risk depending on dose, age, and individual factors.[1][5][6]  \n- **Current expert guidance does not recommend drinking alcohol for cardiovascular benefit**.[6][4]\n\n**Confidence levels**\n- **Moderate alcohol is associated with lower CV risk in some observational studies:** **High**[1][2][4]  \n- **This association is not proof of causation:** **High**[6][4]  \n- **Any alcohol increases cancer risk and may increase overall mortality risk:** **High**[1][5]  \n- **Alcohol should be started or continued for heart protection:** **High** that experts say **no**[6]"
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:27:12Z"
+}

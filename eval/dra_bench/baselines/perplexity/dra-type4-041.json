@@ -1,0 +1,101 @@
+{
+  "id": "dra-type4-041",
+  "provider": "perplexity",
+  "query": "How many languages will exist in the future?",
+  "narrative": "No one can say exactly **how many languages will exist in the future**. The best-supported answer is that the world currently has **about 7,000 languages**, but that number is expected to **decline**, possibly by **hundreds or thousands** over the next century because many languages are endangered.[3][2][1]\n\n- **Current baseline:** Ethnologue lists **7,159** languages in use today, while other counts put the total around **7,000**.[3][2]\n- **Likely trend:** Linguists and language-education sources say **many languages may go extinct** in coming decades, and some estimates suggest **about half** could disappear by the end of the century.[2][4]\n- **Why there is no exact number:** The count depends on how researchers define a *language* versus a *dialect*, and on whether a language is still actively used.[2][3]\n\n**Confidence level:**  \n- **High** that there are currently about **7,000 languages** in use.[3][2]  \n- **Moderate** that the number will **shrink significantly** in the future.[2][4]  \n- **Low** for any precise future total, because reliable forecasts vary widely and depend on policy, demographics, and language preservation efforts.[1][5]\n\nIf you want, I can also give you a **best-estimate range for 2100** based on current linguistics forecasts.",
+  "sources": [
+    "https://apolitical.co/en/articles/the-future-speaks-many-languages-will-yours-be-one-of-them-247",
+    "https://www.youtube.com/watch?v=5hibYoYwGko",
+    "https://www.ethnologue.com/insights/how-many-languages/",
+    "https://www.youtube.com/watch?v=nJ7tWLMkcG0",
+    "https://www.ie.edu/insights/ideas-to-shape-the-future/idea/the-future-of-language/"
+  ],
+  "citations": [
+    "https://apolitical.co/en/articles/the-future-speaks-many-languages-will-yours-be-one-of-them-247",
+    "https://www.youtube.com/watch?v=5hibYoYwGko",
+    "https://www.ethnologue.com/insights/how-many-languages/",
+    "https://www.youtube.com/watch?v=nJ7tWLMkcG0",
+    "https://www.ie.edu/insights/ideas-to-shape-the-future/idea/the-future-of-language/"
+  ],
+  "raw": {
+    "id": "2e6ac84f-1656-4b02-8ca6-373ddb654208",
+    "model": "sonar-pro",
+    "created": 1781224362,
+    "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 300,
+      "total_tokens": 340,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00012,
+        "output_tokens_cost": 0.0045,
+        "request_cost": 0.006,
+        "total_cost": 0.01062
+      }
+    },
+    "citations": [
+      "https://apolitical.co/en/articles/the-future-speaks-many-languages-will-yours-be-one-of-them-247",
+      "https://www.youtube.com/watch?v=5hibYoYwGko",
+      "https://www.ethnologue.com/insights/how-many-languages/",
+      "https://www.youtube.com/watch?v=nJ7tWLMkcG0",
+      "https://www.ie.edu/insights/ideas-to-shape-the-future/idea/the-future-of-language/"
+    ],
+    "search_results": [
+      {
+        "title": "The Future Speaks Many Languages. Will Yours Be One of Them?",
+        "url": "https://apolitical.co/en/articles/the-future-speaks-many-languages-will-yours-be-one-of-them-247",
+        "date": "2024-10-19",
+        "last_updated": "2026-06-05",
+        "snippet": "As we build a future that promises to be multilingual, we must ask ourselves: will your language survive? Today, over 7,000 languages are spoken ...",
+        "source": "web"
+      },
+      {
+        "title": "How Will Language Change in the Future? - YouTube",
+        "url": "https://www.youtube.com/watch?v=5hibYoYwGko",
+        "date": "2015-10-28",
+        "last_updated": "2025-10-29",
+        "snippet": "... future of language: how the past tense in English may change, how many of the world's languages may go extinct, and whether we'll all end up ...",
+        "source": "web"
+      },
+      {
+        "title": "How many languages are there in the world? | Ethnologue Free",
+        "url": "https://www.ethnologue.com/insights/how-many-languages/",
+        "last_updated": "2025-07-01",
+        "snippet": "7,170 languages are in use today. That number is constantly in flux, because we're learning more about the world's languages every day.",
+        "source": "web"
+      },
+      {
+        "title": "What is the Language of the Future? (2050 and Beyond) - YouTube",
+        "url": "https://www.youtube.com/watch?v=nJ7tWLMkcG0",
+        "date": "2020-11-12",
+        "last_updated": "2026-05-16",
+        "snippet": "What will we all be speaking in the future? With the rapid rate at which the world is changing, what effect will it have on human culture ...",
+        "source": "web"
+      },
+      {
+        "title": "The Future of Language - Ideas to Shape the Future",
+        "url": "https://www.ie.edu/insights/ideas-to-shape-the-future/idea/the-future-of-language/",
+        "date": "2023-06-06",
+        "last_updated": "2025-09-07",
+        "snippet": "Will improvements in machine translation and the spread of English lead to a monoculture of language?",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "No one can say exactly **how many languages will exist in the future**. The best-supported answer is that the world currently has **about 7,000 languages**, but that number is expected to **decline**, possibly by **hundreds or thousands** over the next century because many languages are endangered.[3][2][1]\n\n- **Current baseline:** Ethnologue lists **7,159** languages in use today, while other counts put the total around **7,000**.[3][2]\n- **Likely trend:** Linguists and language-education sources say **many languages may go extinct** in coming decades, and some estimates suggest **about half** could disappear by the end of the century.[2][4]\n- **Why there is no exact number:** The count depends on how researchers define a *language* versus a *dialect*, and on whether a language is still actively used.[2][3]\n\n**Confidence level:**  \n- **High** that there are currently about **7,000 languages** in use.[3][2]  \n- **Moderate** that the number will **shrink significantly** in the future.[2][4]  \n- **Low** for any precise future total, because reliable forecasts vary widely and depend on policy, demographics, and language preservation efforts.[1][5]\n\nIf you want, I can also give you a **best-estimate range for 2100** based on current linguistics forecasts."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:32:42Z"
+}

@@ -1,0 +1,133 @@
+{
+  "id": "dra-type5-048",
+  "provider": "perplexity",
+  "query": "Map the data flow through a machine learning pipeline from raw data ingestion to model deployment as a diagram.",
+  "narrative": "Here is a general **data\u2011flow diagram** for an end\u2011to\u2011end machine learning pipeline, written in **Mermaid** so you can render it directly in tools that support it.[1][3][6][7][8]\n\n```mermaid\nflowchart LR\n    %% ========= LAYERS =========\n    subgraph S0[\"Data Sources\"]\n        s1[\"Operational DBs / Data Warehouse\"]\n        s2[\"Logs & Events\"]\n        s3[\"Files (CSV, Parquet, JSON)\"]\n        s4[\"External APIs / 3rd\u2011party data\"]\n        s5[\"User\u2011generated data\"]\n    end\n\n    subgraph S1[\"Ingestion & Storage\"]\n        i1[\"Batch ingestion (ETL/ELT jobs)\"]\n        i2[\"Streaming ingestion (Kafka, Kinesis, etc.)\"]\n        i3[\"Raw data store / Data lake\\n(object storage, lakehouse)\"]\n    end\n\n    subgraph S2[\"Data Processing & Feature Engineering\"]\n        c1[\"Data cleaning & validation\\n(schema checks, dedup, outlier handling)\"]\n        c2[\"Transformation\\n(type casting, joins, aggregations)\"]\n        c3[\"Feature engineering\\n(domain features, embeddings, encodings)\"]\n        c4[\"Feature store\\n(online & offline views)\"]\n    end\n\n    subgraph S3[\"Model Development & Training\"]\n        e1[\"Train/validation/test split\\n(+ cross\u2011validation)\"]\n        e2[\"Model training\\n(algorithms, hyperparameter search)\"]\n        e3[\"Model evaluation\\n(metrics, bias/fairness checks)\"]\n        e4[\"Model registry\\n(versioned models & metadata)\"]\n    end\n\n    subgraph S4[\"Deployment & Serving\"]\n        d1[\"Deployment pipeline (CI/CD for ML)\\n(build, test, promote)\"]\n        d2[\"Online inference service\\n(REST/gRPC, low latency)\"]\n        d3[\"Batch scoring jobs\\n(predictions written to tables/files)\"]\n    end\n\n    subgraph S5[\"Monitoring, Feedback & Retraining\"]\n        m1[\"Monitoring\\n(latency, errors, resource usage)\"]\n        m2[\"Data & prediction drift detection\"]\n        m3[\"Business KPI tracking\"]\n        m4[\"Feedback loop & labeling\\n(ground truth collection)\"]\n        m5[\"Trigger retraining\\n(on schedule or drift/quality events)\"]\n    end\n\n    %% ========= DATA FLOW =========\n    %% Sources -> Ingestion\n    s1 --> i1\n    s2 --> i2\n    s3 --> i1\n    s4 --> i1\n    s5 --> i2\n\n    %% Ingestion -> Raw store\n    i1 --> i3\n    i2 --> i3\n\n    %% Raw store -> Processing & Features\n    i3 --> c1\n    c1 --> c2\n    c2 --> c3\n    c3 --> c4\n\n    %% Features -> Training\n    c4 --> e1\n    e1 --> e2\n    e2 --> e3\n    e3 --> e4\n\n    %% Registry -> Deployment\n    e4 --> d1\n    d1 --> d2\n    d1 --> d3\n\n    %% Inference uses features / raw data\n    c4 --> d2\n    i3 --> d3\n\n    %% Serving -> Monitoring & Feedback\n    d2 --> m1\n    d2 --> m2\n    d2 --> m3\n    d3 --> m2\n    d3 --> m3\n\n    %% Feedback -> Retraining loop\n    m2 --> m4\n    m3 --> m4\n    m4 --> m5\n    m5 --> e1\n```\n\n---\n\n**How to use this:**\n\n- You can paste this code into any Mermaid\u2011compatible editor or documentation system to visualize the flow as a diagram.[1]  \n- To simplify for teaching or slides, you can:\n  - Collapse S1\u2013S2 into a single **\u201cData pipeline (ETL/ELT)\u201d** block if you only want a high\u2011level view.[2][4]  \n  - Collapse S3\u2013S5 into **\u201cMLOps pipeline (train \u2192 deploy \u2192 monitor \u2192 retrain)\u201d**.[5][6]  \n\n---\n\n**Major claims and confidence**\n\n- The stages included (ingestion \u2192 processing \u2192 feature store \u2192 training \u2192 registry \u2192 deployment \u2192 monitoring \u2192 retraining) reflect standard ML pipeline anatomy and MLOps practice.[3][5][6][7][8]  \n  - **Confidence: High**\n\n- Using a directed acyclic graph (DAG) of tasks (e.g., for ETL/ELT and training orchestration) is a common implementation pattern.[2][5][6]  \n  - **Confidence: High**",
+  "sources": [
+    "https://www.mermaideditor.io/templates/ai-and-data/ml-training-pipeline",
+    "https://www.youtube.com/watch?v=OnIQrDiTtRM&vl=en",
+    "https://www.ibm.com/think/topics/machine-learning-pipeline",
+    "https://montecarlo.ai/blog-data-pipeline-architecture-explained/",
+    "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+    "https://quix.io/blog/the-anatomy-of-a-machine-learning-pipeline",
+    "https://clarifai.com/blog/ml-pipeline",
+    "https://www.matillion.com/blog/what-are-machine-learning-pipelines"
+  ],
+  "citations": [
+    "https://www.mermaideditor.io/templates/ai-and-data/ml-training-pipeline",
+    "https://www.youtube.com/watch?v=OnIQrDiTtRM&vl=en",
+    "https://www.ibm.com/think/topics/machine-learning-pipeline",
+    "https://montecarlo.ai/blog-data-pipeline-architecture-explained/",
+    "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+    "https://quix.io/blog/the-anatomy-of-a-machine-learning-pipeline",
+    "https://clarifai.com/blog/ml-pipeline",
+    "https://www.matillion.com/blog/what-are-machine-learning-pipelines"
+  ],
+  "raw": {
+    "id": "3deb9766-0a91-40be-8667-5e55b75d9713",
+    "model": "sonar-pro",
+    "created": 1781224499,
+    "usage": {
+      "prompt_tokens": 51,
+      "completion_tokens": 1007,
+      "total_tokens": 1058,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00015,
+        "output_tokens_cost": 0.01511,
+        "request_cost": 0.006,
+        "total_cost": 0.02126
+      }
+    },
+    "citations": [
+      "https://www.mermaideditor.io/templates/ai-and-data/ml-training-pipeline",
+      "https://www.youtube.com/watch?v=OnIQrDiTtRM&vl=en",
+      "https://www.ibm.com/think/topics/machine-learning-pipeline",
+      "https://montecarlo.ai/blog-data-pipeline-architecture-explained/",
+      "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+      "https://quix.io/blog/the-anatomy-of-a-machine-learning-pipeline",
+      "https://clarifai.com/blog/ml-pipeline",
+      "https://www.matillion.com/blog/what-are-machine-learning-pipelines"
+    ],
+    "search_results": [
+      {
+        "title": "ML Training Pipeline - Mermaid Diagram Template",
+        "url": "https://www.mermaideditor.io/templates/ai-and-data/ml-training-pipeline",
+        "last_updated": "2026-03-21",
+        "snippet": "End-to-end machine learning pipeline from raw data ingestion through feature engineering, model training, evaluation, and deployment.",
+        "source": "web"
+      },
+      {
+        "title": "How to Build Data Pipelines for ML Projects (w/ Python Code)",
+        "url": "https://www.youtube.com/watch?v=OnIQrDiTtRM&vl=en",
+        "date": "2024-05-03",
+        "last_updated": "2026-06-11",
+        "snippet": "Want your team maximizing Claude? I run 1:1 and team AI workshops for companies doing $1M+ per year: ...",
+        "source": "web"
+      },
+      {
+        "title": "What Is a Machine Learning Pipeline? - IBM",
+        "url": "https://www.ibm.com/think/topics/machine-learning-pipeline",
+        "date": "2025-05-22",
+        "last_updated": "2026-06-09",
+        "snippet": "A machine learning (ML) pipeline is a series of interconnected data processing and modeling steps for streamlining the process of working with ML models.",
+        "source": "web"
+      },
+      {
+        "title": "Data Pipeline Architecture Explained: 6 Diagrams And Best Practices",
+        "url": "https://montecarlo.ai/blog-data-pipeline-architecture-explained/",
+        "date": "2025-07-09",
+        "last_updated": "2026-06-10",
+        "snippet": "Level up your data pipeline architecture knowledge with this detailed explainer with helpful images and diagrams.",
+        "source": "web"
+      },
+      {
+        "title": "MLOps: Continuous delivery and automation pipelines in machine ...",
+        "url": "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "date": "2024-08-28",
+        "snippet": "This document discusses techniques for implementing and automating continuous integration (CI), continuous delivery (CD), and continuous ...",
+        "source": "web"
+      },
+      {
+        "title": "The anatomy of a machine learning pipeline - Quix",
+        "url": "https://quix.io/blog/the-anatomy-of-a-machine-learning-pipeline",
+        "date": "2023-08-23",
+        "last_updated": "2026-06-10",
+        "snippet": "A machine learning pipeline is a set of repeatable, linked, and often automated steps you follow to engineer, train, and deploy ML models to production.",
+        "source": "web"
+      },
+      {
+        "title": "What Is an ML Pipeline? Stages, Architecture & Best Practices",
+        "url": "https://clarifai.com/blog/ml-pipeline",
+        "date": "2025-11-12",
+        "last_updated": "2026-06-02",
+        "snippet": "ML pipelines are the orchestrated series of automated steps that transform raw data into deployed AI models. They cover data collection, ...",
+        "source": "web"
+      },
+      {
+        "title": "What are Machine Learning Pipelines? | A Guide to ... - Matillion",
+        "url": "https://www.matillion.com/blog/what-are-machine-learning-pipelines",
+        "date": "2025-06-03",
+        "last_updated": "2026-06-10",
+        "snippet": "A machine learning pipeline (or ML pipeline), is a structured sequence of steps that handle data processing and model development.",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Here is a general **data\u2011flow diagram** for an end\u2011to\u2011end machine learning pipeline, written in **Mermaid** so you can render it directly in tools that support it.[1][3][6][7][8]\n\n```mermaid\nflowchart LR\n    %% ========= LAYERS =========\n    subgraph S0[\"Data Sources\"]\n        s1[\"Operational DBs / Data Warehouse\"]\n        s2[\"Logs & Events\"]\n        s3[\"Files (CSV, Parquet, JSON)\"]\n        s4[\"External APIs / 3rd\u2011party data\"]\n        s5[\"User\u2011generated data\"]\n    end\n\n    subgraph S1[\"Ingestion & Storage\"]\n        i1[\"Batch ingestion (ETL/ELT jobs)\"]\n        i2[\"Streaming ingestion (Kafka, Kinesis, etc.)\"]\n        i3[\"Raw data store / Data lake\\n(object storage, lakehouse)\"]\n    end\n\n    subgraph S2[\"Data Processing & Feature Engineering\"]\n        c1[\"Data cleaning & validation\\n(schema checks, dedup, outlier handling)\"]\n        c2[\"Transformation\\n(type casting, joins, aggregations)\"]\n        c3[\"Feature engineering\\n(domain features, embeddings, encodings)\"]\n        c4[\"Feature store\\n(online & offline views)\"]\n    end\n\n    subgraph S3[\"Model Development & Training\"]\n        e1[\"Train/validation/test split\\n(+ cross\u2011validation)\"]\n        e2[\"Model training\\n(algorithms, hyperparameter search)\"]\n        e3[\"Model evaluation\\n(metrics, bias/fairness checks)\"]\n        e4[\"Model registry\\n(versioned models & metadata)\"]\n    end\n\n    subgraph S4[\"Deployment & Serving\"]\n        d1[\"Deployment pipeline (CI/CD for ML)\\n(build, test, promote)\"]\n        d2[\"Online inference service\\n(REST/gRPC, low latency)\"]\n        d3[\"Batch scoring jobs\\n(predictions written to tables/files)\"]\n    end\n\n    subgraph S5[\"Monitoring, Feedback & Retraining\"]\n        m1[\"Monitoring\\n(latency, errors, resource usage)\"]\n        m2[\"Data & prediction drift detection\"]\n        m3[\"Business KPI tracking\"]\n        m4[\"Feedback loop & labeling\\n(ground truth collection)\"]\n        m5[\"Trigger retraining\\n(on schedule or drift/quality events)\"]\n    end\n\n    %% ========= DATA FLOW =========\n    %% Sources -> Ingestion\n    s1 --> i1\n    s2 --> i2\n    s3 --> i1\n    s4 --> i1\n    s5 --> i2\n\n    %% Ingestion -> Raw store\n    i1 --> i3\n    i2 --> i3\n\n    %% Raw store -> Processing & Features\n    i3 --> c1\n    c1 --> c2\n    c2 --> c3\n    c3 --> c4\n\n    %% Features -> Training\n    c4 --> e1\n    e1 --> e2\n    e2 --> e3\n    e3 --> e4\n\n    %% Registry -> Deployment\n    e4 --> d1\n    d1 --> d2\n    d1 --> d3\n\n    %% Inference uses features / raw data\n    c4 --> d2\n    i3 --> d3\n\n    %% Serving -> Monitoring & Feedback\n    d2 --> m1\n    d2 --> m2\n    d2 --> m3\n    d3 --> m2\n    d3 --> m3\n\n    %% Feedback -> Retraining loop\n    m2 --> m4\n    m3 --> m4\n    m4 --> m5\n    m5 --> e1\n```\n\n---\n\n**How to use this:**\n\n- You can paste this code into any Mermaid\u2011compatible editor or documentation system to visualize the flow as a diagram.[1]  \n- To simplify for teaching or slides, you can:\n  - Collapse S1\u2013S2 into a single **\u201cData pipeline (ETL/ELT)\u201d** block if you only want a high\u2011level view.[2][4]  \n  - Collapse S3\u2013S5 into **\u201cMLOps pipeline (train \u2192 deploy \u2192 monitor \u2192 retrain)\u201d**.[5][6]  \n\n---\n\n**Major claims and confidence**\n\n- The stages included (ingestion \u2192 processing \u2192 feature store \u2192 training \u2192 registry \u2192 deployment \u2192 monitoring \u2192 retraining) reflect standard ML pipeline anatomy and MLOps practice.[3][5][6][7][8]  \n  - **Confidence: High**\n\n- Using a directed acyclic graph (DAG) of tasks (e.g., for ETL/ELT and training orchestration) is a common implementation pattern.[2][5][6]  \n  - **Confidence: High**"
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:34:59Z"
+}

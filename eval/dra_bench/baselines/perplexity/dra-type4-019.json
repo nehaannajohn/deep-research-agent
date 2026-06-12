@@ -1,0 +1,122 @@
+{
+  "id": "dra-type4-019",
+  "provider": "perplexity",
+  "query": "How do I fix it?",
+  "narrative": "I need more context to give you a useful fix. \u201cHow do I fix it?\u201d is too broad for me to know what\u2019s wrong or what you\u2019re working on.\n\nTo move forward, please tell me:\n\n1. **What \u201cit\u201d is**\n   - Example: a **laptop**, **phone**, **car**, **leaky faucet**, **software error**, **relationship issue**, etc.\n2. **What exactly is happening**\n   - Errors or symptoms (messages on screen, noises, leaks, crashes, etc.).\n   - When it started and whether anything changed right before it (update, drop, install, move, etc.).\n3. **What you\u2019ve tried so far**\n   - Any steps you already took to diagnose or fix it.\n4. **How technical you\u2019re comfortable getting**\n   - For example: \n     - \u201cExplain like I\u2019m a beginner, step by step\u201d  \n     - or \u201cI\u2019m comfortable with tools/terminals/registry edits; be technical.\u201d\n\nIf you prefer, you can answer in a quick template like this:\n\n- Device / system / situation:\n- Exact problem / error:\n- When it happens:\n- What changed before it broke (if anything):\n- What I\u2019ve tried already:\n- My skill/comfort level:\n\nOnce you share that, I can:\n\n- Walk you through **step\u2011by\u2011step troubleshooting** tailored to your situation.\n- Tell you **what to check first** and what *not* to do (to avoid making it worse).\n- Help you decide whether it\u2019s realistically a **DIY fix** or should go to a professional.\n\nIf you don\u2019t want to explain details and just want a **generic \u201cfirst-aid\u201d checklist** for broken things (physical or digital), say which category (e.g., \u201ccomputer problem,\u201d \u201cplumbing,\u201d \u201cphone,\u201d \u201cmental burnout,\u201d etc.), and I\u2019ll give you a structured diagnostic checklist for that.",
+  "sources": [
+    "https://www.youtube.com/watch?v=ou8tizKLlrM",
+    "https://www.facebook.com/groups/1338423902977247/posts/2649217628564528/",
+    "https://www.youtube.com/c/howtofixitworkshop",
+    "https://www.ifixit.com",
+    "https://www.youtube.com/HowFixIT",
+    "https://www.youtube.com/watch?v=0AlYkJwy9Qk",
+    "https://www.facebook.com/groups/it.humor.and.memes/posts/27752779727654448/"
+  ],
+  "citations": [
+    "https://www.youtube.com/watch?v=ou8tizKLlrM",
+    "https://www.facebook.com/groups/1338423902977247/posts/2649217628564528/",
+    "https://www.youtube.com/c/howtofixitworkshop",
+    "https://www.ifixit.com",
+    "https://www.youtube.com/HowFixIT",
+    "https://www.youtube.com/watch?v=0AlYkJwy9Qk",
+    "https://www.facebook.com/groups/it.humor.and.memes/posts/27752779727654448/"
+  ],
+  "raw": {
+    "id": "9dabe0f4-1d41-4ab8-8de7-b2d93642267b",
+    "model": "sonar-pro",
+    "created": 1781224251,
+    "usage": {
+      "prompt_tokens": 37,
+      "completion_tokens": 398,
+      "total_tokens": 435,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00011,
+        "output_tokens_cost": 0.00597,
+        "request_cost": 0.006,
+        "total_cost": 0.01208
+      }
+    },
+    "citations": [
+      "https://www.youtube.com/watch?v=ou8tizKLlrM",
+      "https://www.facebook.com/groups/1338423902977247/posts/2649217628564528/",
+      "https://www.youtube.com/c/howtofixitworkshop",
+      "https://www.ifixit.com",
+      "https://www.youtube.com/HowFixIT",
+      "https://www.youtube.com/watch?v=0AlYkJwy9Qk",
+      "https://www.facebook.com/groups/it.humor.and.memes/posts/27752779727654448/"
+    ],
+    "search_results": [
+      {
+        "title": "Fix It Fast: 20+ Genius Repairs with Household Items - YouTube",
+        "url": "https://www.youtube.com/watch?v=ou8tizKLlrM",
+        "date": "2025-05-06",
+        "last_updated": "2026-06-11",
+        "snippet": "No tools? No problem! \ud83d\udee0\ufe0f\u2728 Get ready to fix everything from squeaky doors to broken zippers with 20+ genius repair hacks using simple ...",
+        "source": "web"
+      },
+      {
+        "title": "Help me. You can explain more. How to fix it - Facebook",
+        "url": "https://www.facebook.com/groups/1338423902977247/posts/2649217628564528/",
+        "date": "2023-11-25",
+        "last_updated": "2026-03-24",
+        "snippet": "Fix it the easy way if you go through the right steps. Solve Any Problem In 5 Simple Steps. Tech Support, Help and Questions!",
+        "source": "web"
+      },
+      {
+        "title": "How To Fix It Workshop - YouTube",
+        "url": "https://www.youtube.com/c/howtofixitworkshop",
+        "snippet": "Popular videos \u00b7 Fix Airflow from your Vents \u00b7 How To Fix Samsung Dishwasher with LC Error Code \u00b7 How To Restore A Worn-Out/Weathered Deck. 452K views. 5 years ...",
+        "source": "web"
+      },
+      {
+        "title": "iFixit: The Free Repair Manual",
+        "url": "https://www.ifixit.com",
+        "date": "2024-09-30",
+        "last_updated": "2026-06-11",
+        "snippet": "Step-by-step Repair Guides Learn how to fix anything with simple, easy-to-follow instructions created by real fixers.",
+        "source": "web"
+      },
+      {
+        "title": "How-FixIT - YouTube",
+        "url": "https://www.youtube.com/HowFixIT",
+        "date": "2025-04-06",
+        "last_updated": "2025-04-08",
+        "snippet": "Your go-to destination for expert DIY repair guides! Dive into our comprehensive step-by-step tutorials and unlock the power to fix and upgrade your favorite ...",
+        "source": "web"
+      },
+      {
+        "title": "How to Fix ANYTHING - Essential DIY Repair Methods & Tools",
+        "url": "https://www.youtube.com/watch?v=0AlYkJwy9Qk",
+        "date": "2019-07-27",
+        "last_updated": "2026-06-11",
+        "snippet": "Most things around us eventually break down and need to be fixed. Learn essential DIY repair methods for fixing just about anything yourself ...",
+        "source": "web"
+      },
+      {
+        "title": "Simple technique for fixing computer problems - Facebook",
+        "url": "https://www.facebook.com/groups/it.humor.and.memes/posts/27752779727654448/",
+        "date": "2024-09-25",
+        "last_updated": "2026-04-08",
+        "snippet": "I've fixed more computer problems with this simple technique than all the others combined. Fixing computer problems with a simple technique, ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "I need more context to give you a useful fix. \u201cHow do I fix it?\u201d is too broad for me to know what\u2019s wrong or what you\u2019re working on.\n\nTo move forward, please tell me:\n\n1. **What \u201cit\u201d is**\n   - Example: a **laptop**, **phone**, **car**, **leaky faucet**, **software error**, **relationship issue**, etc.\n2. **What exactly is happening**\n   - Errors or symptoms (messages on screen, noises, leaks, crashes, etc.).\n   - When it started and whether anything changed right before it (update, drop, install, move, etc.).\n3. **What you\u2019ve tried so far**\n   - Any steps you already took to diagnose or fix it.\n4. **How technical you\u2019re comfortable getting**\n   - For example: \n     - \u201cExplain like I\u2019m a beginner, step by step\u201d  \n     - or \u201cI\u2019m comfortable with tools/terminals/registry edits; be technical.\u201d\n\nIf you prefer, you can answer in a quick template like this:\n\n- Device / system / situation:\n- Exact problem / error:\n- When it happens:\n- What changed before it broke (if anything):\n- What I\u2019ve tried already:\n- My skill/comfort level:\n\nOnce you share that, I can:\n\n- Walk you through **step\u2011by\u2011step troubleshooting** tailored to your situation.\n- Tell you **what to check first** and what *not* to do (to avoid making it worse).\n- Help you decide whether it\u2019s realistically a **DIY fix** or should go to a professional.\n\nIf you don\u2019t want to explain details and just want a **generic \u201cfirst-aid\u201d checklist** for broken things (physical or digital), say which category (e.g., \u201ccomputer problem,\u201d \u201cplumbing,\u201d \u201cphone,\u201d \u201cmental burnout,\u201d etc.), and I\u2019ll give you a structured diagnostic checklist for that."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:30:51Z"
+}

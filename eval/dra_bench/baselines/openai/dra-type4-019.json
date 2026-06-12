@@ -1,0 +1,43 @@
+{
+  "id": "dra-type4-019",
+  "provider": "openai",
+  "query": "How do I fix it?",
+  "narrative": "I'm sorry, but I need more context to assist you effectively. Could you please provide more details about the issue you're experiencing? ",
+  "sources": [],
+  "citations": [],
+  "raw": {
+    "id": "chatcmpl-eb2e7a87-9c7d-494f-a890-c9036e5043e8",
+    "object": "chat.completion",
+    "created": 1781224837,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "I'm sorry, but I need more context to assist you effectively. Could you please provide more details about the issue you're experiencing? ",
+          "refusal": null,
+          "annotations": []
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 45,
+      "completion_tokens": 26,
+      "total_tokens": 71,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:40:49Z"
+}

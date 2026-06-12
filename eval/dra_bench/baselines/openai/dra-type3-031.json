@@ -1,0 +1,137 @@
+{
+  "id": "dra-type3-031",
+  "provider": "openai",
+  "query": "Are dietary cholesterol intakes meaningfully linked to blood cholesterol or is the connection negligible for most people?",
+  "narrative": "The relationship between dietary cholesterol intake and blood cholesterol levels has been extensively studied, leading to a nuanced understanding of their connection.\n\n**Claim 1: For most individuals, dietary cholesterol has a minimal impact on blood cholesterol levels.** This is because the body regulates blood cholesterol by adjusting its own production. ([healthline.com](https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai))\n\n**Evidence:**\n\n- The Centers for Disease Control and Prevention (CDC) states that the body produces all the cholesterol it needs, and experts recommend consuming as little dietary cholesterol as possible. ([cdc.gov](https://www.cdc.gov/cholesterol/about/index.html?utm_source=openai))\n\n- The American Heart Association notes that while the liver produces all the necessary cholesterol, additional cholesterol from animal-based foods can contribute to higher blood cholesterol levels in some individuals. ([heart.org](https://www.heart.org/en/health-topics/cholesterol/about-cholesterol?utm_source=openai))\n\n**Claim 2: Certain individuals, known as \"hyperresponders,\" may experience a more significant increase in blood cholesterol levels in response to dietary cholesterol.** However, this increase does not necessarily elevate their risk of heart disease. ([healthline.com](https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai))\n\n**Evidence:**\n\n- Research indicates that hyperresponders experience increases in both LDL and HDL cholesterol, maintaining a stable LDL to HDL ratio, which does not appear to increase heart disease risk. ([healthline.com](https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai))\n\n**Claim 3: Saturated and trans fats have a more substantial effect on raising blood cholesterol levels than dietary cholesterol itself.** Therefore, limiting these fats is more effective for managing cholesterol levels. ([my.clevelandclinic.org](https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai))\n\n**Evidence:**\n\n- The Cleveland Clinic emphasizes that saturated and trans fats are the primary dietary factors that raise LDL cholesterol, and reducing their intake is crucial for cholesterol management. ([my.clevelandclinic.org](https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai))\n\n**Claim 4: Recent dietary guidelines have removed specific limits on dietary cholesterol intake, reflecting the understanding that it has a limited impact on blood cholesterol for most people.** However, it is still recommended to consume dietary cholesterol in moderation. ([health.clevelandclinic.org](https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai))\n\n**Evidence:**\n\n- The Cleveland Clinic notes that while previous guidelines recommended limiting dietary cholesterol to 300 mg per day, current guidelines have removed this specific limit, advising individuals to keep dietary cholesterol as low as possible without compromising nutrition. ([health.clevelandclinic.org](https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai))\n\n**Conclusion:**\n\nFor the majority of individuals, dietary cholesterol has a negligible effect on blood cholesterol levels due to the body's regulatory mechanisms. However, certain individuals may experience a more pronounced response. Focusing on reducing saturated and trans fat intake is more effective for managing blood cholesterol levels. Current dietary guidelines reflect this understanding by removing specific limits on dietary cholesterol intake while still recommending moderation. ",
+  "sources": [
+    "https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai",
+    "https://www.cdc.gov/cholesterol/about/index.html?utm_source=openai",
+    "https://www.heart.org/en/health-topics/cholesterol/about-cholesterol?utm_source=openai",
+    "https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai",
+    "https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai",
+    "https://www.cdc.gov/cholesterol/about/index.html?utm_source=openai",
+    "https://www.heart.org/en/health-topics/cholesterol/about-cholesterol?utm_source=openai",
+    "https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai",
+    "https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-1859738c-1be0-411c-bf49-b22b5784492f",
+    "object": "chat.completion",
+    "created": 1781224774,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The relationship between dietary cholesterol intake and blood cholesterol levels has been extensively studied, leading to a nuanced understanding of their connection.\n\n**Claim 1: For most individuals, dietary cholesterol has a minimal impact on blood cholesterol levels.** This is because the body regulates blood cholesterol by adjusting its own production. ([healthline.com](https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai))\n\n**Evidence:**\n\n- The Centers for Disease Control and Prevention (CDC) states that the body produces all the cholesterol it needs, and experts recommend consuming as little dietary cholesterol as possible. ([cdc.gov](https://www.cdc.gov/cholesterol/about/index.html?utm_source=openai))\n\n- The American Heart Association notes that while the liver produces all the necessary cholesterol, additional cholesterol from animal-based foods can contribute to higher blood cholesterol levels in some individuals. ([heart.org](https://www.heart.org/en/health-topics/cholesterol/about-cholesterol?utm_source=openai))\n\n**Claim 2: Certain individuals, known as \"hyperresponders,\" may experience a more significant increase in blood cholesterol levels in response to dietary cholesterol.** However, this increase does not necessarily elevate their risk of heart disease. ([healthline.com](https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai))\n\n**Evidence:**\n\n- Research indicates that hyperresponders experience increases in both LDL and HDL cholesterol, maintaining a stable LDL to HDL ratio, which does not appear to increase heart disease risk. ([healthline.com](https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai))\n\n**Claim 3: Saturated and trans fats have a more substantial effect on raising blood cholesterol levels than dietary cholesterol itself.** Therefore, limiting these fats is more effective for managing cholesterol levels. ([my.clevelandclinic.org](https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai))\n\n**Evidence:**\n\n- The Cleveland Clinic emphasizes that saturated and trans fats are the primary dietary factors that raise LDL cholesterol, and reducing their intake is crucial for cholesterol management. ([my.clevelandclinic.org](https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai))\n\n**Claim 4: Recent dietary guidelines have removed specific limits on dietary cholesterol intake, reflecting the understanding that it has a limited impact on blood cholesterol for most people.** However, it is still recommended to consume dietary cholesterol in moderation. ([health.clevelandclinic.org](https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai))\n\n**Evidence:**\n\n- The Cleveland Clinic notes that while previous guidelines recommended limiting dietary cholesterol to 300 mg per day, current guidelines have removed this specific limit, advising individuals to keep dietary cholesterol as low as possible without compromising nutrition. ([health.clevelandclinic.org](https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai))\n\n**Conclusion:**\n\nFor the majority of individuals, dietary cholesterol has a negligible effect on blood cholesterol levels due to the body's regulatory mechanisms. However, certain individuals may experience a more pronounced response. Focusing on reducing saturated and trans fat intake is more effective for managing blood cholesterol levels. Current dietary guidelines reflect this understanding by removing specific limits on dietary cholesterol intake while still recommending moderation. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 469,
+                "start_index": 359,
+                "title": "Why Dietary Cholesterol Does Not Matter (For Most People)",
+                "url": "https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 755,
+                "start_index": 676,
+                "title": "About Cholesterol | Cholesterol | CDC",
+                "url": "https://www.cdc.gov/cholesterol/about/index.html?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1076,
+                "start_index": 975,
+                "title": "What Is Cholesterol? | American Heart Association",
+                "url": "https://www.heart.org/en/health-topics/cholesterol/about-cholesterol?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1438,
+                "start_index": 1328,
+                "title": "Why Dietary Cholesterol Does Not Matter (For Most People)",
+                "url": "https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1754,
+                "start_index": 1644,
+                "title": "Why Dietary Cholesterol Does Not Matter (For Most People)",
+                "url": "https://www.healthline.com/nutrition/dietary-cholesterol-does-not-matter?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2101,
+                "start_index": 1976,
+                "title": "Cholesterol Diet: How Nutrition & Foods Impact Levels",
+                "url": "https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2432,
+                "start_index": 2307,
+                "title": "Cholesterol Diet: How Nutrition & Foods Impact Levels",
+                "url": "https://my.clevelandclinic.org/health/articles/16867-cholesterol--nutrition-tlc?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2821,
+                "start_index": 2708,
+                "title": "How Much Cholesterol Should You Have Per Day?",
+                "url": "https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3224,
+                "start_index": 3111,
+                "title": "How Much Cholesterol Should You Have Per Day?",
+                "url": "https://health.clevelandclinic.org/how-much-cholesterol-per-day?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 720,
+      "total_tokens": 779,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:39:47Z"
+}

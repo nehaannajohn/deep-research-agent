@@ -1,0 +1,121 @@
+{
+  "id": "dra-type5-015",
+  "provider": "perplexity",
+  "query": "Diagram the software development lifecycle phases in a CI/CD pipeline from commit to production deployment.",
+  "narrative": "A CI/CD pipeline from **commit to production deployment** typically flows through these major software delivery phases: **Commit \u2192 Build \u2192 Test \u2192 Package \u2192 Staging Deploy \u2192 Staging Validation \u2192 Production Deploy \u2192 Post\u2011deploy Checks**.[1][2][3]\n\nBelow is a structured \u201cdiagram in text\u201d of the lifecycle with phases, activities, and artifacts.\n\n---\n\n### 1. Commit & Source Integration\n\n**Purpose:** Get code into a shared, versioned state and trigger automation.\n\n- **Phase name:** **Commit / Source Control**\n- **Trigger:** Developer pushes/merges changes to a VCS (e.g., Git main or PR branch).[2][3]\n- **Key activities:**\n  - Code implementation and local tests.\n  - Commit, push, and (optionally) pull request creation.\n- **Pipeline effect:** CI system **detects the new commit** and starts the pipeline.[2][3]\n- **Primary artifacts:** Source code, commit metadata, PRs.\n\n**Confidence:** High (standard CI starting point).[2][3]\n\n---\n\n### 2. Build\n\n**Purpose:** Turn source into a deployable artifact and fail fast if it is not buildable.\n\n- **Phase name:** **Build**\n- **Trigger:** New commit detected / build webhook.[2][3]\n- **Key activities:**\n  - Compile/assemble code into an **artifact** (binary, container image, package).[2][3]\n  - Resolve dependencies (Maven/Gradle/npm/etc.).[3]\n  - Run **linting/static analysis** as part of build step.[2]\n- **Outcome:**\n  - On success: build artifact stored (artifact repo, container registry).[2][3]\n  - On failure: pipeline stops, **feedback to developers**.[3]\n- **Primary artifacts:** Compiled binaries, Docker images, build logs.\n\n**Confidence:** High (core CI behavior).[2][3]\n\n---\n\n### 3. Automated Testing (CI Quality Gate)\n\n**Purpose:** Validate correctness and quality before anything is considered releasable.\n\n- **Phase name:** **Test**\n- **Trigger:** Successful build.[2][3]\n- **Key activities:**\n  - **Unit tests**, **integration tests**, and often **end\u2011to\u2011end tests**.[1][3]\n  - Additional checks: security scans, code coverage, style checks.\n- **Outcome:**\n  - On failure: pipeline stops, test status reported to developers.[1][3]\n  - On success: artifact is marked as **candidate for release** and can move into CD stages.[2][3]\n- **Primary artifacts:** Test reports, coverage reports, quality metrics.\n\n**Confidence:** High (described as the testing stage between build and deploy).[1][2][3]\n\n---\n\n### 4. Package & Release Candidate Creation\n\n**Purpose:** Produce a consistent, versioned unit that can be promoted across environments.\n\n- **Phase name:** **Package / Release Artifact**\n- **Trigger:** All CI tests pass.\n- **Key activities:**\n  - Tag and version the built artifact.\n  - Store in an artifact repository or container registry as a **release candidate**.[3][4]\n- **Outcome:** Immutable, identifiable artifact ready for promotion.\n- **Primary artifacts:** Versioned build (e.g., app-1.2.3.jar, Docker image tag).\n\n**Confidence:** Medium\u2013High (packaging and storing deployable artifacts is implied in CI/CD descriptions).[2][3][4]\n\n---\n\n### 5. Deploy to Staging (Start of CD)\n\n**Purpose:** Run the release candidate in a **production-like environment** for broader validation.\n\n- **Phase name:** **Staging Deployment**\n- **Trigger:** Successful CI pipeline / promotion rule.[1][3]\n- **Key activities:**\n  - Automatically **deploy artifact to a staging environment**.[1][3]\n  - Apply infrastructure configuration (IaC, Helm, etc.).\n- **Outcome:** Application is running in a staging environment for acceptance testing before production.[1][3]\n- **Primary artifacts:** Deployed application instances, environment config.\n\n**Confidence:** High (CD is described as deploying CI\u2011validated artifacts to QA/staging).[1][2][3]\n\n---\n\n### 6. Staging Validation & Acceptance Testing\n\n**Purpose:** Ensure the release behaves correctly under realistic conditions and meets business requirements.\n\n- **Phase name:** **Acceptance / Staging Tests**\n- **Trigger:** Successful staging deploy.[3]\n- **Key activities:**\n  - **Acceptance tests**, end\u2011to\u2011end, performance, security, and regression tests in staging.[1][3]\n  - Exploratory and UX testing where applicable.\n- **Outcome:**\n  - On failure: reject release candidate, send back to development.\n  - On success: mark build as **production\u2011ready**; may wait for manual approval in continuous *delivery*.[3][4]\n- **Primary artifacts:** Acceptance test reports, release notes, approval records.\n\n**Confidence:** High (acceptance + staging validation described as part of CI/CD workflow).[3][4]\n\n---\n\n### 7. Production Deployment\n\n**Purpose:** Make the validated release available to end users.\n\n- **Phase name:** **Production Deployment**\n- **Trigger:**\n  - **Continuous delivery:** Manual approval then automated deploy.[3][4]\n  - **Continuous deployment:** Automatic promotion after tests pass.[3][4]\n- **Key activities:**\n  - Orchestrate **deploy to production** (rolling, blue\u2011green, canary, etc.).[2][3]\n  - Run **smoke tests** or health checks after deploy.[3]\n  - Optionally control rollout (percentage of traffic, region\u2011by\u2011region).[2]\n- **Outcome:**\n  - New version live in production.\n  - Rollback mechanism in place if smoke tests or monitoring fail.[2][3]\n- **Primary artifacts:** Running production instances, monitoring dashboards, deployment logs.\n\n**Confidence:** High (final CD stage is deployment to production with validation/smoke tests).[2][3][4]\n\n---\n\n### 8. Post\u2011Deployment Monitoring & Feedback (Ops & Maintenance)\n\n**Purpose:** Close the loop in the lifecycle and feed production insights back into development.\n\n- **Phase name:** **Monitor / Operate / Maintain**\n- **Trigger:** After production deployment; ongoing.\n- **Key activities:**\n  - Monitor logs, metrics, traces, alerts (SLO/SLA tracking).\n  - Capture incidents, user feedback, and performance data.\n  - Feed issues back into backlog \u2192 new commits \u2192 next cycle.[1][4]\n- **Outcome:** Continuous improvement and reliability; informs next development iteration.\n- **Primary artifacts:** Incident reports, KPIs, defect tickets.\n\n**Confidence:** High (maintenance/operations is a standard SDLC phase; CI/CD is described as automating the path from commit to production and reducing downtime).[1][4]\n\n---\n\n### Compact \u201cDiagram\u201d View\n\n```text\nDeveloper Commit\n  \u2193\nCI: Build\n  \u2193\nCI: Automated Tests (unit/integration/e2e)\n  \u2193\nPackage & Store Artifact (Release Candidate)\n  \u2193\nCD: Deploy to Staging\n  \u2193\nStaging Validation (acceptance, performance, security)\n  \u2193\n[Manual approval (Continuous Delivery) or Auto (Continuous Deployment)]\n  \u2193\nCD: Deploy to Production\n  \u2193\nPost-deploy Checks (smoke tests, health checks)\n  \u2193\nMonitoring & Feedback \u2192 back into Development\n```\n\n- Phases **1\u20133** = core **Continuous Integration** (source \u2192 build \u2192 test).[2][4]\n- Phases **4\u20138** = **Continuous Delivery/Deployment** (package \u2192 staging \u2192 production + operations).[2][3][4]\n\nIf you want, I can adapt this into a swimlane-style diagram with example tools per phase (e.g., GitHub, Jenkins, Argo CD, Kubernetes) or tailor it to your current stack.",
+  "sources": [
+    "https://bytebytego.com/guides/cicd-pipeline-explained-in-simple-terms/",
+    "https://circleci.com/blog/what-is-a-ci-cd-pipeline/",
+    "https://www.geeksforgeeks.org/devops/what-is-ci-cd/",
+    "https://www.redhat.com/en/topics/devops/what-is-ci-cd",
+    "https://www.facebook.com/groups/ictvietnamcommunity/posts/681033360737230/",
+    "https://www.opsmx.com/blog/what-is-a-ci-cd-pipeline/",
+    "https://www.microsoft.com/en-us/software-development-companies/resources/articles/ci-cd-pipeline-guide"
+  ],
+  "citations": [
+    "https://bytebytego.com/guides/cicd-pipeline-explained-in-simple-terms/",
+    "https://circleci.com/blog/what-is-a-ci-cd-pipeline/",
+    "https://www.geeksforgeeks.org/devops/what-is-ci-cd/",
+    "https://www.redhat.com/en/topics/devops/what-is-ci-cd",
+    "https://www.facebook.com/groups/ictvietnamcommunity/posts/681033360737230/",
+    "https://www.opsmx.com/blog/what-is-a-ci-cd-pipeline/",
+    "https://www.microsoft.com/en-us/software-development-companies/resources/articles/ci-cd-pipeline-guide"
+  ],
+  "raw": {
+    "id": "0d1ea9b3-da90-46b6-90ee-047b24546c01",
+    "model": "sonar-pro",
+    "created": 1781224428,
+    "usage": {
+      "prompt_tokens": 49,
+      "completion_tokens": 1666,
+      "total_tokens": 1715,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00015,
+        "output_tokens_cost": 0.02499,
+        "request_cost": 0.006,
+        "total_cost": 0.03114
+      }
+    },
+    "citations": [
+      "https://bytebytego.com/guides/cicd-pipeline-explained-in-simple-terms/",
+      "https://circleci.com/blog/what-is-a-ci-cd-pipeline/",
+      "https://www.geeksforgeeks.org/devops/what-is-ci-cd/",
+      "https://www.redhat.com/en/topics/devops/what-is-ci-cd",
+      "https://www.facebook.com/groups/ictvietnamcommunity/posts/681033360737230/",
+      "https://www.opsmx.com/blog/what-is-a-ci-cd-pipeline/",
+      "https://www.microsoft.com/en-us/software-development-companies/resources/articles/ci-cd-pipeline-guide"
+    ],
+    "search_results": [
+      {
+        "title": "CI/CD Pipeline Explained in Simple Terms - ByteByteGo",
+        "url": "https://bytebytego.com/guides/cicd-pipeline-explained-in-simple-terms/",
+        "last_updated": "2026-06-10",
+        "snippet": "SDLC with CI/CD. The software development life cycle (SDLC) consists of several key stages: development, testing, deployment, and maintenance.",
+        "source": "web"
+      },
+      {
+        "title": "What is a CI/CD pipeline? - CircleCI",
+        "url": "https://circleci.com/blog/what-is-a-ci-cd-pipeline/",
+        "date": "2024-05-03",
+        "last_updated": "2026-06-09",
+        "snippet": "A CI/CD pipeline is a series of automated steps that helps software teams deliver code faster, safer, and more reliably.",
+        "source": "web"
+      },
+      {
+        "title": "Introduction to CI/CD - GeeksforGeeks",
+        "url": "https://www.geeksforgeeks.org/devops/what-is-ci-cd/",
+        "date": "2026-05-18",
+        "last_updated": "2026-06-11",
+        "snippet": "CI/CD (Continuous Integration and Continuous Delivery/Deployment) is a modern software development practice that automates the process of ...",
+        "source": "web"
+      },
+      {
+        "title": "What is CI/CD? - Red Hat",
+        "url": "https://www.redhat.com/en/topics/devops/what-is-ci-cd",
+        "date": "2025-06-10",
+        "last_updated": "2026-06-11",
+        "snippet": "CI/CD, which stands for continuous integration and continuous delivery/deployment, aims to streamline and accelerate the software development lifecycle.",
+        "source": "web"
+      },
+      {
+        "title": "CI/CD PIPELINE EXPLAINED IN SIMPLE TERMS Section 1",
+        "url": "https://www.facebook.com/groups/ictvietnamcommunity/posts/681033360737230/",
+        "date": "2023-08-24",
+        "snippet": "CI/CD (Continuous Integration/Continuous Deployment) pipelines are a crucial part of modern software development. They help automate the process ...",
+        "source": "web"
+      },
+      {
+        "title": "What is CI/CD and CI/CD Pipeline? - Processes, Stages, Benefits",
+        "url": "https://www.opsmx.com/blog/what-is-a-ci-cd-pipeline/",
+        "date": "2025-12-26",
+        "last_updated": "2026-06-11",
+        "snippet": "A CI/CD pipeline is defined as a series of interconnected steps that include stages from code commit, testing, staging, deployment testing, and finally, ...",
+        "source": "web"
+      },
+      {
+        "title": "CI/CD Pipeline Guide for Developers - Microsoft",
+        "url": "https://www.microsoft.com/en-us/software-development-companies/resources/articles/ci-cd-pipeline-guide",
+        "last_updated": "2026-06-11",
+        "snippet": "CI/CD pipelines dramatically enhance developer productivity by reducing friction in the development lifecycle and supporting rapid, efficient software delivery.",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "A CI/CD pipeline from **commit to production deployment** typically flows through these major software delivery phases: **Commit \u2192 Build \u2192 Test \u2192 Package \u2192 Staging Deploy \u2192 Staging Validation \u2192 Production Deploy \u2192 Post\u2011deploy Checks**.[1][2][3]\n\nBelow is a structured \u201cdiagram in text\u201d of the lifecycle with phases, activities, and artifacts.\n\n---\n\n### 1. Commit & Source Integration\n\n**Purpose:** Get code into a shared, versioned state and trigger automation.\n\n- **Phase name:** **Commit / Source Control**\n- **Trigger:** Developer pushes/merges changes to a VCS (e.g., Git main or PR branch).[2][3]\n- **Key activities:**\n  - Code implementation and local tests.\n  - Commit, push, and (optionally) pull request creation.\n- **Pipeline effect:** CI system **detects the new commit** and starts the pipeline.[2][3]\n- **Primary artifacts:** Source code, commit metadata, PRs.\n\n**Confidence:** High (standard CI starting point).[2][3]\n\n---\n\n### 2. Build\n\n**Purpose:** Turn source into a deployable artifact and fail fast if it is not buildable.\n\n- **Phase name:** **Build**\n- **Trigger:** New commit detected / build webhook.[2][3]\n- **Key activities:**\n  - Compile/assemble code into an **artifact** (binary, container image, package).[2][3]\n  - Resolve dependencies (Maven/Gradle/npm/etc.).[3]\n  - Run **linting/static analysis** as part of build step.[2]\n- **Outcome:**\n  - On success: build artifact stored (artifact repo, container registry).[2][3]\n  - On failure: pipeline stops, **feedback to developers**.[3]\n- **Primary artifacts:** Compiled binaries, Docker images, build logs.\n\n**Confidence:** High (core CI behavior).[2][3]\n\n---\n\n### 3. Automated Testing (CI Quality Gate)\n\n**Purpose:** Validate correctness and quality before anything is considered releasable.\n\n- **Phase name:** **Test**\n- **Trigger:** Successful build.[2][3]\n- **Key activities:**\n  - **Unit tests**, **integration tests**, and often **end\u2011to\u2011end tests**.[1][3]\n  - Additional checks: security scans, code coverage, style checks.\n- **Outcome:**\n  - On failure: pipeline stops, test status reported to developers.[1][3]\n  - On success: artifact is marked as **candidate for release** and can move into CD stages.[2][3]\n- **Primary artifacts:** Test reports, coverage reports, quality metrics.\n\n**Confidence:** High (described as the testing stage between build and deploy).[1][2][3]\n\n---\n\n### 4. Package & Release Candidate Creation\n\n**Purpose:** Produce a consistent, versioned unit that can be promoted across environments.\n\n- **Phase name:** **Package / Release Artifact**\n- **Trigger:** All CI tests pass.\n- **Key activities:**\n  - Tag and version the built artifact.\n  - Store in an artifact repository or container registry as a **release candidate**.[3][4]\n- **Outcome:** Immutable, identifiable artifact ready for promotion.\n- **Primary artifacts:** Versioned build (e.g., app-1.2.3.jar, Docker image tag).\n\n**Confidence:** Medium\u2013High (packaging and storing deployable artifacts is implied in CI/CD descriptions).[2][3][4]\n\n---\n\n### 5. Deploy to Staging (Start of CD)\n\n**Purpose:** Run the release candidate in a **production-like environment** for broader validation.\n\n- **Phase name:** **Staging Deployment**\n- **Trigger:** Successful CI pipeline / promotion rule.[1][3]\n- **Key activities:**\n  - Automatically **deploy artifact to a staging environment**.[1][3]\n  - Apply infrastructure configuration (IaC, Helm, etc.).\n- **Outcome:** Application is running in a staging environment for acceptance testing before production.[1][3]\n- **Primary artifacts:** Deployed application instances, environment config.\n\n**Confidence:** High (CD is described as deploying CI\u2011validated artifacts to QA/staging).[1][2][3]\n\n---\n\n### 6. Staging Validation & Acceptance Testing\n\n**Purpose:** Ensure the release behaves correctly under realistic conditions and meets business requirements.\n\n- **Phase name:** **Acceptance / Staging Tests**\n- **Trigger:** Successful staging deploy.[3]\n- **Key activities:**\n  - **Acceptance tests**, end\u2011to\u2011end, performance, security, and regression tests in staging.[1][3]\n  - Exploratory and UX testing where applicable.\n- **Outcome:**\n  - On failure: reject release candidate, send back to development.\n  - On success: mark build as **production\u2011ready**; may wait for manual approval in continuous *delivery*.[3][4]\n- **Primary artifacts:** Acceptance test reports, release notes, approval records.\n\n**Confidence:** High (acceptance + staging validation described as part of CI/CD workflow).[3][4]\n\n---\n\n### 7. Production Deployment\n\n**Purpose:** Make the validated release available to end users.\n\n- **Phase name:** **Production Deployment**\n- **Trigger:**\n  - **Continuous delivery:** Manual approval then automated deploy.[3][4]\n  - **Continuous deployment:** Automatic promotion after tests pass.[3][4]\n- **Key activities:**\n  - Orchestrate **deploy to production** (rolling, blue\u2011green, canary, etc.).[2][3]\n  - Run **smoke tests** or health checks after deploy.[3]\n  - Optionally control rollout (percentage of traffic, region\u2011by\u2011region).[2]\n- **Outcome:**\n  - New version live in production.\n  - Rollback mechanism in place if smoke tests or monitoring fail.[2][3]\n- **Primary artifacts:** Running production instances, monitoring dashboards, deployment logs.\n\n**Confidence:** High (final CD stage is deployment to production with validation/smoke tests).[2][3][4]\n\n---\n\n### 8. Post\u2011Deployment Monitoring & Feedback (Ops & Maintenance)\n\n**Purpose:** Close the loop in the lifecycle and feed production insights back into development.\n\n- **Phase name:** **Monitor / Operate / Maintain**\n- **Trigger:** After production deployment; ongoing.\n- **Key activities:**\n  - Monitor logs, metrics, traces, alerts (SLO/SLA tracking).\n  - Capture incidents, user feedback, and performance data.\n  - Feed issues back into backlog \u2192 new commits \u2192 next cycle.[1][4]\n- **Outcome:** Continuous improvement and reliability; informs next development iteration.\n- **Primary artifacts:** Incident reports, KPIs, defect tickets.\n\n**Confidence:** High (maintenance/operations is a standard SDLC phase; CI/CD is described as automating the path from commit to production and reducing downtime).[1][4]\n\n---\n\n### Compact \u201cDiagram\u201d View\n\n```text\nDeveloper Commit\n  \u2193\nCI: Build\n  \u2193\nCI: Automated Tests (unit/integration/e2e)\n  \u2193\nPackage & Store Artifact (Release Candidate)\n  \u2193\nCD: Deploy to Staging\n  \u2193\nStaging Validation (acceptance, performance, security)\n  \u2193\n[Manual approval (Continuous Delivery) or Auto (Continuous Deployment)]\n  \u2193\nCD: Deploy to Production\n  \u2193\nPost-deploy Checks (smoke tests, health checks)\n  \u2193\nMonitoring & Feedback \u2192 back into Development\n```\n\n- Phases **1\u20133** = core **Continuous Integration** (source \u2192 build \u2192 test).[2][4]\n- Phases **4\u20138** = **Continuous Delivery/Deployment** (package \u2192 staging \u2192 production + operations).[2][3][4]\n\nIf you want, I can adapt this into a swimlane-style diagram with example tools per phase (e.g., GitHub, Jenkins, Argo CD, Kubernetes) or tailor it to your current stack."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:33:48Z"
+}

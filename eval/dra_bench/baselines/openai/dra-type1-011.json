@@ -1,0 +1,108 @@
+{
+  "id": "dra-type1-011",
+  "provider": "openai",
+  "query": "How do large language models perform in-context learning and few-shot prompting?",
+  "narrative": "Large language models (LLMs) have demonstrated remarkable capabilities in in-context learning (ICL) and few-shot prompting, enabling them to perform new tasks by conditioning on examples or instructions provided directly in the input prompt, without any updates to the model's weights. ([aiwiki.ai](https://aiwiki.ai/wiki/in_context_learning?utm_source=openai))\n\n**In-Context Learning (ICL):**\n\nICL refers to the ability of LLMs to learn and perform tasks by processing examples presented within the input prompt during inference. This approach allows models to adapt to new tasks without explicit retraining. The effectiveness of ICL is closely tied to the model's size and architecture; larger models with more parameters and attention heads can capture more complex patterns and relationships between examples, leading to improved performance. ([tetrate.io](https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai))\n\n**Few-Shot Prompting:**\n\nFew-shot prompting is a specific application of ICL where the model is provided with a small number of input-output examples (typically ranging from one to a few) within the prompt. These examples serve as implicit specifications of the task, guiding the model to generate appropriate outputs for new inputs. This method leverages the model's ability to recognize patterns and generalize from limited data, effectively performing tasks without explicit fine-tuning. ([sandgarden.com](https://www.sandgarden.com/learn/few-shot-prompting?utm_source=openai))\n\n**Mechanisms Underlying ICL and Few-Shot Prompting:**\n\nThe transformer architecture's attention mechanism is fundamental to ICL and few-shot prompting. When processing a prompt containing examples, the model's attention layers create connections between the examples and the new input. These attention patterns allow the model to identify relevant patterns from the demonstrations and apply them to the current task. The model essentially performs a form of pattern matching and analogy, recognizing that the new input shares structural similarities with the provided examples. ([tetrate.io](https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai))\n\n**Scaling to Many-Shot In-Context Learning:**\n\nAdvancements in LLMs have enabled the exploration of many-shot ICL, where models are prompted with hundreds or thousands of examples. This approach has shown significant performance gains across various tasks. However, many-shot ICL can be bottlenecked by the available amount of human-generated outputs. To mitigate this limitation, researchers have explored settings like \"Reinforced ICL\" and \"Unsupervised ICL,\" which utilize model-generated rationales or domain-specific inputs, respectively. These methods have proven effective, particularly on complex reasoning tasks. ([deepmind.google](https://deepmind.google/research/publications/many-shot-in-context-learning/?utm_source=openai))\n\n**Limitations and Considerations:**\n\nWhile ICL and few-shot prompting offer flexibility and efficiency, they are constrained by the model's context window\u2014the maximum amount of text it can process at once. Additionally, the effectiveness of these methods can vary based on the quality and relevance of the examples provided in the prompt. Careful prompt engineering is essential to achieve optimal performance. ([tetrate.io](https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai))\n\nIn summary, LLMs perform in-context learning and few-shot prompting by leveraging their attention mechanisms to process and generalize from examples provided within the input prompt. This capability allows them to adapt to new tasks without explicit retraining, with performance improvements observed as the number of examples increases, up to the limits imposed by the model's context window. ",
+  "sources": [
+    "https://aiwiki.ai/wiki/in_context_learning?utm_source=openai",
+    "https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai",
+    "https://www.sandgarden.com/learn/few-shot-prompting?utm_source=openai",
+    "https://deepmind.google/research/publications/many-shot-in-context-learning/?utm_source=openai"
+  ],
+  "citations": [
+    "https://aiwiki.ai/wiki/in_context_learning?utm_source=openai",
+    "https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai",
+    "https://www.sandgarden.com/learn/few-shot-prompting?utm_source=openai",
+    "https://deepmind.google/research/publications/many-shot-in-context-learning/?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-3b3ddacd-e167-4f11-a955-c8700caa85b4",
+    "object": "chat.completion",
+    "created": 1781223526,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Large language models (LLMs) have demonstrated remarkable capabilities in in-context learning (ICL) and few-shot prompting, enabling them to perform new tasks by conditioning on examples or instructions provided directly in the input prompt, without any updates to the model's weights. ([aiwiki.ai](https://aiwiki.ai/wiki/in_context_learning?utm_source=openai))\n\n**In-Context Learning (ICL):**\n\nICL refers to the ability of LLMs to learn and perform tasks by processing examples presented within the input prompt during inference. This approach allows models to adapt to new tasks without explicit retraining. The effectiveness of ICL is closely tied to the model's size and architecture; larger models with more parameters and attention heads can capture more complex patterns and relationships between examples, leading to improved performance. ([tetrate.io](https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai))\n\n**Few-Shot Prompting:**\n\nFew-shot prompting is a specific application of ICL where the model is provided with a small number of input-output examples (typically ranging from one to a few) within the prompt. These examples serve as implicit specifications of the task, guiding the model to generate appropriate outputs for new inputs. This method leverages the model's ability to recognize patterns and generalize from limited data, effectively performing tasks without explicit fine-tuning. ([sandgarden.com](https://www.sandgarden.com/learn/few-shot-prompting?utm_source=openai))\n\n**Mechanisms Underlying ICL and Few-Shot Prompting:**\n\nThe transformer architecture's attention mechanism is fundamental to ICL and few-shot prompting. When processing a prompt containing examples, the model's attention layers create connections between the examples and the new input. These attention patterns allow the model to identify relevant patterns from the demonstrations and apply them to the current task. The model essentially performs a form of pattern matching and analogy, recognizing that the new input shares structural similarities with the provided examples. ([tetrate.io](https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai))\n\n**Scaling to Many-Shot In-Context Learning:**\n\nAdvancements in LLMs have enabled the exploration of many-shot ICL, where models are prompted with hundreds or thousands of examples. This approach has shown significant performance gains across various tasks. However, many-shot ICL can be bottlenecked by the available amount of human-generated outputs. To mitigate this limitation, researchers have explored settings like \"Reinforced ICL\" and \"Unsupervised ICL,\" which utilize model-generated rationales or domain-specific inputs, respectively. These methods have proven effective, particularly on complex reasoning tasks. ([deepmind.google](https://deepmind.google/research/publications/many-shot-in-context-learning/?utm_source=openai))\n\n**Limitations and Considerations:**\n\nWhile ICL and few-shot prompting offer flexibility and efficiency, they are constrained by the model's context window\u2014the maximum amount of text it can process at once. Additionally, the effectiveness of these methods can vary based on the quality and relevance of the examples provided in the prompt. Careful prompt engineering is essential to achieve optimal performance. ([tetrate.io](https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai))\n\nIn summary, LLMs perform in-context learning and few-shot prompting by leveraging their attention mechanisms to process and generalize from examples provided within the input prompt. This capability allows them to adapt to new tasks without explicit retraining, with performance improvements observed as the number of examples increases, up to the limits imposed by the model's context window. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 361,
+                "start_index": 286,
+                "title": "In-Context Learning | AI Wiki",
+                "url": "https://aiwiki.ai/wiki/in_context_learning?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 931,
+                "start_index": 847,
+                "title": "Few-Shot Learning for LLMs: Examples and Implementation Guide",
+                "url": "https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1513,
+                "start_index": 1424,
+                "title": "Few-Shot Prompting: Guiding LLM Behavior by Including Examples in the Prompt",
+                "url": "https://www.sandgarden.com/learn/few-shot-prompting?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2177,
+                "start_index": 2093,
+                "title": "Few-Shot Learning for LLMs: Examples and Implementation Guide",
+                "url": "https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2916,
+                "start_index": 2801,
+                "title": "Many-Shot In-Context Learning \u2014 Google DeepMind",
+                "url": "https://deepmind.google/research/publications/many-shot-in-context-learning/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 3413,
+                "start_index": 3329,
+                "title": "Few-Shot Learning for LLMs: Examples and Implementation Guide",
+                "url": "https://tetrate.io/learn/ai/few-shot-learning-llms?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 53,
+      "completion_tokens": 755,
+      "total_tokens": 808,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:18:54Z"
+}

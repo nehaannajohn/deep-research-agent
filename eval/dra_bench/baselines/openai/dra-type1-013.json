@@ -1,0 +1,122 @@
+{
+  "id": "dra-type1-013",
+  "provider": "openai",
+  "query": "What are the key differences between BERT-style masked language modeling and GPT-style autoregressive language modeling?",
+  "narrative": "BERT-style masked language modeling (MLM) and GPT-style autoregressive language modeling (ARLM) are two prominent approaches in natural language processing, each with distinct architectures, training objectives, and applications.\n\n**Architectural Differences:**\n\n- **BERT (Bidirectional Encoder Representations from Transformers):** Utilizes an encoder-only transformer architecture that processes input text bidirectionally, allowing each token to attend to all others in the sequence simultaneously. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT (Generative Pre-trained Transformer):** Employs a decoder-only transformer architecture with masked self-attention, restricting each token to attend only to previous tokens, thereby processing text unidirectionally from left to right. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Training Objectives:**\n\n- **BERT:** Trained using masked language modeling, where a portion of input tokens are randomly masked, and the model predicts these masked tokens based on surrounding context. This approach enables BERT to develop a deep understanding of language context. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT:** Trained with an autoregressive objective, predicting the next token in a sequence given the preceding tokens. This method is well-suited for generating coherent and contextually relevant text. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Contextual Processing:**\n\n- **BERT:** Processes text bidirectionally, considering both left and right contexts simultaneously, which enhances its ability to understand the full context of a sentence. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT:** Processes text unidirectionally, focusing only on the left context, which aligns with its design for text generation tasks. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Applications:**\n\n- **BERT:** Excels in tasks requiring deep language understanding, such as sentiment analysis, question answering, and named entity recognition. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT:** Well-suited for text generation tasks, including content creation, dialogue systems, and code generation. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Summary:**\n\nBERT's bidirectional processing and masked language modeling objective make it adept at understanding and extracting meaning from text, while GPT's unidirectional processing and autoregressive training objective equip it for generating coherent and contextually relevant text. ",
+  "sources": [
+    "https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai",
+    "https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai"
+  ],
+  "citations": [
+    "https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai",
+    "https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-726fada8-5699-4e2a-a2e9-17bc4d294fcf",
+    "object": "chat.completion",
+    "created": 1781223534,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "BERT-style masked language modeling (MLM) and GPT-style autoregressive language modeling (ARLM) are two prominent approaches in natural language processing, each with distinct architectures, training objectives, and applications.\n\n**Architectural Differences:**\n\n- **BERT (Bidirectional Encoder Representations from Transformers):** Utilizes an encoder-only transformer architecture that processes input text bidirectionally, allowing each token to attend to all others in the sequence simultaneously. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT (Generative Pre-trained Transformer):** Employs a decoder-only transformer architecture with masked self-attention, restricting each token to attend only to previous tokens, thereby processing text unidirectionally from left to right. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Training Objectives:**\n\n- **BERT:** Trained using masked language modeling, where a portion of input tokens are randomly masked, and the model predicts these masked tokens based on surrounding context. This approach enables BERT to develop a deep understanding of language context. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT:** Trained with an autoregressive objective, predicting the next token in a sequence given the preceding tokens. This method is well-suited for generating coherent and contextually relevant text. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Contextual Processing:**\n\n- **BERT:** Processes text bidirectionally, considering both left and right contexts simultaneously, which enhances its ability to understand the full context of a sentence. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT:** Processes text unidirectionally, focusing only on the left context, which aligns with its design for text generation tasks. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Applications:**\n\n- **BERT:** Excels in tasks requiring deep language understanding, such as sentiment analysis, question answering, and named entity recognition. ([en.wikipedia.org](https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai))\n\n- **GPT:** Well-suited for text generation tasks, including content creation, dialogue systems, and code generation. ([geeksforgeeks.org](https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai))\n\n**Summary:**\n\nBERT's bidirectional processing and masked language modeling objective make it adept at understanding and extracting meaning from text, while GPT's unidirectional processing and autoregressive training objective equip it for generating coherent and contextually relevant text. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 597,
+                "start_index": 502,
+                "title": "BERT (language model)",
+                "url": "https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 929,
+                "start_index": 842,
+                "title": "GPT vs BERT - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1310,
+                "start_index": 1215,
+                "title": "BERT (language model)",
+                "url": "https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1603,
+                "start_index": 1516,
+                "title": "GPT vs BERT - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1902,
+                "start_index": 1807,
+                "title": "BERT (language model)",
+                "url": "https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2126,
+                "start_index": 2039,
+                "title": "GPT vs BERT - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2387,
+                "start_index": 2292,
+                "title": "BERT (language model)",
+                "url": "https://en.wikipedia.org/wiki/BERT_%28language_model%29?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2593,
+                "start_index": 2506,
+                "title": "GPT vs BERT - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/nlp/gpt-vs-bert/?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 613,
+      "total_tokens": 672,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:19:00Z"
+}

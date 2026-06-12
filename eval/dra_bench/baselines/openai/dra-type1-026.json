@@ -1,0 +1,110 @@
+{
+  "id": "dra-type1-026",
+  "provider": "openai",
+  "query": "How does chain-of-thought prompting improve reasoning, and under what conditions does it fail or degrade performance?",
+  "narrative": "Chain-of-Thought (CoT) prompting is a technique in prompt engineering that enhances the reasoning capabilities of large language models (LLMs) by guiding them to generate intermediate reasoning steps leading to a final answer. This approach mirrors human problem-solving by breaking down complex tasks into manageable steps, thereby improving the model's performance on tasks requiring logic, calculation, and decision-making.\n\n**Mechanism of Improvement:**\n\n- **Structured Reasoning:** By instructing the model to articulate its reasoning process step-by-step, CoT prompting helps in organizing thoughts coherently, leading to more accurate and logical conclusions. ([ibm.com](https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai))\n\n- **Error Reduction:** Explicitly detailing each step allows the model to identify and correct errors in intermediate stages, reducing the likelihood of mistakes in the final output. ([learn.microsoft.com](https://learn.microsoft.com/en-us/dotnet/ai/conceptual/chain-of-thought-prompting?utm_source=openai))\n\n- **Enhanced Performance on Complex Tasks:** Studies have demonstrated significant performance improvements in LLMs when employing CoT prompting. For instance, prompting a 540-billion-parameter language model with just eight CoT exemplars achieved state-of-the-art accuracy on the GSM8K benchmark of math word problems, surpassing even fine-tuned GPT-3 with a verifier. ([arxiv.org](https://arxiv.org/abs/2201.11903?utm_source=openai))\n\n**Conditions Leading to Failure or Performance Degradation:**\n\n- **Model Size and Capacity:** CoT prompting is more effective in larger models due to their emergent reasoning abilities. Smaller models may lack the capacity to benefit significantly from this technique, leading to limited improvements. ([ibm.com](https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai))\n\n- **Quality of Demonstrations:** The effectiveness of CoT prompting heavily depends on the quality of the provided reasoning examples. Inaccurate or irrelevant demonstrations can mislead the model, resulting in degraded performance. ([arxiv.org](https://arxiv.org/abs/2212.10001?utm_source=openai))\n\n- **Task Complexity:** While CoT prompting enhances performance on complex tasks, it may not yield significant benefits for simpler tasks where straightforward prompting suffices.\n\n- **Noisy Contexts:** In environments with irrelevant or misleading information, CoT prompting can struggle, as the model may incorporate noise into its reasoning process, leading to incorrect conclusions. ([arxiv.org](https://arxiv.org/abs/2310.16535?utm_source=openai))\n\n**Confidence Levels:**\n\n- **High Confidence:** CoT prompting improves reasoning in large language models by encouraging step-by-step problem-solving, leading to enhanced performance on complex tasks.\n\n- **Moderate Confidence:** The effectiveness of CoT prompting diminishes in smaller models and noisy contexts, and its benefits are less pronounced for simpler tasks.\n\nIn summary, Chain-of-Thought prompting is a valuable technique for enhancing the reasoning capabilities of large language models, particularly for complex tasks. However, its effectiveness is contingent upon factors such as model size, quality of reasoning examples, task complexity, and the presence of noise in the input data. ",
+  "sources": [
+    "https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai",
+    "https://learn.microsoft.com/en-us/dotnet/ai/conceptual/chain-of-thought-prompting?utm_source=openai",
+    "https://arxiv.org/abs/2201.11903?utm_source=openai",
+    "https://arxiv.org/abs/2212.10001?utm_source=openai",
+    "https://arxiv.org/abs/2310.16535?utm_source=openai"
+  ],
+  "citations": [
+    "https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai",
+    "https://learn.microsoft.com/en-us/dotnet/ai/conceptual/chain-of-thought-prompting?utm_source=openai",
+    "https://arxiv.org/abs/2201.11903?utm_source=openai",
+    "https://arxiv.org/abs/2212.10001?utm_source=openai",
+    "https://arxiv.org/abs/2310.16535?utm_source=openai"
+  ],
+  "raw": {
+    "id": "chatcmpl-ea68a5f4-2de3-4b2e-a070-c7a7965ff1e2",
+    "object": "chat.completion",
+    "created": 1781224516,
+    "model": "gpt-4o-search-preview-2025-03-11",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Chain-of-Thought (CoT) prompting is a technique in prompt engineering that enhances the reasoning capabilities of large language models (LLMs) by guiding them to generate intermediate reasoning steps leading to a final answer. This approach mirrors human problem-solving by breaking down complex tasks into manageable steps, thereby improving the model's performance on tasks requiring logic, calculation, and decision-making.\n\n**Mechanism of Improvement:**\n\n- **Structured Reasoning:** By instructing the model to articulate its reasoning process step-by-step, CoT prompting helps in organizing thoughts coherently, leading to more accurate and logical conclusions. ([ibm.com](https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai))\n\n- **Error Reduction:** Explicitly detailing each step allows the model to identify and correct errors in intermediate stages, reducing the likelihood of mistakes in the final output. ([learn.microsoft.com](https://learn.microsoft.com/en-us/dotnet/ai/conceptual/chain-of-thought-prompting?utm_source=openai))\n\n- **Enhanced Performance on Complex Tasks:** Studies have demonstrated significant performance improvements in LLMs when employing CoT prompting. For instance, prompting a 540-billion-parameter language model with just eight CoT exemplars achieved state-of-the-art accuracy on the GSM8K benchmark of math word problems, surpassing even fine-tuned GPT-3 with a verifier. ([arxiv.org](https://arxiv.org/abs/2201.11903?utm_source=openai))\n\n**Conditions Leading to Failure or Performance Degradation:**\n\n- **Model Size and Capacity:** CoT prompting is more effective in larger models due to their emergent reasoning abilities. Smaller models may lack the capacity to benefit significantly from this technique, leading to limited improvements. ([ibm.com](https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai))\n\n- **Quality of Demonstrations:** The effectiveness of CoT prompting heavily depends on the quality of the provided reasoning examples. Inaccurate or irrelevant demonstrations can mislead the model, resulting in degraded performance. ([arxiv.org](https://arxiv.org/abs/2212.10001?utm_source=openai))\n\n- **Task Complexity:** While CoT prompting enhances performance on complex tasks, it may not yield significant benefits for simpler tasks where straightforward prompting suffices.\n\n- **Noisy Contexts:** In environments with irrelevant or misleading information, CoT prompting can struggle, as the model may incorporate noise into its reasoning process, leading to incorrect conclusions. ([arxiv.org](https://arxiv.org/abs/2310.16535?utm_source=openai))\n\n**Confidence Levels:**\n\n- **High Confidence:** CoT prompting improves reasoning in large language models by encouraging step-by-step problem-solving, leading to enhanced performance on complex tasks.\n\n- **Moderate Confidence:** The effectiveness of CoT prompting diminishes in smaller models and noisy contexts, and its benefits are less pronounced for simpler tasks.\n\nIn summary, Chain-of-Thought prompting is a valuable technique for enhancing the reasoning capabilities of large language models, particularly for complex tasks. However, its effectiveness is contingent upon factors such as model size, quality of reasoning examples, task complexity, and the presence of noise in the input data. ",
+          "refusal": null,
+          "annotations": [
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 748,
+                "start_index": 667,
+                "title": "What is chain of thought (CoT) prompting? | IBM",
+                "url": "https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1057,
+                "start_index": 933,
+                "title": "Chain of thought prompting - .NET | Microsoft Learn",
+                "url": "https://learn.microsoft.com/en-us/dotnet/ai/conceptual/chain-of-thought-prompting?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1494,
+                "start_index": 1429,
+                "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+                "url": "https://arxiv.org/abs/2201.11903?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 1879,
+                "start_index": 1798,
+                "title": "What is chain of thought (CoT) prompting? | IBM",
+                "url": "https://www.ibm.com/think/topics/chain-of-thoughts?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2179,
+                "start_index": 2114,
+                "title": "Towards Understanding Chain-of-Thought Prompting: An Empirical Study of What Matters",
+                "url": "https://arxiv.org/abs/2212.10001?utm_source=openai"
+              }
+            },
+            {
+              "type": "url_citation",
+              "url_citation": {
+                "end_index": 2633,
+                "start_index": 2568,
+                "title": "R$^3$ Prompting: Review, Rephrase and Resolve for Chain-of-Thought Reasoning in Large Language Models under Noisy Context",
+                "url": "https://arxiv.org/abs/2310.16535?utm_source=openai"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 60,
+      "completion_tokens": 666,
+      "total_tokens": 726,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": ""
+  },
+  "collected_at": "2026-06-12T00:35:32Z"
+}

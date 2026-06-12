@@ -1,0 +1,142 @@
+{
+  "id": "dra-type5-046",
+  "provider": "perplexity",
+  "query": "Illustrate the TLS 1.3 handshake process as a sequence diagram showing key exchange and certificate verification.",
+  "narrative": "TLS 1.3 uses a single round-trip handshake where the **ephemeral Diffie\u2011Hellman key exchange** happens inside ClientHello/ServerHello, and all subsequent certificate and verification messages are sent over the newly derived keys.[1][3][5][6] Below is a **text sequence diagram** that shows the main messages, key\u2011schedule points, and where certificate verification occurs.\n\n---\n\n## Text sequence diagram: TLS 1.3 full handshake (no 0\u2011RTT)\n\n**Actors:**  \n- C = Client  \n- S = Server  \n\nNotation:  \n- `\u2192` message direction  \n- `[ ]` important fields  \n- `{ }_key` = encrypted with `key`  \n- `HKDF-Expand(...)` and labels are conceptual only to show key schedule locations.\n\n```text\nC                                                S\n|                                                |\n|  Generate ephemeral (EC)DH key pair:           |\n|    x_c, X_c = g^x_c                            |\n|                                                |\n|----------------- ClientHello ----------------->|\n|  [version = TLS 1.3]                           |\n|  [cipher_suites]                               |\n|  [random_c]                                    |\n|  [extensions:                                  |\n|      supported_groups,                         |\n|      signature_algorithms,                     |\n|      server_name_indication,                   |\n|      key_share = X_c (client ECDHE public)     |\n|  ]                                             |\n|                                                |\n|                             Generate ephemeral |\n|                                  (EC)DH key:   |\n|                                   x_s, X_s     |\n|                                                |\n|<----------------- ServerHello -----------------|\n|  [version = TLS 1.3]                           |\n|  [selected_cipher_suite]                       |\n|  [random_s]                                    |\n|  [extensions:                                  |\n|      key_share = X_s (server ECDHE public)     |\n|  ]                                             |\n|                                                |\n|  # Key exchange: compute shared secret         |\n|  C: Z = (X_s)^(x_c)                            |\n|  S: Z = (X_c)^(x_s)                            |\n|  (Both now share same DH secret Z)             |\n|                                                |\n|  # Early key schedule (simplified)             |\n|  Derive:                                       |\n|    early_secret   = HKDF-Extract(0, 0)         |\n|    handshake_secret = HKDF-Extract(early_secret, Z)\n|    client_hs_traffic_secret, server_hs_traffic_secret\n|                                                |\n|  All further handshake messages are encrypted  |\n|  with handshake traffic keys.                  |\n|                                                |\n|<===== EncryptedExtensions (HS traffic key) ====|\n|  {                                             |\n|    [ALPN, SNI response, other extensions]      |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|<========= Certificate (HS traffic key) ========|\n|  {                                             |\n|    [server certificate chain]                  |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|<====== CertificateVerify (HS traffic key) =====|\n|  {                                             |\n|    [signature over handshake transcript        |\n|     using server's certificate private key]    |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|<========== Finished (HS traffic key) ==========>|\n|  {                                             |\n|    [MAC over handshake transcript              |\n|     using server_hs_traffic_secret]            |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|  # Client verifies server identity:            |\n|  1. Validate certificate chain (PKI):          |\n|     - issuer chain                             |\n|     - signature validity                       |\n|     - hostname match                           |\n|     - time validity, revocation, EKU, etc.     |\n|  2. Verify CertificateVerify:                  |\n|     - Recompute handshake transcript           |\n|     - Check signature with server's public key |\n|  3. Verify Finished:                           |\n|     - Recompute transcript MAC and compare     |\n|                                                |\n|  If all checks pass, server is authenticated.  |\n|                                                |\n|  # Move to application traffic secrets         |\n|  Derive:                                       |\n|    master_secret      = HKDF-Extract(handshake_secret, 0)\n|    client_app_traffic_secret_0                 |\n|    server_app_traffic_secret_0                 |\n|                                                |\n|---------------- Finished (HS traffic key) ---->|\n|  {                                             |\n|    [MAC over handshake transcript              |\n|     using client_hs_traffic_secret]            |\n|  }_{client_hs_traffic_secret}                  |\n|                                                |\n|  (Optional) Client cert auth:                  |\n|  If server previously sent CertificateRequest: |\n|---------------- Certificate (HS key) --------->|\n|  { [client certificate chain] }_{client_hs}    |\n|---------------- CertificateVerify (HS key)---->|\n|  { [signature over transcript with             |\n|      client's private key] }_{client_hs}       |\n|                                                |\n|  # Server verifies client cert + signature.    |\n|                                                |\n|  # From this point, application data is        |\n|  # encrypted with application traffic keys.    |\n|                                                |\n|======== Application Data (App traffic) ======> |\n|  { HTTP request / other data }_{client_app_0}  |\n|<======= Application Data (App traffic) ========|\n|  { HTTP response / other data }_{server_app_0} |\n|                                                |\n```\n\n---\n\n## Where key exchange and certificate verification happen\n\n**Key exchange (ECDHE / DHE)**  \n- Per TLS 1.3, the **ephemeral Diffie\u2011Hellman key exchange** is carried in `ClientHello.key_share` and `ServerHello.key_share`.[1][3][5][6][7]  \n- Once both sides have these public keys, they compute the **shared secret Z** and derive the **handshake traffic secrets**, after which all subsequent handshake messages are encrypted.[5][6]  \n- This is why only **ClientHello** and **ServerHello** are in cleartext; everything else is encrypted with handshake keys.[4][5][6]\n\n**Server authentication & certificate verification**  \n- After `ServerHello` and key derivation, the server sends (encrypted):  \n  - **EncryptedExtensions** (non\u2011certificate parameters).[5][6]  \n  - **Certificate**: server certificate chain.[5][6][9]  \n  - **CertificateVerify**: a digital signature over the handshake transcript using the server\u2019s certificate private key.[5][9]  \n  - **Finished**: MAC over the transcript with `server_hs_traffic_secret`.[5][9]  \n- The **client verifies the certificate** (PKI validation) and then verifies the **CertificateVerify** signature to prove possession of the private key, and the **Finished** MAC to confirm handshake integrity.[2][3][5][9]\n\n**Optional client certificate verification**  \n- If the server sends a **CertificateRequest** (encrypted, typically bundled with the other server handshake messages), the client responds with its own **Certificate**, **CertificateVerify**, and **Finished**, and the server verifies them similarly.[4][5][9]\n\n---\n\n## Key claims (with confidence)\n\n1. **TLS 1.3 performs the ECDHE/DHE key exchange inside ClientHello/ServerHello, and all subsequent handshake messages are encrypted with handshake traffic keys derived from that shared secret.**  \n   - Evidence: IBM explanation of three\u2011phase TLS 1.3 handshake and key exchange; Cloudflare and QA Cafe descriptions of key shares in ClientHello/ServerHello; detailed walkthroughs showing only hellos are unencrypted.[1][3][5][6][7][8]  \n   - Confidence: **High**\n\n2. **Server certificate verification in TLS 1.3 consists of (a) validating the certificate chain and (b) validating the server\u2019s CertificateVerify signature and Finished MAC over the handshake transcript.**  \n   - Evidence: TLS 1.3 introductions describing server authentication via Certificate + CertificateVerify + Finished, and how CertificateVerify proves key possession while Finished protects transcript integrity.[1][2][3][5][9]  \n   - Confidence: **High**\n\n3. **A full TLS 1.3 handshake typically completes in one round trip (1\u2011RTT) between client and server.**  \n   - Evidence: Explanations that TLS 1.3 reduces the handshake to one round trip, with ServerHello, Certificate, CertificateVerify, and Finished all sent in the first server flight.[3][4][5][6][8]  \n   - Confidence: **High**\n\nIf you want, I can adapt this into specific diagram syntax (e.g., PlantUML, Mermaid sequence diagram) that you can paste directly into documentation or tools.",
+  "sources": [
+    "https://www.ibm.com/docs/en/sdk-java-technology/8?topic=works-tls-13-handshake",
+    "https://www.paloaltonetworks.com/cyberpedia/what-is-a-tls-handshake",
+    "https://www.thesslstore.com/blog/tls-1-3-handshake-tls-1-2/",
+    "https://www.youtube.com/watch?v=JA0vaIb4158",
+    "https://www.gabriel.urdhr.fr/2022/02/26/tls1.3-intro/",
+    "https://tls13.xargs.org",
+    "https://www.qacafe.com/resources/examples-of-tls-1-3/",
+    "https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/",
+    "https://commandlinefanatic.com/cgi-bin/showarticle.cgi?article=art080"
+  ],
+  "citations": [
+    "https://www.ibm.com/docs/en/sdk-java-technology/8?topic=works-tls-13-handshake",
+    "https://www.paloaltonetworks.com/cyberpedia/what-is-a-tls-handshake",
+    "https://www.thesslstore.com/blog/tls-1-3-handshake-tls-1-2/",
+    "https://www.youtube.com/watch?v=JA0vaIb4158",
+    "https://www.gabriel.urdhr.fr/2022/02/26/tls1.3-intro/",
+    "https://tls13.xargs.org",
+    "https://www.qacafe.com/resources/examples-of-tls-1-3/",
+    "https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/",
+    "https://commandlinefanatic.com/cgi-bin/showarticle.cgi?article=art080"
+  ],
+  "raw": {
+    "id": "e6ef55c4-935b-4a2e-b3be-ad965e7fb610",
+    "model": "sonar-pro",
+    "created": 1781224491,
+    "usage": {
+      "prompt_tokens": 52,
+      "completion_tokens": 1860,
+      "total_tokens": 1912,
+      "search_context_size": "low",
+      "cost": {
+        "input_tokens_cost": 0.00016,
+        "output_tokens_cost": 0.0279,
+        "request_cost": 0.006,
+        "total_cost": 0.03406
+      }
+    },
+    "citations": [
+      "https://www.ibm.com/docs/en/sdk-java-technology/8?topic=works-tls-13-handshake",
+      "https://www.paloaltonetworks.com/cyberpedia/what-is-a-tls-handshake",
+      "https://www.thesslstore.com/blog/tls-1-3-handshake-tls-1-2/",
+      "https://www.youtube.com/watch?v=JA0vaIb4158",
+      "https://www.gabriel.urdhr.fr/2022/02/26/tls1.3-intro/",
+      "https://tls13.xargs.org",
+      "https://www.qacafe.com/resources/examples-of-tls-1-3/",
+      "https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/",
+      "https://commandlinefanatic.com/cgi-bin/showarticle.cgi?article=art080"
+    ],
+    "search_results": [
+      {
+        "title": "The TLS 1.3 Handshake - IBM",
+        "url": "https://www.ibm.com/docs/en/sdk-java-technology/8?topic=works-tls-13-handshake",
+        "date": "2025-01-01",
+        "last_updated": "2025-03-25",
+        "snippet": "It consists of three phases: key exchange, server parameters, and authentication: Key Exchange: This phase establishes shared keying material, such as which ...",
+        "source": "web"
+      },
+      {
+        "title": "What Is the TLS Handshake? Process, Steps, and Best Practices",
+        "url": "https://www.paloaltonetworks.com/cyberpedia/what-is-a-tls-handshake",
+        "last_updated": "2026-06-11",
+        "snippet": "Learn how the TLS handshake establishes secure connections. Discover the steps of the protocol and how to troubleshoot common handshake errors.",
+        "source": "web"
+      },
+      {
+        "title": "TLS 1.3 Handshake: Taking a Closer Look - The SSL Store",
+        "url": "https://www.thesslstore.com/blog/tls-1-3-handshake-tls-1-2/",
+        "date": "2018-03-20",
+        "last_updated": "2026-05-25",
+        "snippet": "The TLS 1.2 handshake, which is similar to that of TLS 1.0 and 1.1, involves a series of back-and-forth communications between client and server.",
+        "source": "web"
+      },
+      {
+        "title": "TLS 1.3 Handshake - many CHANGES from prior versions! - YouTube",
+        "url": "https://www.youtube.com/watch?v=JA0vaIb4158",
+        "date": "2023-06-15",
+        "last_updated": "2026-06-11",
+        "snippet": "... ) - TLS 1.3 Handshake encrypts the Client Certificate (as well as the Server Certificate) - TLS 1.3 Handshake generates many more session keys ...",
+        "source": "web"
+      },
+      {
+        "title": "Introduction to TLS v1.3 - /dev/posts/ - gabriel.urdhr.fr",
+        "url": "https://www.gabriel.urdhr.fr/2022/02/26/tls1.3-intro/",
+        "date": "2022-02-26",
+        "last_updated": "2026-06-03",
+        "snippet": "TLS v1.3 supports 3 types of key exchange methods. The DHE (ephemeral Diffie-Hellman) key exchange method is explained in the first section.",
+        "source": "web"
+      },
+      {
+        "title": "The Illustrated TLS 1.3 Connection: Every Byte Explained",
+        "url": "https://tls13.xargs.org",
+        "last_updated": "2026-03-15",
+        "snippet": "The client begins by generating a private/public keypair for key exchange. Key exchange is a technique where two parties can agree on the same number ...",
+        "source": "web"
+      },
+      {
+        "title": "How does TLS 1.3 work? - some capture examples - QA Cafe",
+        "url": "https://www.qacafe.com/resources/examples-of-tls-1-3/",
+        "last_updated": "2026-04-13",
+        "snippet": "The handshake sequence involves a multi-step process in which the client first sends a Client Hello with the cipher suites and extensions it supports. The ...",
+        "source": "web"
+      },
+      {
+        "title": "What Happens in a TLS Handshake? | SSL Handshake - Cloudflare",
+        "url": "https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/",
+        "date": "2025-01-01",
+        "last_updated": "2025-04-28",
+        "snippet": "In a TLS/SSL handshake, clients and servers exchange SSL certificates, cipher suite requirements, and randomly generated data for creating session keys.",
+        "source": "web"
+      },
+      {
+        "title": "A Walkthrough of a TLS 1.3 Handshake - Command Line Fanatic",
+        "url": "https://commandlinefanatic.com/cgi-bin/showarticle.cgi?article=art080",
+        "last_updated": "2026-06-11",
+        "snippet": "Example 16: Certificate Verify. The Certificate Verify message is how the server proves ownership of the certificate's private key without revealing the private ...",
+        "source": "web"
+      }
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "TLS 1.3 uses a single round-trip handshake where the **ephemeral Diffie\u2011Hellman key exchange** happens inside ClientHello/ServerHello, and all subsequent certificate and verification messages are sent over the newly derived keys.[1][3][5][6] Below is a **text sequence diagram** that shows the main messages, key\u2011schedule points, and where certificate verification occurs.\n\n---\n\n## Text sequence diagram: TLS 1.3 full handshake (no 0\u2011RTT)\n\n**Actors:**  \n- C = Client  \n- S = Server  \n\nNotation:  \n- `\u2192` message direction  \n- `[ ]` important fields  \n- `{ }_key` = encrypted with `key`  \n- `HKDF-Expand(...)` and labels are conceptual only to show key schedule locations.\n\n```text\nC                                                S\n|                                                |\n|  Generate ephemeral (EC)DH key pair:           |\n|    x_c, X_c = g^x_c                            |\n|                                                |\n|----------------- ClientHello ----------------->|\n|  [version = TLS 1.3]                           |\n|  [cipher_suites]                               |\n|  [random_c]                                    |\n|  [extensions:                                  |\n|      supported_groups,                         |\n|      signature_algorithms,                     |\n|      server_name_indication,                   |\n|      key_share = X_c (client ECDHE public)     |\n|  ]                                             |\n|                                                |\n|                             Generate ephemeral |\n|                                  (EC)DH key:   |\n|                                   x_s, X_s     |\n|                                                |\n|<----------------- ServerHello -----------------|\n|  [version = TLS 1.3]                           |\n|  [selected_cipher_suite]                       |\n|  [random_s]                                    |\n|  [extensions:                                  |\n|      key_share = X_s (server ECDHE public)     |\n|  ]                                             |\n|                                                |\n|  # Key exchange: compute shared secret         |\n|  C: Z = (X_s)^(x_c)                            |\n|  S: Z = (X_c)^(x_s)                            |\n|  (Both now share same DH secret Z)             |\n|                                                |\n|  # Early key schedule (simplified)             |\n|  Derive:                                       |\n|    early_secret   = HKDF-Extract(0, 0)         |\n|    handshake_secret = HKDF-Extract(early_secret, Z)\n|    client_hs_traffic_secret, server_hs_traffic_secret\n|                                                |\n|  All further handshake messages are encrypted  |\n|  with handshake traffic keys.                  |\n|                                                |\n|<===== EncryptedExtensions (HS traffic key) ====|\n|  {                                             |\n|    [ALPN, SNI response, other extensions]      |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|<========= Certificate (HS traffic key) ========|\n|  {                                             |\n|    [server certificate chain]                  |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|<====== CertificateVerify (HS traffic key) =====|\n|  {                                             |\n|    [signature over handshake transcript        |\n|     using server's certificate private key]    |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|<========== Finished (HS traffic key) ==========>|\n|  {                                             |\n|    [MAC over handshake transcript              |\n|     using server_hs_traffic_secret]            |\n|  }_{server_hs_traffic_secret}                  |\n|                                                |\n|  # Client verifies server identity:            |\n|  1. Validate certificate chain (PKI):          |\n|     - issuer chain                             |\n|     - signature validity                       |\n|     - hostname match                           |\n|     - time validity, revocation, EKU, etc.     |\n|  2. Verify CertificateVerify:                  |\n|     - Recompute handshake transcript           |\n|     - Check signature with server's public key |\n|  3. Verify Finished:                           |\n|     - Recompute transcript MAC and compare     |\n|                                                |\n|  If all checks pass, server is authenticated.  |\n|                                                |\n|  # Move to application traffic secrets         |\n|  Derive:                                       |\n|    master_secret      = HKDF-Extract(handshake_secret, 0)\n|    client_app_traffic_secret_0                 |\n|    server_app_traffic_secret_0                 |\n|                                                |\n|---------------- Finished (HS traffic key) ---->|\n|  {                                             |\n|    [MAC over handshake transcript              |\n|     using client_hs_traffic_secret]            |\n|  }_{client_hs_traffic_secret}                  |\n|                                                |\n|  (Optional) Client cert auth:                  |\n|  If server previously sent CertificateRequest: |\n|---------------- Certificate (HS key) --------->|\n|  { [client certificate chain] }_{client_hs}    |\n|---------------- CertificateVerify (HS key)---->|\n|  { [signature over transcript with             |\n|      client's private key] }_{client_hs}       |\n|                                                |\n|  # Server verifies client cert + signature.    |\n|                                                |\n|  # From this point, application data is        |\n|  # encrypted with application traffic keys.    |\n|                                                |\n|======== Application Data (App traffic) ======> |\n|  { HTTP request / other data }_{client_app_0}  |\n|<======= Application Data (App traffic) ========|\n|  { HTTP response / other data }_{server_app_0} |\n|                                                |\n```\n\n---\n\n## Where key exchange and certificate verification happen\n\n**Key exchange (ECDHE / DHE)**  \n- Per TLS 1.3, the **ephemeral Diffie\u2011Hellman key exchange** is carried in `ClientHello.key_share` and `ServerHello.key_share`.[1][3][5][6][7]  \n- Once both sides have these public keys, they compute the **shared secret Z** and derive the **handshake traffic secrets**, after which all subsequent handshake messages are encrypted.[5][6]  \n- This is why only **ClientHello** and **ServerHello** are in cleartext; everything else is encrypted with handshake keys.[4][5][6]\n\n**Server authentication & certificate verification**  \n- After `ServerHello` and key derivation, the server sends (encrypted):  \n  - **EncryptedExtensions** (non\u2011certificate parameters).[5][6]  \n  - **Certificate**: server certificate chain.[5][6][9]  \n  - **CertificateVerify**: a digital signature over the handshake transcript using the server\u2019s certificate private key.[5][9]  \n  - **Finished**: MAC over the transcript with `server_hs_traffic_secret`.[5][9]  \n- The **client verifies the certificate** (PKI validation) and then verifies the **CertificateVerify** signature to prove possession of the private key, and the **Finished** MAC to confirm handshake integrity.[2][3][5][9]\n\n**Optional client certificate verification**  \n- If the server sends a **CertificateRequest** (encrypted, typically bundled with the other server handshake messages), the client responds with its own **Certificate**, **CertificateVerify**, and **Finished**, and the server verifies them similarly.[4][5][9]\n\n---\n\n## Key claims (with confidence)\n\n1. **TLS 1.3 performs the ECDHE/DHE key exchange inside ClientHello/ServerHello, and all subsequent handshake messages are encrypted with handshake traffic keys derived from that shared secret.**  \n   - Evidence: IBM explanation of three\u2011phase TLS 1.3 handshake and key exchange; Cloudflare and QA Cafe descriptions of key shares in ClientHello/ServerHello; detailed walkthroughs showing only hellos are unencrypted.[1][3][5][6][7][8]  \n   - Confidence: **High**\n\n2. **Server certificate verification in TLS 1.3 consists of (a) validating the certificate chain and (b) validating the server\u2019s CertificateVerify signature and Finished MAC over the handshake transcript.**  \n   - Evidence: TLS 1.3 introductions describing server authentication via Certificate + CertificateVerify + Finished, and how CertificateVerify proves key possession while Finished protects transcript integrity.[1][2][3][5][9]  \n   - Confidence: **High**\n\n3. **A full TLS 1.3 handshake typically completes in one round trip (1\u2011RTT) between client and server.**  \n   - Evidence: Explanations that TLS 1.3 reduces the handshake to one round trip, with ServerHello, Certificate, CertificateVerify, and Finished all sent in the first server flight.[3][4][5][6][8]  \n   - Confidence: **High**\n\nIf you want, I can adapt this into specific diagram syntax (e.g., PlantUML, Mermaid sequence diagram) that you can paste directly into documentation or tools."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "finish_reason": "stop"
+      }
+    ]
+  },
+  "collected_at": "2026-06-12T00:34:51Z"
+}
