@@ -171,8 +171,10 @@ class FakeRunQuery:
     def __init__(self, report_factory=_canned_report, raise_on=None):
         self._factory = report_factory
         self._raise_on = raise_on or set()
+        self.calls = 0
 
     def __call__(self, query: str) -> ResearchReport:
+        self.calls += 1
         if query in self._raise_on:
             raise RuntimeError(f"boom for {query!r}")
         return self._factory(query)
@@ -308,3 +310,168 @@ def test_run_eval_skips_raising_item_not_fatal(tmp_path):
     ids = {r["id"] for r in per_item}
     assert ids == {"frames-000", "frames-002"}  # raising item skipped
     assert summary["overall"]["n"] == 2
+
+
+# --------------------------------------------------------------------------- #
+# Report caching (decouples the expensive pipeline pass from re-scoring)
+# --------------------------------------------------------------------------- #
+def test_report_cache_miss_calls_run_query_then_hit_does_not(tmp_path):
+    """Fresh item -> run_query is called once and the report is cached.
+    A second evaluation of the same item reads the cache -> run_query NOT called."""
+    item = _agentic_item("frames-000", "cache-me")
+    fake = FakeRunQuery()
+    deps = PipelineDeps(
+        run_query=fake,
+        grounding_judge=FakeGroundingJudge(),
+        panel=FakePanel(),
+        extractor=FakeExtractor(),
+        report_cache_dir=str(tmp_path / "cache"),
+        arm="with_verifier",
+    )
+
+    # First pass: cache miss -> run_query called, file written.
+    evaluate_item(item, deps, seed=13)
+    assert fake.calls == 1
+    cache_file = tmp_path / "cache" / "with_verifier" / "frames-000.json"
+    assert cache_file.exists()
+
+    # Second pass: cache hit -> run_query NOT called again.
+    evaluate_item(item, deps, seed=13)
+    assert fake.calls == 1
+
+
+def test_report_cache_refresh_recalls_run_query(tmp_path):
+    item = _agentic_item("frames-000", "cache-me")
+    fake = FakeRunQuery()
+    base = dict(
+        run_query=fake,
+        grounding_judge=FakeGroundingJudge(),
+        panel=FakePanel(),
+        extractor=FakeExtractor(),
+        report_cache_dir=str(tmp_path / "cache"),
+        arm="with_verifier",
+    )
+
+    evaluate_item(item, PipelineDeps(**base), seed=13)
+    assert fake.calls == 1
+
+    # refresh=True forces regeneration even though the cache exists.
+    evaluate_item(item, PipelineDeps(**{**base, "refresh": True}), seed=13)
+    assert fake.calls == 2
+
+
+def test_report_cache_arms_isolated(tmp_path):
+    """Same item id under two arms caches independently (key = arm/id)."""
+    item = _agentic_item("frames-000", "cache-me")
+    fake = FakeRunQuery()
+    common = dict(
+        run_query=fake,
+        grounding_judge=FakeGroundingJudge(),
+        panel=FakePanel(),
+        extractor=FakeExtractor(),
+        report_cache_dir=str(tmp_path / "cache"),
+    )
+
+    evaluate_item(item, PipelineDeps(arm="with_verifier", **common), seed=13)
+    evaluate_item(item, PipelineDeps(arm="without_verifier", **common), seed=13)
+    assert fake.calls == 2  # different arms -> two distinct cache keys
+    assert (tmp_path / "cache" / "with_verifier" / "frames-000.json").exists()
+    assert (tmp_path / "cache" / "without_verifier" / "frames-000.json").exists()
+
+
+def test_cached_report_roundtrips_through_scoring(tmp_path):
+    """The cached JSON deserializes back into a ResearchReport that scores
+    identically to the freshly-generated one (proves we cache the real report)."""
+    item = _agentic_item("frames-000", "What is the capital of France?")
+    fake = FakeRunQuery()
+    deps = PipelineDeps(
+        run_query=fake,
+        grounding_judge=FakeGroundingJudge(),
+        panel=FakePanel(),
+        extractor=FakeExtractor(),
+        report_cache_dir=str(tmp_path / "cache"),
+        arm="with_verifier",
+    )
+    fresh = evaluate_item(item, deps, seed=13)
+    cached = evaluate_item(item, deps, seed=13)  # served from cache
+    assert fake.calls == 1
+    assert cached["grounding"] == fresh["grounding"]
+    assert cached["task_accuracy"] == fresh["task_accuracy"]
+
+
+def test_run_eval_threads_cache_dir_and_arm(tmp_path):
+    """run_eval should let report caching work across two invocations: the
+    second run reuses cached reports and never re-calls run_query."""
+    items = [
+        _agentic_item("frames-000", "q0"),
+        _agentic_item("frames-001", "q1"),
+    ]
+    fake = FakeRunQuery()
+    deps = PipelineDeps(
+        run_query=fake,
+        grounding_judge=FakeGroundingJudge(),
+        panel=FakePanel(),
+        extractor=FakeExtractor(),
+    )
+    cache_dir = str(tmp_path / "cache")
+    run_eval(items, deps, out_dir=str(tmp_path / "out1"),
+             report_cache_dir=cache_dir, arm="with_verifier")
+    assert fake.calls == 2
+
+    run_eval(items, deps, out_dir=str(tmp_path / "out2"),
+             report_cache_dir=cache_dir, arm="with_verifier")
+    assert fake.calls == 2  # all served from cache the second time
+
+
+def test_evaluate_item_uses_reference_lookup_for_reference_claims(tmp_path):
+    """When the item carries no reference_claims, evaluate_item consults
+    deps.reference_lookup(id) and feeds the result into grounding scoring."""
+    item = _agentic_item("frames-000", "What is the capital of France?")
+    looked_up = []
+
+    def reference_lookup(item_id):
+        looked_up.append(item_id)
+        return ["Paris is the capital of France."]
+
+    deps = PipelineDeps(
+        run_query=FakeRunQuery(),
+        grounding_judge=FakeGroundingJudge(),
+        panel=FakePanel(),
+        extractor=FakeExtractor(),
+        reference_lookup=reference_lookup,
+    )
+    result = evaluate_item(item, deps, seed=13)
+    assert looked_up == ["frames-000"]
+    # citation_recall is computed only when reference_claims are present.
+    assert result["grounding"]["citation_recall"] is not None
+
+
+# --------------------------------------------------------------------------- #
+# Driver helpers (pure parts of experiments/run_pipeline_eval.py)
+# --------------------------------------------------------------------------- #
+def test_driver_arms_for_both_and_single():
+    from experiments.run_pipeline_eval import _arms_for, ARMS
+
+    assert _arms_for("both") == list(ARMS)
+    assert _arms_for("with_verifier") == ["with_verifier"]
+    assert _arms_for("without_verifier") == ["without_verifier"]
+
+
+def test_driver_fable_reference_lookup_missing_returns_none(tmp_path):
+    from experiments.run_pipeline_eval import fable_reference_lookup
+
+    lookup = fable_reference_lookup(reference_dir=str(tmp_path), decomposer=lambda md: [])
+    assert lookup("no-such-id") is None
+
+
+def test_driver_fable_reference_lookup_parses_existing(tmp_path):
+    from experiments.run_pipeline_eval import fable_reference_lookup
+
+    (tmp_path / "dra-001.md").write_text("# Ref\nSome reference report.", encoding="utf-8")
+    # decomposer: markdown -> claim texts (fake; real run uses a panel model)
+    lookup = fable_reference_lookup(
+        reference_dir=str(tmp_path),
+        decomposer=lambda md: ["Paris is the capital.", "It is on the Seine."],
+    )
+    claims = lookup("dra-001")
+    assert claims == ["Paris is the capital.", "It is on the Seine."]

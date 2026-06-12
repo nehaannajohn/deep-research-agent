@@ -29,7 +29,7 @@ import json
 import logging
 import os
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Callable, Optional
 
 from dra.schemas import ResearchReport
@@ -66,7 +66,15 @@ class PipelineDeps:
     grounding_judge: object
     panel: object
     extractor: object
-    reference_lookup: Optional[Callable[[str], GradableReport]] = None
+    reference_lookup: Optional[Callable[[str], object]] = None
+    # Report caching: when set, a generated report is persisted under
+    # ``<report_cache_dir>/<arm>/<item_id>.json`` and reused on later passes so
+    # the expensive pipeline never re-runs just to re-score. ``arm`` namespaces
+    # the cache per ablation arm (e.g. with_verifier vs without_verifier).
+    # ``refresh`` forces regeneration even when a cached report exists.
+    report_cache_dir: Optional[str] = None
+    arm: str = "default"
+    refresh: bool = False
 
 
 def _expected_behavior_match(item: EvalItem, g: GradableReport, task_accuracy: Optional[dict]) -> Optional[bool]:
@@ -97,6 +105,76 @@ def _expected_behavior_match(item: EvalItem, g: GradableReport, task_accuracy: O
     return None
 
 
+def _resolve_reference_claims(reference_lookup, item_id: str) -> Optional[list]:
+    """Call ``reference_lookup(item_id)`` and normalize to ``list[str] | None``.
+
+    Accepts a list of claim texts, a `GradableReport`-like object (``.claims`` of
+    objects with ``.text``), or ``None`` when no reference exists for the item.
+    A raised lookup is non-fatal (similarity is simply skipped for that item).
+    """
+    try:
+        ref = reference_lookup(item_id)
+    except Exception:  # noqa: BLE001 - a missing/failed reference -> skip recall
+        return None
+    if ref is None:
+        return None
+    claims = getattr(ref, "claims", ref)
+    texts = [getattr(c, "text", c) for c in claims]
+    texts = [t for t in texts if isinstance(t, str) and t.strip()]
+    return texts or None
+
+
+def _cache_path(cache_dir: str, arm: str, item_id: str) -> str:
+    """Cache key scheme: ``<cache_dir>/<arm>/<item_id>.json`` (one report/file).
+
+    The ``arm`` segment isolates ablation arms (with_verifier vs without_verifier)
+    so the same item id caches independently per arm.
+    """
+    return os.path.join(cache_dir, arm, f"{item_id}.json")
+
+
+def _load_cached_report(path: str) -> Optional[ResearchReport]:
+    """Deserialize a cached `ResearchReport` from JSON; None if absent/corrupt."""
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            return ResearchReport.model_validate_json(f.read())
+    except Exception:  # noqa: BLE001 - a corrupt cache file -> regenerate
+        logger.warning("corrupt report cache at %s; regenerating", path)
+        return None
+
+
+def _save_cached_report(path: str, report: ResearchReport) -> None:
+    """Persist a `ResearchReport` to JSON (pydantic dump) at `path`."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = f"{path}.tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(report.model_dump_json(indent=2))
+    os.replace(tmp, path)  # atomic: a partial write never poisons the cache
+
+
+def _obtain_report(item: EvalItem, deps: PipelineDeps) -> ResearchReport:
+    """Return the item's `ResearchReport`, from cache when present else generate.
+
+    Decouples the expensive pipeline pass from the (re-runnable) scoring: a fresh
+    item calls ``deps.run_query`` and caches the report; a cached item is loaded
+    and ``run_query`` is never called (unless ``deps.refresh``).
+    """
+    if not deps.report_cache_dir:
+        return deps.run_query(item.query)
+
+    path = _cache_path(deps.report_cache_dir, deps.arm, item.id)
+    if not deps.refresh:
+        cached = _load_cached_report(path)
+        if cached is not None:
+            return cached
+
+    report = deps.run_query(item.query)
+    _save_cached_report(path, report)
+    return report
+
+
 def evaluate_item(item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict:
     """Run the pipeline on one item and score every axis. Returns a result dict.
 
@@ -115,10 +193,16 @@ def evaluate_item(item: EvalItem, deps: PipelineDeps, *, seed: int = 13) -> dict
           "expected_behavior_match": <bool | None>,
         }
     """
-    report = deps.run_query(item.query)
+    report = _obtain_report(item, deps)
     g = to_gradable(report, constraints=item.constraints)
 
+    # Reference claims for citation-recall: prefer the item's own, else consult
+    # the injected reference_lookup (e.g. a Fable reference loaded from disk).
+    # The lookup may yield a list of claim texts or a GradableReport; both are
+    # normalized to ``list[str]``. A missing reference -> None (recall skipped).
     reference_claims = item.reference_claims or None
+    if reference_claims is None and deps.reference_lookup is not None:
+        reference_claims = _resolve_reference_claims(deps.reference_lookup, item.id)
     grounding = score_grounding(g, deps.grounding_judge, reference_claims=reference_claims)
     relevance = score_relevance(g, item.query, deps.panel, seed=seed)
     quality = score_quality(g, item.query, deps.panel, seed=seed)
@@ -196,14 +280,32 @@ def _aggregate(results: list[dict]) -> dict:
     }
 
 
-def run_eval(items, deps: PipelineDeps, *, out_dir: str, seed: int = 13, max_workers: int = 1) -> dict:
+def run_eval(items, deps: PipelineDeps, *, out_dir: str, seed: int = 13, max_workers: int = 1,
+             report_cache_dir: Optional[str] = None, arm: Optional[str] = None,
+             refresh: Optional[bool] = None) -> dict:
     """Evaluate every item, aggregate per-tier + overall, write JSON, return summary.
 
     Mirrors `dra.eval.runner`: a `ThreadPoolExecutor` fans the (I/O-bound, model-
     heavy) per-item work out while preserving input order. An item whose
     `evaluate_item` raises is logged and skipped (never fatal). Writes
     ``out_dir/per_item.json`` and ``out_dir/summary.json``.
+
+    ``report_cache_dir`` / ``arm`` / ``refresh`` override the matching
+    `PipelineDeps` fields for this run (so the same deps can drive several arms /
+    cache locations). When omitted, the deps' own values are used. Report
+    caching makes the run resumable: a second invocation reuses cached reports
+    and never re-calls the expensive pipeline.
     """
+    overrides = {}
+    if report_cache_dir is not None:
+        overrides["report_cache_dir"] = report_cache_dir
+    if arm is not None:
+        overrides["arm"] = arm
+    if refresh is not None:
+        overrides["refresh"] = refresh
+    if overrides:
+        deps = replace(deps, **overrides)
+
     def _eval(indexed):
         idx, item = indexed
         try:
