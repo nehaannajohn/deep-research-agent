@@ -62,8 +62,11 @@ OUTPUT_DIR = REPO_ROOT / "eval" / "dra_bench" / "fable_references"
 MAX_WORKERS = 4
 
 
-def build_fable_llm(via: str):
-    """Construct the Fable LLM per `--via`. Returns (llm, label)."""
+def build_fable_llm(via: str, model: "str | None" = None):
+    """Construct the reference-generator LLM per `--via` (+ optional `model`
+    override). Returns (llm, label). Default is Fable; pass `model` to use another
+    (e.g. global.anthropic.claude-sonnet-4-6 — the Sonnet-on-Bedrock gold after
+    Fable's credit/data-sharing wall)."""
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if via == "auto":
         via = "anthropic" if api_key else "bedrock"
@@ -73,15 +76,16 @@ def build_fable_llm(via: str):
             raise SystemExit(
                 "ANTHROPIC_API_KEY is not set (env or .env). Set it or use --via bedrock."
             )
-        # Fable uses extended thinking on complex prompts; a detailed report can
-        # exceed a small cap (thinking + text), so give it generous headroom to
-        # avoid truncating the gold reference mid-sentence.
-        llm = AnthropicChat(api_key, model=FABLE_ANTHROPIC_MODEL_ID, max_tokens=16000)
-        return llm, f"anthropic-api:{FABLE_ANTHROPIC_MODEL_ID}"
+        m = model or FABLE_ANTHROPIC_MODEL_ID
+        # Thinking-capable models can spend tokens before the text; generous cap
+        # so a detailed report isn't truncated mid-sentence.
+        llm = AnthropicChat(api_key, model=m, max_tokens=16000)
+        return llm, f"anthropic-api:{m}"
 
     region = os.environ.get("AWS_REGION", "us-east-1")
-    llm = BedrockChat(FABLE_BEDROCK_MODEL_ID, region=region)
-    return llm, f"bedrock:{FABLE_BEDROCK_MODEL_ID} region={region}"
+    m = model or FABLE_BEDROCK_MODEL_ID
+    llm = BedrockChat(m, region=region)
+    return llm, f"bedrock:{m} region={region}"
 
 
 def load_prompts(path: Path) -> list[dict]:
@@ -125,25 +129,30 @@ def main() -> int:
         "--via",
         choices=["auto", "anthropic", "bedrock"],
         default="auto",
-        help="How to reach Fable: anthropic (personal API), bedrock, or auto (anthropic if ANTHROPIC_API_KEY set).",
+        help="anthropic (personal API), bedrock, or auto (anthropic if ANTHROPIC_API_KEY set).",
     )
+    parser.add_argument("--model", default=None,
+                        help="Override the reference-generator model id (e.g. global.anthropic.claude-sonnet-4-6).")
+    parser.add_argument("--out-dir", default=str(OUTPUT_DIR),
+                        help="Output directory for the reference .md reports.")
     args = parser.parse_args()
 
-    fable, label = build_fable_llm(args.via)
+    fable, label = build_fable_llm(args.via, args.model)
 
     items = load_prompts(PROMPTS_PATH)
     if args.limit is not None:
         items = items[: args.limit]
 
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    output_dir = Path(args.out_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Model: {label}")
-    print(f"Prompts: {len(items)}  output: {OUTPUT_DIR}")
+    print(f"Prompts: {len(items)}  output: {output_dir}")
     print(f"Workers: {args.workers}")
 
     written, skipped, failed = [], [], []
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
-        futures = {ex.submit(generate_one, item, fable, OUTPUT_DIR): item["id"] for item in items}
+        futures = {ex.submit(generate_one, item, fable, output_dir): item["id"] for item in items}
         for fut in as_completed(futures):
             item_id, status, err = fut.result()
             if status == "written":
@@ -164,7 +173,7 @@ def main() -> int:
         for item_id, err in failed:
             print(f"  {item_id}: {err}")
 
-    total_on_disk = len(list(OUTPUT_DIR.glob("*.md")))
+    total_on_disk = len(list(output_dir.glob("*.md")))
     print(f"total references on disk: {total_on_disk}")
     return 1 if failed else 0
 

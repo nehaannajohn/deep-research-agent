@@ -40,7 +40,7 @@ ARMS = ("with_verifier", "without_verifier")
 # ensemble (spec §4). Non-Anthropic on purpose; override via the panel config.
 DEFAULT_GROUNDING_MODEL = "openai.gpt-oss-120b-1:0"
 
-FABLE_REFERENCE_DIR = "eval/dra_bench/fable_references"
+FABLE_REFERENCE_DIR = "eval/dra_bench/reference_reports"  # Sonnet-on-Bedrock gold (Fable hit a credit/data-sharing wall); the 75 Fable refs stay under fable_references/ as a spot-check
 
 
 def fable_reference_lookup(reference_dir=FABLE_REFERENCE_DIR, decomposer=None):
