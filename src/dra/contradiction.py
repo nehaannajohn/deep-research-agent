@@ -34,10 +34,22 @@ def candidate_pairs(claims: list[Claim]) -> list[tuple[Claim, Claim]]:
     return pairs
 
 
-_PAIR_PROMPT = """Do these two CLAIMS contradict each other?
-- "contradict": they cannot both be true.
-- "agree": they are consistent, or one entails the other.
-- "independent": about different things; no logical relation.
+_PAIR_PROMPT = """Decide the logical relation between two CLAIMS. Be conservative: only call a genuine, direct factual conflict a contradiction.
+
+- "contradict": the claims make logically INCOMPATIBLE assertions about the same thing — they cannot both be true at the same time.
+- "agree": they are consistent — equivalent, paraphrases/restatements of the same point, definitions of the same concept, or one entails the other.
+- "independent": about different things, different aspects, or different scope / time / population / conditions; no logical conflict.
+
+IMPORTANT — these are NOT contradictions (label "agree" or "independent"):
+- differences in wording, emphasis, or level of detail
+- two definitions or descriptions of the same concept
+- claims about different sub-aspects, conditions, time periods, or populations
+
+Examples:
+- A: "Transfer learning reuses a model trained on one task for a related task." B: "Transfer learning leverages previously-learned knowledge for a new task." -> agree (paraphrase of the same definition)
+- A: "Rent control increases availability for low-income households." B: "Rent control reduces total rental supply in the long run." -> contradict (incompatible effects on supply)
+- A: "The model has 7B parameters." B: "The model was trained on 2T tokens." -> independent (different aspects)
+
 Answer ONLY JSON: {{"relation": "contradict|agree|independent", "reasoning": "<one short sentence>"}}
 
 CLAIM A: {a}
@@ -51,7 +63,7 @@ def _coerce_relation(v) -> str:
 class PairContradictionJudge:
     """Claim-vs-claim entailment judge with self-consistency (modal relation, agreement
     fraction as confidence). A truncated/unparseable sample counts as 'independent'."""
-    def __init__(self, llm, n_samples: int = 3, temperature: float = 0.4):
+    def __init__(self, llm, n_samples: int = 1, temperature: float = 0.0):
         self.llm = llm
         self.n_samples = n_samples
         self.temperature = temperature
@@ -80,7 +92,7 @@ class ContradictionRecord(BaseModel):
     action: str = "detected"   # B1: detection only; B2 sets "flagged"
 
 
-def detect_and_resolve(claims, judge, *, policy: str = "flag", threshold: float = 0.5):
+def detect_and_resolve(claims, judge, *, policy: str = "flag", threshold: float = 0.67):
     """Filter -> judge candidate pairs -> records for 'contradict' (conf >= threshold).
     policy='flag' (the decided MVP): set BOTH claims in each contradicting pair to
     verdict='contested' (kept, never dropped); record action='flagged'. No-op (claims, [])

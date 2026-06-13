@@ -57,3 +57,32 @@ def test_detect_noop_when_judge_none():
     claims = [_c("c0", "x"), _c("c1", "y")]
     out_claims, records = detect_and_resolve(claims, None)
     assert out_claims == claims and records == []
+
+
+def test_agree_relation_is_not_flagged():
+    """Paraphrases / consistent claims judged 'agree' must NOT be marked contested
+    (the over-flagging fix)."""
+    claims = [_c("c0", "Transfer learning reuses a model trained on one task", "s"),
+              _c("c1", "Transfer learning leverages previously learned knowledge", "s")]
+
+    class AgreeJudge:
+        def judge(self, a, b):
+            return "agree", 1.0
+
+    out, records = detect_and_resolve(claims, AgreeJudge(), policy="flag")
+    assert records == []
+    assert all(c.verdict != "contested" for c in out)
+
+
+def test_default_threshold_rejects_low_confidence_contradiction():
+    """The raised default threshold (0.67) must reject a weak 0.6-confidence contradict."""
+    claims = [_c("c0", "Latency improved thirty percent", "perf"),
+              _c("c1", "Latency was unchanged overall", "perf")]
+
+    class WeakJudge:
+        def judge(self, a, b):
+            return "contradict", 0.6
+
+    out, records = detect_and_resolve(claims, WeakJudge(), policy="flag")
+    assert records == []
+    assert all(c.verdict != "contested" for c in out)

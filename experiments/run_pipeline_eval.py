@@ -145,12 +145,16 @@ def build_pipeline_deps(cfg, arm, *, decomposer=None):  # pragma: no cover - liv
     from dra.eval.pipeline.judges.panel import JudgePanel
     from dra.llm.bedrock import BedrockChat
 
-    if arm == "with_verifier":
+    if arm in ("with_verifier", "corrected_verifier"):
+        # corrected_verifier = the same full pipeline; the over-flagging fix lives in
+        # src/dra/contradiction.py (hardened prompt + deterministic judge + higher
+        # threshold), so it flows through build_deps automatically. Separate arm name
+        # → separate cache/output dir, preserving the original with_verifier results.
         run_query = _make_run_query_with_verifier(cfg)
     elif arm == "without_verifier":
         run_query = _make_run_query_without_verifier(cfg)
     else:
-        raise ValueError(f"unknown arm {arm!r}; expected one of {ARMS}")
+        raise ValueError(f"unknown arm {arm!r}; expected one of {ARMS} or 'corrected_verifier'")
 
     panel_models = cfg.panel_models or [DEFAULT_GROUNDING_MODEL]
     grounding_model = os.environ.get("BEDROCK_GROUNDING_JUDGE_MODEL") or DEFAULT_GROUNDING_MODEL
@@ -183,7 +187,8 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
     from dra.eval.pipeline.harness import run_eval
 
     parser = argparse.ArgumentParser(description="±verifier pipeline-eval driver")
-    parser.add_argument("--arm", choices=("with_verifier", "without_verifier", "both"),
+    parser.add_argument("--arm",
+                        choices=("with_verifier", "without_verifier", "corrected_verifier", "both"),
                         default="both")
     parser.add_argument("--dataset", choices=("dra_bench", "frames", "truthfulqa"),
                         default="dra_bench", help="which benchmark to run the pipeline over")
