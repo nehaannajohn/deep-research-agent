@@ -24,6 +24,7 @@ from dra.verify.train.prm import insensitivity_check, monotonicity_ladder  # noq
 DATA = REPO / "eval" / "verifier_b_data"
 MODELS = REPO / "eval" / "verifier_b_models"
 OUT = REPO / "eval" / "results" / "verifier_b"
+TRAINPOOL = REPO / "eval" / "trainpool" / "passages.jsonl"  # variant-independent distractors
 
 
 def main(argv=None):
@@ -34,7 +35,9 @@ def main(argv=None):
     a = ap.parse_args(argv)
     score = _bind_score_fn(str(MODELS / a.variant / "best"))
 
-    distractors = [json.loads(l)["passage"] for l in open(DATA / "synthetic.jsonl")][:500]
+    # Variant-independent distractors (the v1-only synthetic slice would make a v0
+    # PRM run non-comparable / fail). Trainpool passages exist for both variants.
+    distractors = [json.loads(l)["text"] for l in open(TRAINPOOL)][:500]
     rng = random.Random(13)
 
     ladder_rows, insens_pairs = [], []

@@ -66,15 +66,21 @@ def main(argv=None):
 
     yt, yp, psup, outc = _eval_transfer(verifier)
     f1 = macro_f1(yt, yp)
-    # Platt on the transfer P(supported) split (representative distribution).
-    cal = PlattCalibrator().fit(psup, outc)
-    ece = ece_before_after(psup, outc, cal)
+    # OUT-OF-SAMPLE calibration: fit Platt on an interleaved half, report ECE on the
+    # other half (fitting + scoring on the same points gives an optimistic in-sample
+    # ECE). Even indices = calibration fold, odd = test fold (representative split).
+    cal_idx = list(range(0, len(psup), 2))
+    test_idx = list(range(1, len(psup), 2))
+    cal = PlattCalibrator().fit([psup[i] for i in cal_idx], [outc[i] for i in cal_idx])
+    ece = ece_before_after([psup[i] for i in test_idx], [outc[i] for i in test_idx], cal)
 
     out = OUT / a.variant
     out.mkdir(parents=True, exist_ok=True)
     result = {"variant": a.variant, "transfer_macro_f1": f1["macro_f1"],
               "transfer_per_class": f1["per_class"], "ece": ece,
-              "platt": {"w": cal.w, "b": cal.b}, "n_transfer": len(yt)}
+              "ece_note": "out-of-sample: Platt fit on calibration fold, ECE on held-out test fold",
+              "platt": {"w": cal.w, "b": cal.b},
+              "n_transfer": len(yt), "n_cal": len(cal_idx), "n_ece_test": len(test_idx)}
     (out / "eval.json").write_text(json.dumps(result, indent=2))
     print(json.dumps(result, indent=2))
 

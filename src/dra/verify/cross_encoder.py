@@ -13,7 +13,7 @@ real score_fn; tests inject a fake). Aggregation:
 """
 from __future__ import annotations
 
-from typing import Callable, Optional
+from typing import Callable
 
 from dra.schemas import Passage
 from dra.verify.base import Recommendation, Verifier, VerifierResult
