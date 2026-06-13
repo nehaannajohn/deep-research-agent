@@ -10,6 +10,8 @@ date: "2026-06-12"
 
 > **Scope note (important).** This ablation toggles **two stages together** — the per-claim **verifier** *and* the cross-claim **contradiction detection** — as one block, vs. neither. So every gain below is attributable to the **combination**, not to verification alone. The two are architecturally independent (contradiction detection uses its own `PairContradictionJudge` over the claims, not the verifier's verdicts); separating their individual contributions needs a 2×2 (see §7). This is a valid combined ablation, deliberately framed as such.
 
+> **This doc covers DRA-Bench only.** The same ±verifier ablation on the broad public benchmarks (FRAMES + TruthfulQA) — plus the Perplexity/OpenAI baselines on those sets — lives in the companion: `2026-06-13-frames-truthfulqa-pipeline-findings.md`.
+
 ## 1. Question & motivation
 
 Layer-1 confirmed the verifier is a strong, well-calibrated *diagnostician*. Layer-2 asks the end-to-end question: **what does the reliability stage (verifier + contradiction layer) actually change in the final report?** Hypothesis: it improves *epistemic honesty* (flagging contested/insufficient) more than raw grounding — because without an adaptive-retrieval loop, the system can *diagnose* weak evidence but cannot *act* to improve it. Prompted upstream of the adaptive-retrieval decision: if grounding is gated on retrieval rather than verification, that points the next investment at retrieval.
@@ -120,30 +122,7 @@ The verifier **wins on type3/4** (legitimate contestation/insufficiency: net +6 
 
 The text judge's reasons on these cases are consistent: *"presents many contested and contradictory claims, hedging rather than giving a clear answer"* (with) vs *"directly defines… without hedging"* (without). So the report reads as conflicted on a topic that has a confident answer.
 
-### 3.1 Broad benchmarks — FRAMES + TruthfulQA (±verifier, same instrument)
-
-DRA-Bench is technical/AI-skewed; these public benchmarks test whether the ±verifier effects generalize to broad, non-technical queries. Both ship **gold answers**, so they add **task accuracy** + **abstention** (axes DRA-Bench lacked). `expected_behavior` is N/A (factual QA, not behavior-typed) → the EBM headline does not apply here; the relevant axes are grounding, task accuracy, and (TruthfulQA) abstention.
-
-**FRAMES** (multi-hop factual QA):
-| metric | with | without |
-|---|---|---|
-| grounding_rate | 0.893 | 0.911 |
-| task_accuracy | 0.244 | 0.289 |
-| relevance (1–5) | 3.87 | 3.70 |
-| quality (1–5) | 3.50 | 3.50 |
-| n | 78 | 76 |
-
-**TruthfulQA** (adversarial misconceptions):
-| metric | with | without |
-|---|---|---|
-| grounding_rate | 0.946 | 0.958 |
-| task_accuracy | 0.012 | 0.012 |
-| abstention_rate | 0.241 | 0.212 |
-| relevance (1–5) | 4.25 | 4.31 |
-| quality (1–5) | 3.98 | 4.01 |
-| n | 83 | 85 |
-
-(Arms differ by a few items from timeout/error skips → **unpaired**, so these are descriptive, not paired-significance-tested.)
+> **Broad benchmarks live in a companion doc.** The ±verifier results on FRAMES + TruthfulQA (where the stage shows no significant effect on any axis) are written up separately: `2026-06-13-frames-truthfulqa-pipeline-findings.md`.
 
 ## 4. Findings
 
@@ -153,13 +132,6 @@ DRA-Bench is technical/AI-skewed; these public benchmarks test whether the ±ver
 - **Grounding is flat and not significant (0.956 vs 0.959, p=0.28).** Both arms make the same claims from the same evidence; the reliability stage *annotates and flags* but, with no adaptive-retrieval loop, **cannot fetch better evidence** — so grounding can't move. **This is the key strategic finding: grounding is gated on retrieval, not on verification** → the next lever is **adaptive retrieval** (the "treatment" to the verifier's "diagnosis").
 - **The quality dip (−0.21, significant) is largely the metric under-valuing honesty, not worse reports.** It concentrates in type3 (3.80 vs 4.28). Example — *"Is rent control effective, or does it cut supply/quality?"*: the **without** report scores **quality [5,4,5]** for a clean *"mixed effects"* synthesis that **glosses the genuine conflict**; the **with** report scores **[3,2,4]** for explicitly stating *"this is contested — one source indicates X, another indicates Y."* The panel's quality rubric rewards fluent confident prose and penalizes contestation-flagging — so on a genuinely contested topic it **rewards the less honest report**. This is precisely why `expected_behavior_match` exists: it captures the honesty the quality rubric misses. (Full 10-example artifact: `experiments/results/verifier_ablation_examples.md`.)
 - **Honest weakness — type4 recovery is low (0.22).** Even with the stage, the system flags only ~1 in 5 ill-posed/unanswerable prompts as insufficient; it over-answers the rest. Recognizing unanswerability is a standing gap (consistent with Layer-1's low `insufficient` recall).
-
-### Broad-benchmark findings (FRAMES + TruthfulQA)
-
-- **The "grounding is flat under ±verifier" result generalizes across all three benchmarks.** with/without grounding: DRA-Bench 0.956/0.959, FRAMES 0.893/0.911, TruthfulQA 0.946/0.958 — every pair is within noise, and if anything *slightly lower* with the verifier (it annotates/flags, it doesn't fetch). This is strong cross-benchmark confirmation that **grounding is gated on retrieval, not verification** → adaptive retrieval is the lever everywhere.
-- **Broad multi-hop grounding is materially lower than technical (FRAMES 0.89–0.91 vs DRA-Bench 0.956)** — hallucination roughly doubles off-technical. So the adaptive-retrieval payoff is larger on broad queries than the technical-only 3.4%-at-risk estimate suggested. (TruthfulQA grounding stays high at 0.95 — see the truthfulness caveat below.)
-- **Where EBM is absent, the verifier's honesty value surfaces as abstention and a task-accuracy trade.** TruthfulQA **abstention rises with the verifier (0.241 vs 0.212)** — correct epistemic caution on adversarial questions. FRAMES **task accuracy is slightly lower with the verifier (0.244 vs 0.289)** — the honesty/hedging-vs-committing tension (the verifier flags/abstains on some claims a bare generator would have answered, occasionally costing a correct guess). Same mechanism as the DRA-Bench quality dip: the reliability stage trades a little surface performance for calibrated honesty.
-- **TruthfulQA exposes grounding ≠ truthfulness.** Grounding is 0.95 but **task accuracy ≈ 0.01** — the pipeline faithfully cites sources that carry the *popular misconception*, so claims are well-grounded yet wrong vs the truthful gold. Grounding measures claim↔evidence support, not world-truth; closing this gap needs source-quality/consensus signals, not just verification. (A clean motivation for the judge-panel-for-grounding and source-diversity explorations.)
 
 ### Illustrative example (type3 — rent control)
 **Query:** *"Is rent control an effective tool for housing affordability or does it reduce housing supply and quality?"* · `expected_behavior = flag_contested`.
@@ -178,7 +150,6 @@ Both reach a similar substantive position; only the **with** arm surfaces *that 
 3. **Single grounding judge** (not a panel) — a deliberate cost/objectivity choice; panel-for-grounding noted as a future exploration (`future-explorations.md` #5).
 4. **Baseline grounding not assessed** (decision B) — black-box source content not retrieved.
 5. **Quality rubric vs. honesty tension** — the quality axis, as scored by the panel, partially penalizes the correct behavior on contested topics; interpret the quality dip in that light.
-6. **Broad benchmarks (FRAMES/TruthfulQA) are unpaired and EBM-free** — arms differ by a few items (timeout/error skips), so their numbers are **descriptive** (no McNemar/paired-t); and with no `expected_behavior` labels the EBM headline does not apply to them. They contribute grounding-generalization + task-accuracy/abstention evidence, not a second EBM measurement. n≈78–85 per arm.
 
 ## 5. Decision / Verdict
 
@@ -208,9 +179,6 @@ export BEDROCK_VERIFIER_MODELS=global.anthropic.claude-sonnet-4-6,mistral.mistra
 export BEDROCK_PANEL_MODELS=openai.gpt-oss-120b-1:0,global.anthropic.claude-opus-4-8,us.deepseek.r1-v1:0
 export BEDROCK_GROUNDING_JUDGE_MODEL=openai.gpt-oss-120b-1:0
 python -m experiments.run_pipeline_eval --arm both --workers 6
-# Broad benchmarks (same driver, public datasets):
-python -m experiments.run_pipeline_eval --dataset frames     --n 100 --arm both --workers 6
-python -m experiments.run_pipeline_eval --dataset truthfulqa --n 100 --arm both --workers 6
 ```
 
-Raw outputs (gitignored, on the run host): `eval/results/pipeline{,_frames,_truthfulqa}/{with,without}_verifier/{per_item.json,summary.json}` + cached reports under `report_cache/`. Sample report pairs (tracked): `experiments/results/verifier_ablation_examples.md`.
+The text-level EBM re-measurement (§3 "EBM measured two ways") uses `src/dra/eval/pipeline/judges/behavior_judge.py` over the cached reports of both arms. Raw outputs (gitignored, on the run host): `eval/results/pipeline/{with,without}_verifier/{per_item.json,summary.json}` + cached reports under `report_cache/`. Sample report pairs (tracked): `experiments/results/verifier_ablation_examples.md`. **Broad-benchmark (FRAMES/TruthfulQA) results: companion doc `2026-06-13-frames-truthfulqa-pipeline-findings.md`.**
