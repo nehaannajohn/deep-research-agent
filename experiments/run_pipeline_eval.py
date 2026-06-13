@@ -195,6 +195,8 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
     parser.add_argument("--n", type=int, default=100,
                         help="sample size for frames / truthfulqa")
     parser.add_argument("--limit", type=int, default=None, help="evaluate only the first N items")
+    parser.add_argument("--ids", default=None,
+                        help="comma-separated item ids to run (overrides --limit; for targeted sanity checks)")
     parser.add_argument("--workers", type=int, default=6)
     parser.add_argument("--out-dir", default=None,
                         help="results dir (default: eval/results/pipeline[_<dataset>])")
@@ -221,7 +223,10 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
         items = load_dra_bench()
         default_out = "eval/results/pipeline"
     args.out_dir = args.out_dir or default_out
-    if args.limit is not None:
+    if args.ids:
+        wanted = set(args.ids.split(","))
+        items = [it for it in items if it.id in wanted]
+    elif args.limit is not None:
         items = items[: args.limit]
 
     cache_dir = args.cache_dir or os.path.join(args.out_dir, "report_cache")
