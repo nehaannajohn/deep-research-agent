@@ -87,7 +87,7 @@ def load_truthfulqa(n: int | None = None, *, seed: int = 13) -> List[EvalItem]: 
     """
     from datasets import load_dataset  # imported lazily; not a unit-test dep
 
-    ds = load_dataset("truthful_qa", "generation", split="validation")
+    ds = load_dataset("truthfulqa/truthful_qa", "generation", split="validation")
     if n is not None:
         ds = ds.shuffle(seed=seed).select(range(min(n, len(ds))))
     return [truthfulqa_row_to_item(dict(row), idx=i) for i, row in enumerate(ds)]
