@@ -164,11 +164,34 @@ Both reach a similar substantive position; only the **with** arm surfaces *that 
 4. **Baseline grounding not assessed** (decision B) — black-box source content not retrieved.
 5. **Quality rubric vs. honesty tension** — the quality axis, as scored by the panel, partially penalizes the correct behavior on contested topics; interpret the quality dip in that light.
 
+## 4.5 Follow-up investigation (2026-06-13): the over-flagging is *upstream* — the ceiling is retrieval
+
+A deeper investigation into the type1 over-flagging (the `contested` flags on settled, answer-confident queries) traced the root cause **out of the verification/contradiction layers entirely** and into retrieval. Four steps:
+
+**(a) The contradiction layer is necessary — you can't just remove it.** A `verifier_only` arm (verifier on, contradiction layer off via `contradiction_judge=None`) on the 10 sanity items: type1 `contested` → **0** (over-flagging gone) **but type3 `contested` → 0 and type3 EBM 5/5 → 0/5** (genuine contestation destroyed). The verifier (claim-vs-its-evidence) catches *none* of the type3 conflict, because that conflict lives **across separately-grounded claims** (claim A backed by a pro-source, claim B by a con-source — each individually `supported`). Only the cross-claim contradiction layer sees it.
+
+**(b) Inspecting the flagged pairs: type3 detection is *precise*, type1 is not "paraphrase confusion."** On `dra-type3-033` (rent control) the flagged pairs are **genuinely opposing** ("restrictive reforms *increase* affordable availability" vs "rent control *reduces* supply / total units / renters"), with sound reasoning; consistent pro-tenant claims are correctly left `agree`. On `dra-type1-006` (transfer learning) the *paraphrase* definition pairs are correctly `agree`; the flags trace to **one** claim ("transfer learning is distinct from fine-tuning, whereas fine-tuning improves performance on the *initial* task") flagged against many others, then spread by the "mark *both* claims contested" policy.
+
+**(c) The decisive finding — the flagged claim is *faithfully grounded*; the conflict is real and comes from the *sources*.** That fine-tuning claim is **verbatim what its cited IBM source asserts**: *"Finetuning refers to … further training a model … to improve performance on the initial, specific task … By contrast, transfer learning … adapt[s] a model to a new, related problem."* IBM's definition genuinely **conflicts** with the other sources' definitions (fine-tuning = adapt to a *new* task). So it is **not** a generation/extraction error and **not** a judge error — it is a real **cross-source disagreement** (terminological), introduced by retrieval/source selection. The contradiction layer detected it *correctly*.
+
+**(d) Prompting can't break the tension — the conflict is real.** Successive contradiction-judge prompts on the 10 items, `contested`-claim totals:
+
+| contradiction approach | type1 | type3 | note |
+|---|---|---|---|
+| text-only (original) | 43 | 59 | over-flags type1 |
+| `verifier_only` (layer removed) | 0 | 0 | destroys type3 |
+| structured-reasoning prompt | 13 | 40 | best *balance* |
+| evidence-grounded prompt | 9 | 24 | best type1, but erodes type3 (033 → 0) |
+
+No prompt cleanly separates type1-precision from type3-recall, because the underlying conflicts are *genuine* (the sources disagree). This is a **prompting ceiling**.
+
+**Conclusion (→ `limitations.md` #9).** Verification and contradiction detection are **sound diagnosis layers that cannot exceed the evidence they are handed.** Combined with the flat-grounding result (§4) and the ~10% Sonnet-coverage gap (§3 baseline note), the binding constraint on report quality is **retrieval quality + diversity + source selection**, not these components. Keep the verifier (must-have — no grounding labels without it) and the contradiction layer (the only thing catching genuine cross-claim conflict); the next real lever is **adaptive / multi-backend retrieval**. A trained verifier (Verifier B) adds controllability/cost but is bound by this same retrieval ceiling.
+
 ## 5. Decision / Verdict
 
 **Keep the verifier + contradiction-detection stage on (default) — but fix the over-flagging as the top priority.** By the structural metric it delivers a large honesty gain (EBM +0.22) at zero grounding cost; but a text-level judge shows that gain doesn't reach the reader because the stage **over-flags contestation on settled, answer-confident queries** (net text-EBM flat, §3/§4). So the stage is doing the right thing on genuinely contested/insufficient queries (type3/4) and the wrong thing on confident-answer queries (type1/5).
 
-**Action: tighten the `contested` threshold (the `PairContradictionJudge` / contestation logic) to require genuine semantic disagreement, not cross-source wording variance.** This is the highest-value fix — it should turn the stage into a net win on *both* the structural and text-level EBM, and recover the **measured −0.144 quality cost on answer-confident types (p=0.045)**. (The remaining quality cost — −0.302 on genuinely contested type3/4 — is the panel under-valuing honest contestation, a metric limitation we accept, not a bug.) Re-run this ablation after the fix to confirm.
+**Action (revised after the §4.5 follow-up): the contradiction-judge tuning hit a ceiling — the root cause is upstream, so the lever is retrieval, not the judge.** Successive prompts (structured-reasoning, evidence-grounded) reduced but could not cleanly remove the type1 over-flagging without eroding genuine type3 contestation, because the flagged conflicts are *real* cross-source disagreements (§4.5c: the claim is faithfully grounded in an idiosyncratic source). So: **keep the structured-reasoning prompt as the interim default** (best balance: type1 43→13, type3 preserved), but do **not** treat further judge tuning as high-value. The measured −0.144 quality cost on answer-confident types and the residual over-flags are **retrieval/source-selection problems** (`limitations.md` #9), addressed by better/multi-backend retrieval — not by the contradiction judge. (The −0.302 quality cost on genuinely contested type3/4 remains the panel under-valuing honest contestation — a metric limitation we accept.)
 
 **Strategic call: the next investment is adaptive retrieval, not the verifier.** Grounding is flat across arms (p=0.28) because the system diagnoses weak evidence but can't act on it — adaptive retrieval is the missing "treatment." (Design: `docs/superpowers/specs/2026-06-11-adaptive-retrieval-design.md`.)
 
