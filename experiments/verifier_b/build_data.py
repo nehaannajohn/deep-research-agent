@@ -103,24 +103,36 @@ def build_synthetic(n_synth=3000):
     passages = _trainpool_passages()   # held-out, no-leak (Task 5b) — never DRA-Bench
     rng = random.Random(13)
     rng.shuffle(passages)
-    rows, kept = [], 0
-    for psg in passages:
-        if kept >= n_synth:
-            break
-        ptype = PERTURBATIONS[kept % len(PERTURBATIONS)]
+
+    # Candidate (passage, perturbation) tasks — all 4 types per passage so a small
+    # passage pool still yields enough negatives. Capped at ~2x target to bound the
+    # filter rejects. PARALLEL over Bedrock (sequential here would be hours, like the
+    # similarity job was) — each task does 1 generation + 1 judge-filter call.
+    tasks = [(psg, pt) for psg in passages for pt in PERTURBATIONS]
+    rng.shuffle(tasks)
+    tasks = tasks[: max(n_synth * 2, n_synth)]
+
+    def _one(task):
+        psg, pt = task
         try:
-            claim = parse_synthetic_claim(llm.complete(build_perturbation_prompt(psg.text, ptype)))
+            claim = parse_synthetic_claim(llm.complete(build_perturbation_prompt(psg.text, pt)))
         except Exception:
-            continue
-        if not claim:
-            continue
-        if not is_genuine_negative(claim, [psg], judge):
-            continue  # perturbation failed to break entailment -> skip
-        rows.append(TrainPair(claim=claim, passage=psg.text,
-                              label=PERTURBATION_LABEL[ptype], source="synthetic"))
-        kept += 1
-        if kept % 200 == 0:
-            print(f"[synthetic] kept {kept}/{n_synth}")
+            return None
+        if not claim or not is_genuine_negative(claim, [psg], judge):
+            return None  # gen failed or perturbation didn't break entailment
+        return TrainPair(claim=claim, passage=psg.text,
+                         label=PERTURBATION_LABEL[pt], source="synthetic")
+
+    from concurrent.futures import ThreadPoolExecutor
+    rows = []
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        for r in pool.map(_one, tasks):
+            if r is not None:
+                rows.append(r)
+                if len(rows) % 200 == 0:
+                    print(f"[synthetic] kept {len(rows)}/{n_synth}")
+            if len(rows) >= n_synth:
+                break
     _dump(rows, "synthetic")
 
 
