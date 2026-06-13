@@ -1,0 +1,83 @@
+"""Evaluate a Verifier B checkpoint: macro-F1 + per-class on the silver transfer
+set; Platt-fit on P(supported); ECE before/after (live, GPU).
+
+Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.verifier_b.evaluate --variant v0
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+import torch
+import torch.nn.functional as F
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "src"))
+
+from dra.eval.calibrate import PlattCalibrator, ece_before_after   # noqa: E402
+from dra.eval.metrics import macro_f1                              # noqa: E402
+from dra.verify.cross_encoder import CrossEncoderVerifier          # noqa: E402
+from dra.verify.train import ID2LABEL                              # noqa: E402
+from dra.verify.train.transfer import TransferExample              # noqa: E402
+
+DATA = REPO / "eval" / "verifier_b_data"
+MODELS = REPO / "eval" / "verifier_b_models"
+OUT = REPO / "eval" / "results" / "verifier_b"
+MAX_LEN = 512
+
+
+def _bind_score_fn(ckpt):
+    tok = AutoTokenizer.from_pretrained(ckpt)
+    model = AutoModelForSequenceClassification.from_pretrained(ckpt).cuda().eval()
+
+    @torch.no_grad()
+    def score_fn(claim, passage):
+        enc = tok(claim, passage, truncation="only_second", max_length=MAX_LEN,
+                  return_tensors="pt").to("cuda")
+        probs = F.softmax(model(**enc).logits, dim=-1)[0].tolist()
+        return {ID2LABEL[i]: probs[i] for i in range(3)}
+    return score_fn
+
+
+def _eval_transfer(verifier):
+    rows = [TransferExample(**json.loads(l)) for l in open(DATA / "transfer.jsonl")]
+    y_true, y_pred, p_sup, outcomes = [], [], [], []
+    for ex in rows:
+        r = verifier.verify(ex.claim, ex.passages)
+        # 3-way for F1: contested folds back to nei for the head comparison
+        pred = "nei" if r.label in ("insufficient", "contested") else r.label
+        y_true.append(ex.label)
+        y_pred.append(pred)
+        p_sup.append(r.confidence)
+        outcomes.append(1 if ex.label == "supported" else 0)
+    return y_true, y_pred, p_sup, outcomes
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--variant", choices=["v0", "v1"], required=True)
+    a = ap.parse_args(argv)
+
+    score_fn = _bind_score_fn(str(MODELS / a.variant / "best"))
+    verifier = CrossEncoderVerifier(score_fn=score_fn)
+
+    yt, yp, psup, outc = _eval_transfer(verifier)
+    f1 = macro_f1(yt, yp)
+    # Platt on the transfer P(supported) split (representative distribution).
+    cal = PlattCalibrator().fit(psup, outc)
+    ece = ece_before_after(psup, outc, cal)
+
+    out = OUT / a.variant
+    out.mkdir(parents=True, exist_ok=True)
+    result = {"variant": a.variant, "transfer_macro_f1": f1["macro_f1"],
+              "transfer_per_class": f1["per_class"], "ece": ece,
+              "platt": {"w": cal.w, "b": cal.b}, "n_transfer": len(yt)}
+    (out / "eval.json").write_text(json.dumps(result, indent=2))
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()
