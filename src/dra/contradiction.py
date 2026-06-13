@@ -34,23 +34,26 @@ def candidate_pairs(claims: list[Claim]) -> list[tuple[Claim, Claim]]:
     return pairs
 
 
-_PAIR_PROMPT = """Decide the logical relation between two CLAIMS. Be conservative: only call a genuine, direct factual conflict a contradiction.
+_PAIR_PROMPT = """Decide whether two CLAIMS genuinely CONTRADICT each other. Reason step by step, then commit to a label. Be conservative: a contradiction requires a specific, articulable logical incompatibility.
 
-- "contradict": the claims make logically INCOMPATIBLE assertions about the same thing — they cannot both be true at the same time.
-- "agree": they are consistent — equivalent, paraphrases/restatements of the same point, definitions of the same concept, or one entails the other.
-- "independent": about different things, different aspects, or different scope / time / population / conditions; no logical conflict.
+Reason in this order (put it in "reasoning"):
+1. The precise assertion CLAIM A makes (about which entity / quantity / relationship).
+2. The precise assertion CLAIM B makes.
+3. Are they about the SAME proposition? Different causes, mechanisms, aspects, scopes, time periods, or populations are DIFFERENT propositions and can coexist.
+4. If the same proposition: does one assert P and the other assert NOT-P, so they cannot both be true?
 
-IMPORTANT — these are NOT contradictions (label "agree" or "independent"):
-- differences in wording, emphasis, or level of detail
-- two definitions or descriptions of the same concept
-- claims about different sub-aspects, conditions, time periods, or populations
+Decision rule: label "contradict" ONLY if step 4 is clearly yes AND you can state the specific incompatibility in one sentence. **If you cannot clearly articulate why they are logically incompatible, you may NOT label "contradict"** — use "agree" or "independent".
+
+- "contradict": same proposition, logically incompatible (cannot both be true).
+- "agree": consistent — equivalent, paraphrase/restatement, a definition of the same concept, or one entails the other.
+- "independent": different aspects / scope / conditions; no logical conflict.
 
 Examples:
-- A: "Transfer learning reuses a model trained on one task for a related task." B: "Transfer learning leverages previously-learned knowledge for a new task." -> agree (paraphrase of the same definition)
-- A: "Rent control increases availability for low-income households." B: "Rent control reduces total rental supply in the long run." -> contradict (incompatible effects on supply)
-- A: "The model has 7B parameters." B: "The model was trained on 2T tokens." -> independent (different aspects)
+- A: "Transfer learning reuses a model trained on one task for a related task." B: "Transfer learning leverages previously-learned knowledge for a new task." -> agree (same definition, paraphrased)
+- A: "Grokking is delayed generalization long after overfitting." B: "Grokking is driven by weight decay." -> independent (a description vs a proposed cause — different aspects)
+- A: "Rent control increases availability for low-income households." B: "Rent control reduces total rental supply in the long run." -> contradict (incompatible effects on supply; both cannot be true)
 
-Answer ONLY JSON: {{"relation": "contradict|agree|independent", "reasoning": "<one short sentence>"}}
+Answer ONLY JSON: {{"reasoning": "<step-by-step, ending with the specific incompatibility if contradict>", "relation": "contradict|agree|independent"}}
 
 CLAIM A: {a}
 CLAIM B: {b}"""
