@@ -92,6 +92,23 @@ def _make_run_query_with_verifier(cfg):  # pragma: no cover - live Bedrock/Exa
     return _run
 
 
+def _make_run_query_verifier_only(cfg):  # pragma: no cover - live Bedrock/Exa
+    """Verifier ON, contradiction layer OFF. `contradiction_judge=None` makes
+    `detect_and_resolve` a no-op, so `contested` can come ONLY from the verifier
+    (claim-vs-its-evidence), never from claim-vs-claim text comparison. Tests
+    whether the over-flagging claim-vs-claim layer earns its place."""
+    import dataclasses
+
+    from dra.loop import build_deps, run_query
+
+    deps = dataclasses.replace(build_deps(cfg), contradiction_judge=None)
+
+    def _run(query):
+        return run_query(query, deps)
+
+    return _run
+
+
 def _make_run_query_without_verifier(cfg):  # pragma: no cover - live Bedrock/Exa
     """No-verification arm: same generator/search/decomposition as the normal
     pipeline, but claims are NEVER verified and the report is composed with
@@ -147,14 +164,16 @@ def build_pipeline_deps(cfg, arm, *, decomposer=None):  # pragma: no cover - liv
 
     if arm in ("with_verifier", "corrected_verifier"):
         # corrected_verifier = the same full pipeline; the over-flagging fix lives in
-        # src/dra/contradiction.py (hardened prompt + deterministic judge + higher
-        # threshold), so it flows through build_deps automatically. Separate arm name
-        # → separate cache/output dir, preserving the original with_verifier results.
+        # src/dra/contradiction.py (structured-reasoning prompt), so it flows through
+        # build_deps automatically. Separate arm name → separate cache/output dir,
+        # preserving the original with_verifier results.
         run_query = _make_run_query_with_verifier(cfg)
+    elif arm == "verifier_only":
+        run_query = _make_run_query_verifier_only(cfg)   # verifier on, contradiction layer off
     elif arm == "without_verifier":
         run_query = _make_run_query_without_verifier(cfg)
     else:
-        raise ValueError(f"unknown arm {arm!r}; expected one of {ARMS} or 'corrected_verifier'")
+        raise ValueError(f"unknown arm {arm!r}; expected with/without/corrected/verifier_only")
 
     panel_models = cfg.panel_models or [DEFAULT_GROUNDING_MODEL]
     grounding_model = os.environ.get("BEDROCK_GROUNDING_JUDGE_MODEL") or DEFAULT_GROUNDING_MODEL
@@ -188,7 +207,8 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
 
     parser = argparse.ArgumentParser(description="±verifier pipeline-eval driver")
     parser.add_argument("--arm",
-                        choices=("with_verifier", "without_verifier", "corrected_verifier", "both"),
+                        choices=("with_verifier", "without_verifier", "corrected_verifier",
+                                 "verifier_only", "both"),
                         default="both")
     parser.add_argument("--dataset", choices=("dra_bench", "frames", "truthfulqa"),
                         default="dra_bench", help="which benchmark to run the pipeline over")
