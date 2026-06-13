@@ -6,7 +6,7 @@ date: "2026-06-12"
 
 # ±(Verifier + Contradiction Detection) Ablation (2026-06-12)
 
-**Headline verdict: the reliability stage delivers a large, one-directional gain in epistemic honesty (expected-behavior match +0.22, p<0.0001, 51 items helped / 0 hurt) at no cost to grounding (flat, n.s.) and a small panel-quality dip (−0.21, p=0.0004) that is largely the quality rubric under-valuing honesty. Keep it on. The next lever for *grounding* is adaptive retrieval, not the verifier.**
+**Headline verdict (updated 2026-06-13 with a text-level EBM re-measurement): the reliability stage's value depends on how EBM is measured, and the difference exposes a real bug. By the *structural* EBM (claim-verdict based) it delivers a large one-directional gain (+0.22, p<0.0001, 51/0). But a *text-level* judge reading the actual reports finds the gain does NOT replicate (with 0.786 vs without 0.810) — because the stage *over-flags contestation on settled, answer-confident queries* (e.g. it marks the textbook definition of "transfer learning" as `contested`), making those reports read as hedged. So: the stage genuinely helps on contested/insufficient queries (type3/4) but hurts on confident-answer queries (type1/5) by manufacturing disagreement. Net text-EBM is flat. Keep the stage, but the priority fix is tightening the contestation threshold so it fires only on genuine disagreement. Grounding is unaffected either way (flat, n.s.) → adaptive retrieval remains the lever for grounding.**
 
 > **Scope note (important).** This ablation toggles **two stages together** — the per-claim **verifier** *and* the cross-claim **contradiction detection** — as one block, vs. neither. So every gain below is attributable to the **combination**, not to verification alone. The two are architecturally independent (contradiction detection uses its own `PairContradictionJudge` over the claims, not the verifier's verdicts); separating their individual contributions needs a 2×2 (see §7). This is a valid combined ablation, deliberately framed as such.
 
@@ -89,6 +89,37 @@ In short: **LLM judges** drive grounding / hallucination / relevance / quality /
 ### Baseline bracket (separate comparison, solid axes only — decision B)
 Perplexity Sonar + OpenAI (web-search) on a 50-item subset, our instrument: relevance ≈ **4.74** (Perplexity) / **4.58** (OpenAI). **Grounding deliberately excluded** for the baselines — a black-box system's *source content* isn't in its response (Perplexity returns 1-line snippets, OpenAI only URLs+titles), so a fair grounding number would require fetching the cited pages; exposed per-claim grounding is *our* differentiator (see `limitations.md` #8 context).
 
+### EBM measured two ways — structural vs text-level judge (added 2026-06-13)
+
+The headline `expected_behavior_match` above is the **structural** metric: it checks observable properties of our claim ledger (`flag_contested` ⇒ ≥1 claim has verdict `contested`; `report_insufficient` ⇒ abstained / has an `insufficient` claim; `answer_confident` ⇒ did not abstain). To check whether that gain reflects what a *reader* sees, we re-scored EBM with a **text-level judge** (`openai.gpt-oss-120b`) that reads the report text and decides whether it exhibits the behavior — the same judge applied to our pipeline and (separately) to the baselines, so comparisons are fair.
+
+| EBM measure | with | without |
+|---|---|---|
+| **Structural** (claim-verdict based) | **0.807** | **0.595** |
+| **Text-level judge** | 0.786 | **0.810** |
+
+**The structural +0.22 does not replicate under a text judge — the sign even flips.** The reason is in the per-type disagreement counts (where the two arms get *different* text-EBM verdicts):
+
+| type | expected behavior | n | **without-pass / with-fail** | with-pass / without-fail |
+|---|---|---|---|---|
+| type1 | answer_confident | 48 | **8** | 0 |
+| type2 | answer_confident | 47 | 0 | 0 |
+| type3 | flag_contested | 50 | 3 | **9** |
+| type4 | report_insufficient | 46 | 6 | 7 |
+| type5 | answer_confident | 44 | **5** | 0 |
+
+The verifier **wins on type3/4** (legitimate contestation/insufficiency: net +6 / +1) but **loses on type1/5** (confident-answer: −8 / −5). Three of five types are `answer_confident`, so the losses dominate → net text-EBM is flat-to-negative. **Crucially, structural EBM is blind to this**: it scores `answer_confident` as merely "did not abstain," and the verifier doesn't abstain on type1, so structural type1 = 1.00/1.00 — it cannot see the over-hedging the text judge penalizes.
+
+**The root cause is over-flagging (concrete evidence).** On settled, answer-confident topics the contradiction layer marks *non-contested* claims as `contested` — because multiple sources phrase the same fact differently and the pairwise logic reads wording variance as disagreement:
+
+| type1 query (expect `answer_confident`) | over-flagging in the WITH-verifier report |
+|---|---|
+| *"What is transfer learning…?"* | **10 of 15 claims `contested`** — incl. c0 (conf 1.0): *"Transfer learning is a technique where a model trained on one task is reused as the starting point for a related task"* (the textbook definition) |
+| *"How does grokking arise…?"* | **12 of 17 `contested`** — incl. the standard definition of grokking |
+| *"How do LLMs do in-context learning…?"* | **8 of 17 `contested`** — incl. the definition of ICL |
+
+The text judge's reasons on these cases are consistent: *"presents many contested and contradictory claims, hedging rather than giving a clear answer"* (with) vs *"directly defines… without hedging"* (without). So the report reads as conflicted on a topic that has a confident answer.
+
 ### 3.1 Broad benchmarks — FRAMES + TruthfulQA (±verifier, same instrument)
 
 DRA-Bench is technical/AI-skewed; these public benchmarks test whether the ±verifier effects generalize to broad, non-technical queries. Both ship **gold answers**, so they add **task accuracy** + **abstention** (axes DRA-Bench lacked). `expected_behavior` is N/A (factual QA, not behavior-typed) → the EBM headline does not apply here; the relevant axes are grounding, task accuracy, and (TruthfulQA) abstention.
@@ -117,6 +148,7 @@ DRA-Bench is technical/AI-skewed; these public benchmarks test whether the ±ver
 ## 4. Findings
 
 - **The reliability stage's value is epistemic honesty, and it's concentrated exactly where it should be.** The +0.22 EBM gain is entirely in **type3** (contested: **0.82 vs 0.00** — without the stage the system *never* flags a genuine contradiction) and partial **type4** (insufficient: 0.22 vs 0.00). type1/2/5 (where confident answering is correct) are 1.00 in both arms. The gain is **one-directional**: 51 prompts the stage helped, **0** it hurt (McNemar b=51/c=0).
+- **⚠️ The +0.22 is partly a structural-metric artifact — and the gap exposes an over-flagging bug (added 2026-06-13).** A text-level judge reading the reports finds EBM *flat* (with 0.786 vs without 0.810), not +0.22 (see §3 "EBM measured two ways"). The structural metric credits the verifier's `contested` verdicts but is blind to the *cost* of producing them: on `answer_confident` type1/5 queries the contradiction layer over-flags settled facts as `contested` (e.g. 10/15 claims in the "transfer learning" report, including its textbook definition), so the report reads as hedged and the text judge fails it. The stage helps where contestation is real (type3/4) and hurts where it isn't (type1/5). **This is the single most actionable finding: tighten the `contested` threshold to fire only on genuine semantic disagreement, not cross-source wording variance.** Doing so should recover type1/5 confidence (and likely part of the −0.21 quality dip, same root cause) without losing the type3/4 gains — making the stage a net win on *both* EBM lenses.
 - **Attribution (the combined-ablation point): the type3 win is the contradiction layer; the type4 win is the verifier.** The contested-flagging that drives type3 comes from `detect_and_resolve` + the composition instruction "present contradicting pairs together as a contested finding" — i.e. **contradiction detection**, not per-claim verification. The type4 insufficient-flagging + the calibrated confidence/disclaimers come from the **verifier**. Because the ablation toggles both together, the headline number is their **sum**; a 2×2 would separate them.
 - **Grounding is flat and not significant (0.956 vs 0.959, p=0.28).** Both arms make the same claims from the same evidence; the reliability stage *annotates and flags* but, with no adaptive-retrieval loop, **cannot fetch better evidence** — so grounding can't move. **This is the key strategic finding: grounding is gated on retrieval, not on verification** → the next lever is **adaptive retrieval** (the "treatment" to the verifier's "diagnosis").
 - **The quality dip (−0.21, significant) is largely the metric under-valuing honesty, not worse reports.** It concentrates in type3 (3.80 vs 4.28). Example — *"Is rent control effective, or does it cut supply/quality?"*: the **without** report scores **quality [5,4,5]** for a clean *"mixed effects"* synthesis that **glosses the genuine conflict**; the **with** report scores **[3,2,4]** for explicitly stating *"this is contested — one source indicates X, another indicates Y."* The panel's quality rubric rewards fluent confident prose and penalizes contestation-flagging — so on a genuinely contested topic it **rewards the less honest report**. This is precisely why `expected_behavior_match` exists: it captures the honesty the quality rubric misses. (Full 10-example artifact: `experiments/results/verifier_ablation_examples.md`.)
@@ -150,7 +182,9 @@ Both reach a similar substantive position; only the **with** arm surfaces *that 
 
 ## 5. Decision / Verdict
 
-**Keep the verifier + contradiction-detection stage on (default).** It delivers a large, one-directional honesty gain (EBM +0.22) with **zero** grounding cost and only a small, largely-artifactual quality dip. The reliability stage is doing its job — surfacing contested/insufficient evidence the user would otherwise never see.
+**Keep the verifier + contradiction-detection stage on (default) — but fix the over-flagging as the top priority.** By the structural metric it delivers a large honesty gain (EBM +0.22) at zero grounding cost; but a text-level judge shows that gain doesn't reach the reader because the stage **over-flags contestation on settled, answer-confident queries** (net text-EBM flat, §3/§4). So the stage is doing the right thing on genuinely contested/insufficient queries (type3/4) and the wrong thing on confident-answer queries (type1/5).
+
+**Action: tighten the `contested` threshold (the `PairContradictionJudge` / contestation logic) to require genuine semantic disagreement, not cross-source wording variance.** This is the highest-value fix — it should turn the stage into a net win on *both* the structural and text-level EBM, and likely recover part of the −0.21 panel-quality dip (same over-hedging root cause). Re-run this ablation after the fix to confirm.
 
 **Strategic call: the next investment is adaptive retrieval, not the verifier.** Grounding is flat across arms (p=0.28) because the system diagnoses weak evidence but can't act on it — adaptive retrieval is the missing "treatment." (Design: `docs/superpowers/specs/2026-06-11-adaptive-retrieval-design.md`.)
 
@@ -158,6 +192,7 @@ Both reach a similar substantive position; only the **with** arm surfaces *that 
 None to the pipeline from this experiment. Tooling built to run it: `experiments/run_pipeline_eval.py` (±verifier driver + report cache), `src/dra/eval/pipeline/harness.py` (orchestrator, `score_gradable`), the DRA-Bench/FRAMES loaders, and the baseline-scoring driver. The `without_verifier` arm currently drops *both* stages (the source of the combined-ablation framing).
 
 ## 7. What this sets up next
+- **🔧 Fix contestation over-flagging (highest priority).** The contradiction layer marks settled facts `contested` when sources merely word them differently (§3/§4). Tighten `PairContradictionJudge` to require genuine semantic disagreement; re-run this ablation to confirm the stage becomes a net win on text-EBM and recovers quality. Add a regression guard: a type1 `answer_confident` query should rarely produce `contested` claims.
 - **Adaptive retrieval** — the lever for grounding/coverage (the flat-grounding result is its motivation).
 - **Decouple contradiction detection from verification** — run it in both arms (it only needs the claims), enabling a clean **2×2 (±verification × ±contradiction)** to separate the type3 (contradiction) vs type4/confidence (verification) contributions.
 - **Improve type4 (unanswerability) detection** — 0.22 is a real gap.
