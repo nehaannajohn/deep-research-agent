@@ -24,6 +24,10 @@ from dra.search import default_search_tool         # noqa: E402
 
 OUT = REPO / "eval" / "trainpool"
 DRA = REPO / "eval" / "dra_bench" / "prompts.jsonl"
+# A known-available Bedrock model for query-gen + planning (the pipeline's
+# `generator` role isn't configured in this env, and queries are not labels — any
+# capable model is fine here).
+HARVEST_MODEL = "openai.gpt-oss-120b-1:0"
 
 _GEN_PROMPT = (
     "Generate {k} diverse, specific research questions a person might ask a "
@@ -72,7 +76,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
 
     cfg = load_config()
-    gen = BedrockChat(cfg.roles["generator"], region=cfg.region)
+    gen = BedrockChat(HARVEST_MODEL, region=cfg.region)
     search = default_search_tool(cfg)
 
     banned = _dra_queries()
