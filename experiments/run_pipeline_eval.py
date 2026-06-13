@@ -185,9 +185,14 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
     parser = argparse.ArgumentParser(description="±verifier pipeline-eval driver")
     parser.add_argument("--arm", choices=("with_verifier", "without_verifier", "both"),
                         default="both")
+    parser.add_argument("--dataset", choices=("dra_bench", "frames", "truthfulqa"),
+                        default="dra_bench", help="which benchmark to run the pipeline over")
+    parser.add_argument("--n", type=int, default=100,
+                        help="sample size for frames / truthfulqa")
     parser.add_argument("--limit", type=int, default=None, help="evaluate only the first N items")
     parser.add_argument("--workers", type=int, default=6)
-    parser.add_argument("--out-dir", default="eval/results/pipeline")
+    parser.add_argument("--out-dir", default=None,
+                        help="results dir (default: eval/results/pipeline[_<dataset>])")
     parser.add_argument("--refresh", action="store_true",
                         help="force pipeline regeneration (ignore cached reports)")
     parser.add_argument("--cache-dir", default=None,
@@ -197,7 +202,20 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
     cfg = load_config()
     cfg.assert_independence()
 
-    items = load_dra_bench()
+    # Default out-dir is dataset-namespaced so a FRAMES run never clobbers the
+    # DRA-Bench ±verifier results (and vice versa).
+    if args.dataset == "frames":
+        from dra.eval.pipeline.datasets.agentic import load_frames
+        items = load_frames(args.n)
+        default_out = "eval/results/pipeline_frames"
+    elif args.dataset == "truthfulqa":
+        from dra.eval.pipeline.datasets.truthfulqa import load_truthfulqa
+        items = load_truthfulqa(args.n)
+        default_out = "eval/results/pipeline_truthfulqa"
+    else:
+        items = load_dra_bench()
+        default_out = "eval/results/pipeline"
+    args.out_dir = args.out_dir or default_out
     if args.limit is not None:
         items = items[: args.limit]
 
