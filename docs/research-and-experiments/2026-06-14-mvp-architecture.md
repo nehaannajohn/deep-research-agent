@@ -28,45 +28,11 @@ This document describes the **as-built MVP pipeline** — what actually runs tod
 
 ## 2. Architecture diagram
 
-```mermaid
-flowchart TD
-    Q([User query]) --> P
+![Deep Research Agent — MVP architecture](./2026-06-14-mvp-architecture.svg)
 
-    subgraph PLAN["Planning"]
-        direction TB
-        P["Planner / Decomposer<br/><b>Llama 4 Maverick</b>"]
-        P --> SQ["Sub-questions 1..N"]
-        P --> C["Constraints<br/>wants_visual · format · focus"]
-    end
+> Rendered from [`2026-06-14-mvp-architecture.d2`](./2026-06-14-mvp-architecture.d2) (the editable source) with [D2](https://d2lang.com): `d2 --theme 0 --pad 40 2026-06-14-mvp-architecture.d2 2026-06-14-mvp-architecture.svg`. D2 (not Mermaid) is used here because it gives true grouped **containers** — the numbered zones — and a layout engine suited to architecture diagrams.
 
-    subgraph PERSQ["Per sub-question (single pass, no loop in MVP)"]
-        direction TB
-        SQ --> R["Router<br/><b>Llama 4 Maverick</b>"]
-        R --> RET["Retrieval — Exa<br/>k=5 · maxChars=2k · highlights"]
-        RET --> EVD["Verbatim evidence passages"]
-        EVD --> SYN["Claim synthesis<br/>atomic claims + candidate citations<br/><b>Llama 4 Maverick</b>"]
-    end
-
-    SYN --> VER["Verifier — entailment<br/><b>Ensemble: Sonnet · Mistral L3 · Nova</b><br/>→ supported / refuted / insufficient / contested<br/>+ measured confidence"]
-    VER --> CAL["Confidence recalibration<br/>Platt / temperature"]
-    CAL --> CON["Contradiction detection<br/>claim↔claim · source↔source → contested"]
-    CON --> REP["Report composition<br/>LLM narrative + deterministic claim ledger<br/><b>Llama 4 Maverick</b>"]
-    C -. "format / visual constraints" .-> REP
-    REP --> OUT([ResearchReport<br/>claims · per-claim calibrated confidence · disclaimers])
-
-    OUT -. "offline, grades finished report" .-> EVAL["Evaluation harness<br/>Layer-1 verifier · Layer-2 pipeline<br/>judge panel + significance"]
-
-    VER -. "FUTURE — Phase 3, NOT in MVP:<br/>verdict-routed adaptive retrieval" .-> R
-
-    classDef mvp fill:#EAF3F8,stroke:#2E86AB,stroke-width:1px,color:#1B2A4A;
-    classDef io fill:#1B2A4A,stroke:#1B2A4A,color:#ffffff;
-    classDef eval fill:#F2F4F7,stroke:#5C6672,color:#22282F;
-    class P,SQ,C,R,RET,EVD,SYN,VER,CAL,CON,REP mvp;
-    class Q,OUT io;
-    class EVAL eval;
-```
-
-**How to read it.** Solid edges are the **MVP runtime** — a single forward pass: plan → (route → retrieve → synthesize) per sub-question → verify → recalibrate → contradiction → compose. The **dotted edge from constraints to composition** is the format/modality bypass (formatting never touches retrieval). The **offline** dotted edge to the evaluation harness shows it grades the finished report — it does not run online. The **dashed amber edge** (verifier → router) is the **deferred adaptive-retrieval loop** — the verifier already emits the verdicts + confidence that *would* drive it, but in the MVP they are **surfaced, not acted on**.
+**How to read it.** Solid arrows are the **MVP runtime** — a single forward pass through four zones: **1 Planning** (decompose + extract constraints) → **2 Retrieval** (route → Exa → verbatim passages → claim synthesis, per sub-question) → **3 Verification & reliability** (verify → recalibrate → contradiction) → **4 Composition** (report) → `ResearchReport`. The **grey dashed edge** from Constraints to Composition is the format/modality bypass — formatting never touches retrieval. The **grey dashed edge** to the *Offline evaluation* zone shows the harness grades the finished report; it does **not** run online. The **amber dashed edge** (Verifier → Router) is the **deferred adaptive-retrieval loop** — the verifier already emits the verdicts + confidence that *would* drive it, but in the MVP they are **surfaced, not acted on** (Phase 3).
 
 ---
 

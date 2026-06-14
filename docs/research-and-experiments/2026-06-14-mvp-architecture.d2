@@ -1,0 +1,62 @@
+# Deep Research Agent — MVP architecture (as built). Render:
+#   d2 --theme 0 --pad 40 2026-06-14-mvp-architecture.d2 2026-06-14-mvp-architecture.svg
+direction: down
+
+classes: {
+  comp: { style: { fill: "#EAF3F8"; stroke: "#2E86AB"; stroke-width: 2; font-color: "#1B2A4A"; border-radius: 8 } }
+  io:   { style: { fill: "#1B2A4A"; stroke: "#1B2A4A"; font-color: "#FFFFFF"; border-radius: 20 } }
+  zone: { style: { fill: "#F7FAFC"; stroke: "#B7C4D0"; font-color: "#1B2A4A"; font-size: 18 } }
+  evalz:{ style: { fill: "#F2F4F7"; stroke: "#5C6672"; font-color: "#22282F"; font-size: 18 } }
+}
+
+query: "User query" { class: io; shape: oval }
+
+planning: "1 · Planning" {
+  class: zone
+  planner: "Planner / Decomposer\n— Llama 4 Maverick" { class: comp }
+  subq: "Sub-questions 1..N" { class: comp }
+  constraints: "Constraints\nwants_visual · format · focus" { class: comp }
+  planner -> subq
+  planner -> constraints
+}
+
+retrieval: "2 · Retrieval  (per sub-question — single pass, no loop in MVP)" {
+  class: zone
+  router: "Router\n— Llama 4 Maverick" { class: comp }
+  exa: "Retrieval — Exa\nk=5 · maxChars=2k · highlights" { class: comp }
+  passages: "Verbatim evidence passages" { class: comp }
+  synth: "Claim synthesis\natomic claims + candidate citations\n— Llama 4 Maverick" { class: comp }
+  router -> exa -> passages -> synth
+}
+
+verification: "3 · Verification & reliability" {
+  class: zone
+  verifier: "Verifier — entailment\nEnsemble: Sonnet · Mistral L3 · Nova\n→ supported / refuted / insufficient / contested\n+ measured confidence" { class: comp }
+  calib: "Confidence recalibration\nPlatt / temperature scaling" { class: comp }
+  contra: "Contradiction detection\nclaim ↔ claim · source ↔ source → contested" { class: comp }
+  verifier -> calib -> contra
+}
+
+composition: "4 · Composition" {
+  class: zone
+  report: "Report composition\nLLM narrative + on-demand artifacts\n+ deterministic claim ledger\n— Llama 4 Maverick" { class: comp }
+}
+
+output: "ResearchReport\nclaims · per-claim calibrated confidence · disclaimers" { class: io; shape: oval }
+
+evaluation: "Offline evaluation  (does not run online)" {
+  class: evalz
+  harness: "Evaluation harness\nLayer-1 (verifier)  ·  Layer-2 (pipeline)\nblind judge panel + significance" { class: comp }
+}
+
+# ---- data flow ----
+query -> planning.planner
+planning.subq -> retrieval.router
+retrieval.synth -> verification.verifier
+verification.contra -> composition.report
+planning.constraints -> composition.report: "format / visual\n(never touches retrieval)" { style.stroke-dash: 4; style.stroke: "#5C6672" }
+composition.report -> output
+output -> evaluation.harness: "offline — grades the finished report" { style.stroke-dash: 4; style.stroke: "#5C6672" }
+
+# ---- deferred (not in MVP) ----
+verification.verifier -> retrieval.router: "FUTURE · Phase 3 — verdict-routed\nadaptive retrieval (NOT in MVP)" { style.stroke-dash: 6; style.stroke: "#B56A00"; style.font-color: "#B56A00" }
