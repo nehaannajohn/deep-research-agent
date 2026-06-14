@@ -345,18 +345,44 @@ table(s, ["Variant", "Training data / prompting", "What it achieves"], [
     ["v1 (Verifier B)", "v0 data + our-distribution synthetic hard-negatives + evidence-ablated curriculum", "more conservative (abstains on thin evidence); marginally worse on clean benchmark"],
 ], col_w=[1.7, 4.6, 4.3], fsize=11.5, top=Inches(1.55), height=Inches(4.2))
 
-# 16 — Benchmarks
-s = content("7 · Verifier", "Benchmarks")
+# 16 — Benchmarks overview
+s = content("7 · Evaluation", "Benchmarks — two layers")
 bullets(s, [
     ("Layer-1 — verifier in isolation, against labelled component benchmarks:", 0),
     ("FEVER (n=1000) + SciFact (n=300), 3-way; plus a constructed contested set (75 / dataset)", 1),
-    ("metrics: macro-F1, ECE (before/after Platt), AUROC, Brier, latency", 1),
+    ("metrics: macro-F1, ECE (pre/post Platt), AUROC, Brier, latency", 1),
     ("Layer-2 — the verifier inside the whole pipeline, scoring the finished report:", 0),
-    ("DRA-Bench — 250 epistemic-behavior prompts (5 types: answer-confident / contested / insufficient …)", 1),
+    ("DRA-Bench — our custom 250-prompt epistemic-behavior benchmark (next slide)", 1),
     ("FRAMES (multi-hop QA, n=100) + TruthfulQA (adversarial misconceptions, n=100)", 1),
-    ("metrics: grounding, expected-behavior-match (structural + text), relevance, quality, task-accuracy", 1),
-    ("Significance throughout: paired-t (continuous), McNemar (binary), Holm correction", 0),
-], size=14, gap=7)
+    ("Commercial baselines run through the same instrument — Perplexity Sonar · OpenAI search · Sonnet-4.6 gold (ceiling)", 0),
+    ("Significance throughout — paired-t (continuous) · McNemar (binary) · Holm correction", 0),
+], size=14.5, gap=8)
+
+# 17 — DRA-Bench (our contribution)
+s = content("7 · Evaluation — DRA-Bench  (our contribution)", "DRA-Bench — grading epistemic behavior")
+_text(s, Inches(0.55), Inches(1.32), Inches(12.3), Inches(0.7),
+      [("250 prompts (5 types × 50). Each carries an expected-behavior gold label — does the agent do the epistemically right thing? The honesty signal FRAMES / TruthfulQA cannot see.", 13.5, GRAY, False, 0)])
+table(s, ["Type", "Expected behavior", "Objective", "Example prompt"], [
+    ["1 · technical", "answer_confident", "answer confidently when the literature is settled", "“How does self-attention work in transformer models?”"],
+    ["2 · pros & cons", "answer_confident (both sides)", "cover both sides of a balanced question", "“Pros and cons of microservices vs a monolith?”"],
+    ["3 · contradictory", "flag_contested", "surface genuine cross-source disagreement", "“Does moderate alcohol benefit the heart, or does any amount raise mortality?”"],
+    ["4 · unanswerable", "report_insufficient", "admit insufficiency rather than fabricate", "“What is the best programming language?”"],
+    ["5 · multi-format", "answer_confident + visual", "answer and honor a format / visual constraint", "“Compare AWS / Azure / GCP in a structured table.”"],
+], col_w=[1.5, 2.1, 3.3, 4.6], fsize=10.5, hsize=11.5, top=Inches(2.15), height=Inches(4.0), first_bold=True)
+
+# 18 — Evaluation metric design
+s = content("7 · Evaluation — metric design", "Task-specific metrics, and what each is for")
+table(s, ["Metric", "Objective — what it captures"], [
+    ["EBM — structural", "honesty read from the claim-ledger verdicts — the facet only our architecture exposes"],
+    ["EBM — text-judge", "whether that honesty reaches the reader — catches over-flagging (ledger honest, prose hedged)"],
+    ["Grounding (+ hallucination, citation P/R)", "every claim is entailed by its cited evidence — an independent judge, not the in-loop verifier"],
+    ["Relevance (1–5)", "does the report answer the query, on-topic — a blind 3-judge panel"],
+    ["Quality (1–5)", "coherence + comprehensiveness (readability / completeness), independent of correctness"],
+    ["Instruction adherence / formatting", "honored the explicit format / visual / scope constraints — the axis we lead baselines on"],
+    ["Task accuracy + abstention", "reached the correct short answer (FRAMES/TQA); honest “I don't know” scored as a feature"],
+    ["Similarity-to-gold / coverage", "breadth vs a strong reference (Sonnet gold) — surfaces the coverage gap"],
+    ["Calibration — ECE", "surfaced per-claim confidence is trustworthy, not just present"],
+], col_w=[2.7, 7.4], fsize=10.5, hsize=12, top=Inches(1.5), height=Inches(5.2), first_bold=True)
 
 # 17 — Layer-1 results
 s = content("7 · Verifier — results", "Layer-1: a small fine-tuned verifier matches the ensemble, ~130× faster")
@@ -371,19 +397,36 @@ bullets(s, [
     ("v1's our-distribution curriculum didn't help on the clean benchmark — it is the more conservative model", 0),
 ], top=Inches(3.9), size=14, gap=9)
 
-# 18 — Layer-2 results
-s = content("7 · Verifier — results", "Layer-2: the over-flagging fix — honesty kept, quality recovered")
+# 19 — Layer-2 results: DRA-Bench, all metrics
+s = content("7 · Evaluation — results", "Layer-2 · DRA-Bench (3-arm, all metrics)")
 table(s, ["Metric (DRA-Bench)", "with", "without", "corrected"], [
     ["EBM — structural (honesty)", "0.807", "0.595", "0.794"],
     ["EBM — text (reader-facing)", "0.786", "0.810", "0.794"],
-    ["quality (1–5)", "3.895", "4.118", "4.105"],
     ["grounding rate", "0.956", "0.959", "0.953"],
-], col_w=[3.4, 1.4, 1.4, 1.6], fsize=12.5, top=Inches(1.65), height=Inches(2.4), first_bold=True)
+    ["hallucination rate", "0.028", "0.022", "0.028"],
+    ["relevance (1–5)", "4.63", "4.73", "4.66"],
+    ["quality (1–5)", "3.90", "4.12", "4.11"],
+    ["formatting / adherence", "1.00", "1.00", "1.00"],
+], col_w=[3.4, 1.4, 1.4, 1.6], fsize=12, top=Inches(1.5), height=Inches(3.2), first_bold=True)
 bullets(s, [
-    ("corrected = with's structural-EBM honesty (tied; ≫ without) at without's quality (+0.181 vs with, Holm-significant)", 0),
-    ("text-EBM is statistically flat across all three arms — the structural honesty gain doesn't fully reach the reader (over-flagging)", 0),
-    ("grounding is flat with vs without the verifier (all 3 benchmarks) — grounding is gated on retrieval, not verification", 0),
-], top=Inches(4.3), size=13.5, gap=8)
+    ("Significance (paired, Holm): corrected vs with quality +0.181 (p_adj=7.3e-6, survives) · structural EBM corrected ≈ with (b=8/c=10, n.s.) and ≫ without (+0.21, p_adj=7.7e-11)", 0),
+    ("text-EBM is n.s. across all three arms — the honesty gain doesn't reach the reader; grounding is flat ±verifier — gated on retrieval, not verification", 0),
+], top=Inches(4.95), size=12.5, gap=8)
+
+# 20 — Layer-2 results: baselines + coverage gap
+s = content("7 · Evaluation — results", "Layer-2 · vs commercial baselines, and the coverage gap")
+table(s, ["System  (DRA-Bench, fair axes)", "relevance", "quality", "formatting", "text-EBM"], [
+    ["ours (corrected)", "4.66", "4.11", "1.00", "0.79"],
+    ["Perplexity sonar-pro", "4.74", "4.94", "0.60", "0.86"],
+    ["OpenAI gpt-4o-search", "4.58", "4.46", "0.60", "0.84"],
+    ["Sonnet-4.6 gold (ceiling)", "4.85", "4.90", "0.60", "—"],
+], col_w=[3.4, 1.6, 1.4, 1.7, 1.5], fsize=12, top=Inches(1.5), height=Inches(2.2), first_bold=True)
+bullets(s, [
+    ("Commercial systems score higher on fluency-weighted quality (confident prose); we lead on formatting (1.00 vs 0.60) and expose per-claim grounding a black box can't be measured on", 0),
+    ("Broad benchmarks: on FRAMES our task-accuracy (~0.25) matches Perplexity (0.24), trails OpenAI-search (0.37); TruthfulQA is near-floor for all (grounding ≠ truthfulness)", 0),
+    ("Coverage gap vs Sonnet gold — our reports cover only ~10% of the gold reference's atomic claims (similarity 0.104, flat ±verifier, n.s.)", 0),
+    ("→ a retrieval-breadth gap, NOT a verification error — the pipeline's binding constraint is retrieval", 1),
+], top=Inches(3.9), size=12.5, gap=8)
 
 # 19 — v0/v1 Layer-2 (pending)
 s = content("7 · Verifier — results", "v0 / v1 in the pipeline (Layer-2) — in progress")
