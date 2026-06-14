@@ -110,13 +110,20 @@ def _make_run_query_verifier_only(cfg):  # pragma: no cover - live Bedrock/Exa
 
 
 def _load_platt(variant):  # pragma: no cover - trivial disk read
-    """Load a persisted Platt calibrator for a Verifier B variant (None if absent)."""
+    """Load a persisted Platt calibrator for a Verifier B variant.
+
+    Returns None (→ UNCALIBRATED) if the file is absent, but LOUDLY warns: the
+    `verifier_b_*` arms are meant to be the *calibrated* drop-in, so a silent
+    fallback to raw confidence would quietly invalidate the calibration story
+    (and make v0/v1 confidence identical). Fit it via `fit_calibrator.py` first."""
     import json
     from dra.eval.calibrate import PlattCalibrator
     path = f"eval/results/verifier_b/{variant}/platt.json"
     if not os.path.exists(path):
+        print(f"[WARN] no Platt calibrator at {path} — running {variant} UNCALIBRATED", flush=True)
         return None
-    d = json.load(open(path))
+    with open(path, encoding="utf-8") as f:
+        d = json.load(f)
     cal = PlattCalibrator()
     cal.w, cal.b = d["w"], d["b"]
     return cal

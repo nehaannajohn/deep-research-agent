@@ -72,3 +72,32 @@ def test_passage_below_margin_casts_no_vote():
     v = _verifier({"x": {"supported": 0.45, "refuted": 0.40, "nei": 0.15}})
     r = v.verify("c", [Passage(source_id="0", text="x")])
     assert r.label == "insufficient"
+
+
+def test_multicite_refuted_not_overflipped_to_contested():
+    # symmetric to the supported over-flip: many refuting passages + one stray
+    # supported>=margin where refuted is still argmax -> stays refuted.
+    scores = {f"ref{i}": {"supported": 0.02, "refuted": 0.95, "nei": 0.03} for i in range(4)}
+    scores["stray"] = {"supported": 0.52, "refuted": 0.55, "nei": 0.0}  # argmax=refuted
+    v = _verifier(scores)
+    passages = [Passage(source_id=str(i), text=t) for i, t in enumerate(scores)]
+    r = v.verify("c", passages)
+    assert r.label == "refuted"
+    assert r.votes["sup_votes"] == 0
+
+
+def test_all_nei_is_insufficient():
+    v = _verifier({
+        "a": {"supported": 0.2, "refuted": 0.1, "nei": 0.7},
+        "b": {"supported": 0.3, "refuted": 0.2, "nei": 0.5},
+    })
+    r = v.verify("c", [Passage(source_id="0", text="a"), Passage(source_id="1", text="b")])
+    assert r.label == "insufficient"
+
+
+def test_confidence_pinned_to_support_prob_even_when_refuted():
+    # contract: confidence is max p_supported across passages, regardless of label
+    v = _verifier({"x": {"supported": 0.18, "refuted": 0.80, "nei": 0.02}})
+    r = v.verify("c", [Passage(source_id="0", text="x")])
+    assert r.label == "refuted"
+    assert abs(r.confidence - 0.18) < 1e-9

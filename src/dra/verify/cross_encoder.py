@@ -55,6 +55,9 @@ class CrossEncoderVerifier(Verifier):
             s = self.score_fn(claim, t)
             ps, pr = s.get("supported", 0.0), s.get("refuted", 0.0)
             max_sup, max_ref = max(max_sup, ps), max(max_ref, pr)
+            # argmax; exact ties resolve by dict order (supported > refuted > nei).
+            # A support-leaning (even ~50/50) passage deliberately casts NO refuted
+            # vote — that is precisely what prevents the multi-cite over-flip.
             top = max(s, key=s.get)
             if top == "supported" and ps >= self.margin:
                 sup_votes += 1
