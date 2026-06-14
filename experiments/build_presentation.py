@@ -270,11 +270,11 @@ table(s, ["What makes it transparent", "What makes it reliable"], [
 
 # 9 — Quick choice: Exa vs Tavily
 s = content("5 · Design choices", "Search engine — Exa vs Tavily (12-query bake-off)")
-table(s, ["Engine", "Found right sources", "Relevance", "Speed", "Judge score"], [
+table(s, ["Engine", "recall@k", "relevance", "latency", "panel score"], [
     ["Exa  ✓", "0.33", "0.92", "1.4 s", "0.89"],
     ["Tavily", "0.25", "0.76", "3.5 s", "0.77"],
     ["Semantic Scholar", "0.00", "0.00", "rate-limited", "—"],
-], col_w=[2.6, 2.0, 1.5, 1.5, 1.6], fsize=13, top=Inches(1.6), height=Inches(1.9))
+], col_w=[2.6, 1.7, 1.7, 1.6, 1.8], fsize=13, top=Inches(1.6), height=Inches(1.9))
 bullets(s, [
     ("Exa beat Tavily on every measure — finding the right sources, relevance, and speed (1.4s vs 3.5s)", 0),
     ("Four independent judge-models all preferred Exa's passages", 0),
@@ -293,7 +293,7 @@ bullets(s, [
 
 # 11 — Quick choice: claim extraction
 s = content("5 · Design choices", "Which model writes the claims")
-table(s, ["Model", "Grounding (0–2)", "Atomic claims (0–1)", "Note"], [
+table(s, ["Model", "Grounding (0–2)", "Atomicity (0–1)", "Note"], [
     ["Llama 4 Maverick (17B)  ✓", "1.24", "0.80", "the smallest model wins the metric that matters most"],
     ["Haiku 4.5", "0.97", "0.74", "dropped"],
     ["Mistral Large 3 (675B)", "0.94", "0.73", "over-reaches — 4× more claims, many unsupported"],
@@ -342,11 +342,24 @@ table(s, ["Version", "What it is", "What it achieves"], [
     ["With verifier", "Full pipeline — three large models check every claim and flag conflicts", "adds honesty labels (supported / contested / gap), but flags too many settled facts as \"contested\""],
     ["Corrected", "Same, with a better conflict-flagging prompt", "keeps the honesty labels and fixes the over-flagging — restoring report quality"],
     ["Without verifier", "Claims shown to the reader unchecked", "baseline — no grounding or honesty labels at all"],
-    ["v0 — small trained model", "One small model (~184M parameters — far smaller than the large models), trained on public fact-checking data", "matches the three-model accuracy, trustworthy confidence, ~130× faster and cheaper"],
-    ["v1 — small trained model", "Same, plus extra training on harder, pipeline-like examples", "more cautious — declines to answer when evidence is weak; slightly weaker on clean test data"],
+    ["v0 — small trained model", "Fine-tuned DeBERTa-v3 cross-encoder (~184M) on public fact-checking data — FEVER + SciFact", "matches the three-model macro-F1, well-calibrated, ~130× faster and cheaper"],
+    ["v1 — small trained model", "Same, plus synthetic hard-negatives and an evidence-ablated curriculum (our pipeline's distribution)", "more cautious — declines to answer when evidence is weak; slightly weaker on the clean test set"],
 ], col_w=[1.9, 4.3, 4.4], fsize=11.5, top=Inches(1.55), height=Inches(4.2), first_bold=True)
 
-# 16 — Benchmarks overview
+# 16 — Training the small verifier (v0 / v1)
+s = content("7 · The verifier — training", "How we trained the small verifier (v0 and v1)")
+bullets(s, [
+    ("Backbone — a DeBERTa-v3-base cross-encoder (~184M parameters): it reads the (claim, passage) pair together and outputs a 3-way label {supported, refuted, not-enough-info}; 512-token limit", 0),
+    ("v0 — supervised fine-tuning on public fact-checking pairs: FEVER (~137k) + SciFact (~2.5k), one (claim, single passage) pair per labelled evidence sentence", 0),
+    ("v1 — v0's data plus examples that match our own pipeline's evidence:", 0),
+    ("synthetic hard-negatives (607): near-miss false claims written over real retrieved passages, kept only when an independent judge agrees they are not supported", 1),
+    ("an evidence-ablated curriculum (~15k): the same claim shown with full / partial / no evidence — teaches it to say \"not-enough-info\" unless the evidence is genuinely sufficient", 1),
+    ("Training — 3-way cross-entropy, class-balanced sampling, 3 epochs, learning rate 2e-5, fp16; early-stop on held-out macro-F1; one A100 GPU per model", 0),
+    ("Calibration — Platt scaling on the score so confidence is trustworthy; the 4th label \"contested\" is derived at inference (a claim is contested when its passages vote both supported and refuted)", 0),
+    ("No leakage — trained only on the FEVER/SciFact train splits and a held-out retrieval pool; never on any evaluation benchmark", 0),
+], size=13.5, gap=8)
+
+# 17 — Benchmarks overview
 s = content("7 · Evaluation", "How we test the verifier — two layers")
 bullets(s, [
     ("Layer-1 — test the verifier on its own, against labelled fact-checking datasets:", 0),
@@ -373,28 +386,30 @@ table(s, ["Type", "Right behaviour", "What it tests", "Example question"], [
 # 18 — Evaluation metric design
 s = content("7 · Evaluation — metrics", "The metrics we designed, and what each one is for")
 table(s, ["Metric", "What it tells us"], [
-    ["Honesty — from labels", "Did the report's claim labels do the right thing — flag a real conflict, admit a gap, or answer confidently? Read directly from the labels."],
-    ["Honesty — from the text", "Does a judge reading only the report agree it did the right thing? Catches reports honest in the data but hedged in the prose."],
-    ["Grounding", "Is each claim actually backed by the source it cites? Graded by an independent model, not the verifier itself."],
-    ["Relevance (1–5)", "Does the report answer the question asked? Graded by a panel of three judge-models."],
-    ["Quality (1–5)", "Is it clear, well-organized, and complete?"],
-    ["Follows instructions", "Did it honor explicit format requests — a table, a diagram, a length limit?"],
-    ["Answer accuracy + abstention", "For fact-QA: did it reach the right answer — and is a safe \"I don't know\" counted as fine, not wrong?"],
-    ["Coverage vs reference", "How many of the facts in a strong reference report did ours include?"],
-    ["Calibration", "Are the confidence scores trustworthy — does \"70%\" mean right about 70% of the time?"],
-], col_w=[2.6, 7.6], fsize=10.5, hsize=12, top=Inches(1.5), height=Inches(5.2), first_bold=True)
+    ["Expected-Behavior Match (EBM) — structural", "Did the report's claim labels do the right thing — flag a real conflict, admit a gap, or answer confidently? Read directly from the labels."],
+    ["EBM — text-judge", "Does a judge reading only the report agree it did the right thing? Catches reports honest in the labels but hedged in the prose."],
+    ["Grounding rate (+ hallucination, citation P/R)", "Is each claim actually backed by the source it cites? Graded by an independent model, not the verifier itself."],
+    ["Relevance (1–5)", "Does the report answer the question asked? Graded by a blind 3-judge panel."],
+    ["Quality (1–5)", "Is it clear, well-organized, and complete? Same 3-judge panel."],
+    ["Instruction adherence (formatting)", "Did it honor explicit format requests — a table, a diagram, a length limit?"],
+    ["Task accuracy + abstention", "For fact-QA: did it reach the right answer — and is a safe \"I don't know\" counted as fine, not wrong?"],
+    ["Similarity-to-gold (coverage)", "How many of the facts in a strong reference report did ours include?"],
+    ["Calibration (ECE)", "Are the confidence scores trustworthy — does \"70%\" mean right about 70% of the time?"],
+], col_w=[3.1, 7.1], fsize=10.5, hsize=12, top=Inches(1.5), height=Inches(5.2), first_bold=True)
 
 # 19 — Layer-1 results
 s = content("7 · Evaluation — results", "Layer-1: a small trained verifier matches three large models — ~130× faster")
-table(s, ["Verifier", "Accuracy", "Calibration error (lower=better)", "Ranking (higher=better)", "Time / claim", "Speed-up"], [
-    ["Three-model panel", "0.815", "0.031", "0.936", "2,485 ms", "1×"],
-    ["v0 — small trained model  ✓", "0.839", "0.039", "0.966", "19 ms", "130×"],
-    ["v1 — small trained model", "0.834", "0.059", "0.962", "19 ms", "132×"],
-], col_w=[3.2, 1.5, 2.4, 2.0, 1.5, 1.3], fsize=12, top=Inches(1.7), height=Inches(1.9), first_bold=True)
+_text(s, Inches(0.55), Inches(1.3), Inches(12.2), Inches(0.34),
+      [("macro-F1 = balanced accuracy · ECE = calibration error (lower is better) · AUROC = ranking quality (higher is better) · combined FEVER+SciFact, n=1,300", 12, GRAY, False, 0)])
+table(s, ["Verifier", "macro-F1", "ECE ↓", "AUROC ↑", "latency p50", "speed-up"], [
+    ["Three-model LLM panel", "0.815", "0.031", "0.936", "2,485 ms", "1×"],
+    ["v0 — DeBERTa-v3 (calibrated)  ✓", "0.839", "0.039", "0.966", "19 ms", "130×"],
+    ["v1 — DeBERTa-v3 (calibrated)", "0.834", "0.059", "0.962", "19 ms", "132×"],
+], col_w=[3.4, 1.5, 1.4, 1.4, 1.7, 1.3], fsize=12.5, top=Inches(1.75), height=Inches(1.9), first_bold=True)
 bullets(s, [
-    ("The small trained model (v0) is as accurate as the three-model panel, and its confidence is trustworthy", 0),
-    ("The real win is speed and cost: one small model on our own hardware, instead of three large-model calls per claim — about 130× faster", 0),
-    ("v1 (extra training on harder, pipeline-like examples) did not help on this clean test set — it just became more cautious", 0),
+    ("v0 reaches the same macro-F1 as the three-model panel, with comparable calibration (ECE) and stronger ranking (AUROC)", 0),
+    ("The decisive win is speed and cost: one small model on our own GPU replaces three large-model calls per claim — about 130× faster", 0),
+    ("v1's extra pipeline-distribution training did not help on this clean test set — it is simply more cautious (worse ECE)", 0),
 ], top=Inches(3.95), size=14, gap=10)
 
 # 20 — Layer-2 results: DRA-Bench, all metrics
@@ -402,20 +417,39 @@ s = content("7 · Evaluation — results", "Layer-2: the fix keeps honesty and r
 _text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.34),
       [("Three versions of the full pipeline — verifier ON (\"with\"), OFF (\"without\"), and the improved version (\"corrected\").", 12.5, GRAY, False, 0)])
 table(s, ["Metric (DRA-Bench)", "with", "without", "corrected"], [
-    ["Honesty — from claim labels", "0.81", "0.60", "0.79"],
-    ["Honesty — judged from the text", "0.79", "0.81", "0.79"],
-    ["Grounding (claims backed by sources)", "0.96", "0.96", "0.95"],
-    ["Relevance (1–5)", "4.63", "4.73", "4.66"],
-    ["Quality (1–5)", "3.90", "4.12", "4.11"],
-    ["Follows formatting instructions", "1.00", "1.00", "1.00"],
-], col_w=[3.6, 1.3, 1.3, 1.5], fsize=12, top=Inches(1.75), height=Inches(3.0), first_bold=True)
+    ["EBM — structural (from claim labels)", "0.81", "0.60", "0.79"],
+    ["EBM — text-judge (from the report)", "0.79", "0.81", "0.79"],
+    ["grounding rate", "0.96", "0.96", "0.95"],
+    ["hallucination rate", "0.03", "0.02", "0.03"],
+    ["relevance (1–5)", "4.63", "4.73", "4.66"],
+    ["quality (1–5)", "3.90", "4.12", "4.11"],
+    ["instruction adherence (formatting)", "1.00", "1.00", "1.00"],
+], col_w=[3.7, 1.2, 1.2, 1.4], fsize=12, top=Inches(1.7), height=Inches(3.1), first_bold=True)
 bullets(s, [
-    ("Turning the verifier ON adds honesty (it flags real conflicts and admits gaps) — but the first version over-flagged settled facts, which hurt quality", 0),
-    ("The corrected version keeps the honesty of \"with\" and recovers the quality of \"without\" — a statistically significant quality gain", 0),
-    ("Grounding barely changes whether the verifier is on or off — better grounding has to come from better search, not the verifier", 0),
-], top=Inches(4.95), size=12.5, gap=7)
+    ("Verifier ON adds the honesty signal (structural EBM 0.81 vs 0.60) — but the original version over-flagged settled facts as \"contested\", which lowered quality", 0),
+    ("The corrected version keeps that honesty (structural EBM ≈ \"with\") and recovers quality to the level of \"without\" — significance on the next slide", 0),
+    ("Text-judge EBM and grounding barely move across versions — the honesty gain doesn't fully reach the prose, and grounding is bounded by retrieval, not the verifier", 0),
+], top=Inches(5.05), size=12.5, gap=7)
 
-# 21 — Layer-2: DRA-Bench baselines (writing quality / format)
+# 21 — Significance testing
+s = content("7 · Evaluation — results", "Significance testing (DRA-Bench, paired)")
+_text(s, Inches(0.55), Inches(1.3), Inches(12.2), Inches(0.5),
+      [("Paired tests across the three pipeline versions — paired-t for 1–5 scores, McNemar for pass/fail labels — with Holm correction for multiple comparisons.  p_adj = adjusted p-value.", 12, GRAY, False, 0)])
+table(s, ["Comparison", "Metric", "Effect", "Test", "Significant?"], [
+    ["corrected vs with", "quality (1–5)", "+0.18", "paired-t", "yes  (p_adj = 7×10⁻⁶)"],
+    ["corrected vs with", "EBM — structural", "≈ equal", "McNemar", "no"],
+    ["corrected vs without", "EBM — structural", "+0.21", "McNemar", "yes  (p_adj = 8×10⁻¹¹)"],
+    ["with vs without", "quality (1–5)", "−0.17", "paired-t", "yes"],
+    ["with vs without", "relevance (1–5)", "−0.09", "paired-t", "yes (marginal)"],
+    ["all three", "EBM — text-judge", "no difference", "McNemar", "no"],
+    ["all three", "grounding rate", "≈ 0", "paired-t", "no"],
+], col_w=[2.4, 2.3, 1.8, 1.3, 2.8], fsize=11.5, top=Inches(1.85), height=Inches(3.2), first_bold=True)
+bullets(s, [
+    ("The corrected fix is real — the quality gain over the over-flagging version is statistically significant, while the honesty signal (structural EBM) is preserved", 0),
+    ("The verifier's honesty signal is significant (structural EBM: with / corrected ≫ without); its text-judge and grounding effects are not — the same picture on all three benchmarks", 0),
+], top=Inches(5.25), size=12.5, gap=8)
+
+# 22 — Layer-2: DRA-Bench baselines (writing quality / format)
 s = content("7 · Evaluation — results", "Layer-2: vs Perplexity & OpenAI (DRA-Bench)")
 table(s, ["System (DRA-Bench)", "Relevance", "Quality", "Follows format", "Honesty (text)"], [
     ["Ours (corrected)", "4.66", "4.11", "1.00", "0.79"],
