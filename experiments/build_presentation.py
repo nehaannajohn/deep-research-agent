@@ -344,12 +344,7 @@ table(s, ["Version", "What it is", "What it achieves"], [
     ["Without verifier", "Claims shown to the reader unchecked", "baseline — no grounding or honesty labels at all"],
     ["v0 — small trained model", "Fine-tuned DeBERTa-v3 cross-encoder (~184M) on public fact-checking data — FEVER + SciFact", "matches the three-model macro-F1, well-calibrated, ~130× faster and cheaper"],
     ["v1 — small trained model", "Same, plus synthetic hard-negatives and an evidence-ablated curriculum (our pipeline's distribution)", "more cautious — declines to answer when evidence is weak; slightly weaker on the clean test set"],
-], col_w=[1.9, 4.3, 4.4], fsize=11.5, top=Inches(1.5), height=Inches(4.0), first_bold=True)
-_text(s, Inches(0.55), Inches(5.85), Inches(12.2), Inches(1.0), [
-    [("Building a \"contested\" test case:  ", 12, NAVY, True, 0),
-     ("take a supported (claim, passage), synthesize a plausible refuting passage, and bundle both into one example → gold label = contested.", 12, GRAY, False, 0)],
-    [("At run time, the verifier calls a claim contested when its cited passages both support and refute it.", 12, GRAY, False, 0)],
-])
+], col_w=[1.9, 4.3, 4.4], fsize=11.5, top=Inches(1.55), height=Inches(4.2), first_bold=True)
 
 # 16 — Training the small verifier (v0 / v1)
 s = content("7 · The verifier — training", "How we trained the small verifier (v0 and v1)")
@@ -360,9 +355,10 @@ bullets(s, [
     ("synthetic hard-negatives (607): near-miss false claims written over real retrieved passages, kept only when an independent judge agrees they are not supported", 1),
     ("an evidence-ablated curriculum (~15k): the same claim shown with full / partial / no evidence — teaches it to say \"not-enough-info\" unless the evidence is genuinely sufficient", 1),
     ("Training — 3-way cross-entropy, class-balanced sampling, 3 epochs, learning rate 2e-5, fp16; early-stop on held-out macro-F1; one A100 GPU per model", 0),
-    ("Calibration — Platt scaling on the score so confidence is trustworthy; the 4th label \"contested\" is derived at inference (a claim is contested when its passages vote both supported and refuted)", 0),
+    ("Calibration — Platt scaling on the score so confidence is trustworthy", 0),
+    ("\"Contested\" is not a training label — the head is 3-way. It is derived at inference (a claim's passages vote both ways). For evaluation we construct contested cases: pair a supported (claim, passage) with a synthesized refuting passage and bundle them into one example whose gold label is contested.", 0),
     ("No leakage — trained only on the FEVER/SciFact train splits and a held-out retrieval pool; never on any evaluation benchmark", 0),
-], size=13.5, gap=8)
+], size=13, gap=7)
 
 # 17 — Benchmarks overview
 s = content("7 · Evaluation", "How we test the verifier — two layers")
