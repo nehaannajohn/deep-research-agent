@@ -200,8 +200,8 @@ bullets(s, [
     ("Most deep-research systems produce fluent answers but never verify whether each claim is actually true", 0),
     ("Popular agents (GPT-Researcher, STORM, LangChain) have no step that checks individual claims against their sources", 0),
     ("Gathering 20+ sources is not the same as verifying — more sources does not mean better grounding", 0),
-    ("Even when links are valid, the facts often are not: studies report 39–77% factual accuracy, and it drops sharply as agents make more tool calls", 0),
-    ("A model grading its own work tells you nothing reliable without outside labels", 0),
+    ("Even when links are valid, the facts often are not: studies report 39–77% factual accuracy, and it drops sharply as the agent takes more search steps", 0),
+    ("A model grading its own work tells you nothing reliable without an independent check", 0),
     ("Getting the final answer right does not mean the reasoning was sound — checking only the endpoint misses this", 0),
     ("Panels of similar judge-models mostly agree with each other, not with the truth — false confidence", 0),
     ("No deployed system combines claim-checking, trustworthy confidence, and adaptive search in one loop", 0),
@@ -213,7 +213,7 @@ table(s, ["Approach", "Examples", "Verification / confidence"], [
     ["Recursive search", "dzhng/deep-research, GPT-Researcher Deep", "none · no confidence"],
     ["Plan-and-execute (most common)", "GPT-Researcher, LangChain Open DR, AWS Strands", "no per-claim confidence"],
     ["Multi-perspective", "Stanford STORM, Co-STORM", "no explicit fact-checking"],
-    ["RL-trained search", "Search-R1, Alibaba DeepResearch, WebThinker", "strong, but need 8×A100+ — inaccessible"],
+    ["Self-trained (RL) search", "Search-R1, Alibaba DeepResearch, WebThinker", "strong, but need huge GPU clusters — out of reach"],
     ["Commercial", "Perplexity, OpenAI", "black box — grounding not shown"],
 ], col_w=[2.4, 4.2, 3.2], fsize=12, top=Inches(1.55), height=Inches(3.0))
 _text(s, Inches(0.55), Inches(5.05), Inches(12.2), Inches(1.6), [
@@ -237,7 +237,7 @@ bullets(s, [
 s = content("3 · Full design", "Defense in depth — nine layers, outer to inner")
 bullets(s, [
     ("Outer guardrails (content moderation, strip personal data) → clarify the request → plan sub-questions → route each to a search tool", 0),
-    ("Core: fetch exact source passages → pull out atomic claims with citations → verify each claim and score confidence → assemble the report", 0),
+    ("Core: fetch exact source passages → pull out individual factual claims with citations → verify each claim and score confidence → assemble the report", 0),
     ("Throughout: track cost and behaviour, and run a final safety check before anything is shown", 0),
     ("When confidence is low, verification sends the system back to search for better evidence — this is the loop", 0),
     ("Sources carry a credibility note; \"contested\" is a real verdict when good sources genuinely disagree", 0),
@@ -278,7 +278,7 @@ table(s, ["Engine", "Found right sources", "Relevance", "Speed", "Judge score"],
 bullets(s, [
     ("Exa beat Tavily on every measure — finding the right sources, relevance, and speed (1.4s vs 3.5s)", 0),
     ("Four independent judge-models all preferred Exa's passages", 0),
-    ("We use Exa \"highlights\" — short verbatim excerpts aimed at the question — so citations stay exact and context stays small", 0),
+    ("We use Exa \"highlights\" — short word-for-word excerpts aimed at the question — so citations stay exact and context stays small", 0),
     ("Settled defaults: 5 sources per sub-question, about 2,000 characters each", 0),
 ], left=Inches(0.55), top=Inches(3.8), size=14.5, gap=10)
 
@@ -311,7 +311,7 @@ bullets(s, [
     ("Formatting goes only to the report writer — never to search", 0),
     ("So \"add a diagram\" cannot change which sources get retrieved (we verified this)", 1),
     ("The writer produces the prose and any diagram/table; a separate, rule-based step builds the claim table, citations, and disclaimers — so those cannot be paraphrased or invented", 0),
-    ("Every sentence in the report must point to a real claim in the ledger — a check flags any that do not", 0),
+    ("Every sentence in the report must point to a real verified claim — an automatic check flags any that do not", 0),
 ], size=14.5, gap=10)
 
 # 13 — Pipeline annotated with models
@@ -342,8 +342,8 @@ table(s, ["Version", "What it is", "What it achieves"], [
     ["With verifier", "Full pipeline — three large models check every claim and flag conflicts", "adds honesty labels (supported / contested / gap), but flags too many settled facts as \"contested\""],
     ["Corrected", "Same, with a better conflict-flagging prompt", "keeps the honesty labels and fixes the over-flagging — restoring report quality"],
     ["Without verifier", "Claims shown to the reader unchecked", "baseline — no grounding or honesty labels at all"],
-    ["v0 — small trained model", "One small model (~184M) fine-tuned on public fact-checking data (FEVER, SciFact)", "matches the three-model accuracy, trustworthy confidence, ~130× faster and cheaper"],
-    ["v1 — small trained model", "Same, plus extra training on harder, pipeline-like examples", "more cautious — abstains when evidence is thin; slightly weaker on clean test data"],
+    ["v0 — small trained model", "One small model (~184M parameters — far smaller than the large models), trained on public fact-checking data", "matches the three-model accuracy, trustworthy confidence, ~130× faster and cheaper"],
+    ["v1 — small trained model", "Same, plus extra training on harder, pipeline-like examples", "more cautious — declines to answer when evidence is weak; slightly weaker on clean test data"],
 ], col_w=[1.9, 4.3, 4.4], fsize=11.5, top=Inches(1.55), height=Inches(4.2), first_bold=True)
 
 # 16 — Benchmarks overview
@@ -373,7 +373,7 @@ table(s, ["Type", "Right behaviour", "What it tests", "Example question"], [
 # 18 — Evaluation metric design
 s = content("7 · Evaluation — metrics", "The metrics we designed, and what each one is for")
 table(s, ["Metric", "What it tells us"], [
-    ["Honesty — from labels", "Did the report's claim labels do the right thing (flag a real conflict, admit a gap, answer confidently)? Read from the structured output."],
+    ["Honesty — from labels", "Did the report's claim labels do the right thing — flag a real conflict, admit a gap, or answer confidently? Read directly from the labels."],
     ["Honesty — from the text", "Does a judge reading only the report agree it did the right thing? Catches reports honest in the data but hedged in the prose."],
     ["Grounding", "Is each claim actually backed by the source it cites? Graded by an independent model, not the verifier itself."],
     ["Relevance (1–5)", "Does the report answer the question asked? Graded by a panel of three judge-models."],
@@ -514,10 +514,10 @@ bullets(s, [
     ("Better search — multiple search engines, weighting more credible sources, and routing by question type. This is the lever that actually raises the ceiling.", 0),
     ("Support non-English and non-text (image / table) inputs", 0),
     ("Use the verifier to train an automatic \"search-again\" controller:", 0),
-    ("the verifier scores whether each extra search step improved the evidence, and a small policy learns the best next move", 1),
+    ("the verifier scores whether each extra search step improved the evidence, and a small model learns the best next move", 1),
     ("before trusting it: check that better evidence really does raise its score, and that it cannot be gamed", 1),
-    ("limit: this still cannot beat the search ceiling — if the evidence is not out there, no controller helps", 1),
-    ("Also: automatic prompt tuning, distilling the pipeline into a smaller fast model, and graph-based orchestration", 0),
+    ("limit: this still cannot beat the search ceiling — if the evidence is not out there, searching smarter does not help", 1),
+    ("Also: automatic prompt tuning, and training one smaller, faster model to imitate the whole pipeline", 0),
 ], size=14.5, gap=9)
 
 # 27 — Closing
