@@ -344,7 +344,12 @@ table(s, ["Version", "What it is", "What it achieves"], [
     ["Without verifier", "Claims shown to the reader unchecked", "baseline — no grounding or honesty labels at all"],
     ["v0 — small trained model", "Fine-tuned DeBERTa-v3 cross-encoder (~184M) on public fact-checking data — FEVER + SciFact", "matches the three-model macro-F1, well-calibrated, ~130× faster and cheaper"],
     ["v1 — small trained model", "Same, plus synthetic hard-negatives and an evidence-ablated curriculum (our pipeline's distribution)", "more cautious — declines to answer when evidence is weak; slightly weaker on the clean test set"],
-], col_w=[1.9, 4.3, 4.4], fsize=11.5, top=Inches(1.55), height=Inches(4.2), first_bold=True)
+], col_w=[1.9, 4.3, 4.4], fsize=11.5, top=Inches(1.5), height=Inches(4.0), first_bold=True)
+_text(s, Inches(0.55), Inches(5.85), Inches(12.2), Inches(1.0), [
+    [("Building a \"contested\" test case:  ", 12, NAVY, True, 0),
+     ("take a supported (claim, passage), synthesize a plausible refuting passage, and bundle both into one example → gold label = contested.", 12, GRAY, False, 0)],
+    [("At run time, the verifier calls a claim contested when its cited passages both support and refute it.", 12, GRAY, False, 0)],
+])
 
 # 16 — Training the small verifier (v0 / v1)
 s = content("7 · The verifier — training", "How we trained the small verifier (v0 and v1)")
