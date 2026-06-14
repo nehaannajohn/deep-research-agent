@@ -42,3 +42,33 @@ def test_calibrator_is_applied_to_confidence():
     v = _verifier({"p": {"supported": 0.9, "refuted": 0.05, "nei": 0.05}}, calibrator=_Cal())
     r = v.verify("c", [Passage(source_id="s", text="p")])
     assert r.confidence == 0.5
+
+
+def test_multicite_supported_not_overflipped_to_contested():
+    # 4 strongly-supporting passages + 1 where refuted>=margin but supported is
+    # STILL its argmax. Old max-aggregation flipped this to contested; argmax
+    # voting keeps it supported (the stray passage casts no refuted vote).
+    scores = {f"sup{i}": {"supported": 0.95, "refuted": 0.02, "nei": 0.03} for i in range(4)}
+    scores["stray"] = {"supported": 0.55, "refuted": 0.52, "nei": 0.0}  # argmax=supported
+    v = _verifier(scores)
+    passages = [Passage(source_id=str(i), text=t) for i, t in enumerate(scores)]
+    r = v.verify("c", passages)
+    assert r.label == "supported"
+    assert r.votes["ref_votes"] == 0
+
+
+def test_genuine_two_sided_disagreement_still_contested():
+    # one passage truly argmaxes supported, another truly argmaxes refuted
+    v = _verifier({
+        "a": {"supported": 0.92, "refuted": 0.03, "nei": 0.05},
+        "b": {"supported": 0.05, "refuted": 0.90, "nei": 0.05},
+    })
+    r = v.verify("c", [Passage(source_id="0", text="a"), Passage(source_id="1", text="b")])
+    assert r.label == "contested"
+
+
+def test_passage_below_margin_casts_no_vote():
+    # nothing clears the margin on its argmax -> insufficient
+    v = _verifier({"x": {"supported": 0.45, "refuted": 0.40, "nei": 0.15}})
+    r = v.verify("c", [Passage(source_id="0", text="x")])
+    assert r.label == "insufficient"

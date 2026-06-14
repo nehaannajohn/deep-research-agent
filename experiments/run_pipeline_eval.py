@@ -109,6 +109,40 @@ def _make_run_query_verifier_only(cfg):  # pragma: no cover - live Bedrock/Exa
     return _run
 
 
+def _load_platt(variant):  # pragma: no cover - trivial disk read
+    """Load a persisted Platt calibrator for a Verifier B variant (None if absent)."""
+    import json
+    from dra.eval.calibrate import PlattCalibrator
+    path = f"eval/results/verifier_b/{variant}/platt.json"
+    if not os.path.exists(path):
+        return None
+    d = json.load(open(path))
+    cal = PlattCalibrator()
+    cal.w, cal.b = d["w"], d["b"]
+    return cal
+
+
+def _make_run_query_with_cross_encoder(cfg, variant):  # pragma: no cover - live Bedrock/Exa + torch
+    """In-loop verifier = the fine-tuned DeBERTa cross-encoder (Verifier B
+    <variant>, Platt-calibrated), dropped into the SAME pipeline + contradiction
+    layer as the with/corrected arm (only the verifier changes). Requires torch
+    — run under `.venv-train`."""
+    import dataclasses
+
+    from dra.loop import build_deps, run_query
+    from dra.verify.cross_encoder import CrossEncoderVerifier
+    from experiments.verifier_b.evaluate import _bind_score_fn
+
+    ckpt = f"eval/verifier_b_models/{variant}/best"
+    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrator=_load_platt(variant))
+    deps = dataclasses.replace(build_deps(cfg), verifier=verifier)
+
+    def _run(query):
+        return run_query(query, deps)
+
+    return _run
+
+
 def _make_run_query_without_verifier(cfg):  # pragma: no cover - live Bedrock/Exa
     """No-verification arm: same generator/search/decomposition as the normal
     pipeline, but claims are NEVER verified and the report is composed with
@@ -170,10 +204,12 @@ def build_pipeline_deps(cfg, arm, *, decomposer=None):  # pragma: no cover - liv
         run_query = _make_run_query_with_verifier(cfg)
     elif arm == "verifier_only":
         run_query = _make_run_query_verifier_only(cfg)   # verifier on, contradiction layer off
+    elif arm in ("verifier_b_v0", "verifier_b_v1"):
+        run_query = _make_run_query_with_cross_encoder(cfg, arm.replace("verifier_b_", ""))
     elif arm == "without_verifier":
         run_query = _make_run_query_without_verifier(cfg)
     else:
-        raise ValueError(f"unknown arm {arm!r}; expected with/without/corrected/verifier_only")
+        raise ValueError(f"unknown arm {arm!r}; expected with/without/corrected/verifier_only/verifier_b_v0/verifier_b_v1")
 
     panel_models = cfg.panel_models or [DEFAULT_GROUNDING_MODEL]
     grounding_model = os.environ.get("BEDROCK_GROUNDING_JUDGE_MODEL") or DEFAULT_GROUNDING_MODEL
@@ -208,7 +244,7 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
     parser = argparse.ArgumentParser(description="±verifier pipeline-eval driver")
     parser.add_argument("--arm",
                         choices=("with_verifier", "without_verifier", "corrected_verifier",
-                                 "verifier_only", "both"),
+                                 "verifier_only", "verifier_b_v0", "verifier_b_v1", "both"),
                         default="both")
     parser.add_argument("--dataset", choices=("dra_bench", "frames", "truthfulqa"),
                         default="dra_bench", help="which benchmark to run the pipeline over")
