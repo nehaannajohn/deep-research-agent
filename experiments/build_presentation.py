@@ -2,6 +2,9 @@
 
 Run: .venv/bin/python experiments/build_presentation.py
 Output: ~/Desktop/DeepResearchAgent_Presentation.pptx
+
+Writing style: plain language for an audience new to the project. State
+conclusions, not raw statistics; define terms on first use; one idea per line.
 """
 from __future__ import annotations
 import os
@@ -171,7 +174,7 @@ _box(s, Inches(0.9), Inches(2.55), Inches(0.18), Inches(1.6), fill=ACCENT)
 _text(s, Inches(1.25), Inches(2.5), Inches(11), Inches(1.5),
       [("Deep Research Agent", 48, WHITE, True, 0)])
 _text(s, Inches(1.28), Inches(3.75), Inches(11), Inches(0.7),
-      [("A transparent, reliable research pipeline — verification as the spine", 20, RGBColor(0xBF,0xD4,0xE0), False, 0)])
+      [("A research agent you can trust — every claim checked against its sources", 20, RGBColor(0xBF,0xD4,0xE0), False, 0)])
 _text(s, Inches(1.28), Inches(4.75), Inches(11), Inches(0.6),
       [("Neha Anna John", 20, WHITE, True, 0)])
 _text(s, Inches(1.28), Inches(5.25), Inches(11), Inches(0.5),
@@ -180,325 +183,359 @@ _text(s, Inches(1.28), Inches(5.25), Inches(11), Inches(0.5),
 # 2 — Agenda
 s = content("Overview", "Agenda")
 bullets(s, [
-    ("Challenges of deep-research agents in today's ecosystem", 0),
-    ("The objective: a transparent, reliable research agent", 0),
-    ("The larger architecture and its safeguards", 0),
-    ("The MVP pipeline — and what makes it transparent & reliable", 0),
-    ("How fast design choices were made (small-scale experiments)", 0),
-    ("The pipeline, annotated with the models behind each stage", 0),
-    ("Verifier deep-dive — with / without / corrected / fine-tuned v0·v1", 0),
+    ("Why today's deep-research agents fall short", 0),
+    ("Our goal: a transparent, reliable research agent", 0),
+    ("The full system design and its safeguards", 0),
+    ("The working pipeline — and what makes it trustworthy", 0),
+    ("How we made fast design choices with small experiments", 0),
+    ("The pipeline, with the model behind each step", 0),
+    ("The verifier: on, off, improved, and replaced by a small trained model", 0),
     ("Known limitations", 0),
-    ("Future exploration — including the verifier as a process reward model", 0),
+    ("Where this goes next", 0),
 ], size=17, gap=9)
 
 # 3 — Ecosystem challenges
-s = content("1 · Ecosystem challenges", "The hard problem is verification, not generation")
+s = content("1 · The problem", "Today's research agents write well — but don't check facts")
 bullets(s, [
-    ("Most deep-research systems produce plausible output but lack rigorous per-claim verification", 0),
-    ("Recursive & plan-execute agents (GPT-Researcher, STORM, LangChain Open DR) have no per-claim verification step", 0),
-    ("Aggregating 20+ sources is not verification — source count ≠ grounding", 0),
-    ("Citation quality ≠ factual accuracy: >94% valid links, but only 39–77% factual; accuracy drops ~42% as tool calls scale 2→150", 0),
-    ("Self-evaluation yields zero calibration without external labels (\"the verification tax\")", 0),
-    ("Faithfulness ≠ correctness — outcome-correct agents can still reason unfaithfully; endpoint checks miss it", 0),
-    ("Homogeneous judge panels fail: 9 correlated judges ≈ only 2 effective votes", 0),
-    ("No deployed system unifies verification + calibrated confidence + adaptive retrieval in one loop", 0),
+    ("Most deep-research systems produce fluent answers but never verify whether each claim is actually true", 0),
+    ("Popular agents (GPT-Researcher, STORM, LangChain) have no step that checks individual claims against their sources", 0),
+    ("Gathering 20+ sources is not the same as verifying — more sources does not mean better grounding", 0),
+    ("Even when links are valid, the facts often are not: studies report 39–77% factual accuracy, and it drops sharply as agents make more tool calls", 0),
+    ("A model grading its own work tells you nothing reliable without outside labels", 0),
+    ("Getting the final answer right does not mean the reasoning was sound — checking only the endpoint misses this", 0),
+    ("Panels of similar judge-models mostly agree with each other, not with the truth — false confidence", 0),
+    ("No deployed system combines claim-checking, trustworthy confidence, and adaptive search in one loop", 0),
 ], size=14.5, gap=8)
 
 # 4 — Landscape + the gap
-s = content("1 · Ecosystem challenges", "The landscape — and the gap we target")
-table(s, ["Pattern", "Examples", "Verification / confidence"], [
-    ["Recursive tree", "dzhng/deep-research, GPT-Researcher Deep", "none · no confidence"],
-    ["Plan-and-execute (most deployed)", "GPT-Researcher, LangChain Open DR, AWS Strands", "no per-claim confidence"],
+s = content("1 · The problem", "The landscape — and the gap we target")
+table(s, ["Approach", "Examples", "Verification / confidence"], [
+    ["Recursive search", "dzhng/deep-research, GPT-Researcher Deep", "none · no confidence"],
+    ["Plan-and-execute (most common)", "GPT-Researcher, LangChain Open DR, AWS Strands", "no per-claim confidence"],
     ["Multi-perspective", "Stanford STORM, Co-STORM", "no explicit fact-checking"],
-    ["RL-trained search", "Search-R1, Alibaba DeepResearch, WebThinker", "SOTA but 8×A100+, inaccessible"],
-    ["Commercial", "Perplexity Sonar, OpenAI", "black-box; grounding not exposed"],
-], col_w=[2.2, 4.2, 3.2], fsize=12, top=Inches(1.55), height=Inches(3.0))
+    ["RL-trained search", "Search-R1, Alibaba DeepResearch, WebThinker", "strong, but need 8×A100+ — inaccessible"],
+    ["Commercial", "Perplexity, OpenAI", "black box — grounding not shown"],
+], col_w=[2.4, 4.2, 3.2], fsize=12, top=Inches(1.55), height=Inches(3.0))
 _text(s, Inches(0.55), Inches(5.05), Inches(12.2), Inches(1.6), [
-    [("The deployment blocker for agents is measurable trust.  ", 15, NAVY, True, 0)],
-    [("We unify verification + calibrated per-claim confidence + adaptive retrieval in one loop — to distinguish ", 14, INK, False, 0),
-     ("plausible from correct", 14, ACCENT, True, 0),
-     (" (the field's open problem; today only academic, none deployed).", 14, INK, False, 0)],
+    [("What blocks deployment isn't capability — it's trust you can measure.", 15, NAVY, True, 0)],
+    [("We combine claim-checking, trustworthy per-claim confidence, and adaptive search in one loop — to tell ", 14, INK, False, 0),
+     ("plausible apart from correct", 14, ACCENT, True, 0),
+     (".  No system does all three today.", 14, INK, False, 0)],
 ])
 
-# 5 — MVP objective
-s = content("2 · Objective", "A transparent, reliable deep research agent")
+# 5 — Objective
+s = content("2 · Goal", "A transparent, reliable deep research agent")
 bullets(s, [
-    ("Given a query → a structured, evidence-backed report", 0),
-    ("Reliable — every claim is verified against its evidence; weakly-grounded claims trigger adaptive retrieval", 0),
-    ("Transparent — calibrated confidence per claim; explicit where evidence is thin, never papering over uncertainty", 0),
-    ("Spine = evaluation — the blocker to deploying agents is not capability, it is measurable trust", 0),
-    ("Quality made measurable at train-time (learned verifier), inference-time (calibrated confidence + adaptive retrieval), and offline (eval framework)", 0),
-    ("Build vs. buy — buy retrieval (commodity); build deep: verification, adaptive retrieval, report generation, evaluation", 0),
-], size=15.5, gap=11)
+    ("Input a question → output a structured report where every claim is backed by a source", 0),
+    ("Reliable — each claim is checked against its evidence; weakly-supported claims trigger another round of searching", 0),
+    ("Transparent — every claim carries a confidence score, and the report says plainly when the evidence is thin", 0),
+    ("The hard part is not writing — it is earning trust. So evaluation is the backbone of the whole project.", 0),
+    ("Build vs. buy — we buy search (a commodity) and build the hard parts: verification, the search loop, report writing, and evaluation", 0),
+], size=15.5, gap=12)
 
 # 6 — Larger architecture
-s = content("3 · Larger architecture", "Defense-in-depth: 9 layers, outer → inner")
+s = content("3 · Full design", "Defense in depth — nine layers, outer to inner")
 bullets(s, [
-    ("Guardrails (moderation + PII) → Clarification (brief + constraints) → Planner (sub-questions) → Router (academic / web / user tool)", 0),
-    ("→ Evidence (verbatim passages) → Synthesis (atomic claims + citations) → Verification + calibrated confidence → Report assembly", 0),
-    ("Cross-cutting: observability + cost budget; egress guardrails before any output", 0),
-    ("Verification loops back to the Router on low-confidence / insufficient — diagnosis → treatment in one loop", 0),
-    ("Source credibility — every source carries a reliability note; contested is a first-class verdict when sources genuinely disagree", 0),
-    ("Honesty on failure — at unresolved max-iters, ship the claim flagged insufficient with a disclaimer, never fabricate", 0),
+    ("Outer guardrails (content moderation, strip personal data) → clarify the request → plan sub-questions → route each to a search tool", 0),
+    ("Core: fetch exact source passages → pull out atomic claims with citations → verify each claim and score confidence → assemble the report", 0),
+    ("Throughout: track cost and behaviour, and run a final safety check before anything is shown", 0),
+    ("When confidence is low, verification sends the system back to search for better evidence — this is the loop", 0),
+    ("Sources carry a credibility note; \"contested\" is a real verdict when good sources genuinely disagree", 0),
+    ("If it still cannot find enough, it says so honestly — it never makes up an answer", 0),
 ], size=15, gap=10)
 
-# 7 — Safeguards / invariants
-s = content("3 · Safeguards", "Design invariants (the guardrails)")
+# 7 — Safeguards
+s = content("3 · Safeguards", "The guardrails built into the design")
 bullets(s, [
-    ("Evidence is verbatim, never summarized — verifying against an LLM summary would be circular", 0),
-    ("Model independence — distinct model families at every evaluative boundary so biases don't correlate; enforced by config.assert_independence()", 0),
-    ("Generator proposes, verifier confirms — candidate citation ids are untrusted; an independent verifier confirms entailment(passage ⊨ claim)", 0),
-    ("Confidence is recalibrated before being surfaced (temperature scaling / isotonic); report uses the recalibrated value, reports ECE before vs after", 0),
-    ("Surface all terminal claims — supported (confident), contested (both sides flagged), insufficient (gap + disclaimer); never silently drop", 0),
-    ("Verification + adaptive retrieval are one loop; coverage tracked so the system can't win by deleting hard claims", 0),
-], size=14.5, gap=9)
+    ("Evidence is quoted word-for-word, never summarized — checking a claim against a summary would be circular", 0),
+    ("Independence — the model that writes, the models that verify, and the models that grade are all different families, so their biases cannot reinforce each other", 0),
+    ("The writer only proposes citations; a separate verifier confirms the source actually supports the claim", 0),
+    ("Confidence is calibrated before it is shown, so \"70%\" really means right about 70% of the time", 0),
+    ("Every claim is shown — supported, flagged as contested, or marked as a gap — and never silently dropped", 0),
+    ("The system cannot \"win\" by quietly deleting hard claims — coverage is tracked", 0),
+], size=14.5, gap=10)
 
 # 8 — MVP pipeline
-s = content("4 · MVP pipeline", "Query → evidence-backed report")
-pipeline_row(s, ["Query", "Decompose", "Retrieve (Exa)", "Extract claims", "Verify", "Contradiction detection", "Compose report", "Evaluate"],
+s = content("4 · The pipeline", "From question to evidence-backed report")
+pipeline_row(s, ["Question", "Break into sub-questions", "Search (Exa)", "Extract claims", "Verify each claim", "Flag conflicts", "Write report", "Evaluate"],
              top=Inches(1.7), h=Inches(1.05))
-_text(s, Inches(0.55), Inches(3.2), Inches(12.2), Inches(0.4),
-      [("Adaptive loop is verdict-routed: supported≥τ → accept · insufficient → reformulate & re-search · refuted → revise / contest · weak source → switch tool   (terminate on τ | max_iters≈3 | no-progress | budget)", 12.5, GRAY, False, 0)])
-table(s, ["Transparency comes from", "Reliability comes from"], [
-    ["Offline evaluation harness — decomposes any report into claims, runs verifier + blind judge panel",
-     "Verifier labels each claim's grounding via entailment {supported / refuted / insufficient / contested}"],
-    ["Per-claim calibrated confidence surfaced in the report (claim ledger separates claims from evidence)",
-     "Contradiction detection — claim↔citation (grounding), claim↔claim (consistency), citation↔citation (contested)"],
-], col_w=[1,1], fsize=12.5, top=Inches(3.8), height=Inches(2.6))
+_text(s, Inches(0.55), Inches(3.25), Inches(12.2), Inches(0.4),
+      [("Planned (not yet in the MVP): when a claim is weak, automatically search again or switch tools before writing the report.", 12.5, GRAY, False, 0)])
+table(s, ["What makes it transparent", "What makes it reliable"], [
+    ["An evaluation harness that breaks any report into claims and scores them",
+     "The verifier labels every claim: supported, refuted, contested, or insufficient"],
+    ["Every claim shows its own calibrated confidence score",
+     "Conflict detection flags when sources or claims disagree with each other"],
+], col_w=[1, 1], fsize=12.5, top=Inches(3.85), height=Inches(2.5))
 
 # 9 — Quick choice: Exa vs Tavily
-s = content("5 · Quick choices", "Retrieval engine — Exa vs Tavily (12-query bake-off)")
-table(s, ["Engine", "recall@k", "relevance", "latency", "panel mean"], [
-    ["Exa  ✓", "0.333", "0.919", "1.4 s", "0.892"],
-    ["Tavily", "0.250", "0.764", "3.5 s", "0.768"],
-    ["Semantic Scholar", "0.000", "0.000", "— (429s)", "—"],
-], col_w=[2.6, 1.6, 1.6, 1.6, 1.8], fsize=13, top=Inches(1.6), height=Inches(1.9))
+s = content("5 · Design choices", "Search engine — Exa vs Tavily (12-query bake-off)")
+table(s, ["Engine", "Found right sources", "Relevance", "Speed", "Judge score"], [
+    ["Exa  ✓", "0.33", "0.92", "1.4 s", "0.89"],
+    ["Tavily", "0.25", "0.76", "3.5 s", "0.77"],
+    ["Semantic Scholar", "0.00", "0.00", "rate-limited", "—"],
+], col_w=[2.6, 2.0, 1.5, 1.5, 1.6], fsize=13, top=Inches(1.6), height=Inches(1.9))
 bullets(s, [
-    ("Exa wins on every axis; 4-judge cross-check (72 passages) ranks Exa > Tavily by a consistent ~0.12 margin", 0),
-    ("Use Exa highlights — verbatim query-targeted excerpts (not full text), preserving the extractive-citation invariant", 0),
-    ("Settled hyperparameters: k = 5 per sub-question · maxChars = 2,000 · decomposition ON  (Tavily retained as fallback)", 0),
+    ("Exa beat Tavily on every measure — finding the right sources, relevance, and speed (1.4s vs 3.5s)", 0),
+    ("Four independent judge-models all preferred Exa's passages", 0),
+    ("We use Exa \"highlights\" — short verbatim excerpts aimed at the question — so citations stay exact and context stays small", 0),
+    ("Settled defaults: 5 sources per sub-question, about 2,000 characters each", 0),
 ], left=Inches(0.55), top=Inches(3.8), size=14.5, gap=10)
 
 # 10 — Quick choice: decomposition
-s = content("5 · Quick choices", "Query decomposition vs none")
+s = content("5 · Design choices", "Breaking the question into sub-questions")
 bullets(s, [
-    ("Decision: KEEP decomposition (flexible 1…N sub-questions; split only for distinct evidence)", 0),
-    ("Across 4 cases at a fixed 2k budget, decomposition surfaced 3–4× more unique sources with low overlap:", 0),
-    ("8 → 27–36 sources per query (e.g. tc4: 8 → 36, Jaccard 0.02)", 1),
-    ("extra sources are relevant — including canonical primaries the broad query misses (e.g. the original CoT paper)", 1),
-    ("No over-splitting — atomic probes (\"max context window of Llama 4 Maverick\") return exactly 1 sub-question, unchanged", 0),
-], size=15, gap=10)
+    ("We split a question into sub-questions and search each one separately", 0),
+    ("This finds 3–4× more distinct, relevant sources than searching the whole question at once", 0),
+    ("Example: 8 sources became 27–36, with little overlap — including key papers the broad search missed", 1),
+    ("It does not over-split: a simple factual question stays a single search", 0),
+], size=15.5, gap=12)
 
 # 11 — Quick choice: claim extraction
-s = content("5 · Quick choices", "Claim extraction — generator model")
-table(s, ["Model", "Grounding (0–2)", "Atomicity (0/1)", "Note"], [
-    ["Llama 4 Maverick (17B)  ✓", "1.24", "0.80", "smallest model wins the north-star metric"],
+s = content("5 · Design choices", "Which model writes the claims")
+table(s, ["Model", "Grounding (0–2)", "Atomic claims (0–1)", "Note"], [
+    ["Llama 4 Maverick (17B)  ✓", "1.24", "0.80", "the smallest model wins the metric that matters most"],
     ["Haiku 4.5", "0.97", "0.74", "dropped"],
-    ["Mistral Large 3 (675B)", "0.94", "0.73", "over-reaches — 635 claims vs Llama's 147 (4×)"],
-], col_w=[2.8, 1.8, 1.7, 4.0], fsize=12.5, top=Inches(1.6), height=Inches(1.9))
+    ["Mistral Large 3 (675B)", "0.94", "0.73", "over-reaches — 4× more claims, many unsupported"],
+], col_w=[2.8, 1.8, 1.9, 3.9], fsize=12.5, top=Inches(1.6), height=Inches(1.9))
 bullets(s, [
-    ("All 3 judges rank Llama > Haiku > Mistral on grounding (unanimous, n=8)", 0),
-    ("Mistral over-reaches from parametric memory (confident specifics, citation stapled on) — structural, not prompt-fixable", 0),
-    ("Outcome: Mistral re-roled to the in-loop verifier ensemble; generator max_tokens 1024 → 8192", 0),
+    ("Llama produced the best-grounded, most self-contained claims — all three judges agreed", 0),
+    ("The much larger Mistral over-reached: it stated confident specifics from memory and stapled a citation on", 0),
+    ("So Llama became the writer; Mistral was moved to the verifier panel instead", 0),
 ], top=Inches(3.8), size=14.5, gap=10)
 
 # 12 — Quick choice: structural formatting
-s = content("5 · Quick choices", "Structural formatting as a separate component")
+s = content("5 · Design choices", "Keeping formatting out of search")
 bullets(s, [
-    ("Split the query into core-research-query + constraints {wants_visual, format, focus}", 0),
-    ("Route formatting / modality instructions to report composition — NOT to retrieval", 0),
-    ("Why: keeps a \"include a diagram\" instruction from changing the evidence retrieved", 1),
-    ("validated: retrieval is identical across plain vs format-augmented arms (cache-confirmed)", 1),
-    ("Hybrid composition: LLM writes narrative + artifacts (Mermaid diagram / table on demand); a deterministic layer renders the claim table, metadata, disclaimers, sources — never LLM-paraphrased", 0),
-    ("Constrain-by-construction honesty: every factual sentence must cite an existing ledger claim id [cN]; a guard flags any [cN] not in the ledger", 0),
-], size=14.5, gap=9)
-
-# 13 — Pipeline annotated with models
-s = content("6 · Models", "The pipeline, annotated with models")
-pipeline_row(s, ["Query", "Decompose", "Retrieve", "Extract claims", "Verify", "Contradiction", "Compose"],
-             top=Inches(1.7), h=Inches(0.95),
-             models=["—", "Llama 4 Maverick", "Exa", "Llama 4 Maverick", "Ensemble: Sonnet · Mistral L3 · Nova", "in-loop verifier", "Llama 4 Maverick"])
-bullets(s, [
-    ("Generator (decompose, claim extraction, report) = Llama 4 Maverick", 0),
-    ("In-loop verifier = 3-model ensemble {Sonnet 4.6, Mistral Large 3, Amazon Nova} — majority vote + agreement confidence, 4-way incl. contested", 0),
-    ("Model independence enforced: generator ≠ verifier ≠ judge panel ≠ baseline (config.assert_independence())", 0),
-    ("Verifier B (the A-vs-B alternative) = a fine-tuned DeBERTa-v3 cross-encoder — see next section", 0),
-], top=Inches(4.1), size=13.5, gap=8)
-
-# 14 — Verifier: what it does
-s = content("7 · Verifier", "What does the verifier do?")
-bullets(s, [
-    ("Takes an atomic claim + its cited passages → emits a grounding verdict {supported · refuted · insufficient · contested} + a measured confidence", 0),
-    ("Checks entailment (passage ⊨ claim) — grounding against the evidence, NOT world knowledge", 0),
-    ("Drives adaptive retrieval (verdict-routed) and surfaces per-claim confidence (transparency) — it is the reliability spine", 0),
-    ("Without it there are no grounding / contested / insufficient labels — no defensible reliability claim", 0),
-    ("Two evaluation layers: Layer-1 (verifier in isolation) and Layer-2 (the verifier inside the whole pipeline)", 0),
-], size=15.5, gap=12)
-
-# 15 — Verifier types comparison
-s = content("7 · Verifier", "The verifier variants compared")
-table(s, ["Variant", "Training data / prompting", "What it achieves"], [
-    ["with verifier (A)", "LLM-judge ensemble {Sonnet, Mistral, Nova}, zero-shot; contradiction layer ON (original prompt)", "holistic 4-way verdict; strong honesty signal — but over-flags settled claims as contested"],
-    ["corrected verifier", "same ensemble + structured-reasoning contradiction prompt", "keeps the honesty, recovers the quality lost to over-flagging"],
-    ["without verifier", "none — claims surfaced unverified", "baseline; no grounding / contested / insufficient labels"],
-    ["v0 (Verifier B)", "fine-tuned DeBERTa-v3 cross-encoder on FEVER+SciFact + Platt", "competent, calibratable, ~130× faster & cheaper"],
-    ["v1 (Verifier B)", "v0 data + our-distribution synthetic hard-negatives + evidence-ablated curriculum", "more conservative (abstains on thin evidence); marginally worse on clean benchmark"],
-], col_w=[1.7, 4.6, 4.3], fsize=11.5, top=Inches(1.55), height=Inches(4.2))
-
-# 16 — Benchmarks overview
-s = content("7 · Evaluation", "Benchmarks — two layers")
-bullets(s, [
-    ("Layer-1 — verifier in isolation, against labelled component benchmarks:", 0),
-    ("FEVER (n=1000) + SciFact (n=300), 3-way; plus a constructed contested set (75 / dataset)", 1),
-    ("metrics: macro-F1, ECE (pre/post Platt), AUROC, Brier, latency", 1),
-    ("Layer-2 — the verifier inside the whole pipeline, scoring the finished report:", 0),
-    ("DRA-Bench — our custom 250-prompt epistemic-behavior benchmark (next slide)", 1),
-    ("FRAMES (multi-hop QA, n=100) + TruthfulQA (adversarial misconceptions, n=100)", 1),
-    ("Commercial baselines run through the same instrument — Perplexity Sonar · OpenAI search · Sonnet-4.6 gold (ceiling)", 0),
-    ("Significance throughout — paired-t (continuous) · McNemar (binary) · Holm correction", 0),
-], size=14.5, gap=8)
-
-# 17 — DRA-Bench (our contribution)
-s = content("7 · Evaluation — DRA-Bench  (our contribution)", "DRA-Bench — grading epistemic behavior")
-_text(s, Inches(0.55), Inches(1.32), Inches(12.3), Inches(0.7),
-      [("250 prompts (5 types × 50). Each carries an expected-behavior gold label — does the agent do the epistemically right thing? The honesty signal FRAMES / TruthfulQA cannot see.", 13.5, GRAY, False, 0)])
-table(s, ["Type", "Expected behavior", "Objective", "Example prompt"], [
-    ["1 · technical", "answer_confident", "answer confidently when the literature is settled", "“How does self-attention work in transformer models?”"],
-    ["2 · pros & cons", "answer_confident (both sides)", "cover both sides of a balanced question", "“Pros and cons of microservices vs a monolith?”"],
-    ["3 · contradictory", "flag_contested", "surface genuine cross-source disagreement", "“Does moderate alcohol benefit the heart, or does any amount raise mortality?”"],
-    ["4 · unanswerable", "report_insufficient", "admit insufficiency rather than fabricate", "“What is the best programming language?”"],
-    ["5 · multi-format", "answer_confident + visual", "answer and honor a format / visual constraint", "“Compare AWS / Azure / GCP in a structured table.”"],
-], col_w=[1.5, 2.1, 3.3, 4.6], fsize=10.5, hsize=11.5, top=Inches(2.15), height=Inches(4.0), first_bold=True)
-
-# 18 — Evaluation metric design
-s = content("7 · Evaluation — metric design", "Task-specific metrics, and what each is for")
-table(s, ["Metric", "Objective — what it captures"], [
-    ["EBM — structural", "honesty read from the claim-ledger verdicts — the facet only our architecture exposes"],
-    ["EBM — text-judge", "whether that honesty reaches the reader — catches over-flagging (ledger honest, prose hedged)"],
-    ["Grounding (+ hallucination, citation P/R)", "every claim is entailed by its cited evidence — an independent judge, not the in-loop verifier"],
-    ["Relevance (1–5)", "does the report answer the query, on-topic — a blind 3-judge panel"],
-    ["Quality (1–5)", "coherence + comprehensiveness (readability / completeness), independent of correctness"],
-    ["Instruction adherence / formatting", "honored the explicit format / visual / scope constraints — the axis we lead baselines on"],
-    ["Task accuracy + abstention", "reached the correct short answer (FRAMES/TQA); honest “I don't know” scored as a feature"],
-    ["Similarity-to-gold / coverage", "breadth vs a strong reference (Sonnet gold) — surfaces the coverage gap"],
-    ["Calibration — ECE", "surfaced per-claim confidence is trustworthy, not just present"],
-], col_w=[2.7, 7.4], fsize=10.5, hsize=12, top=Inches(1.5), height=Inches(5.2), first_bold=True)
-
-# 17 — Layer-1 results
-s = content("7 · Verifier — results", "Layer-1: a small fine-tuned verifier matches the ensemble, ~130× faster")
-table(s, ["Verifier", "macro-F1", "ECE (post-Platt)", "AUROC", "latency p50", "speedup"], [
-    ["Ensemble A (3 LLM judges)", "0.815", "0.031", "0.936", "2,485 ms", "1×"],
-    ["v0 — calibrated  ✓", "0.839", "0.039", "0.966", "19 ms", "130×"],
-    ["v1 — calibrated", "0.834", "0.059", "0.962", "19 ms", "132×"],
-], col_w=[3.0, 1.6, 2.0, 1.5, 1.7, 1.4], fsize=13, top=Inches(1.7), height=Inches(1.9), first_bold=True)
-bullets(s, [
-    ("Combined FEVER+SciFact 3-way, n=1300. Best B = v0: competency parity with the ensemble, well-calibrated, far stronger AUROC", 0),
-    ("The decisive axis is latency / cost — one local 184M forward pass replaces three Bedrock LLM calls per claim", 0),
-    ("v1's our-distribution curriculum didn't help on the clean benchmark — it is the more conservative model", 0),
-], top=Inches(3.9), size=14, gap=9)
-
-# 19 — Layer-2 results: DRA-Bench, all metrics
-s = content("7 · Evaluation — results", "Layer-2 · DRA-Bench (3-arm, all metrics)")
-table(s, ["Metric (DRA-Bench)", "with", "without", "corrected"], [
-    ["EBM — structural (honesty)", "0.807", "0.595", "0.794"],
-    ["EBM — text (reader-facing)", "0.786", "0.810", "0.794"],
-    ["grounding rate", "0.956", "0.959", "0.953"],
-    ["hallucination rate", "0.028", "0.022", "0.028"],
-    ["relevance (1–5)", "4.63", "4.73", "4.66"],
-    ["quality (1–5)", "3.90", "4.12", "4.11"],
-    ["formatting / adherence", "1.00", "1.00", "1.00"],
-], col_w=[3.4, 1.4, 1.4, 1.6], fsize=12, top=Inches(1.5), height=Inches(3.2), first_bold=True)
-bullets(s, [
-    ("Significance (paired, Holm): corrected vs with quality +0.181 (p_adj=7.3e-6, survives) · structural EBM corrected ≈ with (b=8/c=10, n.s.) and ≫ without (+0.21, p_adj=7.7e-11)", 0),
-    ("text-EBM is n.s. across all three arms — the honesty gain doesn't reach the reader; grounding is flat ±verifier — gated on retrieval, not verification", 0),
-], top=Inches(4.95), size=12.5, gap=8)
-
-# 20 — Layer-2 results: baselines + coverage gap
-s = content("7 · Evaluation — results", "Layer-2 · vs commercial baselines, and the coverage gap")
-table(s, ["System  (DRA-Bench, fair axes)", "relevance", "quality", "formatting", "text-EBM"], [
-    ["ours (corrected)", "4.66", "4.11", "1.00", "0.79"],
-    ["Perplexity sonar-pro", "4.74", "4.94", "0.60", "0.86"],
-    ["OpenAI gpt-4o-search", "4.58", "4.46", "0.60", "0.84"],
-    ["Sonnet-4.6 gold (ceiling)", "4.85", "4.90", "0.60", "—"],
-], col_w=[3.4, 1.6, 1.4, 1.7, 1.5], fsize=12, top=Inches(1.5), height=Inches(2.2), first_bold=True)
-bullets(s, [
-    ("Commercial systems score higher on fluency-weighted quality (confident prose); we lead on formatting (1.00 vs 0.60) and expose per-claim grounding a black box can't be measured on", 0),
-    ("Broad benchmarks: on FRAMES our task-accuracy (~0.25) matches Perplexity (0.24), trails OpenAI-search (0.37); TruthfulQA is near-floor for all (grounding ≠ truthfulness)", 0),
-    ("Coverage gap vs Sonnet gold — our reports cover only ~10% of the gold reference's atomic claims (similarity 0.104, flat ±verifier, n.s.)", 0),
-    ("→ a retrieval-breadth gap, NOT a verification error — the pipeline's binding constraint is retrieval", 1),
-], top=Inches(3.9), size=12.5, gap=8)
-
-# 19 — v0/v1 Layer-2 (pending)
-s = content("7 · Verifier — results", "v0 / v1 in the pipeline (Layer-2) — in progress")
-_box(s, Inches(0.55), Inches(1.7), Inches(12.2), Inches(1.2), fill=LIGHT, line=AMBER, line_w=Pt(1.5))
-_text(s, Inches(0.8), Inches(1.95), Inches(11.7), Inches(0.8), [
-    [("⏳  Running now — ", 15, AMBER, True, 0),
-     ("the calibrated v0 and v1 cross-encoders are being dropped into the full pipeline across DRA-Bench, FRAMES and TruthfulQA.", 15, INK, False, 0)]])
-bullets(s, [
-    ("The question: does Layer-1's winner (v0) also win at Layer-2 under real multi-passage retrieval?", 0),
-    ("And does v1's conservatism — penalized by FEVER gold, which can encode world knowledge beyond the shown evidence — become an asset on messy retrieved evidence?", 0),
-    ("Prerequisite shipped: the verify() multi-passage over-flip fix (per-passage argmax voting)", 0),
-    ("Results backfill this slide on completion", 1),
-], top=Inches(3.3), size=14.5, gap=10)
-
-# 20 — Key learnings
-s = content("7 · Verifier", "Key learnings")
-bullets(s, [
-    ("The verifier is a must-have — it is the only source of grounding / contested / insufficient labels", 0),
-    ("The contradiction layer is necessary but retrieval-bound; over-flagging is fixable at the prompt (corrected), not removable", 0),
-    ("The structural honesty gain doesn't fully reach the reader (text-EBM flat) — the corrected prompt restores quality", 0),
-    ("Grounding is gated on retrieval, not verification — flat across all arms and benchmarks. The ceiling is retrieval.", 0),
-    ("A small fine-tuned verifier (v0) matches the ensemble, calibrates well, and is ~130× faster → a viable cheaper drop-in", 0),
-    ("Evidence-faithful abstention (v1) is penalized by single-evidence benchmarks but may be an asset under real retrieval", 0),
+    ("We separate the research question from formatting requests (e.g. \"as a table\", \"include a diagram\")", 0),
+    ("Formatting goes only to the report writer — never to search", 0),
+    ("So \"add a diagram\" cannot change which sources get retrieved (we verified this)", 1),
+    ("The writer produces the prose and any diagram/table; a separate, rule-based step builds the claim table, citations, and disclaimers — so those cannot be paraphrased or invented", 0),
+    ("Every sentence in the report must point to a real claim in the ledger — a check flags any that do not", 0),
 ], size=14.5, gap=10)
 
-# 21 — Limitations 1
-s = content("8 · Limitations", "Known limitations (1 / 2)")
+# 13 — Pipeline annotated with models
+s = content("6 · Models", "The pipeline, with the model behind each step")
+pipeline_row(s, ["Question", "Sub-questions", "Search", "Extract claims", "Verify", "Flag conflicts", "Write report"],
+             top=Inches(1.7), h=Inches(0.95),
+             models=["—", "Llama 4 Maverick", "Exa", "Llama 4 Maverick", "Panel of 3: Sonnet · Mistral · Nova", "verifier panel", "Llama 4 Maverick"])
 bullets(s, [
-    ("Per-component choices rest on small-scale evals — not statistically powered; conclusions could shift on larger samples", 0),
-    ("The verifier checks grounding, not source credibility — a claim can be faithfully grounded in a low-quality source", 0),
-    ("Tested only on English, text-only queries — no multilingual or multimodal coverage", 0),
-    ("Static retrieval defaults (k=5, maxChars=2k); no feedback-driven per-query adaptivity in the MVP", 0),
-    ("Coverage plateaus ~80–85% and is flat beyond k=5 — a single-backend (Exa) breadth limit, not a depth problem", 0),
-], size=15, gap=11)
+    ("Writer (planning, claim extraction, report) — Llama 4 Maverick", 0),
+    ("Verifier — a panel of three different large models (Sonnet, Mistral, Nova) that vote on each claim", 0),
+    ("Writer, verifier, and graders are deliberately different model families, so their biases do not line up", 0),
+    ("We also trained a small dedicated verifier to potentially replace the three-model panel — next section", 0),
+], top=Inches(4.1), size=14, gap=9)
 
-# 22 — Limitations 2
-s = content("8 · Limitations", "Known limitations (2 / 2)")
+# 14 — Verifier: what it does
+s = content("7 · The verifier", "What the verifier does")
 bullets(s, [
-    ("Layer-1 benchmarks present a single curated evidence per claim — easier & cleaner than the real multi-passage operating mode; gold can encode world knowledge beyond the shown evidence", 0),
-    ("Format-augmented queries aren't byte-identical in retrieval — the LLM core-query extraction drifts slightly across phrasings", 0),
-    ("DRA-Bench gold (Sonnet 4.6) and the judge panel (incl. Opus) share the Anthropic family — a mild self-preference risk on the relevance/quality axes (grounding is judged by a non-Anthropic model)", 0),
-    ("The headline ceiling — verification + contradiction are retrieval-bound; their quality ceiling sits upstream at retrieval quality / diversity / source-selection, not at the components themselves", 0),
+    ("For each claim, it reads the cited sources and decides: supported, refuted, contested (sources disagree), or insufficient (not enough evidence) — plus a confidence score", 0),
+    ("It judges only against the provided evidence — not the model's own background knowledge", 0),
+    ("It produces the labels and confidence that make the report transparent and reliable", 0),
+    ("Without it, there are no support / contested / gap labels at all", 0),
+    ("We test it two ways: on its own (Layer-1), and inside the full pipeline (Layer-2)", 0),
+], size=15.5, gap=13)
+
+# 15 — Verifier versions compared
+s = content("7 · The verifier", "The four versions we compared")
+table(s, ["Version", "What it is", "What it achieves"], [
+    ["With verifier", "Full pipeline — three large models check every claim and flag conflicts", "adds honesty labels (supported / contested / gap), but flags too many settled facts as \"contested\""],
+    ["Corrected", "Same, with a better conflict-flagging prompt", "keeps the honesty labels and fixes the over-flagging — restoring report quality"],
+    ["Without verifier", "Claims shown to the reader unchecked", "baseline — no grounding or honesty labels at all"],
+    ["v0 — small trained model", "One small model (~184M) fine-tuned on public fact-checking data (FEVER, SciFact)", "matches the three-model accuracy, trustworthy confidence, ~130× faster and cheaper"],
+    ["v1 — small trained model", "Same, plus extra training on harder, pipeline-like examples", "more cautious — abstains when evidence is thin; slightly weaker on clean test data"],
+], col_w=[1.9, 4.3, 4.4], fsize=11.5, top=Inches(1.55), height=Inches(4.2), first_bold=True)
+
+# 16 — Benchmarks overview
+s = content("7 · Evaluation", "How we test the verifier — two layers")
+bullets(s, [
+    ("Layer-1 — test the verifier on its own, against labelled fact-checking datasets:", 0),
+    ("FEVER (1,000 claims) and SciFact (300 claims), plus a built set of \"contested\" cases", 1),
+    ("we measure accuracy, how trustworthy its confidence is, and speed", 1),
+    ("Layer-2 — test the verifier inside the full pipeline, scoring finished reports:", 0),
+    ("DRA-Bench — our own 250-question benchmark (next slide)", 1),
+    ("FRAMES (multi-step questions) and TruthfulQA (common misconceptions)", 1),
+    ("We score Perplexity, OpenAI, and a strong Claude-Sonnet reference report through the same harness", 0),
+], size=15, gap=10)
+
+# 17 — DRA-Bench (our contribution)
+s = content("7 · Evaluation — DRA-Bench  (our contribution)", "DRA-Bench — testing whether the agent is honest")
+_text(s, Inches(0.55), Inches(1.32), Inches(12.3), Inches(0.7),
+      [("250 questions in 5 types. Each has a \"right behaviour\" label — should the agent answer confidently, flag a genuine disagreement, or admit it cannot tell? This is exactly what existing benchmarks do not measure.", 13.5, GRAY, False, 0)])
+table(s, ["Type", "Right behaviour", "What it tests", "Example question"], [
+    ["1 · technical", "answer confidently", "answer clearly when the science is settled", "“How does self-attention work in transformer models?”"],
+    ["2 · pros & cons", "cover both sides", "give a balanced view of a two-sided question", "“Pros and cons of microservices vs a monolith?”"],
+    ["3 · contradictory", "flag the conflict", "surface genuine disagreement between good sources", "“Does moderate alcohol help the heart, or does any amount raise mortality?”"],
+    ["4 · unanswerable", "admit it cannot tell", "say so honestly instead of making something up", "“What is the best programming language?”"],
+    ["5 · needs a visual", "answer + use the format", "answer and honor a table/diagram request", "“Compare AWS / Azure / GCP in a table.”"],
+], col_w=[1.5, 2.0, 3.3, 4.7], fsize=10.5, hsize=11.5, top=Inches(2.15), height=Inches(4.0), first_bold=True)
+
+# 18 — Evaluation metric design
+s = content("7 · Evaluation — metrics", "The metrics we designed, and what each one is for")
+table(s, ["Metric", "What it tells us"], [
+    ["Honesty — from labels", "Did the report's claim labels do the right thing (flag a real conflict, admit a gap, answer confidently)? Read from the structured output."],
+    ["Honesty — from the text", "Does a judge reading only the report agree it did the right thing? Catches reports honest in the data but hedged in the prose."],
+    ["Grounding", "Is each claim actually backed by the source it cites? Graded by an independent model, not the verifier itself."],
+    ["Relevance (1–5)", "Does the report answer the question asked? Graded by a panel of three judge-models."],
+    ["Quality (1–5)", "Is it clear, well-organized, and complete?"],
+    ["Follows instructions", "Did it honor explicit format requests — a table, a diagram, a length limit?"],
+    ["Answer accuracy + abstention", "For fact-QA: did it reach the right answer — and is a safe \"I don't know\" counted as fine, not wrong?"],
+    ["Coverage vs reference", "How many of the facts in a strong reference report did ours include?"],
+    ["Calibration", "Are the confidence scores trustworthy — does \"70%\" mean right about 70% of the time?"],
+], col_w=[2.6, 7.6], fsize=10.5, hsize=12, top=Inches(1.5), height=Inches(5.2), first_bold=True)
+
+# 19 — Layer-1 results
+s = content("7 · Evaluation — results", "Layer-1: a small trained verifier matches three large models — ~130× faster")
+table(s, ["Verifier", "Accuracy", "Calibration error (lower=better)", "Ranking (higher=better)", "Time / claim", "Speed-up"], [
+    ["Three-model panel", "0.815", "0.031", "0.936", "2,485 ms", "1×"],
+    ["v0 — small trained model  ✓", "0.839", "0.039", "0.966", "19 ms", "130×"],
+    ["v1 — small trained model", "0.834", "0.059", "0.962", "19 ms", "132×"],
+], col_w=[3.2, 1.5, 2.4, 2.0, 1.5, 1.3], fsize=12, top=Inches(1.7), height=Inches(1.9), first_bold=True)
+bullets(s, [
+    ("The small trained model (v0) is as accurate as the three-model panel, and its confidence is trustworthy", 0),
+    ("The real win is speed and cost: one small model on our own hardware, instead of three large-model calls per claim — about 130× faster", 0),
+    ("v1 (extra training on harder, pipeline-like examples) did not help on this clean test set — it just became more cautious", 0),
+], top=Inches(3.95), size=14, gap=10)
+
+# 20 — Layer-2 results: DRA-Bench, all metrics
+s = content("7 · Evaluation — results", "Layer-2: the fix keeps honesty and restores quality")
+_text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.34),
+      [("Three versions of the full pipeline — verifier ON (\"with\"), OFF (\"without\"), and the improved version (\"corrected\").", 12.5, GRAY, False, 0)])
+table(s, ["Metric (DRA-Bench)", "with", "without", "corrected"], [
+    ["Honesty — from claim labels", "0.81", "0.60", "0.79"],
+    ["Honesty — judged from the text", "0.79", "0.81", "0.79"],
+    ["Grounding (claims backed by sources)", "0.96", "0.96", "0.95"],
+    ["Relevance (1–5)", "4.63", "4.73", "4.66"],
+    ["Quality (1–5)", "3.90", "4.12", "4.11"],
+    ["Follows formatting instructions", "1.00", "1.00", "1.00"],
+], col_w=[3.6, 1.3, 1.3, 1.5], fsize=12, top=Inches(1.75), height=Inches(3.0), first_bold=True)
+bullets(s, [
+    ("Turning the verifier ON adds honesty (it flags real conflicts and admits gaps) — but the first version over-flagged settled facts, which hurt quality", 0),
+    ("The corrected version keeps the honesty of \"with\" and recovers the quality of \"without\" — a statistically significant quality gain", 0),
+    ("Grounding barely changes whether the verifier is on or off — better grounding has to come from better search, not the verifier", 0),
+], top=Inches(4.95), size=12.5, gap=7)
+
+# 21 — Layer-2: DRA-Bench baselines (writing quality / format)
+s = content("7 · Evaluation — results", "Layer-2: vs Perplexity & OpenAI (DRA-Bench)")
+table(s, ["System (DRA-Bench)", "Relevance", "Quality", "Follows format", "Honesty (text)"], [
+    ["Ours (corrected)", "4.66", "4.11", "1.00", "0.79"],
+    ["Perplexity", "4.74", "4.94", "0.60", "0.86"],
+    ["OpenAI (search)", "4.58", "4.46", "0.60", "0.84"],
+    ["Claude Sonnet reference (ceiling)", "4.85", "4.90", "0.60", "—"],
+], col_w=[3.6, 1.5, 1.4, 1.7, 1.6], fsize=12.5, top=Inches(1.7), height=Inches(2.3), first_bold=True)
+bullets(s, [
+    ("Perplexity and OpenAI score a little higher on writing quality — confident, fluent prose", 0),
+    ("We clearly lead on following format instructions (1.00 vs 0.60)", 0),
+    ("And we expose per-claim grounding that a black-box system can't be measured on — our differentiator", 0),
+], top=Inches(4.3), size=14, gap=10)
+
+# 22 — Layer-2: FRAMES + TruthfulQA answer accuracy
+s = content("7 · Evaluation — results", "Layer-2: answer accuracy vs Perplexity & OpenAI")
+_text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.34),
+      [("FRAMES = multi-step factual questions. TruthfulQA = questions built around common misconceptions. 100 questions each.", 12.5, GRAY, False, 0)])
+table(s, ["System", "FRAMES — accuracy", "FRAMES — quality", "TruthfulQA — accuracy", "TruthfulQA — quality"], [
+    ["Ours (corrected)", "0.25", "3.44", "0.02", "4.05"],
+    ["Perplexity", "0.24", "3.83", "0.06", "4.76"],
+    ["OpenAI (search)", "0.37", "4.26", "0.05", "4.33"],
+], col_w=[2.6, 2.0, 1.9, 2.2, 2.0], fsize=12.5, top=Inches(1.8), height=Inches(1.7), first_bold=True)
+bullets(s, [
+    ("Multi-step questions (FRAMES): our accuracy (~25%) matches Perplexity (24%) and trails OpenAI's search model (37%)", 0),
+    ("Misconception questions (TruthfulQA): every system scores near zero — being well-grounded in sources does not make the popular answer true", 0),
+    ("As on DRA-Bench, the commercial systems write more fluently (higher quality scores)", 0),
+], top=Inches(3.9), size=14, gap=10)
+
+# 23 — Layer-2: coverage vs Sonnet reference (detailed)
+s = content("7 · Evaluation — results", "Coverage gap vs a strong reference report")
+_text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.5),
+      [("We compared our reports to reference reports written by Claude Sonnet for the same 237 DRA-Bench questions, counting how many of the reference's facts our reports also contain.", 13, GRAY, False, 0)])
+# three stat boxes
+for i, (big, small, fill) in enumerate([
+    ("28,794", "facts in the Sonnet reference reports  (~121 per report)", NAVY),
+    ("2,895", "of those facts covered by our pipeline", ACCENT),
+    ("~10%", "coverage", ACC_DK),
+]):
+    l = Inches(0.55) + i * Inches(4.15)
+    _box(s, l, Inches(2.15), Inches(3.85), Inches(1.7), fill=fill)
+    _text(s, l, Inches(2.35), Inches(3.85), Inches(0.8), [(big, 40, WHITE, True, 0)], align=PP_ALIGN.CENTER)
+    _text(s, l + Inches(0.25), Inches(3.2), Inches(3.35), Inches(0.6), [(small, 12, WHITE, False, 0)], align=PP_ALIGN.CENTER)
+bullets(s, [
+    ("So our reports miss roughly 90% of the facts a strong reference report includes", 0),
+    ("This is the same with or without the verifier — so it is NOT a verifier problem", 0),
+    ("It is a search-breadth gap: a single search engine doesn't fetch enough distinct sources, and fetching deeper from the same engine doesn't help", 0),
+    ("The fix is better, more diverse search — the clearest next step", 0),
+], top=Inches(4.25), size=14, gap=10)
+
+# 22 — v0/v1 Layer-2 (pending)
+s = content("7 · Evaluation — results", "Putting the small trained verifiers in the pipeline (in progress)")
+_box(s, Inches(0.55), Inches(1.7), Inches(12.2), Inches(1.15), fill=LIGHT, line=AMBER, line_w=Pt(1.5))
+_text(s, Inches(0.8), Inches(1.95), Inches(11.7), Inches(0.7), [
+    [("Running now — ", 15, AMBER, True, 0),
+     ("we are putting the two small trained verifiers (v0 and v1) into the full pipeline and scoring them on all three benchmarks.", 15, INK, False, 0)]])
+bullets(s, [
+    ("The question: does v0, the Layer-1 winner, also win inside the full pipeline?", 0),
+    ("And does v1's extra caution — which looked like a weakness on clean tests — actually help on the messier evidence the real pipeline retrieves?", 0),
+    ("Required fix already shipped: the small verifier no longer mislabels a well-supported claim as \"contested\" just because one of several sources disagrees", 0),
+    ("Results will fill in this slide when the run finishes", 1),
+], top=Inches(3.25), size=14.5, gap=11)
+
+# 23 — Key learnings
+s = content("7 · The verifier", "Key learnings")
+bullets(s, [
+    ("The verifier is essential — it is the only source of support / contested / gap labels", 0),
+    ("The conflict-flagging step is needed but tends to over-flag; a better prompt fixes that without removing it", 0),
+    ("Honesty in the data does not automatically reach the reader — the wording has to reflect it too", 0),
+    ("Grounding is limited by search, not the verifier — this is the real ceiling", 0),
+    ("A small trained verifier can match a three-model panel at far lower cost — a practical, cheaper replacement", 0),
+    ("A more cautious verifier looks worse on clean tests but may be better on real, messy evidence (testing now)", 0),
 ], size=14.5, gap=11)
 
-# 23 — Future exploration
-s = content("9 · Future exploration", "Where this goes next")
+# 24 — Limitations 1
+s = content("8 · Limitations", "Known limitations (1 / 2)")
 bullets(s, [
-    ("Adaptive / multi-backend retrieval + source-credibility weighting + route-by-query-type — the lever that actually moves the ceiling", 0),
-    ("Deterministic core-query extraction; multilingual & multimodal inputs", 0),
-    ("Verifier as a Process Reward Model (PRM) for a learned adaptive-retrieval controller:", 0),
-    ("the verifier wears three hats — judge, calibrated confidence, and dense step reward (Δp_supported) to a GRPO-trained ActionSelector", 1),
-    ("gated before any RL run: a monotonicity ladder (≥90% per distribution) + an anti-gaming insensitivity check; gold labels anchor terminal reward", 1),
-    ("caveat: a PRM/policy can't exceed the retrieval ceiling — grounding stays flat across arms, bounding its value", 1),
-    ("DSPy prompt optimization · RL-trained research policy via verifier-supervised distillation · LangGraph orchestration · Fable benchmarking", 0),
-], size=14, gap=8)
+    ("Many smaller design choices were tested on small samples — directional, not statistically proven", 0),
+    ("The verifier checks that a claim matches its source, not whether the source itself is trustworthy", 0),
+    ("Tested only on English, text-only questions", 0),
+    ("Search settings are fixed; the MVP does not yet adapt them per question", 0),
+    ("Coverage tops out around 80–85% because we use a single search engine — fetching deeper does not help", 0),
+], size=15, gap=12)
 
-# 24 — Closing
+# 25 — Limitations 2
+s = content("8 · Limitations", "Known limitations (2 / 2)")
+bullets(s, [
+    ("The Layer-1 fact-checking benchmarks are cleaner and easier than real multi-source evidence — so those scores are optimistic", 0),
+    ("Adding a formatting request can slightly reword what is sent to search, so two versions of a question are not perfectly identical", 0),
+    ("Our reference reports and some judges are both Claude-family — a mild bias on the writing-quality scores (grounding is judged by a different family)", 0),
+    ("The big one: the verifier and conflict steps can only be as good as the evidence retrieved — the ceiling is search", 0),
+], size=14.5, gap=12)
+
+# 26 — Future exploration
+s = content("9 · What's next", "Where this goes next")
+bullets(s, [
+    ("Better search — multiple search engines, weighting more credible sources, and routing by question type. This is the lever that actually raises the ceiling.", 0),
+    ("Support non-English and non-text (image / table) inputs", 0),
+    ("Use the verifier to train an automatic \"search-again\" controller:", 0),
+    ("the verifier scores whether each extra search step improved the evidence, and a small policy learns the best next move", 1),
+    ("before trusting it: check that better evidence really does raise its score, and that it cannot be gamed", 1),
+    ("limit: this still cannot beat the search ceiling — if the evidence is not out there, no controller helps", 1),
+    ("Also: automatic prompt tuning, distilling the pipeline into a smaller fast model, and graph-based orchestration", 0),
+], size=14.5, gap=9)
+
+# 27 — Closing
 s = prs.slides.add_slide(BLANK)
 _box(s, 0, 0, EMU_W, EMU_H, fill=NAVY)
 _box(s, Inches(0.9), Inches(2.3), Inches(0.18), Inches(2.4), fill=ACCENT)
 _text(s, Inches(1.25), Inches(2.2), Inches(11), Inches(1.0),
-      [("Measurable trust is the deployment blocker", 34, WHITE, True, 0)])
-_text(s, Inches(1.28), Inches(3.4), Inches(11.2), Inches(2.6), [
-    [("Verification + calibrated per-claim confidence + adaptive retrieval, in one loop —", 17, RGBColor(0xCF,0xDF,0xEA), False, 0)],
-    [("the means to distinguish plausible from correct.", 17, RGBColor(0xCF,0xDF,0xEA), False, 0)],
+      [("Trust you can measure is the real blocker", 32, WHITE, True, 0)])
+_text(s, Inches(1.28), Inches(3.4), Inches(11.4), Inches(2.6), [
+    [("Check every claim, score confidence you can trust, and search again when evidence is weak —", 17, RGBColor(0xCF,0xDF,0xEA), False, 0)],
+    [("that is how you tell plausible apart from correct.", 17, RGBColor(0xCF,0xDF,0xEA), False, 0)],
     [(" ", 8, WHITE, False, 0)],
-    [("The verifier is the spine. A 184M fine-tune can carry it ~130× cheaper.", 17, WHITE, True, 0)],
-    [("And the ceiling we found is retrieval — which is exactly where we go next.", 17, WHITE, True, 0)],
+    [("The verifier is the backbone — and a small trained model can do its job far more cheaply.", 17, WHITE, True, 0)],
+    [("The ceiling we hit is search — and that is exactly where we go next.", 17, WHITE, True, 0)],
 ])
 _text(s, Inches(1.28), Inches(6.4), Inches(11), Inches(0.5),
       [("Thank you  ·  Neha Anna John", 15, RGBColor(0x9F,0xB4,0xC4), False, 0)])
 
 out = os.path.expanduser("~/Desktop/DeepResearchAgent_Presentation.pptx")
 prs.save(out)
-print(f"saved {len(prs.slides.__iter__.__self__._sldIdLst)} slides -> {out}")
+print(f"saved {len(prs.slides._sldIdLst)} slides -> {out}")
