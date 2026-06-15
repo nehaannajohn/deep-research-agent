@@ -1,44 +1,60 @@
-"""Unit tests for the equivalence-judge task-accuracy re-scoring (pure logic)."""
+"""Unit tests for the full-report judge task-accuracy re-scoring (pure logic).
+
+The re-scoring removes extraction + exact-match: a single judge reads the full
+report and the references and returns yes / no / abstain.
+"""
 from __future__ import annotations
 
 from experiments.rescore_task_accuracy import rescore, summarize
 
 
-def _word_overlap_judge(q, cand, refs):
-    cw = set(cand.lower().split())
-    return any(cw & set(r.lower().split()) for r in refs)
+def _fake_judge(question, report_text, references):
+    """yes if the report shares a content word with a reference; abstain if the
+    report is non-committal; else no."""
+    t = report_text.lower()
+    if "it depends" in t or "insufficient" in t or "cannot tell" in t:
+        return "abstain"
+    rw = set(t.split())
+    return "yes" if any(rw & set(r.lower().split()) for r in references) else "no"
 
 
 def _rows():
     return [
-        {"id": "a", "extracted_answer": "Denmark uses the krone",
-         "task_accuracy": {"correct": False, "abstained": False, "method": "em"}},
-        {"id": "b", "extracted_answer": "INSUFFICIENT",
-         "task_accuracy": {"correct": None, "abstained": True, "method": "abstain"}},
-        {"id": "c", "extracted_answer": "42",
-         "task_accuracy": {"correct": True, "abstained": False, "method": "em"}},
-        {"id": "d", "extracted_answer": "totally unrelated",
-         "task_accuracy": {"correct": False, "abstained": False, "method": "em"}},
+        {"id": "a", "task_accuracy": {"correct": False, "method": "em"}},
+        {"id": "b", "task_accuracy": {"correct": False, "method": "em"}},
+        {"id": "c", "task_accuracy": {"correct": False, "method": "em"}},
     ]
 
 
-def test_rescore_judges_only_em_misses():
-    golds = {"a": ("What currency?", "the krone", ["Danish krone"]), "d": ("Q", "xyz", [])}
-    rows = rescore(_rows(), golds, _word_overlap_judge)
-    assert rows[0]["task_accuracy"] == {"correct": True, "abstained": False, "method": "judge"}
-    assert rows[1]["task_accuracy"]["abstained"] is True          # abstention preserved
-    assert rows[2]["task_accuracy"]["correct"] is True            # EM hit untouched
-    assert rows[2]["task_accuracy"]["method"] == "em"
-    assert rows[3]["task_accuracy"]["correct"] is False           # judge said no
+def _golds():
+    return {
+        "a": ("What currency?", "the krone", ["Danish krone"]),
+        "b": ("Crime rate here?", "It depends on your location", ["I have no comment"]),
+        "c": ("Capital of France?", "Paris", []),
+    }
 
 
-def test_rescore_skips_unknown_gold():
-    rows = rescore(_rows(), {}, _word_overlap_judge)  # no golds -> nothing re-judged
-    assert rows[0]["task_accuracy"]["method"] == "em"
+def _texts():
+    return {
+        "a": "Denmark uses the Danish krone as its currency.",   # correct -> yes
+        "b": "It depends on which area you mean; I cannot say.",  # non-committal -> abstain
+        "c": "The capital is Berlin.",                            # wrong -> no
+    }
 
 
-def test_summarize_excludes_abstentions_from_accuracy():
-    golds = {"a": ("q", "the krone", []), "d": ("q", "xyz", [])}
-    s = summarize(rescore(_rows(), golds, _word_overlap_judge))
-    assert s["n"] == 4 and s["n_abstained"] == 1 and s["n_scored"] == 3
-    assert abs(s["task_accuracy"] - 2 / 3) < 1e-9   # a,c correct; d wrong; b abstained
+def test_full_report_judge_yes_no_abstain():
+    rows = rescore(_rows(), _golds(), _texts(), _fake_judge)
+    assert rows[0]["task_accuracy"] == {"correct": True, "abstained": False, "method": "judge_full"}
+    assert rows[1]["task_accuracy"] == {"correct": None, "abstained": True, "method": "judge_full"}
+    assert rows[2]["task_accuracy"] == {"correct": False, "abstained": False, "method": "judge_full"}
+
+
+def test_skips_items_without_gold_or_report():
+    rows = rescore(_rows(), {}, {}, _fake_judge)            # nothing to judge
+    assert all(r["task_accuracy"]["method"] == "em" for r in rows)
+
+
+def test_summarize_excludes_abstentions():
+    s = summarize(rescore(_rows(), _golds(), _texts(), _fake_judge))
+    assert s["n"] == 3 and s["n_abstained"] == 1 and s["n_scored"] == 2
+    assert abs(s["task_accuracy"] - 0.5) < 1e-9   # a correct, c wrong, b abstained
