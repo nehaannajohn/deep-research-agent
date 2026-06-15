@@ -18,7 +18,7 @@ from __future__ import annotations
 import json
 import os
 
-from experiments.decomposition_retrieval import (
+from experiments.code.decomposition_retrieval import (
     DEFAULT_MAX_CHARS,
     RESULTS_DIR,
     TEST_CASES,

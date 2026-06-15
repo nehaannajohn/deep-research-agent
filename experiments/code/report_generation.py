@@ -40,7 +40,7 @@ def main(argv=None):  # pragma: no cover - live path
     from dra.report import compose_report
     from dra.search import default_search_tool
     from dra.synthesis import synthesize
-    from experiments.decomposition_retrieval import RESULTS_DIR, TEST_CASES
+    from experiments.code.decomposition_retrieval import RESULTS_DIR, TEST_CASES
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="limit number of cases (0 = all)")

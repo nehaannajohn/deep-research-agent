@@ -4,8 +4,8 @@ Class-balanced sampling (WeightedRandomSampler over sampler_weights), early-stop
 on held-out FEVER+SciFact macro-F1. Writes checkpoint + calibration-split logits.
 
 Usage (one GPU per variant, run both in parallel):
-    CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.verifier_b.train --variant v0
-    CUDA_VISIBLE_DEVICES=1 .venv-train/bin/python -m experiments.verifier_b.train --variant v1
+    CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.code.train --variant v0
+    CUDA_VISIBLE_DEVICES=1 .venv-train/bin/python -m experiments.code.train --variant v1
 """
 from __future__ import annotations
 

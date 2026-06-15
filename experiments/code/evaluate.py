@@ -1,7 +1,7 @@
 """Evaluate a Verifier B checkpoint: macro-F1 + per-class on the silver transfer
 set; Platt-fit on P(supported); ECE before/after (live, GPU).
 
-Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.verifier_b.evaluate --variant v0
+Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.code.evaluate --variant v0
 """
 from __future__ import annotations
 

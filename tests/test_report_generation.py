@@ -1,4 +1,4 @@
-from experiments.report_generation import augment_query
+from experiments.code.report_generation import augment_query
 
 
 def test_augment_query_appends_diagram_instruction():

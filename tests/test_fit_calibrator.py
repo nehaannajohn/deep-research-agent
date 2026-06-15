@@ -1,7 +1,7 @@
 """Unit tests for per-label Platt calibrator fitting (pure logic)."""
 from __future__ import annotations
 
-from experiments.verifier_b.fit_calibrator import _raw_for_label, fit_label_calibrators
+from experiments.code.fit_calibrator import _raw_for_label, fit_label_calibrators
 
 
 def test_raw_for_label_matches_verifier_definition():

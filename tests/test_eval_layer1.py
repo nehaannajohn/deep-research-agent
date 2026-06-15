@@ -1,7 +1,7 @@
 """Unit test for the pure Layer-1 metric assembly (no torch / no loaders)."""
 from __future__ import annotations
 
-from experiments.verifier_b.eval_layer1 import summarize
+from experiments.code.eval_layer1 import summarize
 
 
 def test_summarize_reports_macro_f1_calibration_and_auroc():

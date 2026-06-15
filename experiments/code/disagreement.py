@@ -6,7 +6,7 @@ multi-passage), so the verdicts match how the verifier actually operates. Finds
 where one fine-tune is right and the other wrong, tags v1's error type, and dumps
 the FULL evidence per case. Live (GPU), no Bedrock.
 
-Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.verifier_b.disagreement
+Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.code.disagreement
 Writes: eval/results/verifier_b/v1_gap.json  (+ console summary + sample)
 """
 from __future__ import annotations
@@ -38,7 +38,7 @@ def _tag(gold, v1):
 
 
 def main():
-    from experiments.verifier_b.evaluate import _bind_score_fn  # lazy (torch)
+    from experiments.code.evaluate import _bind_score_fn  # lazy (torch)
 
     v0 = CrossEncoderVerifier(score_fn=_bind_score_fn(str(MODELS / "v0" / "best")))
     v1 = CrossEncoderVerifier(score_fn=_bind_score_fn(str(MODELS / "v1" / "best")))

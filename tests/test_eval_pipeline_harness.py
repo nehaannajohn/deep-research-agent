@@ -492,7 +492,7 @@ def test_evaluate_item_uses_reference_lookup_for_reference_claims(tmp_path):
 # Driver helpers (pure parts of experiments/run_pipeline_eval.py)
 # --------------------------------------------------------------------------- #
 def test_driver_arms_for_both_and_single():
-    from experiments.run_pipeline_eval import _arms_for, ARMS
+    from experiments.code.run_pipeline_eval import _arms_for, ARMS
 
     assert _arms_for("both") == list(ARMS)
     assert _arms_for("with_verifier") == ["with_verifier"]
@@ -500,14 +500,14 @@ def test_driver_arms_for_both_and_single():
 
 
 def test_driver_fable_reference_lookup_missing_returns_none(tmp_path):
-    from experiments.run_pipeline_eval import fable_reference_lookup
+    from experiments.code.run_pipeline_eval import fable_reference_lookup
 
     lookup = fable_reference_lookup(reference_dir=str(tmp_path), decomposer=lambda md: [])
     assert lookup("no-such-id") is None
 
 
 def test_driver_fable_reference_lookup_parses_existing(tmp_path):
-    from experiments.run_pipeline_eval import fable_reference_lookup
+    from experiments.code.run_pipeline_eval import fable_reference_lookup
 
     (tmp_path / "dra-001.md").write_text("# Ref\nSome reference report.", encoding="utf-8")
     # decomposer: markdown -> claim texts (fake; real run uses a panel model)

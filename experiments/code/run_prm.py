@@ -5,7 +5,7 @@ monotonicity: for each supported claim, score p_supported under
 insensitivity: supported claims, p_supported on (clean gold) vs (gold padded with
 3 distractor passages); fed to insensitivity_check.
 
-Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.verifier_b.run_prm --variant v1
+Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.code.run_prm --variant v1
 """
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ TRAINPOOL = REPO / "eval" / "trainpool" / "passages.jsonl"  # variant-independen
 
 
 def main(argv=None):
-    from experiments.verifier_b.evaluate import _bind_score_fn  # reuse binder
+    from experiments.code.evaluate import _bind_score_fn  # reuse binder
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", choices=["v0", "v1"], required=True)

@@ -1,4 +1,4 @@
-from experiments.verifier_comparison import macro_f1, passed_validation
+from experiments.code.verifier_comparison import macro_f1, passed_validation
 
 
 def test_macro_f1_perfect():

@@ -12,7 +12,7 @@ come from its Layer-1 report; note A's confidence target (agreement-in-verdict)
 differs from B's (P(supported)), so ECE is "both calibratable", not a strict
 apples-to-apples number.
 
-Usage: .venv/bin/python -m experiments.verifier_b.compare_layer1
+Usage: .venv/bin/python -m experiments.code.compare_layer1
 """
 from __future__ import annotations
 

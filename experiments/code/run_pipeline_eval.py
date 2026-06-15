@@ -153,7 +153,7 @@ def _make_run_query_frozen_cross_encoder(cfg, variant):  # pragma: no cover - li
     from dra.report import compose_report
     from dra.schemas import ResearchReport
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.verifier_b.evaluate import _bind_score_fn
+    from experiments.code.evaluate import _bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
     verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
@@ -201,7 +201,7 @@ def _make_run_query_with_cross_encoder(cfg, variant):  # pragma: no cover - live
 
     from dra.loop import build_deps, run_query
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.verifier_b.evaluate import _bind_score_fn
+    from experiments.code.evaluate import _bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
     verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
@@ -269,7 +269,7 @@ def _make_run_query_adaptive(cfg, variant, out_dir):  # pragma: no cover - live 
     from dra.loop import build_deps
     from dra.search.fetch import ExaContentsFetcher
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.verifier_b.evaluate import _bind_score_fn
+    from experiments.code.evaluate import _bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
     verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))

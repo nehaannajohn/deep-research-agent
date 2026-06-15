@@ -1,7 +1,7 @@
 """Unit tests for the Sonnet-reference scoring driver (pure helpers, fakes)."""
 from __future__ import annotations
 
-from experiments.score_reference import (
+from experiments.code.score_reference import (
     aggregate,
     build_gradable,
     score_reference_item,

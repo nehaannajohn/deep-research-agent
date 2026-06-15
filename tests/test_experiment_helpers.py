@@ -1,5 +1,5 @@
 from dra.schemas import Passage
-from experiments.decomposition_retrieval import unique_source_ids, overlap_stats
+from experiments.code.decomposition_retrieval import unique_source_ids, overlap_stats
 
 
 def test_unique_source_ids_collects_across_passages():

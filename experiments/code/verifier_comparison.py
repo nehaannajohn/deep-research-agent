@@ -94,7 +94,7 @@ def build_bench(generator, search, cases, claims_per_case):
     insufficient (claim + an unrelated real passage), contested (citations + a synthetic refuter)."""
     from dra.schemas import Passage
     from dra.synthesis import synthesize
-    from experiments.decomposition_retrieval import _decompose
+    from experiments.code.decomposition_retrieval import _decompose
 
     pool = []   # all retrieved passages (for `insufficient` pairing)
     base = []   # (case_id, query, cited-claims)
@@ -197,7 +197,7 @@ def main(argv=None):  # pragma: no cover - live path
     from dra.search import default_search_tool
     from dra.verify.ensemble import EnsembleVerifier
     from dra.verify.llm_judge import LLMJudgeVerifier
-    from experiments.decomposition_retrieval import RESULTS_DIR, TEST_CASES
+    from experiments.code.decomposition_retrieval import RESULTS_DIR, TEST_CASES
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="limit number of cases (0 = all 4)")

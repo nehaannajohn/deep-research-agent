@@ -5,7 +5,7 @@ DRA-Bench / FRAMES / TruthfulQA are EVAL-ONLY; this pool exists so v1 trains on
 real-pipeline-style passages without contaminating the pipeline eval. Queries are
 generated fresh and ASSERTED disjoint from DRA-Bench before any harvesting.
 
-Usage (live, EC2): .venv-train/bin/python -m experiments.verifier_b.harvest_trainpool --n 80
+Usage (live, EC2): .venv-train/bin/python -m experiments.code.harvest_trainpool --n 80
 """
 from __future__ import annotations
 

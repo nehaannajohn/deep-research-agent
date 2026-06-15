@@ -14,7 +14,7 @@ also report claim-level rates and, among low-confidence claims, the label mix
 `summarize_triggers` is pure and unit-tested; `run()` is the live (GPU) driver.
 
 Usage (EC2, .venv-train):
-  .venv-train/bin/python -m experiments.verifier_b.adaptive_trigger_probe \
+  .venv-train/bin/python -m experiments.code.adaptive_trigger_probe \
       --variant v0 --canon-dir eval/results/pipeline/report_cache --per-type 10
 """
 from __future__ import annotations
@@ -111,8 +111,8 @@ def run(variant="v0", canon_dir="eval/results/pipeline/report_cache",
     from dra.eval.pipeline.datasets.dra_bench import load_dra_bench
     from dra.schemas import ResearchReport
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.run_pipeline_eval import _load_platt
-    from experiments.verifier_b.evaluate import _bind_score_fn
+    from experiments.code.run_pipeline_eval import _load_platt
+    from experiments.code.evaluate import _bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
     verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))

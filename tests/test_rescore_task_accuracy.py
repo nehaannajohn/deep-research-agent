@@ -5,7 +5,7 @@ report and the references and returns yes / no / abstain.
 """
 from __future__ import annotations
 
-from experiments.rescore_task_accuracy import rescore, summarize
+from experiments.code.rescore_task_accuracy import rescore, summarize
 
 
 def _fake_judge(question, report_text, references):

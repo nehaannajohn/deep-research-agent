@@ -1,7 +1,7 @@
 """After anchor.csv is hand-labeled (human_label column filled), compute:
   - grounding-judge(silver) vs human Cohen's kappa
   - count of disagreements
-Run locally; pure read + kappa. Usage: python -m experiments.verifier_b.anchor_metrics
+Run locally; pure read + kappa. Usage: python -m experiments.code.anchor_metrics
 """
 from __future__ import annotations
 

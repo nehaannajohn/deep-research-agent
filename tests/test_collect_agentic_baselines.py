@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import json
 
-from experiments.collect_agentic_baselines import (
+from experiments.code.collect_agentic_baselines import (
     baselines_dir,
     build_record,
     out_path,

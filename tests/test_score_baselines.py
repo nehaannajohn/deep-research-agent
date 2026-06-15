@@ -204,7 +204,7 @@ def _openai_record() -> dict:
 
 
 def test_normalize_sources_perplexity_uses_search_result_snippets():
-    from experiments.score_baselines import normalize_sources
+    from experiments.code.score_baselines import normalize_sources
 
     passages = normalize_sources(_ppx_record())
     assert all(isinstance(p, Passage) for p in passages)
@@ -219,7 +219,7 @@ def test_normalize_sources_perplexity_uses_search_result_snippets():
 
 
 def test_normalize_sources_openai_uses_annotation_titles():
-    from experiments.score_baselines import normalize_sources
+    from experiments.code.score_baselines import normalize_sources
 
     passages = normalize_sources(_openai_record())
     assert len(passages) == 1
@@ -228,7 +228,7 @@ def test_normalize_sources_openai_uses_annotation_titles():
 
 
 def test_normalize_sources_falls_back_to_urls_only():
-    from experiments.score_baselines import normalize_sources
+    from experiments.code.score_baselines import normalize_sources
 
     rec = {"sources": ["http://x.example", "http://y.example"], "raw": {}}
     passages = normalize_sources(rec)
@@ -237,7 +237,7 @@ def test_normalize_sources_falls_back_to_urls_only():
 
 
 def test_keyword_matcher_links_claim_to_overlapping_source():
-    from experiments.score_baselines import keyword_matcher, normalize_sources
+    from experiments.code.score_baselines import keyword_matcher, normalize_sources
 
     sources = normalize_sources(_ppx_record())
     cits = keyword_matcher("Large language models learn in context.", sources)
@@ -249,7 +249,7 @@ def test_keyword_matcher_links_claim_to_overlapping_source():
 
 
 def test_keyword_matcher_no_overlap_returns_empty():
-    from experiments.score_baselines import keyword_matcher, normalize_sources
+    from experiments.code.score_baselines import keyword_matcher, normalize_sources
 
     sources = normalize_sources(_ppx_record())
     assert keyword_matcher("Quantum entanglement violates Bell inequalities.", sources) == []
@@ -258,7 +258,7 @@ def test_keyword_matcher_no_overlap_returns_empty():
 def test_score_record_end_to_end_with_fakes():
     """A saved record -> real PerplexityAdapter (fake decomposer + the real
     keyword matcher) -> score_gradable -> a per-item dict with all axes."""
-    from experiments.score_baselines import keyword_matcher, normalize_sources, score_record
+    from experiments.code.score_baselines import keyword_matcher, normalize_sources, score_record
 
     record = _ppx_record()
     item = EvalItem(
@@ -288,7 +288,7 @@ def test_score_record_end_to_end_with_fakes():
 
 
 def test_aggregate_over_two_fake_results():
-    from experiments.score_baselines import aggregate
+    from experiments.code.score_baselines import aggregate
 
     def fake_item(gr, rel, qual):
         return {
@@ -311,7 +311,7 @@ def test_aggregate_over_two_fake_results():
 
 
 def test_load_record_reads_json(tmp_path):
-    from experiments.score_baselines import load_record
+    from experiments.code.score_baselines import load_record
 
     p = tmp_path / "dra-type1-011.json"
     p.write_text(json.dumps(_ppx_record()), encoding="utf-8")
@@ -330,7 +330,7 @@ def _gradable(claims, sources):
 def test_baseline_grounding_applicable_judges_all_sources():
     """Text-bearing sources -> the judge runs per claim over ALL sources;
     grounding/hallucination rates reflect the verdicts; precision/recall None."""
-    from experiments.score_baselines import baseline_grounding
+    from experiments.code.score_baselines import baseline_grounding
 
     sources = [
         Passage(source_id="s0", text="Paris is the capital of France.", url="http://a"),
@@ -362,7 +362,7 @@ def test_baseline_grounding_applicable_judges_all_sources():
 
 def test_baseline_grounding_na_when_no_text_sources_and_judge_not_called():
     """OpenAI title-only sources (no Passage text) -> N/A, judge never called."""
-    from experiments.score_baselines import baseline_grounding
+    from experiments.code.score_baselines import baseline_grounding
 
     sources = [
         Passage(source_id="s0", text="", url="http://a", title="In-Context Learning"),
@@ -381,7 +381,7 @@ def test_baseline_grounding_na_when_no_text_sources_and_judge_not_called():
 def test_score_record_openai_grounding_na_but_other_axes_present():
     """OpenAI-style record (title-only sources) -> grounding N/A, but
     relevance/quality/formatting are still reported."""
-    from experiments.score_baselines import keyword_matcher, score_record
+    from experiments.code.score_baselines import keyword_matcher, score_record
     from dra.eval.pipeline.adapters.openai import OpenAIAdapter
 
     record = _openai_record()

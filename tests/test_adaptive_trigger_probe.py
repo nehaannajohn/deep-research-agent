@@ -1,7 +1,7 @@
 """Unit tests for the adaptive-retrieval trigger-rate aggregation (pure)."""
 from __future__ import annotations
 
-from experiments.verifier_b.adaptive_trigger_probe import summarize_triggers
+from experiments.code.adaptive_trigger_probe import summarize_triggers
 
 
 def _rows():

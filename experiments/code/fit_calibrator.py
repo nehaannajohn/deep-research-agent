@@ -18,7 +18,7 @@ passages are ever supplied; a label with no positives/negatives is skipped.
 `fit_label_calibrators(rows)` is pure and unit-tested; `run()` is the live (GPU)
 driver. Output `platt.json` (per-label) is back-compat-read by run_pipeline_eval.
 
-Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.verifier_b.fit_calibrator --variant v0
+Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.code.fit_calibrator --variant v0
 """
 from __future__ import annotations
 
@@ -81,7 +81,7 @@ def run(variant: str, contested_examples=None) -> dict:  # pragma: no cover - li
     from dra.eval.loaders.fever import load_fever
     from dra.eval.loaders.scifact import load_scifact
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.verifier_b.evaluate import _bind_score_fn  # lazy (torch)
+    from experiments.code.evaluate import _bind_score_fn  # lazy (torch)
 
     verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(str(MODELS / variant / "best")))
     examples = list(load_fever(seed=13)) + list(load_scifact(seed=13))

@@ -274,7 +274,7 @@ def main(argv=None):  # pragma: no cover - live Bedrock wiring
 
     from dra.config import load_config
 
-    from experiments.score_baselines import _bedrock_decomposer
+    from experiments.code.score_baselines import _bedrock_decomposer
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--arm", choices=ARMS + ["both"], default="both")

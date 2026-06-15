@@ -4,8 +4,8 @@ Slices: fever_pairs, scifact_pairs, curriculum, synthetic, transfer (+ anchor.cs
 Run on EC2 (Bedrock for synthetic-negative generation + filtering; HF for FEVER/SciFact).
 
 Usage:
-    .venv-train/bin/python -m experiments.verifier_b.build_data --slice all
-    .venv-train/bin/python -m experiments.verifier_b.build_data --slice synthetic --n-synth 3000
+    .venv-train/bin/python -m experiments.code.build_data --slice all
+    .venv-train/bin/python -m experiments.code.build_data --slice synthetic --n-synth 3000
 """
 from __future__ import annotations
 

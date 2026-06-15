@@ -49,7 +49,7 @@ from dra.eval.pipeline.harness import PipelineDeps  # noqa: E402
 
 # Reuse the existing baseline scorer's pure helpers + live wiring verbatim so the
 # two drivers stay in lock-step (same instrument, same record shape).
-from experiments.score_baselines import (  # noqa: E402
+from experiments.code.score_baselines import (  # noqa: E402
     ADAPTERS,
     aggregate,
     keyword_matcher,
@@ -174,7 +174,7 @@ def main(argv=None):  # pragma: no cover - live Bedrock wiring
 
     # Reuse the live deps/decomposer builders from score_baselines so the Bedrock
     # wiring (grounding judge + panel + extractor + decomposer) is identical.
-    from experiments.score_baselines import _bedrock_decomposer, _build_live_deps
+    from experiments.code.score_baselines import _bedrock_decomposer, _build_live_deps
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", choices=list(DATASETS), required=True)

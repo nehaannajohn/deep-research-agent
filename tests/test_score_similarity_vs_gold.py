@@ -1,7 +1,7 @@
 """Unit tests for the similarity-to-gold re-score (pure helpers, fakes only)."""
 from __future__ import annotations
 
-from experiments.score_similarity_vs_gold import (
+from experiments.code.score_similarity_vs_gold import (
     aggregate,
     decompose_gold,
     gold_gradable,
