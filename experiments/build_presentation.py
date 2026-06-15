@@ -393,7 +393,7 @@ table(s, ["Metric", "What it tells us"], [
     ["Relevance (1–5)", "Does the report answer the question asked? Graded by a blind 3-judge panel."],
     ["Quality (1–5)", "Is it clear, well-organized, and complete? Same 3-judge panel."],
     ["Instruction adherence (formatting)", "Did it honor explicit format requests — a table, a diagram, a length limit?"],
-    ["Task accuracy + abstention", "For fact-QA: did it reach the right answer — and is a safe \"I don't know\" counted as fine, not wrong?"],
+    ["Task accuracy (correct / total)", "For fact-QA (FRAMES, TruthfulQA): did the report reach the right answer? Judged by a model vs the gold answer; a non-committal report counts as not-correct (no free pass)."],
     ["Similarity-to-gold (coverage)", "How many of the facts in a strong reference report did ours include?"],
     ["Calibration (ECE)", "Are the confidence scores trustworthy — does \"70%\" mean right about 70% of the time?"],
 ], col_w=[3.1, 7.1], fsize=10.5, hsize=12, top=Inches(1.5), height=Inches(5.2), first_bold=True)
@@ -482,18 +482,18 @@ bullets(s, [
 # 22 — Layer-2: FRAMES + TruthfulQA answer accuracy
 s = content("7 · Evaluation — results", "Layer-2: answer accuracy vs Perplexity & OpenAI")
 _text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.5),
-      [("FRAMES = multi-step factual questions. TruthfulQA = common-misconception questions. 100 each. Accuracy = a GPT-OSS judge comparing the full report to the gold answer (replaces brittle exact-match, which badly understated accuracy).", 12, GRAY, False, 0)])
+      [("FRAMES = multi-step factual questions. TruthfulQA = common-misconception questions. Accuracy = correct / total, judged by GPT-OSS comparing the full report to the gold answer (a non-committal report counts as not-correct — no free pass). Replaces brittle exact-match.", 11.5, GRAY, False, 0)])
 table(s, ["System", "FRAMES — accuracy", "FRAMES — quality", "TruthfulQA — accuracy", "TruthfulQA — quality"], [
-    ["Ours (corrected)", "in progress", "in progress", "in progress", "in progress"],
-    ["Ours (v0)", "in progress", "in progress", "in progress", "in progress"],
-    ["Perplexity", "0.46", "3.83", "0.70", "4.76"],
-    ["OpenAI (search)", "0.69", "4.26", "0.77", "4.33"],
+    ["Ours (corrected)", "0.41", "3.44", "0.49", "4.05"],
+    ["Ours (v0)", "0.44", "3.17", "in progress", "in progress"],
+    ["Perplexity", "0.44", "3.83", "0.69", "4.76"],
+    ["OpenAI (search)", "0.65", "4.26", "0.74", "4.33"],
 ], col_w=[2.6, 2.0, 1.9, 2.2, 2.0], fsize=12.5, top=Inches(1.95), height=Inches(2.0), first_bold=True)
 bullets(s, [
-    ("Judge-based scoring overturns the old exact-match numbers — especially TruthfulQA (Perplexity 0.07→0.70, OpenAI 0.06→0.77): the commercial systems DO answer misconception questions correctly 70–77% of the time", 0),
-    ("Multi-step (FRAMES): Perplexity 0.46, OpenAI 0.69 (also up sharply from exact-match)", 0),
-    ("Our own corrected + v0 numbers are being re-scored with the same judge — in progress; this also revises our earlier \"TruthfulQA is a universal floor\" reading, which was an exact-match artifact", 0),
-], top=Inches(4.2), size=13, gap=8)
+    ("FRAMES (multi-step): v0 (0.44) matches Perplexity (0.44) and trails OpenAI's search model (0.65)", 0),
+    ("TruthfulQA (misconceptions): we trail both baselines (corrected 0.49 vs 0.69–0.74). Judged properly, the baselines are NOT near-floor — the old ~5% was an exact-match artifact, not a real result", 0),
+    ("Where we fall short is retrieval: most of our misses are questions whose answer existed but our single-engine search didn't surface — the same retrieval ceiling, not a verification failure  (our n = 75 / 86 vs the baselines' 100)", 0),
+], top=Inches(4.2), size=12.5, gap=8)
 
 # 23 — Layer-2: coverage vs Sonnet reference (detailed)
 s = content("7 · Evaluation — results", "Coverage gap vs a strong reference report")
