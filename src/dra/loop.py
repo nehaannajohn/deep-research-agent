@@ -1,8 +1,9 @@
-"""Pipeline entry point.
+"""Pipeline entry point — the single-pass `run_query`.
 
-Phase 2: single-pass walking skeleton —
-`query -> plan -> (route -> Exa search -> synthesize -> verify) per sub-question -> ResearchReport`.
-No adaptive loop yet (that's Phase 3).
+`query -> plan -> (route -> Exa search -> synthesize -> verify) per sub-question
+-> contradiction resolution -> compose ResearchReport`. The confidence-gated
+adaptive variant (re-retrieve + repair low-confidence claims) lives in
+`dra.adaptive.loop.run_query_adaptive`, which reuses the same `Deps`.
 """
 from __future__ import annotations
 
@@ -16,8 +17,9 @@ from dra.synthesis import synthesize
 from dra.verify.base import Verifier
 
 # Settled retrieval default (experiments/results stage3+4 → VERDICT_k.md): cumulative
-# coverage is flat beyond 5 records/sub-question, so 5 is the lean default; the future
-# adaptive loop escalates k for the rare sub-question that needs more.
+# coverage is flat beyond 5 records/sub-question, so 5 is the lean default; the adaptive
+# loop (dra.adaptive) re-retrieves (reformulate + diversify) for the rare low-confidence
+# sub-question rather than blindly escalating k.
 RETRIEVAL_K = 5
 
 

@@ -1,8 +1,8 @@
 """Verifier B inference: a trained cross-encoder behind the `Verifier` ABC.
 
 `score_fn(claim, passage_text) -> {"supported":p,"refuted":p,"nei":p}` is injected
-(the torch model wrapper lives in experiments/verifier_b/evaluate.py and binds a
-real score_fn; tests inject a fake). Aggregation:
+(the torch model wrapper lives in `dra.verify.cross_encoder_model.bind_score_fn`,
+which loads a checkpoint and binds a real score_fn; tests inject a fake). Aggregation:
   - per-passage 3-way probs; claim verdict by per-passage ARGMAX VOTING:
       each passage votes its argmax class iff that class clears `margin`;
       supported if ≥1 supported-vote and no refuted-vote

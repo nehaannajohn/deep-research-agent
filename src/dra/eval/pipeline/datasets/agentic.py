@@ -11,9 +11,9 @@ variants (``question``/``answer``), and lifts an aliases column if present.
 dataset, samples ``n`` rows under ``seed``, and maps each via the pure mapper. It
 is written resiliently so an unavailable HF id / shape never crashes import.
 
-TODO (DEFERRED follow-up, plan Phase 4/stress): TruthfulQA (ships gold), the
-conflict set, and the ALCE attribution loaders are a separate slice — not built
-here.
+TruthfulQA (the misconception-QA tier) has its own loader in
+`datasets/truthfulqa.py`. The conflict set and ALCE attribution loaders were not
+built (out of scope for this project).
 """
 from __future__ import annotations
 

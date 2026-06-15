@@ -1,5 +1,5 @@
 """Synthetic hard-negative *helpers* (pure). Generation (live Bedrock) is in
-experiments/verifier_b/build_data.py and calls these.
+experiments/code/build_data.py and calls these.
 
 We take a REAL passage (from our pipeline's cached reports) and ask a
 panel-family LLM (independent of the generator) to write a near-miss false claim
