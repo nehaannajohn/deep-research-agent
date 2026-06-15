@@ -413,71 +413,87 @@ bullets(s, [
     ("v1's extra pipeline-distribution training did not help on this clean test set — it is simply more cautious (worse ECE)", 0),
 ], top=Inches(3.95), size=14, gap=10)
 
-# 20 — Layer-2 results: DRA-Bench, all metrics
-s = content("7 · Evaluation — results", "Layer-2: the fix keeps honesty and restores quality")
+# 20 — Layer-2 results: DRA-Bench, all five pipeline versions
+s = content("7 · Evaluation — results", "Layer-2 — DRA-Bench: five versions of the pipeline")
 _text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.34),
-      [("Three versions of the full pipeline — verifier ON (\"with\"), OFF (\"without\"), and the improved version (\"corrected\").", 12.5, GRAY, False, 0)])
-table(s, ["Metric (DRA-Bench)", "with", "without", "corrected"], [
-    ["EBM — structural (from claim labels)", "0.81", "0.60", "0.79"],
-    ["EBM — text-judge (from the report)", "0.79", "0.81", "0.79"],
-    ["grounding rate", "0.96", "0.96", "0.95"],
-    ["hallucination rate", "0.03", "0.02", "0.03"],
-    ["relevance (1–5)", "4.63", "4.73", "4.66"],
-    ["quality (1–5)", "3.90", "4.12", "4.11"],
-    ["instruction adherence (formatting)", "1.00", "1.00", "1.00"],
-], col_w=[3.7, 1.2, 1.2, 1.4], fsize=12, top=Inches(1.7), height=Inches(3.1), first_bold=True)
+      [("Verifier OFF (\"without\"), the original verifier (\"with\"), the over-flagging fix (\"corrected\"), and the two small trained verifiers (v0, v1) dropped in.", 12, GRAY, False, 0)])
+table(s, ["Metric (DRA-Bench)", "without", "with", "corrected", "v0", "v1"], [
+    ["EBM — structural (honesty)", "0.60", "0.81", "0.79", "0.88", "0.91"],
+    ["relevance (1–5)", "4.73", "4.63", "4.66", "4.57", "4.04"],
+    ["quality (1–5)", "4.12", "3.90", "4.11", "4.03", "2.62"],
+    ["instruction adherence (formatting)", "1.00", "1.00", "1.00", "1.00", "1.00"],
+], col_w=[3.4, 1.1, 1.0, 1.4, 1.0, 1.0], fsize=12, top=Inches(1.75), height=Inches(2.1), first_bold=True)
+_text(s, Inches(0.55), Inches(4.0), Inches(12.2), Inches(0.4),
+      [("Grounding ≈ 0.95  ·  hallucination ≈ 0.03 — verifier-agnostic (scored per claim, and the verifier labels claims, it doesn't author them), so it is essentially identical across all versions; reported once here, not per column.", 11.5, GRAY, False, 0)])
 bullets(s, [
-    ("Verifier ON adds the honesty signal (structural EBM 0.81 vs 0.60) — but the original version over-flagged settled facts as \"contested\", which lowered quality", 0),
-    ("The corrected version keeps that honesty (structural EBM ≈ \"with\") and recovers quality to the level of \"without\" — significance on the next slide", 0),
-    ("Text-judge EBM and grounding barely move across versions — the honesty gain doesn't fully reach the prose, and grounding is bounded by retrieval, not the verifier", 0),
-], top=Inches(5.05), size=12.5, gap=7)
+    ("Any verifier creates the honesty signal — structural EBM jumps from 0.60 (off) to 0.79–0.91 (on)", 0),
+    ("v0, the small trained verifier, reaches the highest USABLE honesty (EBM 0.88) while holding quality (4.03) and relevance on par with corrected — the chosen verifier", 0),
+    ("v1 scores the highest raw EBM (0.91) but its quality collapses to 2.62 — it over-flags claims as refuted (findings slide)", 0),
+], top=Inches(4.5), size=12.5, gap=8)
 
 # 21 — Significance testing
 s = content("7 · Evaluation — results", "Significance testing (DRA-Bench, paired)")
 _text(s, Inches(0.55), Inches(1.3), Inches(12.2), Inches(0.5),
-      [("Paired tests across the three pipeline versions — paired-t for 1–5 scores, McNemar for pass/fail labels — with Holm correction for multiple comparisons.  p_adj = adjusted p-value.", 12, GRAY, False, 0)])
+      [("Paired tests (paired-t for 1–5 scores, McNemar for the EBM label) with Holm correction. Only the comparisons that matter shown; p_adj = Holm-adjusted p-value.", 12, GRAY, False, 0)])
 table(s, ["Comparison", "Metric", "Effect", "Test", "Significant?"], [
-    ["corrected vs with", "quality (1–5)", "+0.18", "paired-t", "yes  (p_adj = 7×10⁻⁶)"],
-    ["corrected vs with", "EBM — structural", "≈ equal", "McNemar", "no"],
     ["corrected vs without", "EBM — structural", "+0.21", "McNemar", "yes  (p_adj = 8×10⁻¹¹)"],
-    ["with vs without", "quality (1–5)", "−0.17", "paired-t", "yes"],
-    ["with vs without", "relevance (1–5)", "−0.09", "paired-t", "yes (marginal)"],
-    ["all three", "EBM — text-judge", "no difference", "McNemar", "no"],
-    ["all three", "grounding rate", "≈ 0", "paired-t", "no"],
-], col_w=[2.4, 2.3, 1.8, 1.3, 2.8], fsize=11.5, top=Inches(1.85), height=Inches(3.2), first_bold=True)
+    ["corrected vs with", "quality (1–5)", "+0.18", "paired-t", "yes  (p_adj = 7×10⁻⁶)"],
+    ["v0 vs corrected", "EBM — structural", "+0.088", "McNemar", "yes  (p_adj = 8×10⁻⁴)"],
+    ["v0 vs corrected", "quality (1–5)", "−0.08", "paired-t", "no  (p_adj = 0.21) — preserved"],
+    ["v1 vs corrected", "quality (1–5)", "−1.49", "paired-t", "yes  (p_adj = 6×10⁻⁶⁵) — collapse"],
+    ["v0 vs v1", "quality (1–5)", "+1.41", "paired-t", "yes  (p_adj = 1×10⁻⁶³)"],
+    ["v0 vs v1", "EBM — structural", "−0.03", "McNemar", "no — tied"],
+], col_w=[2.3, 2.2, 1.5, 1.3, 3.3], fsize=11.5, top=Inches(1.85), height=Inches(3.2), first_bold=True)
 bullets(s, [
-    ("The corrected fix is real — the quality gain over the over-flagging version is statistically significant, while the honesty signal (structural EBM) is preserved", 0),
-    ("The verifier's honesty signal is significant (structural EBM: with / corrected ≫ without); its text-judge and grounding effects are not — the same picture on all three benchmarks", 0),
-], top=Inches(5.25), size=12.5, gap=8)
+    ("The corrected fix is real — quality gain over the over-flagging version is significant while the honesty signal is preserved", 0),
+    ("v0 significantly raises honesty over corrected (EBM +0.088) with quality statistically UNCHANGED (p_adj=0.21) — more honest at no quality cost", 0),
+    ("v1's quality collapse is overwhelmingly significant (−1.49); v0 ≫ v1 on quality (+1.41) while their honesty is statistically tied — so v0 wins decisively", 0),
+], top=Inches(5.25), size=12, gap=7)
+
+# 21b — DRA-Bench verifier findings (consolidated)
+s = content("7 · Evaluation — results", "DRA-Bench — what the verifier comparison tells us")
+bullets(s, [
+    ("Grounding is identical across all versions — and that is correct, not a bug", 0),
+    ("It is scored per CLAIM (claim vs its cited sources), and the verifier only LABELS claims — it never authors them — so claim-level grounding cannot move with the verifier. Verifier-agnostic by construction.", 1),
+    ("v1's quality collapses because it over-refutes", 0),
+    ("Its extra in-distribution training made it mark 14–16 of ~20 claims \"refuted\" per report; the report then contradicts itself (states a finding, then refutes it), so an independent judge scores every v1 report 2/5 — near-unusable.", 1),
+    ("corrected and v0 strike the balance — honesty without wrecking the report", 0),
+    ("Both lift EBM-honesty while keeping relevance on par and quality in the usable middle (4.0–4.1). v0 adds significant honesty over corrected (EBM +0.088) at no significant quality cost — so v0 is chosen.", 1),
+    ("Format adherence (1.00) is by design, not luck", 0),
+    ("We pull formatting OUT of search/verification and apply it as a separate step at report composition, so diagram/table/length constraints are honored deterministically — 1.00 vs 0.60 for the commercial systems.", 1),
+    ("Significance — only where it matters: v0 > corrected on EBM (p_adj 8×10⁻⁴); v1 quality collapse (6×10⁻⁶⁵); v0 ≫ v1 on quality (1×10⁻⁶³). v0-vs-corrected quality is NOT significant — quality is preserved.", 0),
+], top=Inches(1.45), size=12.5, gap=6)
 
 # 22 — Layer-2: DRA-Bench baselines (writing quality / format)
 s = content("7 · Evaluation — results", "Layer-2: vs Perplexity & OpenAI (DRA-Bench)")
 table(s, ["System (DRA-Bench)", "Relevance", "Quality", "Follows format", "Honesty (text)"], [
     ["Ours (corrected)", "4.66", "4.11", "1.00", "0.79"],
+    ["Ours (v0 — chosen verifier)", "4.57", "4.03", "1.00", "—"],
     ["Perplexity", "4.74", "4.94", "0.60", "0.86"],
     ["OpenAI (search)", "4.58", "4.46", "0.60", "0.84"],
     ["Claude Sonnet reference (ceiling)", "4.85", "4.90", "0.60", "—"],
-], col_w=[3.6, 1.5, 1.4, 1.7, 1.6], fsize=12.5, top=Inches(1.7), height=Inches(2.3), first_bold=True)
+], col_w=[3.9, 1.4, 1.3, 1.6, 1.6], fsize=12.5, top=Inches(1.7), height=Inches(2.6), first_bold=True)
 bullets(s, [
-    ("Perplexity and OpenAI score a little higher on writing quality — confident, fluent prose", 0),
-    ("We clearly lead on following format instructions (1.00 vs 0.60)", 0),
-    ("And we expose per-claim grounding that a black-box system can't be measured on — our differentiator", 0),
-], top=Inches(4.3), size=14, gap=10)
+    ("v0 (our chosen trained verifier) is on par with corrected — relevance/quality within ~0.1, formatting 1.00", 0),
+    ("Perplexity and OpenAI score a little higher on writing quality — confident, fluent prose; we lead clearly on following format instructions (1.00 vs 0.60)", 0),
+    ("We expose per-claim grounding a black-box system can't be measured on — our differentiator. Honesty(text) for v0 not separately scored (— ); structural EBM is on the verifier-comparison slide", 0),
+], top=Inches(4.55), size=13, gap=8)
 
 # 22 — Layer-2: FRAMES + TruthfulQA answer accuracy
 s = content("7 · Evaluation — results", "Layer-2: answer accuracy vs Perplexity & OpenAI")
-_text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.34),
-      [("FRAMES = multi-step factual questions. TruthfulQA = questions built around common misconceptions. 100 questions each.", 12.5, GRAY, False, 0)])
+_text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.5),
+      [("FRAMES = multi-step factual questions. TruthfulQA = common-misconception questions. 100 each. Accuracy = a GPT-OSS judge comparing the full report to the gold answer (replaces brittle exact-match, which badly understated accuracy).", 12, GRAY, False, 0)])
 table(s, ["System", "FRAMES — accuracy", "FRAMES — quality", "TruthfulQA — accuracy", "TruthfulQA — quality"], [
-    ["Ours (corrected)", "0.25", "3.44", "0.02", "4.05"],
-    ["Perplexity", "0.24", "3.83", "0.06", "4.76"],
-    ["OpenAI (search)", "0.37", "4.26", "0.05", "4.33"],
-], col_w=[2.6, 2.0, 1.9, 2.2, 2.0], fsize=12.5, top=Inches(1.8), height=Inches(1.7), first_bold=True)
+    ["Ours (corrected)", "in progress", "in progress", "in progress", "in progress"],
+    ["Ours (v0)", "in progress", "in progress", "in progress", "in progress"],
+    ["Perplexity", "0.46", "3.83", "0.70", "4.76"],
+    ["OpenAI (search)", "0.69", "4.26", "0.77", "4.33"],
+], col_w=[2.6, 2.0, 1.9, 2.2, 2.0], fsize=12.5, top=Inches(1.95), height=Inches(2.0), first_bold=True)
 bullets(s, [
-    ("Multi-step questions (FRAMES): our accuracy (~25%) matches Perplexity (24%) and trails OpenAI's search model (37%)", 0),
-    ("Misconception questions (TruthfulQA): every system scores near zero — being well-grounded in sources does not make the popular answer true", 0),
-    ("As on DRA-Bench, the commercial systems write more fluently (higher quality scores)", 0),
-], top=Inches(3.9), size=14, gap=10)
+    ("Judge-based scoring overturns the old exact-match numbers — especially TruthfulQA (Perplexity 0.07→0.70, OpenAI 0.06→0.77): the commercial systems DO answer misconception questions correctly 70–77% of the time", 0),
+    ("Multi-step (FRAMES): Perplexity 0.46, OpenAI 0.69 (also up sharply from exact-match)", 0),
+    ("Our own corrected + v0 numbers are being re-scored with the same judge — in progress; this also revises our earlier \"TruthfulQA is a universal floor\" reading, which was an exact-match artifact", 0),
+], top=Inches(4.2), size=13, gap=8)
 
 # 23 — Layer-2: coverage vs Sonnet reference (detailed)
 s = content("7 · Evaluation — results", "Coverage gap vs a strong reference report")
@@ -500,18 +516,18 @@ bullets(s, [
     ("The fix is better, more diverse search — the clearest next step", 0),
 ], top=Inches(4.25), size=14, gap=10)
 
-# 22 — v0/v1 Layer-2 (pending)
-s = content("7 · Evaluation — results", "Putting the small trained verifiers in the pipeline (in progress)")
-_box(s, Inches(0.55), Inches(1.7), Inches(12.2), Inches(1.15), fill=LIGHT, line=AMBER, line_w=Pt(1.5))
-_text(s, Inches(0.8), Inches(1.95), Inches(11.7), Inches(0.7), [
-    [("Running now — ", 15, AMBER, True, 0),
-     ("we are putting the two small trained verifiers (v0 and v1) into the full pipeline and scoring them on all three benchmarks.", 15, INK, False, 0)]])
+# 22 — Verifier selection: v0 chosen (both layers agree)
+s = content("7 · The verifier", "Verifier selected: v0 — and both evaluation layers agree")
+_box(s, Inches(0.55), Inches(1.55), Inches(12.2), Inches(1.0), fill=LIGHT, line=ACCENT, line_w=Pt(1.5))
+_text(s, Inches(0.8), Inches(1.78), Inches(11.7), Inches(0.6), [
+    [("v0 is the chosen verifier — ", 15, ACC_DK, True, 0),
+     ("more honest than the LLM-judge ensemble at no quality cost, and the better-trained of the two small models.", 15, INK, False, 0)]])
 bullets(s, [
-    ("The question: does v0, the Layer-1 winner, also win inside the full pipeline?", 0),
-    ("And does v1's extra caution — which looked like a weakness on clean tests — actually help on the messier evidence the real pipeline retrieves?", 0),
-    ("Required fix already shipped: the small verifier no longer mislabels a well-supported claim as \"contested\" just because one of several sources disagrees", 0),
-    ("Results will fill in this slide when the run finishes", 1),
-], top=Inches(3.25), size=14.5, gap=11)
+    ("Layer-1 (verifier in isolation): v0 matches the three-model panel on macro-F1 (0.839) with better calibration (ECE 0.039 vs v1's 0.059) — v0 is the better-tuned model", 0),
+    ("Layer-2 (in the pipeline): v0 lifts honesty over corrected (structural EBM +0.088, significant) while holding quality — the same verdict from the pipeline side", 0),
+    ("v1 rejected: extra in-distribution training over-tuned it toward refutation (14–16 refuted/report), collapsing quality to 2.62 and making reports self-contradictory", 0),
+    ("Both layers point to the same answer — in-distribution fine-tuning did not help; v0's broader training generalizes better", 1),
+], top=Inches(2.95), size=13.5, gap=10)
 
 # 23 — Key learnings
 s = content("7 · The verifier", "Key learnings")
