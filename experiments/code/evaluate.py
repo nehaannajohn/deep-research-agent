@@ -10,36 +10,18 @@ import json
 import sys
 from pathlib import Path
 
-import torch
-import torch.nn.functional as F
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
-
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "src"))
 
-from dra.eval.calibrate import PlattCalibrator, ece_before_after   # noqa: E402
-from dra.eval.metrics import macro_f1                              # noqa: E402
-from dra.verify.cross_encoder import CrossEncoderVerifier          # noqa: E402
-from dra.verify.train import ID2LABEL                              # noqa: E402
-from dra.verify.train.transfer import TransferExample              # noqa: E402
+from dra.eval.calibrate import PlattCalibrator, ece_before_after        # noqa: E402
+from dra.eval.metrics import macro_f1                                   # noqa: E402
+from dra.verify.cross_encoder import CrossEncoderVerifier               # noqa: E402
+from dra.verify.cross_encoder_model import bind_score_fn                # noqa: E402
+from dra.verify.train.transfer import TransferExample                   # noqa: E402
 
 DATA = REPO / "eval" / "verifier_b_data"
 MODELS = REPO / "eval" / "verifier_b_models"
 OUT = REPO / "eval" / "results" / "verifier_b"
-MAX_LEN = 512
-
-
-def _bind_score_fn(ckpt):
-    tok = AutoTokenizer.from_pretrained(ckpt)
-    model = AutoModelForSequenceClassification.from_pretrained(ckpt).cuda().eval()
-
-    @torch.no_grad()
-    def score_fn(claim, passage):
-        enc = tok(claim, passage, truncation="only_second", max_length=MAX_LEN,
-                  return_tensors="pt").to("cuda")
-        probs = F.softmax(model(**enc).logits, dim=-1)[0].tolist()
-        return {ID2LABEL[i]: probs[i] for i in range(3)}
-    return score_fn
 
 
 def _eval_transfer(verifier):
@@ -67,7 +49,7 @@ def main(argv=None):
     ap.add_argument("--variant", choices=["v0", "v1"], required=True)
     a = ap.parse_args(argv)
 
-    score_fn = _bind_score_fn(str(MODELS / a.variant / "best"))
+    score_fn = bind_score_fn(str(MODELS / a.variant / "best"))
     verifier = CrossEncoderVerifier(score_fn=score_fn)
 
     yt, yp, psup, outc = _eval_transfer(verifier)

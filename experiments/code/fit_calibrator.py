@@ -81,9 +81,9 @@ def run(variant: str, contested_examples=None) -> dict:  # pragma: no cover - li
     from dra.eval.loaders.fever import load_fever
     from dra.eval.loaders.scifact import load_scifact
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.code.evaluate import _bind_score_fn  # lazy (torch)
+    from dra.verify.cross_encoder_model import bind_score_fn  # lazy (torch)
 
-    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(str(MODELS / variant / "best")))
+    verifier = CrossEncoderVerifier(score_fn=bind_score_fn(str(MODELS / variant / "best")))
     examples = list(load_fever(seed=13)) + list(load_scifact(seed=13))
     if contested_examples:
         examples += list(contested_examples)

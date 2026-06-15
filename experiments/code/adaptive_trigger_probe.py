@@ -112,10 +112,10 @@ def run(variant="v0", canon_dir="eval/results/pipeline/report_cache",
     from dra.schemas import ResearchReport
     from dra.verify.cross_encoder import CrossEncoderVerifier
     from experiments.code.run_pipeline_eval import _load_platt
-    from experiments.code.evaluate import _bind_score_fn
+    from dra.verify.cross_encoder_model import bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
-    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
+    verifier = CrossEncoderVerifier(score_fn=bind_score_fn(ckpt), calibrators=_load_platt(variant))
 
     items = load_dra_bench()
     index = _build_index(canon_dir)

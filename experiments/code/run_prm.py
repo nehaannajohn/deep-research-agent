@@ -28,12 +28,12 @@ TRAINPOOL = REPO / "eval" / "trainpool" / "passages.jsonl"  # variant-independen
 
 
 def main(argv=None):
-    from experiments.code.evaluate import _bind_score_fn  # reuse binder
+    from dra.verify.cross_encoder_model import bind_score_fn  # reuse binder
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", choices=["v0", "v1"], required=True)
     a = ap.parse_args(argv)
-    score = _bind_score_fn(str(MODELS / a.variant / "best"))
+    score = bind_score_fn(str(MODELS / a.variant / "best"))
 
     # Variant-independent distractors (the v1-only synthetic slice would make a v0
     # PRM run non-comparable / fail). Trainpool passages exist for both variants.

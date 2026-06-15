@@ -9,7 +9,7 @@ in-distribution on FEVER/SciFact, A is zero-shot).
 
 Usage: CUDA_VISIBLE_DEVICES=0 .venv-train/bin/python -m experiments.code.eval_layer1 --variant v0
 
-The torch model wrapper (`_bind_score_fn`) is imported lazily inside `run()` so
+The torch model wrapper (`bind_score_fn`) is imported lazily inside `run()` so
 this module (and the pure `summarize`) import cleanly without torch — keeps the
 unit test runnable in `.venv`.
 """
@@ -63,9 +63,9 @@ def summarize(preds, golds, p_supported) -> dict:
 
 
 def run(variant: str) -> dict:
-    from experiments.code.evaluate import _bind_score_fn  # lazy (torch)
+    from dra.verify.cross_encoder_model import bind_score_fn  # lazy (torch)
 
-    score_fn = _bind_score_fn(str(MODELS / variant / "best"))
+    score_fn = bind_score_fn(str(MODELS / variant / "best"))
     verifier = CrossEncoderVerifier(score_fn=score_fn)
     examples = list(load_fever(seed=13)) + list(load_scifact(seed=13))
 

@@ -38,10 +38,10 @@ def _tag(gold, v1):
 
 
 def main():
-    from experiments.code.evaluate import _bind_score_fn  # lazy (torch)
+    from dra.verify.cross_encoder_model import bind_score_fn  # lazy (torch)
 
-    v0 = CrossEncoderVerifier(score_fn=_bind_score_fn(str(MODELS / "v0" / "best")))
-    v1 = CrossEncoderVerifier(score_fn=_bind_score_fn(str(MODELS / "v1" / "best")))
+    v0 = CrossEncoderVerifier(score_fn=bind_score_fn(str(MODELS / "v0" / "best")))
+    v1 = CrossEncoderVerifier(score_fn=bind_score_fn(str(MODELS / "v1" / "best")))
     examples = [("fever", e) for e in load_fever(seed=13)] + \
                [("scifact", e) for e in load_scifact(seed=13)]
 

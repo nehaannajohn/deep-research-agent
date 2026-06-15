@@ -153,10 +153,10 @@ def _make_run_query_frozen_cross_encoder(cfg, variant):  # pragma: no cover - li
     from dra.report import compose_report
     from dra.schemas import ResearchReport
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.code.evaluate import _bind_score_fn
+    from dra.verify.cross_encoder_model import bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
-    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
+    verifier = CrossEncoderVerifier(score_fn=bind_score_fn(ckpt), calibrators=_load_platt(variant))
     generator = BedrockChat(cfg.roles["generator"], region=cfg.region)
     diagram_model = cfg.roles.get("diagram") or cfg.roles["generator"]
     diagram_generator = LLMDiagramGenerator(BedrockChat(diagram_model, region=cfg.region))
@@ -201,10 +201,10 @@ def _make_run_query_with_cross_encoder(cfg, variant):  # pragma: no cover - live
 
     from dra.loop import build_deps, run_query
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.code.evaluate import _bind_score_fn
+    from dra.verify.cross_encoder_model import bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
-    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
+    verifier = CrossEncoderVerifier(score_fn=bind_score_fn(ckpt), calibrators=_load_platt(variant))
     deps = dataclasses.replace(build_deps(cfg), verifier=verifier)
 
     def _run(query):
@@ -269,10 +269,10 @@ def _make_run_query_adaptive(cfg, variant, out_dir):  # pragma: no cover - live 
     from dra.loop import build_deps
     from dra.search.fetch import ExaContentsFetcher
     from dra.verify.cross_encoder import CrossEncoderVerifier
-    from experiments.code.evaluate import _bind_score_fn
+    from dra.verify.cross_encoder_model import bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
-    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
+    verifier = CrossEncoderVerifier(score_fn=bind_score_fn(ckpt), calibrators=_load_platt(variant))
     deps = dataclasses.replace(build_deps(cfg), verifier=verifier)
     rec_model = cfg.verifier_models[0] if cfg.verifier_models else cfg.roles["inloop_judge"]
     recommender_llm = BedrockChat(rec_model, region=cfg.region)   # Sonnet-family source recommender
