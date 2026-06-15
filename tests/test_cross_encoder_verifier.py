@@ -138,6 +138,31 @@ def test_confidence_contested_is_two_sided_min():
     assert abs(r.confidence - 0.62) < 1e-9  # min(0.80, 0.62)
 
 
+def test_contested_confidence_derived_from_supported_refuted_calibrators():
+    # No contested calibrator, but supported+refuted ARE calibrated -> contested
+    # confidence is min of the two calibrated sides (the weaker side gates it).
+    cals = {"supported": _ConstCal(0.9), "refuted": _ConstCal(0.6)}
+    v = _verifier({
+        "a": {"supported": 0.85, "refuted": 0.05, "nei": 0.10},
+        "b": {"supported": 0.05, "refuted": 0.80, "nei": 0.15},
+    }, calibrators=cals)
+    r = v.verify("c", [Passage(source_id="0", text="a"), Passage(source_id="1", text="b")])
+    assert r.label == "contested"
+    assert abs(r.confidence - 0.6) < 1e-9  # min(0.9, 0.6)
+
+
+def test_explicit_contested_calibrator_takes_precedence():
+    # if a contested calibrator is present, it is used on the raw two-sided min,
+    # NOT the derived supported/refuted combination.
+    cals = {"supported": _ConstCal(0.9), "refuted": _ConstCal(0.6), "contested": _ConstCal(0.42)}
+    v = _verifier({
+        "a": {"supported": 0.85, "refuted": 0.05, "nei": 0.10},
+        "b": {"supported": 0.05, "refuted": 0.80, "nei": 0.15},
+    }, calibrators=cals)
+    r = v.verify("c", [Passage(source_id="0", text="a"), Passage(source_id="1", text="b")])
+    assert r.label == "contested" and r.confidence == 0.42
+
+
 def test_per_label_calibrator_selected_by_predicted_label():
     # the refuted calibrator fires for a refuted claim; supported's is ignored.
     cals = {"supported": _ConstCal(0.99), "refuted": _ConstCal(0.33)}

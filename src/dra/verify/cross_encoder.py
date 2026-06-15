@@ -90,6 +90,26 @@ class CrossEncoderVerifier(Verifier):
             "contested": min(max_sup, max_ref),
         }[label]
 
+    def label_confidence(self, label, max_sup, max_ref, max_nei) -> float:
+        """Calibrated confidence of the predicted label.
+
+        Contested is a conjunction — a genuine supporting AND a genuine refuting
+        passage — so when no contested-specific calibrator exists, derive its
+        confidence from the calibrated supported/refuted axes: as confident as the
+        WEAKER of the two sides, min(supported_cal(max_sup), refuted_cal(max_ref)).
+        This needs no contested gold. Falls back to the raw two-sided min if those
+        calibrators are absent; an explicit contested calibrator, if provided,
+        still takes precedence.
+        """
+        cal = self.calibrators.get(label)
+        if label == "contested" and cal is None:
+            sc, rc = self.calibrators.get("supported"), self.calibrators.get("refuted")
+            if sc is not None and rc is not None:
+                return min(sc.apply(max_sup), rc.apply(max_ref))
+            return min(max_sup, max_ref)
+        raw = self.raw_label_confidence(label, max_sup, max_ref, max_nei)
+        return cal.apply(raw) if cal is not None else raw
+
     def verify(self, claim: str, passages: list[Passage]) -> VerifierResult:
         texts = [p.text for p in passages if (p.text or "").strip()]
         if not texts:
@@ -97,9 +117,7 @@ class CrossEncoderVerifier(Verifier):
                                   recommendation="gather_more")
 
         label, sup_votes, ref_votes, max_sup, max_ref, max_nei = self.aggregate(claim, texts)
-        raw = self.raw_label_confidence(label, max_sup, max_ref, max_nei)
-        cal = self.calibrators.get(label)
-        conf = cal.apply(raw) if cal is not None else raw
+        conf = self.label_confidence(label, max_sup, max_ref, max_nei)
         return VerifierResult(label=label, confidence=float(conf),
                               recommendation=_REC[label],
                               votes={"max_supported": int(round(max_sup * 100)),

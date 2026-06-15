@@ -5,12 +5,15 @@ P(supported)). One one-vs-rest calibrator per label:
   supported   : raw = max p_supported          , positive iff gold == supported
   refuted     : raw = max p_refuted             , positive iff gold == refuted
   insufficient: raw = max p_nei                 , positive iff gold == insufficient
-  contested   : raw = min(max p_sup, max p_ref) , positive iff gold == contested
 
-supported/refuted/insufficient are fit on FEVER+SciFact; contested needs the
-constructed contested set (FEVER/SciFact have no contested gold), so it is fit
-only when those examples are supplied. A label with no positives (or no
-negatives) is skipped — verify() then falls back to raw confidence for it.
+These three head classes are fit on FEVER+SciFact. **Contested is NOT fit here**:
+it is a conjunction (a genuine supporting AND a genuine refuting passage), so its
+confidence is DERIVED at inference from the supported/refuted calibrators —
+`min(supported_cal(max_sup), refuted_cal(max_ref))` in
+`CrossEncoderVerifier.label_confidence` — needing no contested gold. (FEVER/SciFact
+have none, and the prior contested artifact carries no passages to score.)
+`fit_label_calibrators` still fits a contested calibrator IF contested rows with
+passages are ever supplied; a label with no positives/negatives is skipped.
 
 `fit_label_calibrators(rows)` is pure and unit-tested; `run()` is the live (GPU)
 driver. Output `platt.json` (per-label) is back-compat-read by run_pipeline_eval.
@@ -102,18 +105,16 @@ def run(variant: str, contested_examples=None) -> dict:  # pragma: no cover - li
 def main(argv=None):  # pragma: no cover - live
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", choices=["v0", "v1"], required=True)
-    ap.add_argument("--no-contested", action="store_true",
-                    help="fit supported/refuted/insufficient only (skip contested)")
+    ap.add_argument("--contested-set", default=None,
+                    help="optional path to a contested set (EvalExamples WITH passages) "
+                         "to additionally fit a contested calibrator; by default contested "
+                         "confidence is derived from supported/refuted at inference")
     a = ap.parse_args(argv)
     contested = None
-    if not a.no_contested:
-        try:
-            from dra.eval.loaders.contested import load_prior_contested_cases
-            contested = load_prior_contested_cases()
-            if not contested:
-                print("[WARN] contested bench.json empty; fitting supported/refuted/insufficient only")
-        except Exception as e:  # bench.json optional
-            print(f"[WARN] no contested set ({e}); fitting supported/refuted/insufficient only")
+    if a.contested_set:
+        import json as _json
+        from dra.eval.base import EvalExample
+        contested = [EvalExample(**_json.loads(l)) for l in open(a.contested_set)]
     run(a.variant, contested_examples=contested)
 
 
