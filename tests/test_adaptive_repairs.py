@@ -17,20 +17,23 @@ class _LLM:
 
 # ---- reformulate ----
 
-def test_reformulate_returns_focused_query_and_sees_claim():
+def test_reformulate_rewords_subquery_using_weak_claims():
     llm = _LLM("transformer attention quadratic complexity sequence length evidence")
-    q = reformulate("Self-attention is O(n^2) in sequence length", "How does attention scale?", llm)
+    q = reformulate("How does attention scale?",
+                    ["Self-attention is O(n^2) in sequence length"], llm)
     assert q == "transformer attention quadratic complexity sequence length evidence"
-    assert "Self-attention is O(n^2)" in llm.last_prompt  # claim is in the prompt
+    # both the sub-question and the weak claim are in the prompt
+    assert "How does attention scale?" in llm.last_prompt
+    assert "Self-attention is O(n^2)" in llm.last_prompt
 
 
 def test_reformulate_strips_quotes_and_takes_first_line():
     llm = _LLM('"best query here"\nignored second line')
-    assert reformulate("c", "s", llm) == "best query here"
+    assert reformulate("subq", ["c"], llm) == "best query here"
 
 
-def test_reformulate_falls_back_to_claim_when_empty():
-    assert reformulate("the claim text", "s", _LLM("   ")) == "the claim text"
+def test_reformulate_falls_back_to_subquestion_when_empty():
+    assert reformulate("the original sub-question", ["c"], _LLM("   ")) == "the original sub-question"
 
 
 # ---- source recommender ----
