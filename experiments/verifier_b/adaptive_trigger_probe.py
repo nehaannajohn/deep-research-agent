@@ -53,6 +53,20 @@ def summarize_triggers(rows: list, taus=(0.5, 0.6, 0.7)) -> dict:
         subq[k]["confs"].append(r["conf"])
     subq_rows = [{"type": v["type"], "conf": min(v["confs"])} for v in subq.values()]
 
+    # query-level: a query is "affected" if >=1 of its claims falls below tau
+    byq = defaultdict(list)
+    for r in rows:
+        byq[r["item_id"]].append(r["conf"])
+
+    def _qblock(t):
+        low_counts = [sum(1 for c in cs if c < t) for cs in byq.values()]
+        affected = sum(1 for n in low_counts if n > 0)
+        nq = len(byq)
+        return {"n_queries": nq, "n_affected": affected,
+                "affected_rate": round(affected / nq, 3) if nq else None,
+                "mean_low_claims_per_query": round(sum(low_counts) / nq, 2) if nq else None,
+                "max_low_claims_in_a_query": max(low_counts) if low_counts else 0}
+
     mid = taus[len(taus) // 2]
     low = [r for r in rows if r["conf"] < mid]
     by_label = defaultdict(int)
@@ -69,6 +83,7 @@ def summarize_triggers(rows: list, taus=(0.5, 0.6, 0.7)) -> dict:
             "overall": _block(subq_rows),
             "by_type": {ty: _block([r for r in subq_rows if r["type"] == ty]) for ty in types},
         },
+        "query_level": {f"{t:.2f}": _qblock(t) for t in taus},
         "low_conf_label_mix": {"tau": mid, "n_low_claims": len(low), "by_label": dict(by_label)},
     }
 
@@ -89,7 +104,10 @@ def _build_index(canon_dir: str) -> dict:  # pragma: no cover - disk
 
 
 def run(variant="v0", canon_dir="eval/results/pipeline/report_cache",
-        per_type=10, taus=(0.5, 0.6, 0.7)) -> dict:  # pragma: no cover - live (GPU)
+        per_type=10, taus=(0.5, 0.6, 0.7), sample="stratified", n=50,
+        seed=13) -> dict:  # pragma: no cover - live (GPU)
+    import random
+
     from dra.eval.pipeline.datasets.dra_bench import load_dra_bench
     from dra.schemas import ResearchReport
     from dra.verify.cross_encoder import CrossEncoderVerifier
@@ -101,16 +119,21 @@ def run(variant="v0", canon_dir="eval/results/pipeline/report_cache",
 
     items = load_dra_bench()
     index = _build_index(canon_dir)
+    have = [it for it in items if it.query in index]
 
-    pools = defaultdict(list)
-    for it in items:
-        if it.query in index:
+    if sample == "random":
+        sampled = random.Random(seed).sample(have, min(n, len(have)))
+    else:  # stratified: per_type per type
+        pools = defaultdict(list)
+        for it in have:
             pools[it.meta.get("type") or it.id.split("-")[1]].append(it)
-    sampled = []
-    for ty in sorted(pools):
-        sampled += sorted(pools[ty], key=lambda x: x.id)[:per_type]
-    print(f"[probe] sampled {len(sampled)} items "
-          f"({ {ty: min(len(p), per_type) for ty, p in pools.items()} }) "
+        sampled = []
+        for ty in sorted(pools):
+            sampled += sorted(pools[ty], key=lambda x: x.id)[:per_type]
+    type_mix = defaultdict(int)
+    for it in sampled:
+        type_mix[it.meta.get("type") or it.id.split("-")[1]] += 1
+    print(f"[probe] sample={sample} -> {len(sampled)} items (type mix {dict(sorted(type_mix.items()))}) "
           f"from {len(index)} canonical reports", flush=True)
 
     rows = []
@@ -142,8 +165,11 @@ def main(argv=None):  # pragma: no cover - live
     ap.add_argument("--canon-dir", default="eval/results/pipeline/report_cache")
     ap.add_argument("--per-type", type=int, default=10)
     ap.add_argument("--taus", type=float, nargs="+", default=[0.5, 0.6, 0.7])
+    ap.add_argument("--sample", choices=["stratified", "random"], default="stratified")
+    ap.add_argument("--n", type=int, default=50, help="sample size for --sample random")
+    ap.add_argument("--seed", type=int, default=13)
     a = ap.parse_args(argv)
-    run(a.variant, a.canon_dir, a.per_type, tuple(a.taus))
+    run(a.variant, a.canon_dir, a.per_type, tuple(a.taus), a.sample, a.n, a.seed)
 
 
 if __name__ == "__main__":
