@@ -101,6 +101,34 @@ Grounding/hallucination excluded for the black-box baselines (their *source cont
 
 with **0.104** / without **0.106**, paired **p=0.75 (n.s.)**. Low absolute coverage (~10% of a dense gold reference's atomic claims) is a **retrieval-breadth** gap, not a verification error, and the verifier doesn't change it.
 
+### 3d. Verifier B (fine-tuned cross-encoder) — v0 vs v1, dropped into the pipeline — **usable**
+
+The fine-tuned DeBERTa cross-encoder (Verifier B) swapped in as the in-loop verifier, **freeze-upstream**: reuse `corrected_verifier`'s frozen claims+passages, change *only* the verifier, re-run contradiction → compose → score. This isolates the verifier — claim text + citations are identical across arms, so grounding/coverage are invariant by construction (the verifier labels claims, it doesn't author them). Per-arm means (DRA-Bench, n = 238):
+
+| metric | corrected (LLM-judge ensemble) | **v0** | v1 |
+|---|---|---|---|
+| **EBM — structural** | 0.794 | **0.882** | 0.912 |
+| relevance (1–5) | 4.655 | 4.571 | 4.042 |
+| **quality (1–5)** | 4.105 | **4.029** | **2.618** |
+| formatting_pass | 1.00 | 1.00 | 1.00 |
+
+**Paired significance (id-matched, n = 238; paired permutation — same direction/method family as §3a's paired-t + McNemar + Holm):**
+
+| comparison | metric | effect | p | survives? |
+|---|---|---|---|---|
+| **v0 vs corrected** | structural EBM | **+0.088** | <0.001 | **yes** |
+| v0 vs corrected | quality | −0.076 | 0.13 | **no** (quality held) |
+| v1 vs corrected | structural EBM | +0.118 | <0.001 | yes |
+| **v1 vs corrected** | quality | **−1.487** | <0.001 | **yes (collapse)** |
+| **v0 vs v1** | quality | **+1.412** | <0.001 | **yes** |
+| v0 vs v1 | structural EBM | −0.029 | 0.12 | no (tied) |
+
+**Finding — v0 is the better-tuned verifier; v1's in-distribution training made it over-refute into near-unusability.** Both fine-tuned verifiers lift structural EBM over corrected (v0 +0.088, v1 +0.118, both p<0.001) — a calibrated cross-encoder flags contested/insufficient more accurately than the 3-model LLM-judge ensemble. But **v1's extra in-distribution training (pipeline-distribution synthetic hard-negatives + evidence-ablated curriculum) made it refute far more aggressively**: on a typical report v1 marks **14–16 of ~20 claims `refuted`** (near-zero `supported`) vs v0's supported-heavy ledger. The composed report then **contradicts itself** — it states a finding, then labels it refuted — so panel **quality collapses to 2.62 (−1.49 vs corrected, p<0.001)**, and an independent GPT-OSS quality judge scores **every** sampled v1 report **2/5** for the same reason ("contradictory, internally inconsistent; refuted claims presented as advantages"; 5 worked examples in `v0_v1_quality_samples.md`). v1's higher EBM is therefore **hollow** — it games expected-behavior by over-hedging, at the cost of a usable report. **v0 alone raises EBM +8.8 pts over corrected while holding quality statistically flat (−0.076, p=0.13)** and matching relevance/grounding — the only fine-tuned verifier that improves honesty without degrading the report. **→ v0 chosen as the fine-tuned verifier.**
+
+**Both layers agree on v0.** Layer-1 already ranked v0 the better verifier in isolation (macro-F1 **0.839** ≈ the 3-model panel; ECE **0.039** vs v1's 0.059 — v1 was the more conservative, worse-calibrated model). Layer-2 reaches the same verdict from the pipeline side: v0 is the better in-pipeline verifier, while v1's conservatism degrades it into near-unusability. **In-distribution fine-tuning did not help — it over-tuned toward refutation.**
+
+> **Grounding/hallucination — one-liner (verifier-agnostic, excluded from the tables):** pipeline **grounding ≈ 0.95, hallucination ≈ 0.03**, essentially identical across corrected / v0 / v1 (and the ±verifier arms). The verifier labels claims but does not author them, so claim-level grounding cannot move with the verifier — by construction, not coincidence. Reported once for the pipeline, not per arm.
+
 ---
 
 ## 4. Results — FRAMES + TruthfulQA (separately)
@@ -161,6 +189,8 @@ All four runs scored through the same instrument (n = 100 each, both providers, 
 9. **TruthfulQA exposes grounding ≠ truthfulness, and it's a retrieval problem.** Grounding 0.95, task-accuracy ~0.01: retrieval surfaces passages carrying the popular misconception and the pipeline faithfully cites them — well-grounded yet wrong. Not fixable by verification/composition; the fix is source-quality/consensus signals at retrieval (or a separate claim↔world truthfulness check).
 10. **vs commercial baselines (now on all three benchmarks):** comparable on relevance; Perplexity/OpenAI score *higher* on panel quality (fluent confident prose), while our differentiators — exposed per-claim grounding + honest contestation + on-demand formatting (1.00 vs 0.60) — are exactly what black boxes can't be measured on. On **task-accuracy** the broad-benchmark picture is now concrete: **FRAMES — we match Perplexity (0.24) and trail OpenAI-search (0.37); TruthfulQA — all systems near-floor (ours ~0.01–0.02, baselines 0.05–0.06).** So our broad task-accuracy is **competitive-to-bounded, not a collapse** — the FRAMES deficit to OpenAI is a multi-hop-retrieval gap, and the TruthfulQA floor is universal (the misconception trap defeats grounded retrieval for everyone).
 
+11. **The fine-tuned verifier (v0) beats the LLM-judge ensemble on honesty without costing quality — but only v0; v1 over-refutes into near-unusability (§3d).** Dropped into the pipeline (freeze-upstream), v0 lifts structural EBM **+0.088 over corrected (p<0.001)** while holding quality flat (−0.076, p=0.13). v1's extra in-distribution training pushed it to refute 14–16 of ~20 claims per report, making the report self-contradictory — quality collapses to **2.62 (−1.49, p<0.001)**, every sampled report judged 2/5. **v0 is chosen**, converging with Layer-1 (v0: macro-F1 0.839 ≈ panel, ECE 0.039 < v1's 0.059). In-distribution fine-tuning over-tuned toward refutation rather than helping.
+
 **The convergence (→ `limitations.md` #9):** four independent results — flat grounding under ±verifier (all 3 benchmarks), ~10% Sonnet coverage, the faithfully-grounded IBM over-flag, and grounding≠truthfulness on TruthfulQA — all point to the same upstream ceiling: **retrieval quality / diversity / source-selection**, not the verification or contradiction components.
 
 ---
@@ -196,7 +226,9 @@ The original 10-item contradiction runs are superseded: the full `corrected_veri
 
 **Layer-2 is fully closed** — no measurements outstanding; all per-item verdicts (structural + text EBM, all three arms) persisted and significance-tested.
 
-**Not in scope for close-out** (separate track): Verifier B fine-tuning (controllability/cost — bound by the same retrieval ceiling); the 2×2 (±verification × ±contradiction) decoupling; type4 unanswerability recall (a standing gap, text-EBM 0.347).
+**Verifier B (fine-tuned cross-encoder) — DONE, v0 selected (§3d).** Both v0 and v1 were dropped into the pipeline (freeze-upstream, DRA-Bench n=238). **v0 is the chosen fine-tuned verifier**: +0.088 structural EBM over the corrected LLM-judge ensemble (p<0.001) at no quality cost (−0.076, p=0.13). v1 is rejected — its in-distribution training made it over-refute (14–16 refuted/report), collapsing quality to 2.62 and producing self-contradictory reports. This converges with the Layer-1 ranking (v0 > v1). The fine-tuned v0 is also the verifier the adaptive-retrieval pilot uses (calibrated + cheap re-verify).
+
+**Not in scope for close-out** (separate track): the 2×2 (±verification × ±contradiction) decoupling; type4 unanswerability recall (a standing gap, text-EBM 0.347).
 
 ## 8. Reproducibility
 
