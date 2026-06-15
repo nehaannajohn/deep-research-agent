@@ -252,7 +252,47 @@ def _make_run_query_without_verifier(cfg):  # pragma: no cover - live Bedrock/Ex
     return _run
 
 
-def build_pipeline_deps(cfg, arm, *, decomposer=None):  # pragma: no cover - live wiring
+def _make_run_query_adaptive(cfg, variant, out_dir):  # pragma: no cover - live Bedrock/Exa + torch
+    """ADAPTIVE arm: the full pipeline with the v0 cross-encoder (per-label
+    calibrated) as the in-loop verifier, wrapped in the confidence-gated repair
+    loop (reformulate ∥ diversify). NOT freeze-upstream — adaptive re-retrieval
+    changes upstream, so it regenerates. The Sonnet recommender + Exa /contents
+    fetcher power the diversify repair. Per-sub-question traces (iters / winning
+    repair / recs+fetched / gaps) are written under ``<out_dir>/trace/`` for the
+    cost-by-type analysis, keyed by a query hash."""
+    import dataclasses
+    import hashlib
+    import json
+
+    from dra.adaptive.loop import run_query_adaptive
+    from dra.llm.bedrock import BedrockChat
+    from dra.loop import build_deps
+    from dra.search.fetch import ExaContentsFetcher
+    from dra.verify.cross_encoder import CrossEncoderVerifier
+    from experiments.verifier_b.evaluate import _bind_score_fn
+
+    ckpt = f"eval/verifier_b_models/{variant}/best"
+    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
+    deps = dataclasses.replace(build_deps(cfg), verifier=verifier)
+    rec_model = cfg.verifier_models[0] if cfg.verifier_models else cfg.roles["inloop_judge"]
+    recommender_llm = BedrockChat(rec_model, region=cfg.region)   # Sonnet-family source recommender
+    fetcher = ExaContentsFetcher(cfg.exa_key)
+    trace_dir = os.path.join(out_dir, "trace")
+    os.makedirs(trace_dir, exist_ok=True)
+
+    def _run(query):
+        trace = []
+        rep = run_query_adaptive(query, deps, recommender_llm=recommender_llm,
+                                 fetcher=fetcher, trace=trace)
+        slug = hashlib.sha1(query.encode("utf-8")).hexdigest()[:16]
+        with open(os.path.join(trace_dir, f"{slug}.json"), "w", encoding="utf-8") as f:
+            json.dump({"query": query, "trace": trace}, f, ensure_ascii=False, indent=2)
+        return rep
+
+    return _run
+
+
+def build_pipeline_deps(cfg, arm, *, decomposer=None, out_dir=None):  # pragma: no cover - live wiring
     """Assemble real `PipelineDeps` for one arm.
 
     - ``run_query`` — the with/without-verifier flow above.
@@ -277,10 +317,15 @@ def build_pipeline_deps(cfg, arm, *, decomposer=None):  # pragma: no cover - liv
     elif arm in ("verifier_b_v0", "verifier_b_v1"):
         # FREEZE-UPSTREAM: reuse corrected_verifier's claims+passages, swap only the verifier
         run_query = _make_run_query_frozen_cross_encoder(cfg, arm.replace("verifier_b_", ""))
+    elif arm in ("verifier_b_v0_adaptive", "verifier_b_v1_adaptive"):
+        # ADAPTIVE: full pipeline + confidence-gated repair loop (regenerates upstream)
+        variant = arm.replace("verifier_b_", "").replace("_adaptive", "")
+        run_query = _make_run_query_adaptive(cfg, variant, out_dir or os.path.join("eval/results/pipeline", arm))
     elif arm == "without_verifier":
         run_query = _make_run_query_without_verifier(cfg)
     else:
-        raise ValueError(f"unknown arm {arm!r}; expected with/without/corrected/verifier_only/verifier_b_v0/verifier_b_v1")
+        raise ValueError(f"unknown arm {arm!r}; expected with/without/corrected/verifier_only/"
+                         "verifier_b_v0/verifier_b_v1/verifier_b_v0_adaptive/verifier_b_v1_adaptive")
 
     panel_models = cfg.panel_models or [DEFAULT_GROUNDING_MODEL]
     grounding_model = os.environ.get("BEDROCK_GROUNDING_JUDGE_MODEL") or DEFAULT_GROUNDING_MODEL
@@ -315,7 +360,8 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
     parser = argparse.ArgumentParser(description="±verifier pipeline-eval driver")
     parser.add_argument("--arm",
                         choices=("with_verifier", "without_verifier", "corrected_verifier",
-                                 "verifier_only", "verifier_b_v0", "verifier_b_v1", "both"),
+                                 "verifier_only", "verifier_b_v0", "verifier_b_v1",
+                                 "verifier_b_v0_adaptive", "verifier_b_v1_adaptive", "both"),
                         default="both")
     parser.add_argument("--dataset", choices=("dra_bench", "frames", "truthfulqa"),
                         default="dra_bench", help="which benchmark to run the pipeline over")
@@ -366,8 +412,8 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
     decomposer = BedrockChat(decomposer_model, region=cfg.region)
 
     for arm in _arms_for(args.arm):
-        deps = build_pipeline_deps(cfg, arm, decomposer=decomposer)
         arm_out = os.path.join(args.out_dir, arm)
+        deps = build_pipeline_deps(cfg, arm, decomposer=decomposer, out_dir=arm_out)
         summary = run_eval(
             items, deps, out_dir=arm_out, max_workers=args.workers,
             report_cache_dir=cache_dir, arm=arm, refresh=args.refresh,
