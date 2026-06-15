@@ -21,18 +21,20 @@ Two findings on the `corrected_verifier` DRA-Bench reports reshaped the design:
 
 **Design consequence:** do not route on the action recommendation. Use **low calibrated confidence** to decide *whether* to act and *when* to stop; let the *outcome* decide *which* repair to keep.
 
-## 2. The loop
+## 2. The loop (claim-level gate)
 
-Per **sub-question**, max **3 iterations**:
+The gate is **per claim**, not per sub-question. A trigger-rate probe on DRA-Bench (50 queries, v0 + the new per-label calibration) settled this: taking the *min* confidence over a sub-question's ~8 claims trips **~62% of sub-questions** — blanket, not adaptive — because one weak claim among eight drags the whole section down. The individual weak claims are only **~22% of all claims at τ=0.7** (8% at 0.5, 14% at 0.6). So we trigger on the **claim** and repair the **claim**. Mean per-claim calibrated confidence is 0.76; the weak tail is concentrated in type-4 (no-answer) and type-2 (pros/cons).
 
-1. **Iteration 1 = the existing single pass** (frozen — reuse its claims + confidence; no regeneration).
-2. For each sub-question whose claims fall **below confidence τ**, run **two repairs in parallel**:
-   - **Reformulate** — re-word / re-decompose the sub-question, then re-retrieve (Exa) and re-synthesize.
-   - **Diversify sources** — keep the sub-question, but route retrieval through a **data-source recommender** (Sonnet) that names high-quality, high-coverage, credible sources; retrieve from them (Exa domain-restricted, preserving the verbatim-citation invariant).
-   Re-verify **both** candidate claim sets with the verifier; **keep the candidate with the highest calibrated confidence.**
-3. **Terminate a sub-question** when any holds: confidence ≥ **τ** (accept) · **no-progress** (Δconfidence < ε — neither repair beat the incumbent) · **max 3 iterations** · budget.
+For each claim whose calibrated predicted-label confidence is **below τ (=0.7)**, max **3 iterations**:
 
-Only low-confidence sub-questions iterate; high-confidence sub-questions and iteration-1 claims stay frozen. This is what makes it *adaptive* (selective spend) rather than blanket re-retrieval.
+1. **Iteration 1 = the existing single pass** (frozen — every claim keeps its text + confidence; no regeneration).
+2. For each below-τ claim, run **two repairs in parallel**, each targeting *that claim's proposition*:
+   - **Reformulate** — draft a focused search query for the claim's specific assertion, re-retrieve (Exa), and re-verify the claim against the new evidence.
+   - **Diversify sources** — route retrieval to a **different channel than Exa**, not more Exa records (a bigger Exa pull returns the same pool — useless). A **data-source recommender** (Sonnet), *told the incumbent evidence came from Exa's broad web index*, picks complementary connectors that add **non-overlapping** coverage (e.g. peer-reviewed literature via Semantic Scholar) and re-verifies against them. Source types we have no connector for (government statistics, clinical registries, …) are logged as **coverage gaps** — a retrieval-ceiling finding — not silently skipped.
+   **Keep the candidate verdict with the highest calibrated confidence** — the incumbent included, so a repair must *beat* it to win. A repair may also legitimately *flip* a weakly-supported claim to refuted/contested; that is a correction, not a regression.
+3. **Terminate a claim** when any holds: confidence ≥ **τ** · **no-progress** (Δconfidence < ε — neither repair beat the incumbent) · **max 3 iterations** · budget. A claim that never clears τ stays as-is, surfaced with its low confidence (the honest outcome).
+
+Only below-τ claims iterate; the other ~78% stay frozen. At τ=0.7 this repairs **~22% of claims** (≈4.6 per query; ~84% of queries get *some* small targeted repair, but only one claim in five is ever re-retrieved) — selective *spend*, not blanket re-retrieval.
 
 ## 3. Why the fine-tuned verifier is the enabler
 
@@ -43,10 +45,10 @@ The loop needs a **calibrated confidence** signal **and** cheap **re-verificatio
 - **Gate, not action-map.** Confidence decides *when* to act/stop; the repair is chosen by outcome (keep the higher-confidence candidate), so the unreliable `insufficient`/`refuted` labels are never acted on.
 - **Verifier = fine-tuned v0** (calibrated + cheap re-verify). The ensemble would also calibrate but is too expensive to re-run per iteration.
 - **Two repairs, outcome-selected.** Reformulation targets *wrong question framing*; source-diversification targets *thin/idiosyncratic sources* (the coverage ceiling). Running both and keeping the winner avoids guessing which failure mode applies.
-- **Data-source recommender = Sonnet**, prompted for credible, high-coverage sources per sub-question; retrieval stays on Exa (domain-restricted) to preserve verbatim citations. Direct URL fetch is the fallback.
+- **Data-source recommender = Sonnet**, told the incumbent evidence is from Exa and asked for **complementary channels Exa does not cover** — it must add *new* sources, never re-query Exa. It selects from the available connectors (Semantic Scholar today); recommended source types we have no connector for are logged as coverage gaps. This is the mechanism that actually attacks the retrieval ceiling: a different *channel*, not a bigger Exa pull.
 - **Targeted, frozen-upstream.** Reformulating/diversifying one sub-question must not disturb the other sub-questions' claims — they're reused untouched.
 - **Cost behaviour is a designed outcome:** unanswerable → no-progress → early stop (low cost); answerable-but-thin → iterate to τ; settled → no iterations. The experiment reports iteration-cost **by DRA-Bench type** as a first-class result.
-- **Thresholds** (`τ`, `ε`, `max_iters=3`) are experiment knobs, fit on the pilot.
+- **Thresholds:** `τ = 0.7` (claim-level), chosen from the trigger probe — fires on ~22% of claims, concentrated where retrieval can plausibly help; `ε` (no-progress) and `max_iters = 3` tuned on the pilot.
 
 ## 5. The experiment (see the implementation plan)
 
