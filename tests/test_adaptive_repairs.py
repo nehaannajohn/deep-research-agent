@@ -35,24 +35,33 @@ def test_reformulate_falls_back_to_claim_when_empty():
 
 # ---- source recommender ----
 
-def test_recommend_sources_parses_and_keeps_new_sources():
+def test_recommend_sources_returns_net_new_fetchable_urls():
     reply = (
-        'Here you go:\n[{"source": "data.worldbank.org", "kind": "official statistics", '
-        '"covers": "GDP figures"}, {"source": "WHO (who.int)", "kind": "registry", '
-        '"covers": "mortality"}]'
+        'Here you go:\n[{"url": "https://data.worldbank.org/indicator/NY.GDP", '
+        '"kind": "official statistics", "covers": "GDP figures"}, '
+        '{"url": "https://www.who.int/data/gho", "kind": "registry", "covers": "mortality"}]'
     )
     out = recommend_sources("What is the GDP impact?",
-                            ["World Bank blog — blogs.worldbank.org"],
+                            ["https://www.who.int/health-topics"],   # WHO already cited
                             ["GDP fell 3% in 2020"], _LLM(reply))
-    assert {r["source"] for r in out} == {"data.worldbank.org", "WHO (who.int)"}
+    # who.int host already cited (www. prefix stripped) -> dropped; worldbank net-new -> kept
+    assert [r["url"] for r in out] == ["https://data.worldbank.org/indicator/NY.GDP"]
     assert out[0]["kind"] == "official statistics"
 
 
-def test_recommend_sources_drops_already_covered_domain():
-    # recommendation domain already among existing Exa sources -> dropped
-    reply = '[{"source": "who.int fact sheet", "kind": "x", "covers": "y"}]'
-    out = recommend_sources("q", ["WHO — who.int"], ["claim"], _LLM(reply))
-    assert out == []
+def test_recommend_prompt_includes_cited_urls_and_net_new_instruction():
+    llm = _LLM("[]")
+    recommend_sources("q", ["https://example.com/a"], ["claim x"], llm)
+    assert "https://example.com/a" in llm.last_prompt
+    assert "NET-NEW" in llm.last_prompt
+
+
+def test_recommend_sources_rejects_non_urls_and_dupes():
+    reply = ('[{"url": "who.int", "kind": "k", "covers": "c"},'          # not http -> reject
+             ' {"url": "https://nih.gov/x", "kind": "k", "covers": "c"},'
+             ' {"url": "https://nih.gov/x", "kind": "k", "covers": "c"}]')  # dup -> once
+    out = recommend_sources("q", [], ["c"], _LLM(reply))
+    assert [r["url"] for r in out] == ["https://nih.gov/x"]
 
 
 def test_recommend_sources_empty_on_garbage():
