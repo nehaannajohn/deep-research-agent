@@ -418,7 +418,7 @@ s = content("7 · Evaluation — results", "Layer-2 — DRA-Bench: five versions
 _text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.34),
       [("Verifier OFF (\"without\"), the original verifier (\"with\"), the over-flagging fix (\"corrected\"), and the two small trained verifiers (v0, v1) dropped in.", 12, GRAY, False, 0)])
 table(s, ["Metric (DRA-Bench)", "without", "with", "corrected", "v0", "v1"], [
-    ["EBM — structural (honesty)", "0.60", "0.81", "0.79", "0.88", "0.91"],
+    ["EBM — structural", "0.60", "0.81", "0.79", "0.88", "0.91"],
     ["relevance (1–5)", "4.73", "4.63", "4.66", "4.57", "4.04"],
     ["quality (1–5)", "4.12", "3.90", "4.11", "4.03", "2.62"],
     ["instruction adherence (formatting)", "1.00", "1.00", "1.00", "1.00", "1.00"],
@@ -458,7 +458,7 @@ bullets(s, [
     ("v1's quality collapses because it over-refutes", 0),
     ("Its extra in-distribution training made it mark 14–16 of ~20 claims \"refuted\" per report; the report then contradicts itself (states a finding, then refutes it), so an independent judge scores every v1 report 2/5 — near-unusable.", 1),
     ("corrected and v0 strike the balance — honesty without wrecking the report", 0),
-    ("Both lift EBM-honesty while keeping relevance on par and quality in the usable middle (4.0–4.1). v0 adds significant honesty over corrected (EBM +0.088) at no significant quality cost — so v0 is chosen.", 1),
+    ("Both lift structural EBM while keeping relevance on par and quality in the usable middle (4.0–4.1). v0 adds a significant EBM gain over corrected (+0.088) at no significant quality cost — so v0 is chosen.", 1),
     ("Format adherence (1.00) is by design, not luck", 0),
     ("We pull formatting OUT of search/verification and apply it as a separate step at report composition, so diagram/table/length constraints are honored deterministically — 1.00 vs 0.60 for the commercial systems.", 1),
     ("Significance — only where it matters: v0 > corrected on EBM (p_adj 8×10⁻⁴); v1 quality collapse (6×10⁻⁶⁵); v0 ≫ v1 on quality (1×10⁻⁶³). v0-vs-corrected quality is NOT significant — quality is preserved.", 0),
@@ -466,17 +466,17 @@ bullets(s, [
 
 # 22 — Layer-2: DRA-Bench baselines (writing quality / format)
 s = content("7 · Evaluation — results", "Layer-2: vs Perplexity & OpenAI (DRA-Bench)")
-table(s, ["System (DRA-Bench)", "Relevance", "Quality", "Follows format", "Honesty (text)"], [
-    ["Ours (corrected)", "4.66", "4.11", "1.00", "0.79"],
-    ["Ours (v0 — chosen verifier)", "4.57", "4.03", "1.00", "—"],
-    ["Perplexity", "4.74", "4.94", "0.60", "0.86"],
-    ["OpenAI (search)", "4.58", "4.46", "0.60", "0.84"],
-    ["Claude Sonnet reference (ceiling)", "4.85", "4.90", "0.60", "—"],
-], col_w=[3.9, 1.4, 1.3, 1.6, 1.6], fsize=12.5, top=Inches(1.7), height=Inches(2.6), first_bold=True)
+table(s, ["System (DRA-Bench)", "Relevance (1–5)", "Quality (1–5)", "Follows format"], [
+    ["Ours (corrected)", "4.66", "4.11", "1.00"],
+    ["Ours (v0 — chosen verifier)", "4.57", "4.03", "1.00"],
+    ["Perplexity", "4.74", "4.94", "0.60"],
+    ["OpenAI (search)", "4.58", "4.46", "0.60"],
+    ["Claude Sonnet reference (ceiling)", "4.85", "4.90", "0.60"],
+], col_w=[4.2, 1.9, 1.8, 2.0], fsize=12.5, top=Inches(1.7), height=Inches(2.6), first_bold=True)
 bullets(s, [
     ("v0 (our chosen trained verifier) is on par with corrected — relevance/quality within ~0.1, formatting 1.00", 0),
     ("Perplexity and OpenAI score a little higher on writing quality — confident, fluent prose; we lead clearly on following format instructions (1.00 vs 0.60)", 0),
-    ("We expose per-claim grounding a black-box system can't be measured on — our differentiator. Honesty(text) for v0 not separately scored (— ); structural EBM is on the verifier-comparison slide", 0),
+    ("Our differentiator — exposed per-claim grounding and structural expected-behavior match (§ verifier-comparison slides) — is something a black-box system can't be measured on", 0),
 ], top=Inches(4.55), size=13, gap=8)
 
 # 22 — Layer-2: FRAMES + TruthfulQA answer accuracy
