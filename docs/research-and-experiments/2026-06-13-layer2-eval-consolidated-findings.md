@@ -181,7 +181,7 @@ The §4a/§4b task-accuracy used **normalized exact-match against single-sentenc
 | system | FRAMES (correct/total) | TruthfulQA (correct/total) |
 |---|---|---|
 | ours (corrected) | **0.41** (31/75) | **0.49** (42/86) |
-| ours (v0 — chosen) | **0.44** (33/75) | *re-running* |
+| ours (v0 — chosen) | **0.44** (33/75) | **0.49** (42/86) |
 | **Perplexity** `sonar-pro` | 0.44 (44/100) | **0.69** (69/100) |
 | **OpenAI** `gpt-4o-search-preview` | 0.65 (65/100) | **0.74** (74/100) |
 

@@ -485,7 +485,7 @@ _text(s, Inches(0.55), Inches(1.32), Inches(12.2), Inches(0.5),
       [("FRAMES = multi-step factual questions. TruthfulQA = common-misconception questions. Accuracy = correct / total, judged by GPT-OSS comparing the full report to the gold answer (a non-committal report counts as not-correct — no free pass). Replaces brittle exact-match.", 11.5, GRAY, False, 0)])
 table(s, ["System", "FRAMES — accuracy", "FRAMES — quality", "TruthfulQA — accuracy", "TruthfulQA — quality"], [
     ["Ours (corrected)", "0.41", "3.44", "0.49", "4.05"],
-    ["Ours (v0)", "0.44", "3.17", "in progress", "in progress"],
+    ["Ours (v0)", "0.44", "3.17", "0.49", "3.95"],
     ["Perplexity", "0.44", "3.83", "0.69", "4.76"],
     ["OpenAI (search)", "0.65", "4.26", "0.74", "4.33"],
 ], col_w=[2.6, 2.0, 1.9, 2.2, 2.0], fsize=12.5, top=Inches(1.95), height=Inches(2.0), first_bold=True)
