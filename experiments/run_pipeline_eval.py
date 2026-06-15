@@ -129,6 +129,63 @@ def _load_platt(variant):  # pragma: no cover - trivial disk read
     return cal
 
 
+_FROZEN_CANON_DIR = None  # set in main(): the canonical (corrected_verifier) report-cache dir to reuse claims+passages from
+
+
+def _make_run_query_frozen_cross_encoder(cfg, variant):  # pragma: no cover - live Bedrock + torch
+    """FREEZE-UPSTREAM mode. Reuse the claims + retrieved passages from the canonical
+    (corrected_verifier) reports — identical no matter the verifier, since there is no
+    adaptive loop — and only swap in the v0/v1 cross-encoder, then re-run the real
+    downstream (contradiction -> composition). This isolates the verifier and skips the
+    expensive plan/search/synthesize regeneration. Indexed by query text."""
+    import json
+
+    from dra.contradiction import PairContradictionJudge, detect_and_resolve
+    from dra.diagram import LLMDiagramGenerator
+    from dra.llm.bedrock import BedrockChat
+    from dra.planner import Plan
+    from dra.report import compose_report
+    from dra.schemas import ResearchReport
+    from dra.verify.cross_encoder import CrossEncoderVerifier
+    from experiments.verifier_b.evaluate import _bind_score_fn
+
+    ckpt = f"eval/verifier_b_models/{variant}/best"
+    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrator=_load_platt(variant))
+    generator = BedrockChat(cfg.roles["generator"], region=cfg.region)
+    diagram_model = cfg.roles.get("diagram") or cfg.roles["generator"]
+    diagram_generator = LLMDiagramGenerator(BedrockChat(diagram_model, region=cfg.region))
+    judge_model = cfg.verifier_models[0] if cfg.verifier_models else cfg.roles["inloop_judge"]
+    contradiction_judge = PairContradictionJudge(BedrockChat(judge_model, region=cfg.region))
+
+    canon = os.path.join(_FROZEN_CANON_DIR, "corrected_verifier")
+    index = {}  # query -> path
+    for fn in os.listdir(canon):
+        if fn.endswith(".json"):
+            try:
+                index[json.load(open(os.path.join(canon, fn)))["query"]] = os.path.join(canon, fn)
+            except Exception:
+                pass
+
+    def _run(query):
+        rep = ResearchReport.model_validate_json(open(index[query]).read())
+        sources = {s.source_id: s for s in rep.sources}
+        claims = rep.claims
+        for c in claims:  # re-verify each frozen claim with the cross-encoder
+            cited = [sources[cit.source_id] for cit in c.citations if cit.source_id in sources]
+            r = verifier.verify(c.text, cited)
+            c.verdict, c.confidence, c.iterations = r.label, r.confidence, 0
+        subqs = list(dict.fromkeys(c.section for c in claims)) or [query]
+        wants_visual = "```mermaid" in (rep.report_markdown or "")
+        plan = Plan(core_query=query, subquestions=subqs,
+                    constraints={"wants_visual": True} if wants_visual else {})
+        claims2, contradictions = detect_and_resolve(claims, contradiction_judge)
+        return compose_report(query, plan, claims2, list(sources.values()), generator,
+                              with_verification=True, diagram_generator=diagram_generator,
+                              contradictions=contradictions)
+
+    return _run
+
+
 def _make_run_query_with_cross_encoder(cfg, variant):  # pragma: no cover - live Bedrock/Exa + torch
     """In-loop verifier = the fine-tuned DeBERTa cross-encoder (Verifier B
     <variant>, Platt-calibrated), dropped into the SAME pipeline + contradiction
@@ -212,7 +269,8 @@ def build_pipeline_deps(cfg, arm, *, decomposer=None):  # pragma: no cover - liv
     elif arm == "verifier_only":
         run_query = _make_run_query_verifier_only(cfg)   # verifier on, contradiction layer off
     elif arm in ("verifier_b_v0", "verifier_b_v1"):
-        run_query = _make_run_query_with_cross_encoder(cfg, arm.replace("verifier_b_", ""))
+        # FREEZE-UPSTREAM: reuse corrected_verifier's claims+passages, swap only the verifier
+        run_query = _make_run_query_frozen_cross_encoder(cfg, arm.replace("verifier_b_", ""))
     elif arm == "without_verifier":
         run_query = _make_run_query_without_verifier(cfg)
     else:
@@ -293,6 +351,8 @@ def main(argv=None):  # pragma: no cover - live Bedrock/Exa wiring
         items = items[: args.limit]
 
     cache_dir = args.cache_dir or os.path.join(args.out_dir, "report_cache")
+    global _FROZEN_CANON_DIR  # the freeze-upstream arms reuse corrected_verifier's reports from here
+    _FROZEN_CANON_DIR = cache_dir
 
     # Panel-family decomposer reused by the Fable reference parser.
     from dra.llm.bedrock import BedrockChat
