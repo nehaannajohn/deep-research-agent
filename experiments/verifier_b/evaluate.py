@@ -46,12 +46,18 @@ def _eval_transfer(verifier):
     rows = [TransferExample(**json.loads(l)) for l in open(DATA / "transfer.jsonl")]
     y_true, y_pred, p_sup, outcomes = [], [], [], []
     for ex in rows:
-        r = verifier.verify(ex.claim, ex.passages)
+        texts = [p.text for p in ex.passages if (p.text or "").strip()]
+        # supported-detector calibration needs max_sup, NOT VerifierResult.confidence
+        # (now the predicted-label probability). aggregate() exposes it directly.
+        if texts:
+            label, _, _, max_sup, _, _ = verifier.aggregate(ex.claim, texts)
+        else:
+            label, max_sup = "insufficient", 0.0
         # 3-way for F1: contested folds back to nei for the head comparison
-        pred = "nei" if r.label in ("insufficient", "contested") else r.label
+        pred = "nei" if label in ("insufficient", "contested") else label
         y_true.append(ex.label)
         y_pred.append(pred)
-        p_sup.append(r.confidence)
+        p_sup.append(max_sup)
         outcomes.append(1 if ex.label == "supported" else 0)
     return y_true, y_pred, p_sup, outcomes
 

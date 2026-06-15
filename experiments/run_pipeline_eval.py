@@ -110,12 +110,13 @@ def _make_run_query_verifier_only(cfg):  # pragma: no cover - live Bedrock/Exa
 
 
 def _load_platt(variant):  # pragma: no cover - trivial disk read
-    """Load a persisted Platt calibrator for a Verifier B variant.
+    """Load persisted PER-LABEL Platt calibrators for a Verifier B variant.
 
-    Returns None (→ UNCALIBRATED) if the file is absent, but LOUDLY warns: the
-    `verifier_b_*` arms are meant to be the *calibrated* drop-in, so a silent
-    fallback to raw confidence would quietly invalidate the calibration story
-    (and make v0/v1 confidence identical). Fit it via `fit_calibrator.py` first."""
+    Returns a {label: PlattCalibrator} dict for `CrossEncoderVerifier(calibrators=)`,
+    or None (→ UNCALIBRATED) if the file is absent — LOUDLY warned, since the
+    `verifier_b_*` arms are meant to be the *calibrated* drop-in. Reads both the
+    new per-label format ({"labels": {sup: {w,b}, ...}}) and the legacy single
+    supported-detector format ({w, b}), which maps to {"supported": .}."""
     import json
     from dra.eval.calibrate import PlattCalibrator
     path = f"eval/results/verifier_b/{variant}/platt.json"
@@ -124,9 +125,14 @@ def _load_platt(variant):  # pragma: no cover - trivial disk read
         return None
     with open(path, encoding="utf-8") as f:
         d = json.load(f)
-    cal = PlattCalibrator()
-    cal.w, cal.b = d["w"], d["b"]
-    return cal
+
+    def _mk(p):
+        c = PlattCalibrator()
+        c.w, c.b = p["w"], p["b"]
+        return c
+
+    by_label = d["labels"] if "labels" in d else {"supported": d}  # new vs legacy
+    return {label: _mk(p) for label, p in by_label.items()}
 
 
 _FROZEN_CANON_DIR = None  # set in main(): the canonical (corrected_verifier) report-cache dir to reuse claims+passages from
@@ -150,7 +156,7 @@ def _make_run_query_frozen_cross_encoder(cfg, variant):  # pragma: no cover - li
     from experiments.verifier_b.evaluate import _bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
-    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrator=_load_platt(variant))
+    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
     generator = BedrockChat(cfg.roles["generator"], region=cfg.region)
     diagram_model = cfg.roles.get("diagram") or cfg.roles["generator"]
     diagram_generator = LLMDiagramGenerator(BedrockChat(diagram_model, region=cfg.region))
@@ -198,7 +204,7 @@ def _make_run_query_with_cross_encoder(cfg, variant):  # pragma: no cover - live
     from experiments.verifier_b.evaluate import _bind_score_fn
 
     ckpt = f"eval/verifier_b_models/{variant}/best"
-    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrator=_load_platt(variant))
+    verifier = CrossEncoderVerifier(score_fn=_bind_score_fn(ckpt), calibrators=_load_platt(variant))
     deps = dataclasses.replace(build_deps(cfg), verifier=verifier)
 
     def _run(query):

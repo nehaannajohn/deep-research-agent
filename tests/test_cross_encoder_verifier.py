@@ -4,10 +4,20 @@ from dra.schemas import Passage
 from dra.verify.cross_encoder import CrossEncoderVerifier
 
 
-def _verifier(scores_by_text, calibrator=None, margin=0.5):
+def _verifier(scores_by_text, calibrator=None, calibrators=None, margin=0.5):
     def score_fn(claim, passage):
         return scores_by_text[passage]
-    return CrossEncoderVerifier(score_fn=score_fn, calibrator=calibrator, margin=margin)
+    return CrossEncoderVerifier(score_fn=score_fn, calibrator=calibrator,
+                                calibrators=calibrators, margin=margin)
+
+
+class _ConstCal:
+    """Calibrator stub returning a fixed value, to prove the right one fired."""
+    def __init__(self, val):
+        self.val = val
+
+    def apply(self, p):
+        return self.val
 
 
 def test_max_aggregation_supported_when_one_strong_passage():
@@ -95,9 +105,60 @@ def test_all_nei_is_insufficient():
     assert r.label == "insufficient"
 
 
-def test_confidence_pinned_to_support_prob_even_when_refuted():
-    # contract: confidence is max p_supported across passages, regardless of label
+def test_confidence_is_predicted_label_prob_refuted():
+    # NEW contract: confidence is the probability OF THE PREDICTED LABEL. For a
+    # refuted claim that is max p_refuted (the verifier is confident it's wrong),
+    # NOT max p_supported.
     v = _verifier({"x": {"supported": 0.18, "refuted": 0.80, "nei": 0.02}})
     r = v.verify("c", [Passage(source_id="0", text="x")])
     assert r.label == "refuted"
-    assert abs(r.confidence - 0.18) < 1e-9
+    assert abs(r.confidence - 0.80) < 1e-9
+
+
+def test_confidence_is_predicted_label_prob_insufficient():
+    # insufficient -> confidence is the (max) nei probability across passages
+    v = _verifier({
+        "a": {"supported": 0.2, "refuted": 0.1, "nei": 0.7},
+        "b": {"supported": 0.3, "refuted": 0.2, "nei": 0.88},
+    })
+    r = v.verify("c", [Passage(source_id="0", text="a"), Passage(source_id="1", text="b")])
+    assert r.label == "insufficient"
+    assert abs(r.confidence - 0.88) < 1e-9
+
+
+def test_confidence_contested_is_two_sided_min():
+    # contested -> min(max p_supported, max p_refuted): high only when BOTH sides
+    # are strongly evidenced; a weak side pulls confidence down (triggers retrieval).
+    v = _verifier({
+        "a": {"supported": 0.80, "refuted": 0.1, "nei": 0.1},
+        "b": {"supported": 0.1, "refuted": 0.62, "nei": 0.28},
+    })
+    r = v.verify("c", [Passage(source_id="0", text="a"), Passage(source_id="1", text="b")])
+    assert r.label == "contested"
+    assert abs(r.confidence - 0.62) < 1e-9  # min(0.80, 0.62)
+
+
+def test_per_label_calibrator_selected_by_predicted_label():
+    # the refuted calibrator fires for a refuted claim; supported's is ignored.
+    cals = {"supported": _ConstCal(0.99), "refuted": _ConstCal(0.33)}
+    v = _verifier({"x": {"supported": 0.18, "refuted": 0.80, "nei": 0.02}}, calibrators=cals)
+    r = v.verify("c", [Passage(source_id="0", text="x")])
+    assert r.label == "refuted"
+    assert r.confidence == 0.33
+
+
+def test_missing_label_calibrator_falls_back_to_raw():
+    # only a supported calibrator provided; a refuted claim uses raw p_refuted.
+    v = _verifier({"x": {"supported": 0.18, "refuted": 0.80, "nei": 0.02}},
+                  calibrators={"supported": _ConstCal(0.99)})
+    r = v.verify("c", [Passage(source_id="0", text="x")])
+    assert r.label == "refuted"
+    assert abs(r.confidence - 0.80) < 1e-9
+
+
+def test_legacy_single_calibrator_maps_to_supported():
+    # back-compat: a bare `calibrator=` is a supported-vs-rest detector.
+    v = _verifier({"p": {"supported": 0.9, "refuted": 0.05, "nei": 0.05}},
+                  calibrator=_ConstCal(0.5))
+    r = v.verify("c", [Passage(source_id="s", text="p")])
+    assert r.label == "supported" and r.confidence == 0.5

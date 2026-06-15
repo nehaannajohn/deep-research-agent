@@ -66,18 +66,26 @@ def run(variant: str) -> dict:
     from experiments.verifier_b.evaluate import _bind_score_fn  # lazy (torch)
 
     score_fn = _bind_score_fn(str(MODELS / variant / "best"))
-    verifier = CrossEncoderVerifier(score_fn=score_fn)  # calibrator=None -> conf is raw max_sup
+    verifier = CrossEncoderVerifier(score_fn=score_fn)
     examples = list(load_fever(seed=13)) + list(load_scifact(seed=13))
 
     preds, golds, psup, lat = [], [], [], []
     for ex in examples:
+        texts = [p.text for p in ex.passages if (p.text or "").strip()]
         t0 = time.perf_counter()
-        r = verifier.verify(ex.claim, ex.passages)
+        # aggregate() exposes the per-class maxes directly. We need max_sup
+        # SPECIFICALLY (the supported-detector score summarize() calibrates on),
+        # NOT VerifierResult.confidence — that is now the *predicted label's*
+        # probability, which differs from max_sup for refuted/insufficient claims.
+        if texts:
+            label, _, _, max_sup, _, _ = verifier.aggregate(ex.claim, texts)
+        else:
+            label, max_sup = "insufficient", 0.0
         lat.append((time.perf_counter() - t0) * 1000.0)
         # collapse the 4-label verifier output to FEVER/SciFact 3-way
-        preds.append("insufficient" if r.label in ("insufficient", "contested") else r.label)
+        preds.append("insufficient" if label in ("insufficient", "contested") else label)
         golds.append(ex.gold_label)
-        psup.append(float(r.confidence))  # raw max p_supported (calibrator=None)
+        psup.append(float(max_sup))  # raw max p_supported (supported-detector score)
 
     s = summarize(preds, golds, psup)
     lat_sorted = sorted(lat)
