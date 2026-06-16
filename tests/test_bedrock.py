@@ -33,6 +33,28 @@ def test_extract_json_handles_fences_and_prose():
     assert _extract_json("```\n[1, 2, 3]\n```") == [1, 2, 3]
 
 
+def test_extract_json_returns_first_of_multiple_objects():
+    """Some models ramble and emit two JSON objects with prose between them; we must take
+    the first valid one, not a greedy first-brace-to-last-brace span (which is invalid)."""
+    from dra.llm.bedrock import _extract_json
+    rambling = ('{"subquestions": ["q one", "q two"]}\n\n'
+                'Actually, decomposition is not possible here. A better response:\n\n'
+                '{"subquestions": ["single q"]}')
+    assert _extract_json(rambling) == {"subquestions": ["q one", "q two"]}
+
+
+def test_extract_json_array_with_object_elements_not_truncated_to_first_object():
+    """A prose-wrapped top-level array of objects must return the whole array, not its
+    first element object (outermost span wins by earliest start position)."""
+    from dra.llm.bedrock import _extract_json
+    assert _extract_json('Result: [{"a": 1}, {"b": 2}] done') == [{"a": 1}, {"b": 2}]
+
+
+def test_extract_json_ignores_braces_inside_strings():
+    from dra.llm.bedrock import _extract_json
+    assert _extract_json('{"text": "a } brace { in a string"}') == {"text": "a } brace { in a string"}
+
+
 def test_complete_skips_reasoning_block():
     class ReasoningClient:
         def converse(self, **kwargs):

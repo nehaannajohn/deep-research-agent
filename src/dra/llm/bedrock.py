@@ -9,8 +9,40 @@ import re
 from typing import Optional
 
 
+def _balanced_spans(t: str, open_ch: str, close_ch: str):
+    """Yield (start, substring) for every balanced `open_ch..close_ch` span in `t`,
+    honoring string literals (so braces inside quotes don't affect depth)."""
+    i, n = 0, len(t)
+    while i < n:
+        if t[i] == open_ch:
+            depth = 0
+            in_str = esc = False
+            for j in range(i, n):
+                ch = t[j]
+                if in_str:
+                    if esc:
+                        esc = False
+                    elif ch == "\\":
+                        esc = True
+                    elif ch == '"':
+                        in_str = False
+                elif ch == '"':
+                    in_str = True
+                elif ch == open_ch:
+                    depth += 1
+                elif ch == close_ch:
+                    depth -= 1
+                    if depth == 0:
+                        yield i, t[i:j + 1]
+                        break
+        i += 1
+
+
 def _extract_json(text: str):
-    """Parse JSON from a model response that may wrap it in ```fences``` or prose."""
+    """Parse JSON from a model response that may wrap it in ```fences```, prose, or emit
+    several JSON values (some models ramble and produce more than one). Returns the FIRST
+    balanced, parseable JSON value (outermost-first) — never a greedy first-brace-to-last-
+    brace span, which would swallow multiple objects + the prose between them."""
     t = (text or "").strip()
     try:
         return json.loads(t)
@@ -22,13 +54,12 @@ def _extract_json(text: str):
             return json.loads(fence.group(1).strip())
         except json.JSONDecodeError:
             pass
-    for open_ch, close_ch in (("{", "}"), ("[", "]")):
-        i, j = t.find(open_ch), t.rfind(close_ch)
-        if 0 <= i < j:
-            try:
-                return json.loads(t[i:j + 1])
-            except json.JSONDecodeError:
-                continue
+    candidates = [c for ch in (("{", "}"), ("[", "]")) for c in _balanced_spans(t, *ch)]
+    for _start, span in sorted(candidates, key=lambda c: c[0]):  # earliest (outermost) first
+        try:
+            return json.loads(span)
+        except json.JSONDecodeError:
+            continue
     raise ValueError(f"No JSON found in model output: {t[:200]!r}")
 
 
