@@ -83,6 +83,24 @@ Run the unit-test suite (no network/GPU): `pytest`
 
 ---
 
+## DRA-Bench
+
+**DRA-Bench is our contribution** — a benchmark of **250 prompts in 5 question types (×50)**
+that grades *epistemic behavior*: should the agent answer confidently, cover both sides,
+flag a genuine disagreement, or admit it cannot tell? Each prompt carries a gold
+**`expected_behavior`** label — exactly what existing research-agent benchmarks do **not**
+measure. The dataset is tracked at [`eval/dra_bench/`](eval/dra_bench/).
+
+| Type | Right behavior | What it tests | Example question |
+|---|---|---|---|
+| 1 · technical | answer confidently | answer clearly when the science is settled | "How does self-attention work in transformer models?" |
+| 2 · pros & cons | cover both sides | a balanced view of a two-sided question | "Pros and cons of microservices vs a monolith?" |
+| 3 · contradictory | flag the conflict | surface genuine disagreement between good sources | "Does moderate alcohol help the heart, or does any amount raise mortality?" |
+| 4 · unanswerable | admit it cannot tell | say so honestly instead of making something up | "What is the best programming language?" |
+| 5 · needs a visual | answer + use the format | answer and honor a table/diagram request | "Compare AWS / Azure / GCP in a table." |
+
+---
+
 ## Results
 
 ### Layer 1 — a small trained verifier matches the 3-model panel, ~130× faster
