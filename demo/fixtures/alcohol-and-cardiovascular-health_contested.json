@@ -1,0 +1,315 @@
+{
+  "slug": "alcohol-and-cardiovascular-health_contested",
+  "type": 3,
+  "type_label": "contradictory · flag the conflict",
+  "query": "Does moderate alcohol consumption provide cardiovascular health benefits or does any amount of alcohol increase mortality risk?",
+  "plan": {
+    "resolved_brief": "Determine whether moderate alcohol consumption confers cardiovascular benefit or whether any amount raises mortality risk — surfacing the disagreement between credible sources rather than forcing a single answer.",
+    "constraints": {
+      "wants_visual": false,
+      "format": "prose",
+      "focus": "contested benefit-vs-mortality evidence"
+    },
+    "subquestions": [
+      {
+        "text": "Does moderate alcohol consumption provide cardiovascular health benefits?",
+        "route": "academic"
+      },
+      {
+        "text": "Does any amount of alcohol consumption increase mortality risk?",
+        "route": "academic"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "ref": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001341",
+      "title": "Alcohol Use and Cardiovascular Disease: A Scientific Statement From the American Heart Association | Circulation",
+      "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001341",
+      "domain": "www.ahajournals.org"
+    },
+    {
+      "ref": "https://www.ncbi.nlm.nih.gov/books/NBK614695/",
+      "title": "Cardiovascular Disease - Review of Evidence on Alcohol and Health - NCBI Bookshelf",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK614695/",
+      "domain": "www.ncbi.nlm.nih.gov"
+    },
+    {
+      "ref": "https://www.hopkinsmedicine.org/health/wellness-and-prevention/alcohol-and-heart-health-separating-fact-from-fiction",
+      "title": "Alcohol and Heart Health: Separating Fact from Fiction | Johns Hopkins Medicine",
+      "url": "https://www.hopkinsmedicine.org/health/wellness-and-prevention/alcohol-and-heart-health-separating-fact-from-fiction",
+      "domain": "www.hopkinsmedicine.org"
+    },
+    {
+      "ref": "https://www.nature.com/articles/s44360-026-00139-5",
+      "title": "Health effects associated with alcohol consumption: a Burden of Proof study | Nature Health",
+      "url": "https://www.nature.com/articles/s44360-026-00139-5",
+      "domain": "www.nature.com"
+    },
+    {
+      "ref": "https://www.bmj.com/content/342/bmj.d671",
+      "title": "Association of alcohol consumption with selected cardiovascular disease outcomes: a systematic review and meta-analysis | The BMJ",
+      "url": "https://www.bmj.com/content/342/bmj.d671",
+      "domain": "www.bmj.com"
+    },
+    {
+      "ref": "https://www.samhsa.gov/sites/default/files/2025-draft-public-comment-alcohol-intake-health-study.pdf",
+      "title": "Draft Report: Scientific Findings of the Alcohol Intake & Health Study for Public Comment",
+      "url": "https://www.samhsa.gov/sites/default/files/2025-draft-public-comment-alcohol-intake-health-study.pdf",
+      "domain": "www.samhsa.gov"
+    },
+    {
+      "ref": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2802963",
+      "title": "Association Between Daily Alcohol Intake and Risk of All-Cause Mortality: A Systematic Review and Meta-analyses | Substance Use and Addiction Medicine | JAMA Network Open | JAMA Network",
+      "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2802963",
+      "domain": "jamanetwork.com"
+    },
+    {
+      "ref": "https://onlinelibrary.wiley.com/doi/10.1111/add.16446",
+      "title": "The association between alcohol consumption and all‐cause mortality: An umbrella review of systematic reviews using lifetime abstainers or low‐volume drinkers as a reference group - Sarich - 2024 - Addiction - Wiley Online Library",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/add.16446",
+      "domain": "onlinelibrary.wiley.com"
+    },
+    {
+      "ref": "https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/alcohol/art-20044551",
+      "title": "Alcohol use: Weighing risks and benefits - Mayo Clinic",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/alcohol/art-20044551",
+      "domain": "www.mayoclinic.org"
+    },
+    {
+      "ref": "https://academic.oup.com/ije/article/53/2/dyae046/7632292",
+      "title": "Alcohol consumption and the risk of all-cause and cause-specific mortality—a linear and nonlinear Mendelian randomization study",
+      "url": "https://academic.oup.com/ije/article/53/2/dyae046/7632292",
+      "domain": "academic.oup.com"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c0",
+      "text": "Moderate alcohol consumption is associated with a lower risk of cardiovascular disease (CVD) mortality in both females and males.",
+      "verdict": "contested",
+      "confidence": 0.87,
+      "citations": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK614695/"
+      ]
+    },
+    {
+      "id": "c1",
+      "text": "Moderate alcohol consumption is associated with a lower risk of myocardial infarction (MI), total stroke, and CVD mortality.",
+      "verdict": "contested",
+      "confidence": 0.86,
+      "citations": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK614695/"
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "Some studies have shown an association between moderate alcohol intake and a lower risk of dying from heart disease.",
+      "verdict": "contested",
+      "confidence": 0.85,
+      "citations": [
+        "https://www.hopkinsmedicine.org/health/wellness-and-prevention/alcohol-and-heart-health-separating-fact-from-fiction"
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "Moderate amounts of alcohol might help to slightly raise levels of 'good' HDL cholesterol.",
+      "verdict": "supported",
+      "confidence": 0.87,
+      "citations": [
+        "https://www.hopkinsmedicine.org/health/wellness-and-prevention/alcohol-and-heart-health-separating-fact-from-fiction"
+      ]
+    },
+    {
+      "id": "c4",
+      "text": "Light to moderate alcohol consumption is associated with a reduced risk of multiple cardiovascular outcomes.",
+      "verdict": "contested",
+      "confidence": 0.88,
+      "citations": [
+        "https://www.bmj.com/content/342/bmj.d671"
+      ]
+    },
+    {
+      "id": "c5",
+      "text": "Alcohol consumption at 2.5–14.9 g/day (about ≤1 drink a day) was consistently associated with a 14–25% reduction in the risk of all outcomes assessed compared with abstaining from alcohol.",
+      "verdict": "contested",
+      "confidence": 0.8,
+      "citations": [
+        "https://www.bmj.com/content/342/bmj.d671"
+      ]
+    },
+    {
+      "id": "c6",
+      "text": "Low-to-moderate consumption (generally up to two standard drinks or 20 g of pure alcohol per day) has been associated with reduced risk of cardiovascular disease.",
+      "verdict": "contested",
+      "confidence": 0.84,
+      "citations": [
+        "https://www.nature.com/articles/s44360-026-00139-5"
+      ]
+    },
+    {
+      "id": "c7",
+      "text": "Any amount of alcohol consumption increases mortality risk, with a significant negative impact on the health of individuals 15 to 39 years of age.",
+      "verdict": "contested",
+      "confidence": 0.64,
+      "citations": [
+        "https://www.samhsa.gov/sites/default/files/2025-draft-public-comment-alcohol-intake-health-study.pdf"
+      ]
+    },
+    {
+      "id": "c8",
+      "text": "There is no significant net benefit of alcohol consumption on all-cause mortality at any age.",
+      "verdict": "contested",
+      "confidence": 0.7,
+      "citations": [
+        "https://www.samhsa.gov/sites/default/files/2025-draft-public-comment-alcohol-intake-health-study.pdf"
+      ]
+    },
+    {
+      "id": "c9",
+      "text": "Drinking alcohol in any amount carries a health risk.",
+      "verdict": "supported",
+      "confidence": 0.8,
+      "citations": [
+        "https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/alcohol/art-20044551"
+      ]
+    },
+    {
+      "id": "c10",
+      "text": "Any amount of drinking increases the risk of certain cancers, such as breast cancer and colorectal cancer.",
+      "verdict": "supported",
+      "confidence": 0.87,
+      "citations": [
+        "https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/alcohol/art-20044551"
+      ]
+    },
+    {
+      "id": "c11",
+      "text": "Genetic evidence suggests a linear increase in the risk of premature death with increasing alcohol consumption, with no evidence for any protection by modest intakes.",
+      "verdict": "contested",
+      "confidence": 0.88,
+      "citations": [
+        "https://academic.oup.com/ije/article/53/2/dyae046/7632292"
+      ]
+    },
+    {
+      "id": "c12",
+      "text": "Higher levels of genetically predicted alcohol consumption had a strong linear association with an increased risk of premature mortality.",
+      "verdict": "supported",
+      "confidence": 0.88,
+      "citations": [
+        "https://academic.oup.com/ije/article/53/2/dyae046/7632292"
+      ]
+    },
+    {
+      "id": "c13",
+      "text": "One review at low risk of bias reported monotonically increased risk with greater consumption.",
+      "verdict": "contested",
+      "confidence": 0.87,
+      "citations": [
+        "https://onlinelibrary.wiley.com/doi/10.1111/add.16446"
+      ]
+    },
+    {
+      "id": "c14",
+      "text": "In a fully adjusted model, the relative risk estimates for low-volume drinkers compared with abstainers became nonsignificant.",
+      "verdict": "contested",
+      "confidence": 0.8,
+      "citations": [
+        "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2802963"
+      ]
+    }
+  ],
+  "contradictions": [
+    [
+      "c0",
+      "c7"
+    ],
+    [
+      "c0",
+      "c11"
+    ],
+    [
+      "c0",
+      "c13"
+    ],
+    [
+      "c1",
+      "c7"
+    ],
+    [
+      "c1",
+      "c11"
+    ],
+    [
+      "c1",
+      "c13"
+    ],
+    [
+      "c2",
+      "c7"
+    ],
+    [
+      "c4",
+      "c13"
+    ],
+    [
+      "c5",
+      "c7"
+    ],
+    [
+      "c5",
+      "c8"
+    ],
+    [
+      "c5",
+      "c11"
+    ],
+    [
+      "c5",
+      "c13"
+    ],
+    [
+      "c5",
+      "c14"
+    ],
+    [
+      "c6",
+      "c13"
+    ],
+    [
+      "c7",
+      "c14"
+    ]
+  ],
+  "disclaimers": [
+    "11 finding(s) are contested — sources disagree; both sides are shown.",
+    "Findings [c0] and [c7] contradict each other; both sides are shown.",
+    "Findings [c0] and [c11] contradict each other; both sides are shown.",
+    "Findings [c0] and [c13] contradict each other; both sides are shown.",
+    "Findings [c1] and [c7] contradict each other; both sides are shown.",
+    "Findings [c1] and [c11] contradict each other; both sides are shown.",
+    "Findings [c1] and [c13] contradict each other; both sides are shown.",
+    "Findings [c2] and [c7] contradict each other; both sides are shown.",
+    "Findings [c4] and [c13] contradict each other; both sides are shown.",
+    "Findings [c5] and [c7] contradict each other; both sides are shown.",
+    "Findings [c5] and [c8] contradict each other; both sides are shown.",
+    "Findings [c5] and [c11] contradict each other; both sides are shown.",
+    "Findings [c5] and [c13] contradict each other; both sides are shown.",
+    "Findings [c5] and [c14] contradict each other; both sides are shown.",
+    "Findings [c6] and [c13] contradict each other; both sides are shown.",
+    "Findings [c7] and [c14] contradict each other; both sides are shown."
+  ],
+  "metadata": {
+    "overall_confidence": 0.827,
+    "coverage": 1.0,
+    "breakdown": {
+      "supported": 4,
+      "contested": 11
+    }
+  },
+  "narrative": "\n## Summary\nThe relationship between alcohol consumption and cardiovascular health is complex, with conflicting evidence on whether moderate drinking provides health benefits or increases mortality risk.\n\n## Cardiovascular Health Benefits\nSeveral studies suggest that moderate alcohol consumption is associated with a lower risk of cardiovascular disease (CVD) mortality [c0][c1][c2][c4][c5][c6]. Moderate drinking may help raise levels of 'good' HDL cholesterol [c3]. Specifically, alcohol consumption at 2.5–14.9 g/day was associated with a 14–25% reduction in the risk of all outcomes assessed compared with abstaining from alcohol [c5].\n\n## Contrasting Views on Mortality Risk\nHowever, there are conflicting findings on the impact of alcohol consumption on mortality risk. One source indicates that moderate alcohol consumption is associated with a lower risk of CVD mortality [c0], while others suggest that any amount of alcohol consumption increases mortality risk [c7], with genetic evidence supporting a linear increase in the risk of premature death with increasing alcohol consumption [c11][c13]. Similarly, another study found an association between moderate alcohol consumption and lower risk of MI, total stroke, and CVD mortality [c1], which is contradicted by the findings that any amount of alcohol consumption increases mortality risk [c7][c11][c13].\n\n## Reconciling the Evidence\nThe contested findings can be summarized as follows:\n- One source indicates that moderate alcohol consumption is associated with a lower risk of CVD mortality [c0], while others indicate that any amount of alcohol consumption increases mortality risk [c7][c11][c13].\n- Moderate alcohol consumption is associated with a lower risk of MI, total stroke, and CVD mortality [c1], while others suggest that any amount of alcohol consumption increases mortality risk [c7][c11][c13].\n- Some studies show an association between moderate alcohol intake and a lower risk of dying from heart disease [c2], which is disputed by the claim that any amount of alcohol consumption increases mortality risk [c7].\n- Light to moderate alcohol consumption is associated with a reduced risk of multiple cardiovascular outcomes [c4][c6], but one review reported monotonically increased risk with greater consumption [c13].\n- Alcohol consumption at low levels was associated with a reduced risk of all outcomes assessed [c5], but this is contradicted by the findings that any amount of alcohol consumption increases mortality risk [c7][c11][c13] and that there is no significant net benefit of alcohol consumption on all-cause mortality at any age [c8].\n- Low-volume drinkers had nonsignificant relative risk estimates compared with abstainers in a fully adjusted model [c14], which contrasts with the claim that any amount of alcohol consumption increases mortality risk [c7].\n\n## Conclusion\nThe evidence is mixed, and it is unclear whether moderate alcohol consumption provides cardiovascular health benefits or increases mortality risk. While some studies suggest that moderate drinking is associated with a lower risk of CVD mortality, others indicate that any amount of alcohol consumption increases mortality risk.",
+  "report_markdown": "# Research Report\n**Query:** Does moderate alcohol consumption provide cardiovascular health benefits or does any amount of alcohol increase mortality risk?\n\n## Summary\nThe relationship between alcohol consumption and cardiovascular health is complex, with conflicting evidence on whether moderate drinking provides health benefits or increases mortality risk.\n\n## Cardiovascular Health Benefits\nSeveral studies suggest that moderate alcohol consumption is associated with a lower risk of cardiovascular disease (CVD) mortality [c0][c1][c2][c4][c5][c6]. Moderate drinking may help raise levels of 'good' HDL cholesterol [c3]. Specifically, alcohol consumption at 2.5–14.9 g/day was associated with a 14–25% reduction in the risk of all outcomes assessed compared with abstaining from alcohol [c5].\n\n## Contrasting Views on Mortality Risk\nHowever, there are conflicting findings on the impact of alcohol consumption on mortality risk. One source indicates that moderate alcohol consumption is associated with a lower risk of CVD mortality [c0], while others suggest that any amount of alcohol consumption increases mortality risk [c7], with genetic evidence supporting a linear increase in the risk of premature death with increasing alcohol consumption [c11][c13]. Similarly, another study found an association between moderate alcohol consumption and lower risk of MI, total stroke, and CVD mortality [c1], which is contradicted by the findings that any amount of alcohol consumption increases mortality risk [c7][c11][c13].\n\n## Reconciling the Evidence\nThe contested findings can be summarized as follows:\n- One source indicates that moderate alcohol consumption is associated with a lower risk of CVD mortality [c0], while others indicate that any amount of alcohol consumption increases mortality risk [c7][c11][c13].\n- Moderate alcohol consumption is associated with a lower risk of MI, total stroke, and CVD mortality [c1], while others suggest that any amount of alcohol consumption increases mortality risk [c7][c11][c13].\n- Some studies show an association between moderate alcohol intake and a lower risk of dying from heart disease [c2], which is disputed by the claim that any amount of alcohol consumption increases mortality risk [c7].\n- Light to moderate alcohol consumption is associated with a reduced risk of multiple cardiovascular outcomes [c4][c6], but one review reported monotonically increased risk with greater consumption [c13].\n- Alcohol consumption at low levels was associated with a reduced risk of all outcomes assessed [c5], but this is contradicted by the findings that any amount of alcohol consumption increases mortality risk [c7][c11][c13] and that there is no significant net benefit of alcohol consumption on all-cause mortality at any age [c8].\n- Low-volume drinkers had nonsignificant relative risk estimates compared with abstainers in a fully adjusted model [c14], which contrasts with the claim that any amount of alcohol consumption increases mortality risk [c7].\n\n## Conclusion\nThe evidence is mixed, and it is unclear whether moderate alcohol consumption provides cardiovascular health benefits or increases mortality risk. While some studies suggest that moderate drinking is associated with a lower risk of CVD mortality, others indicate that any amount of alcohol consumption increases mortality risk.\n\n---\n\n## Detailed Citation Results\n| # | Claim | Verdict | Conf | Sources |\n|---|---|---|---|---|\n| c0 | Moderate alcohol consumption is associated with a lower risk of cardiovascular disease (CVD) mortality in both females and males. | contested | 0.87 | https://www.ncbi.nlm.nih.gov/books/NBK614695/ |\n| c1 | Moderate alcohol consumption is associated with a lower risk of myocardial infarction (MI), total stroke, and CVD mortality. | contested | 0.86 | https://www.ncbi.nlm.nih.gov/books/NBK614695/ |\n| c2 | Some studies have shown an association between moderate alcohol intake and a lower risk of dying from heart disease. | contested | 0.85 | https://www.hopkinsmedicine.org/health/wellness-and-prevention/alcohol-and-heart-health-separating-fact-from-fiction |\n| c3 | Moderate amounts of alcohol might help to slightly raise levels of 'good' HDL cholesterol. | supported | 0.87 | https://www.hopkinsmedicine.org/health/wellness-and-prevention/alcohol-and-heart-health-separating-fact-from-fiction |\n| c4 | Light to moderate alcohol consumption is associated with a reduced risk of multiple cardiovascular outcomes. | contested | 0.88 | https://www.bmj.com/content/342/bmj.d671 |\n| c5 | Alcohol consumption at 2.5–14.9 g/day (about ≤1 drink a day) was consistently associated with a 14–25% reduction in the risk of all outcomes assessed compared with abstaining from alcohol. | contested | 0.80 | https://www.bmj.com/content/342/bmj.d671 |\n| c6 | Low-to-moderate consumption (generally up to two standard drinks or 20 g of pure alcohol per day) has been associated with reduced risk of cardiovascular disease. | contested | 0.84 | https://www.nature.com/articles/s44360-026-00139-5 |\n| c7 | Any amount of alcohol consumption increases mortality risk, with a significant negative impact on the health of individuals 15 to 39 years of age. | contested | 0.64 | https://www.samhsa.gov/sites/default/files/2025-draft-public-comment-alcohol-intake-health-study.pdf |\n| c8 | There is no significant net benefit of alcohol consumption on all-cause mortality at any age. | contested | 0.70 | https://www.samhsa.gov/sites/default/files/2025-draft-public-comment-alcohol-intake-health-study.pdf |\n| c9 | Drinking alcohol in any amount carries a health risk. | supported | 0.80 | https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/alcohol/art-20044551 |\n| c10 | Any amount of drinking increases the risk of certain cancers, such as breast cancer and colorectal cancer. | supported | 0.87 | https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/alcohol/art-20044551 |\n| c11 | Genetic evidence suggests a linear increase in the risk of premature death with increasing alcohol consumption, with no evidence for any protection by modest intakes. | contested | 0.88 | https://academic.oup.com/ije/article/53/2/dyae046/7632292 |\n| c12 | Higher levels of genetically predicted alcohol consumption had a strong linear association with an increased risk of premature mortality. | supported | 0.88 | https://academic.oup.com/ije/article/53/2/dyae046/7632292 |\n| c13 | One review at low risk of bias reported monotonically increased risk with greater consumption. | contested | 0.87 | https://onlinelibrary.wiley.com/doi/10.1111/add.16446 |\n| c14 | In a fully adjusted model, the relative risk estimates for low-volume drinkers compared with abstainers became nonsignificant. | contested | 0.80 | https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2802963 |\n\n## Confidence & Coverage\n- Overall confidence: 0.827   ·   Coverage: 1.0\n- Breakdown: supported 4 · contested 11\n\n## Disclaimers\n- 11 finding(s) are contested — sources disagree; both sides are shown.\n- Findings [c0] and [c7] contradict each other; both sides are shown.\n- Findings [c0] and [c11] contradict each other; both sides are shown.\n- Findings [c0] and [c13] contradict each other; both sides are shown.\n- Findings [c1] and [c7] contradict each other; both sides are shown.\n- Findings [c1] and [c11] contradict each other; both sides are shown.\n- Findings [c1] and [c13] contradict each other; both sides are shown.\n- Findings [c2] and [c7] contradict each other; both sides are shown.\n- Findings [c4] and [c13] contradict each other; both sides are shown.\n- Findings [c5] and [c7] contradict each other; both sides are shown.\n- Findings [c5] and [c8] contradict each other; both sides are shown.\n- Findings [c5] and [c11] contradict each other; both sides are shown.\n- Findings [c5] and [c13] contradict each other; both sides are shown.\n- Findings [c5] and [c14] contradict each other; both sides are shown.\n- Findings [c6] and [c13] contradict each other; both sides are shown.\n- Findings [c7] and [c14] contradict each other; both sides are shown.\n\n## Sources\n- [https://www.ahajournals.org/doi/10.1161/CIR.0000000000001341] Alcohol Use and Cardiovascular Disease: A Scientific Statement From the American Heart Association | Circulation\n- [https://www.ncbi.nlm.nih.gov/books/NBK614695/] Cardiovascular Disease - Review of Evidence on Alcohol and Health - NCBI Bookshelf\n- [https://www.hopkinsmedicine.org/health/wellness-and-prevention/alcohol-and-heart-health-separating-fact-from-fiction] Alcohol and Heart Health: Separating Fact from Fiction | Johns Hopkins Medicine\n- [https://www.nature.com/articles/s44360-026-00139-5] Health effects associated with alcohol consumption: a Burden of Proof study | Nature Health\n- [https://www.bmj.com/content/342/bmj.d671] Association of alcohol consumption with selected cardiovascular disease outcomes: a systematic review and meta-analysis | The BMJ\n- [https://www.samhsa.gov/sites/default/files/2025-draft-public-comment-alcohol-intake-health-study.pdf] Draft Report: Scientific Findings of the Alcohol Intake & Health Study for Public Comment\n- [https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2802963] Association Between Daily Alcohol Intake and Risk of All-Cause Mortality: A Systematic Review and Meta-analyses | Substance Use and Addiction Medicine | JAMA Network Open | JAMA Network\n- [https://onlinelibrary.wiley.com/doi/10.1111/add.16446] The association between alcohol consumption and all‐cause mortality: An umbrella review of systematic reviews using lifetime abstainers or low‐volume drinkers as a reference group - Sarich - 2024 - Addiction - Wiley Online Library\n- [https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/alcohol/art-20044551] Alcohol use: Weighing risks and benefits - Mayo Clinic\n- [https://academic.oup.com/ije/article/53/2/dyae046/7632292] Alcohol consumption and the risk of all-cause and cause-specific mortality—a linear and nonlinear Mendelian randomization study\n",
+  "mermaid": null,
+  "diagram_png": null
+}

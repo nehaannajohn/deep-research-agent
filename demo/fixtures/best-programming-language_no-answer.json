@@ -1,0 +1,406 @@
+{
+  "slug": "best-programming-language_no-answer",
+  "type": 4,
+  "type_label": "unanswerable · admit it cannot tell",
+  "query": "What is the best programming language?",
+  "plan": {
+    "resolved_brief": "Address 'what is the best programming language?' — a question with no single correct answer; report the evaluation criteria and task-dependence instead of inventing a winner.",
+    "constraints": {
+      "wants_visual": false,
+      "format": "prose",
+      "focus": "evaluation criteria + task-dependent suitability"
+    },
+    "subquestions": [
+      {
+        "text": "What are the most popular programming languages?",
+        "route": "web"
+      },
+      {
+        "text": "What criteria are used to evaluate programming languages?",
+        "route": "web"
+      },
+      {
+        "text": "Which languages are preferred for specific tasks (AI/ML, web, enterprise, infra)?",
+        "route": "web"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "ref": "https://www.tiobe.com/tiobe-index/",
+      "title": "TIOBE Index - TIOBE",
+      "url": "https://www.tiobe.com/tiobe-index/",
+      "domain": "www.tiobe.com"
+    },
+    {
+      "ref": "https://survey.stackoverflow.co/2025/technology",
+      "title": "Technology | 2025 Stack Overflow Developer Survey",
+      "url": "https://survey.stackoverflow.co/2025/technology",
+      "domain": "survey.stackoverflow.co"
+    },
+    {
+      "ref": "https://redmonk.com/sogrady/2026/04/14/language-rankings-1-26/",
+      "title": "The RedMonk Programming Language Rankings: January 2026 – tecosystems",
+      "url": "https://redmonk.com/sogrady/2026/04/14/language-rankings-1-26/",
+      "domain": "redmonk.com"
+    },
+    {
+      "ref": "https://www.opensourceforu.com/2026/04/revisiting-popular-programming-languages-the-2026-edition/",
+      "title": "Revisiting Popular Programming Languages: The 2026 Edition - Open Source For You",
+      "url": "https://www.opensourceforu.com/2026/04/revisiting-popular-programming-languages-the-2026-edition/",
+      "domain": "www.opensourceforu.com"
+    },
+    {
+      "ref": "https://nextage.com.br/blog/en/top-20-programming-languages/",
+      "title": "Top 20 Programming Languages 2026: Rankings, Trends, Salaries - Nextage Blog",
+      "url": "https://nextage.com.br/blog/en/top-20-programming-languages/",
+      "domain": "nextage.com.br"
+    },
+    {
+      "ref": "https://www.cs.gordon.edu/courses/cs323/lectures-2009/LanguageEvaluationCriteria.pdf",
+      "title": "Language Evaluation Criteria",
+      "url": "https://www.cs.gordon.edu/courses/cs323/lectures-2009/LanguageEvaluationCriteria.pdf",
+      "domain": "www.cs.gordon.edu"
+    },
+    {
+      "ref": "https://www.cs.kent.ac.uk/people/staff/dao7/publ/onwards-essay-orchard11.pdf",
+      "title": "The Four Rs of Programming Language Design",
+      "url": "https://www.cs.kent.ac.uk/people/staff/dao7/publ/onwards-essay-orchard11.pdf",
+      "domain": "www.cs.kent.ac.uk"
+    },
+    {
+      "ref": "http://archive.adaic.com/docs/reports/lawlis/content.htm",
+      "title": "Guidelines for Choosing a Computer Language: Support for the Visionary Organizations - 2nd Edition - Patricia Lawlis",
+      "url": "http://archive.adaic.com/docs/reports/lawlis/content.htm",
+      "domain": "archive.adaic.com"
+    },
+    {
+      "ref": "https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/",
+      "title": "Language Evaluation Criteria - GeeksforGeeks",
+      "url": "https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/",
+      "domain": "www.geeksforgeeks.org"
+    },
+    {
+      "ref": "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html",
+      "title": "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html",
+      "url": "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html",
+      "domain": "vedveethi.co.in"
+    },
+    {
+      "ref": "https://toolcluster.app/en/blog/programming-language-comparison-guide/",
+      "title": "The Complete Programming Language Comparison Guide [2026] — Use Cases, Features & How to Choose – ToolCluster Blog",
+      "url": "https://toolcluster.app/en/blog/programming-language-comparison-guide/",
+      "domain": "toolcluster.app"
+    },
+    {
+      "ref": "https://zendevy.com/en/architecture/programming-languages-comparison-2026/",
+      "title": "Programming Language Comparison 2026: Selection Guide — ZenDevy",
+      "url": "https://zendevy.com/en/architecture/programming-languages-comparison-2026/",
+      "domain": "zendevy.com"
+    },
+    {
+      "ref": "https://github.com/mame/ai-coding-lang-bench",
+      "title": "mame/ai-coding-lang-bench",
+      "url": "https://github.com/mame/ai-coding-lang-bench",
+      "domain": "github.com"
+    },
+    {
+      "ref": "https://www.infoq.com/news/2026/04/ai-coding-language-benchmark/",
+      "title": "Dynamic Languages Faster and Cheaper in 13-Language Claude Code Benchmark - InfoQ",
+      "url": "https://www.infoq.com/news/2026/04/ai-coding-language-benchmark/",
+      "domain": "www.infoq.com"
+    },
+    {
+      "ref": "https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/",
+      "title": "Python vs Go vs Rust 2026: When to Use Each Language",
+      "url": "https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/",
+      "domain": "bytepane.com"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c0",
+      "text": "The most popular programming languages are Python, C, C++, Java, C#, JavaScript, Visual Basic, SQL, R, and Delphi/Object Pascal.",
+      "verdict": "contested",
+      "confidence": 0.04,
+      "citations": [
+        "https://www.tiobe.com/tiobe-index/"
+      ]
+    },
+    {
+      "id": "c1",
+      "text": "JavaScript, HTML/CSS, SQL, Python, Bash/Shell, TypeScript, Java, C#, C++, and PowerShell are among the most popular programming languages.",
+      "verdict": "supported",
+      "confidence": 0.61,
+      "citations": [
+        "https://survey.stackoverflow.co/2025/technology"
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "JavaScript, Python, Java, PHP, C#, TypeScript, CSS, C++, Ruby, and C are among the top programming languages.",
+      "verdict": "insufficient",
+      "confidence": 0.15,
+      "citations": [
+        "https://redmonk.com/sogrady/2026/04/14/language-rankings-1-26/"
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "Rust and Swift are among the top 10 most popular programming languages based on aggregate rankings across independent measures.",
+      "verdict": "contested",
+      "confidence": 0.84,
+      "citations": [
+        "https://www.opensourceforu.com/2026/04/revisiting-popular-programming-languages-the-2026-edition/"
+      ]
+    },
+    {
+      "id": "c4",
+      "text": "Python, TypeScript, JavaScript, C, C++, Java, C#, Go, Rust, and R are among the 20 most relevant programming languages in 2026.",
+      "verdict": "supported",
+      "confidence": 0.75,
+      "citations": [
+        "https://nextage.com.br/blog/en/top-20-programming-languages/"
+      ]
+    },
+    {
+      "id": "c5",
+      "text": "The criteria for evaluating the best programming language include readability, writability, reliability, and cost.",
+      "verdict": "supported",
+      "confidence": 0.82,
+      "citations": [
+        "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html",
+        "https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/"
+      ]
+    },
+    {
+      "id": "c6",
+      "text": "Readability refers to how easy it is to read and understand code written in a particular language.",
+      "verdict": "supported",
+      "confidence": 0.84,
+      "citations": [
+        "https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/"
+      ]
+    },
+    {
+      "id": "c7",
+      "text": "Writability is the measure of how easily a language can be used to create programs for a chosen problem domain.",
+      "verdict": "supported",
+      "confidence": 0.84,
+      "citations": [
+        "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html"
+      ]
+    },
+    {
+      "id": "c8",
+      "text": "A program is said to be reliable if it performs to its specifications under all conditions.",
+      "verdict": "supported",
+      "confidence": 0.81,
+      "citations": [
+        "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html",
+        "https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/"
+      ]
+    },
+    {
+      "id": "c9",
+      "text": "The cost of a programming language is a function of many of its characteristics, including the cost of training programmers, writing programs, compiling programs, executing programs, language implementation system, poor reliability, and maintaining programs.",
+      "verdict": "supported",
+      "confidence": 0.82,
+      "citations": [
+        "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html"
+      ]
+    },
+    {
+      "id": "c10",
+      "text": "Criteria relating to ease of using a language, software engineering, and performance are important for evaluating a programming language.",
+      "verdict": "supported",
+      "confidence": 0.81,
+      "citations": [
+        "https://www.cs.gordon.edu/courses/cs323/lectures-2009/LanguageEvaluationCriteria.pdf"
+      ]
+    },
+    {
+      "id": "c11",
+      "text": "Well-definedness, including clear syntax and semantics, is a key criterion for evaluating a programming language.",
+      "verdict": "supported",
+      "confidence": 0.86,
+      "citations": [
+        "https://www.cs.gordon.edu/courses/cs323/lectures-2009/LanguageEvaluationCriteria.pdf"
+      ]
+    },
+    {
+      "id": "c12",
+      "text": "Other important criteria include simplicity, orthogonality, data types, syntax design, support for abstraction, and expressivity.",
+      "verdict": "supported",
+      "confidence": 0.87,
+      "citations": [
+        "https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html"
+      ]
+    },
+    {
+      "id": "c13",
+      "text": "For AI/ML tasks, Python is the first choice due to its library and community dominance.",
+      "verdict": "insufficient",
+      "confidence": 0.04,
+      "citations": [
+        "https://toolcluster.app/en/blog/programming-language-comparison-guide/"
+      ]
+    },
+    {
+      "id": "c14",
+      "text": "For web frontend development, TypeScript is preferred over JavaScript due to type safety ensuring large-scale maintainability.",
+      "verdict": "supported",
+      "confidence": 0.75,
+      "citations": [
+        "https://toolcluster.app/en/blog/programming-language-comparison-guide/"
+      ]
+    },
+    {
+      "id": "c15",
+      "text": "For high-performance web APIs, Go is the first choice, followed by Rust, due to their balance of execution speed and operational ease.",
+      "verdict": "insufficient",
+      "confidence": 0.05,
+      "citations": [
+        "https://toolcluster.app/en/blog/programming-language-comparison-guide/"
+      ]
+    },
+    {
+      "id": "c16",
+      "text": "For enterprise systems, Java is the first choice, followed by C#, due to their stability, track record, and talent availability.",
+      "verdict": "supported",
+      "confidence": 0.45,
+      "citations": [
+        "https://toolcluster.app/en/blog/programming-language-comparison-guide/"
+      ]
+    },
+    {
+      "id": "c17",
+      "text": "For game development, C# (with Unity) is the first choice, followed by Rust, due to Unity's market share and Rust's performance capabilities.",
+      "verdict": "insufficient",
+      "confidence": 0.13,
+      "citations": [
+        "https://toolcluster.app/en/blog/programming-language-comparison-guide/"
+      ]
+    },
+    {
+      "id": "c18",
+      "text": "For infrastructure/DevOps tasks, Go is the first choice, followed by Python, due to their single-binary deployment and concurrency features.",
+      "verdict": "contested",
+      "confidence": 0.25,
+      "citations": [
+        "https://toolcluster.app/en/blog/programming-language-comparison-guide/"
+      ]
+    },
+    {
+      "id": "c19",
+      "text": "For high-performance/low-level tasks, Rust is the first choice, followed by Go, due to Rust's memory safety and native performance.",
+      "verdict": "insufficient",
+      "confidence": 0.12,
+      "citations": [
+        "https://toolcluster.app/en/blog/programming-language-comparison-guide/"
+      ]
+    },
+    {
+      "id": "c20",
+      "text": "For AI/ML services, Python is the first choice, while Go and Rust are to be avoided due to ecosystem gaps.",
+      "verdict": "supported",
+      "confidence": 0.39,
+      "citations": [
+        "https://zendevy.com/en/architecture/programming-languages-comparison-2026/"
+      ]
+    },
+    {
+      "id": "c21",
+      "text": "For web SaaS backend development, TypeScript is the first choice, followed by Go, while C++ is considered overkill.",
+      "verdict": "insufficient",
+      "confidence": 0.32,
+      "citations": [
+        "https://zendevy.com/en/architecture/programming-languages-comparison-2026/"
+      ]
+    },
+    {
+      "id": "c22",
+      "text": "For cloud infrastructure tooling, Go is the first choice, followed by Rust, while Python is avoided due to performance concerns.",
+      "verdict": "contested",
+      "confidence": 0.72,
+      "citations": [
+        "https://zendevy.com/en/architecture/programming-languages-comparison-2026/"
+      ]
+    },
+    {
+      "id": "c23",
+      "text": "Ruby, Python, and JavaScript are the top performers for prototyping-scale tasks in terms of speed, cost, and stability when used with AI coding.",
+      "verdict": "supported",
+      "confidence": 0.75,
+      "citations": [
+        "https://github.com/mame/ai-coding-lang-bench",
+        "https://www.infoq.com/news/2026/04/ai-coding-language-benchmark/"
+      ]
+    },
+    {
+      "id": "c24",
+      "text": "Adding type checking to dynamic languages results in significant performance penalties, with mypy making Python 1.6 to 1.7 times slower and Steep making Ruby 2.0 to 3.2 times slower.",
+      "verdict": "supported",
+      "confidence": 0.87,
+      "citations": [
+        "https://www.infoq.com/news/2026/04/ai-coding-language-benchmark/"
+      ]
+    },
+    {
+      "id": "c25",
+      "text": "Python is used for ML/AI/data science, quick scripting, data analysis, scientific computing, and web prototyping due to its rich ecosystem.",
+      "verdict": "insufficient",
+      "confidence": 0.04,
+      "citations": [
+        "https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/"
+      ]
+    },
+    {
+      "id": "c26",
+      "text": "Go is used for backend services, microservices, CLI tools, network programming, and DevOps tools due to its fast compile and runtime performance.",
+      "verdict": "insufficient",
+      "confidence": 0.05,
+      "citations": [
+        "https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/"
+      ]
+    },
+    {
+      "id": "c27",
+      "text": "Rust is used for systems programming, performance-critical applications, memory-critical environments, and WebAssembly targets due to its memory safety and performance.",
+      "verdict": "insufficient",
+      "confidence": 0.04,
+      "citations": [
+        "https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/"
+      ]
+    }
+  ],
+  "contradictions": [
+    [
+      "c0",
+      "c3"
+    ],
+    [
+      "c18",
+      "c22"
+    ]
+  ],
+  "disclaimers": [
+    "4 finding(s) are contested — sources disagree; both sides are shown.",
+    "9 finding(s) have insufficient support and should be treated as tentative.",
+    "Findings [c0] and [c3] contradict each other; both sides are shown.",
+    "Findings [c18] and [c22] contradict each other; both sides are shown."
+  ],
+  "metadata": {
+    "overall_confidence": 0.501,
+    "coverage": 1.0,
+    "breakdown": {
+      "supported": 15,
+      "insufficient": 9,
+      "contested": 4
+    }
+  },
+  "narrative": "\n## Summary\nThe best programming language is subjective and depends on the specific use case. Various languages are preferred for different tasks based on criteria such as readability, writability, reliability, and cost [c5].\n\n## Popular Programming Languages\nThe most popular programming languages include Python, JavaScript, Java, C++, and C# [c0][c1][c2]. However, there is a discrepancy regarding the ranking of Rust and Swift, with one source indicating they are among the top 10 most popular languages [c3], while another lists them outside the top 10 [c0].\n\n## Criteria for Evaluating Programming Languages\nKey criteria for evaluating the best programming language include readability [c6], writability [c7], reliability [c8], and cost [c9]. Other important factors are simplicity, orthogonality, data types, syntax design, support for abstraction, and expressivity [c12].\n\n## Best Language for Specific Tasks\nFor AI/ML tasks, Python is the preferred choice due to its library and community dominance [c13][c20]. For web frontend development, TypeScript is preferred over JavaScript [c14]. For enterprise systems, Java is the first choice, followed by C# [c16]. For infrastructure/DevOps tasks, one source indicates Go is the first choice, followed by Python [c18], while another suggests Go, followed by Rust, and avoids Python due to performance concerns [c22].\n\n## Contested Findings\nOne source indicates that for infrastructure/DevOps tasks, Go is the first choice, followed by Python [c18], while another indicates Go, followed by Rust, and avoids Python [c22]. Similarly, the popularity of Rust and Swift is contested, with one source indicating they are among the top 10 most popular languages [c3], while another does not list them as such [c0].\n\n## Conclusion\nThe best programming language depends on the specific task, with different languages exceling in different areas. Python is preferred for AI/ML, TypeScript for web frontend, and Java for enterprise systems. Go and Rust are contenders for infrastructure/DevOps tasks, with the choice between them depending on the specific requirements and priorities.",
+  "report_markdown": "# Research Report\n**Query:** What is the best programming language?\n\n## Summary\nThe best programming language is subjective and depends on the specific use case. Various languages are preferred for different tasks based on criteria such as readability, writability, reliability, and cost [c5].\n\n## Popular Programming Languages\nThe most popular programming languages include Python, JavaScript, Java, C++, and C# [c0][c1][c2]. However, there is a discrepancy regarding the ranking of Rust and Swift, with one source indicating they are among the top 10 most popular languages [c3], while another lists them outside the top 10 [c0].\n\n## Criteria for Evaluating Programming Languages\nKey criteria for evaluating the best programming language include readability [c6], writability [c7], reliability [c8], and cost [c9]. Other important factors are simplicity, orthogonality, data types, syntax design, support for abstraction, and expressivity [c12].\n\n## Best Language for Specific Tasks\nFor AI/ML tasks, Python is the preferred choice due to its library and community dominance [c13][c20]. For web frontend development, TypeScript is preferred over JavaScript [c14]. For enterprise systems, Java is the first choice, followed by C# [c16]. For infrastructure/DevOps tasks, one source indicates Go is the first choice, followed by Python [c18], while another suggests Go, followed by Rust, and avoids Python due to performance concerns [c22].\n\n## Contested Findings\nOne source indicates that for infrastructure/DevOps tasks, Go is the first choice, followed by Python [c18], while another indicates Go, followed by Rust, and avoids Python [c22]. Similarly, the popularity of Rust and Swift is contested, with one source indicating they are among the top 10 most popular languages [c3], while another does not list them as such [c0].\n\n## Conclusion\nThe best programming language depends on the specific task, with different languages exceling in different areas. Python is preferred for AI/ML, TypeScript for web frontend, and Java for enterprise systems. Go and Rust are contenders for infrastructure/DevOps tasks, with the choice between them depending on the specific requirements and priorities.\n\n---\n\n## Detailed Citation Results\n| # | Claim | Verdict | Conf | Sources |\n|---|---|---|---|---|\n| c0 | The most popular programming languages are Python, C, C++, Java, C#, JavaScript, Visual Basic, SQL, R, and Delphi/Object Pascal. | contested | 0.04 | https://www.tiobe.com/tiobe-index/ |\n| c1 | JavaScript, HTML/CSS, SQL, Python, Bash/Shell, TypeScript, Java, C#, C++, and PowerShell are among the most popular programming languages. | supported | 0.61 | https://survey.stackoverflow.co/2025/technology |\n| c2 | JavaScript, Python, Java, PHP, C#, TypeScript, CSS, C++, Ruby, and C are among the top programming languages. | insufficient | 0.15 | https://redmonk.com/sogrady/2026/04/14/language-rankings-1-26/ |\n| c3 | Rust and Swift are among the top 10 most popular programming languages based on aggregate rankings across independent measures. | contested | 0.84 | https://www.opensourceforu.com/2026/04/revisiting-popular-programming-languages-the-2026-edition/ |\n| c4 | Python, TypeScript, JavaScript, C, C++, Java, C#, Go, Rust, and R are among the 20 most relevant programming languages in 2026. | supported | 0.75 | https://nextage.com.br/blog/en/top-20-programming-languages/ |\n| c5 | The criteria for evaluating the best programming language include readability, writability, reliability, and cost. | supported | 0.82 | https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html, https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/ |\n| c6 | Readability refers to how easy it is to read and understand code written in a particular language. | supported | 0.84 | https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/ |\n| c7 | Writability is the measure of how easily a language can be used to create programs for a chosen problem domain. | supported | 0.84 | https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html |\n| c8 | A program is said to be reliable if it performs to its specifications under all conditions. | supported | 0.81 | https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html, https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/ |\n| c9 | The cost of a programming language is a function of many of its characteristics, including the cost of training programmers, writing programs, compiling programs, executing programs, language implementation system, poor reliability, and maintaining programs. | supported | 0.82 | https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html |\n| c10 | Criteria relating to ease of using a language, software engineering, and performance are important for evaluating a programming language. | supported | 0.81 | https://www.cs.gordon.edu/courses/cs323/lectures-2009/LanguageEvaluationCriteria.pdf |\n| c11 | Well-definedness, including clear syntax and semantics, is a key criterion for evaluating a programming language. | supported | 0.86 | https://www.cs.gordon.edu/courses/cs323/lectures-2009/LanguageEvaluationCriteria.pdf |\n| c12 | Other important criteria include simplicity, orthogonality, data types, syntax design, support for abstraction, and expressivity. | supported | 0.87 | https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html |\n| c13 | For AI/ML tasks, Python is the first choice due to its library and community dominance. | insufficient | 0.04 | https://toolcluster.app/en/blog/programming-language-comparison-guide/ |\n| c14 | For web frontend development, TypeScript is preferred over JavaScript due to type safety ensuring large-scale maintainability. | supported | 0.75 | https://toolcluster.app/en/blog/programming-language-comparison-guide/ |\n| c15 | For high-performance web APIs, Go is the first choice, followed by Rust, due to their balance of execution speed and operational ease. | insufficient | 0.05 | https://toolcluster.app/en/blog/programming-language-comparison-guide/ |\n| c16 | For enterprise systems, Java is the first choice, followed by C#, due to their stability, track record, and talent availability. | supported | 0.45 | https://toolcluster.app/en/blog/programming-language-comparison-guide/ |\n| c17 | For game development, C# (with Unity) is the first choice, followed by Rust, due to Unity's market share and Rust's performance capabilities. | insufficient | 0.13 | https://toolcluster.app/en/blog/programming-language-comparison-guide/ |\n| c18 | For infrastructure/DevOps tasks, Go is the first choice, followed by Python, due to their single-binary deployment and concurrency features. | contested | 0.25 | https://toolcluster.app/en/blog/programming-language-comparison-guide/ |\n| c19 | For high-performance/low-level tasks, Rust is the first choice, followed by Go, due to Rust's memory safety and native performance. | insufficient | 0.12 | https://toolcluster.app/en/blog/programming-language-comparison-guide/ |\n| c20 | For AI/ML services, Python is the first choice, while Go and Rust are to be avoided due to ecosystem gaps. | supported | 0.39 | https://zendevy.com/en/architecture/programming-languages-comparison-2026/ |\n| c21 | For web SaaS backend development, TypeScript is the first choice, followed by Go, while C++ is considered overkill. | insufficient | 0.32 | https://zendevy.com/en/architecture/programming-languages-comparison-2026/ |\n| c22 | For cloud infrastructure tooling, Go is the first choice, followed by Rust, while Python is avoided due to performance concerns. | contested | 0.72 | https://zendevy.com/en/architecture/programming-languages-comparison-2026/ |\n| c23 | Ruby, Python, and JavaScript are the top performers for prototyping-scale tasks in terms of speed, cost, and stability when used with AI coding. | supported | 0.75 | https://github.com/mame/ai-coding-lang-bench, https://www.infoq.com/news/2026/04/ai-coding-language-benchmark/ |\n| c24 | Adding type checking to dynamic languages results in significant performance penalties, with mypy making Python 1.6 to 1.7 times slower and Steep making Ruby 2.0 to 3.2 times slower. | supported | 0.87 | https://www.infoq.com/news/2026/04/ai-coding-language-benchmark/ |\n| c25 | Python is used for ML/AI/data science, quick scripting, data analysis, scientific computing, and web prototyping due to its rich ecosystem. | insufficient | 0.04 | https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/ |\n| c26 | Go is used for backend services, microservices, CLI tools, network programming, and DevOps tools due to its fast compile and runtime performance. | insufficient | 0.05 | https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/ |\n| c27 | Rust is used for systems programming, performance-critical applications, memory-critical environments, and WebAssembly targets due to its memory safety and performance. | insufficient | 0.04 | https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/ |\n\n## Confidence & Coverage\n- Overall confidence: 0.501   ·   Coverage: 1.0\n- Breakdown: supported 15 · insufficient 9 · contested 4\n\n## Disclaimers\n- 4 finding(s) are contested — sources disagree; both sides are shown.\n- 9 finding(s) have insufficient support and should be treated as tentative.\n- Findings [c0] and [c3] contradict each other; both sides are shown.\n- Findings [c18] and [c22] contradict each other; both sides are shown.\n\n## Sources\n- [https://www.tiobe.com/tiobe-index/] TIOBE Index - TIOBE\n- [https://survey.stackoverflow.co/2025/technology] Technology | 2025 Stack Overflow Developer Survey\n- [https://redmonk.com/sogrady/2026/04/14/language-rankings-1-26/] The RedMonk Programming Language Rankings: January 2026 – tecosystems\n- [https://www.opensourceforu.com/2026/04/revisiting-popular-programming-languages-the-2026-edition/] Revisiting Popular Programming Languages: The 2026 Edition - Open Source For You\n- [https://nextage.com.br/blog/en/top-20-programming-languages/] Top 20 Programming Languages 2026: Rankings, Trends, Salaries - Nextage Blog\n- [https://www.cs.gordon.edu/courses/cs323/lectures-2009/LanguageEvaluationCriteria.pdf] Language Evaluation Criteria\n- [https://www.cs.kent.ac.uk/people/staff/dao7/publ/onwards-essay-orchard11.pdf] The Four Rs of Programming Language Design\n- [http://archive.adaic.com/docs/reports/lawlis/content.htm] Guidelines for Choosing a Computer Language: Support for the Visionary Organizations - 2nd Edition - Patricia Lawlis\n- [https://www.geeksforgeeks.org/software-engineering/language-evaluation-criteria/] Language Evaluation Criteria - GeeksforGeeks\n- [https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html] https://vedveethi.co.in/eNote/PPL/UNIT1_ProgLang_v1.2.html\n- [https://toolcluster.app/en/blog/programming-language-comparison-guide/] The Complete Programming Language Comparison Guide [2026] — Use Cases, Features & How to Choose – ToolCluster Blog\n- [https://zendevy.com/en/architecture/programming-languages-comparison-2026/] Programming Language Comparison 2026: Selection Guide — ZenDevy\n- [https://github.com/mame/ai-coding-lang-bench] mame/ai-coding-lang-bench\n- [https://www.infoq.com/news/2026/04/ai-coding-language-benchmark/] Dynamic Languages Faster and Cheaper in 13-Language Claude Code Benchmark - InfoQ\n- [https://bytepane.com/faq/python-vs-go-vs-rust-2026-when-to-use-each/] Python vs Go vs Rust 2026: When to Use Each Language\n",
+  "mermaid": null,
+  "diagram_png": null
+}
