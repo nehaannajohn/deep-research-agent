@@ -53,6 +53,9 @@ outputs/
 # Internal planning / design docs — kept local, not part of the code package
 CLAUDE.md
 docs/*
-# ...except the consolidated research & experiments docs (incl. their PDFs, overriding *.pdf above)
-!docs/research-and-experiments/
-!docs/research-and-experiments/**
+# ...except the archived research & experiments docs (incl. their PDFs, overriding *.pdf above)
+!docs/archive/
+!docs/archive/**
+# ...and the pipeline-generated sample reports
+!docs/sample_reports/
+!docs/sample_reports/**

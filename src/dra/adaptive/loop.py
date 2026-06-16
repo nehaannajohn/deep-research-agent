@@ -12,7 +12,7 @@ of its claims is below τ, repair the sub-query — in two ways and keep the bes
 Keep the candidate (incumbent included) with the highest section confidence (= the
 weakest claim's calibrated confidence, the gate's own quantity). Stop a sub-question
 on τ / no-progress / max-iters. Only below-τ sub-questions iterate; the rest stay
-frozen. See docs/research-and-experiments/2026-06-14-adaptive-retrieval-design.md.
+frozen. See docs/archive/2026-06-14-adaptive-retrieval-design.md.
 """
 from __future__ import annotations
 
