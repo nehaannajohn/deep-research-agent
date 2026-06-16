@@ -61,6 +61,8 @@ docs/*
 !docs/sample_reports/**
 # ...and the final presentation deck
 !docs/DeepResearchAgent.pptx
-# ...and the MVP architecture diagram (md + svg)
+# ...and the MVP architecture diagram (md + editable d2 source + rendered png/svg)
 !docs/mvp-architecture.md
+!docs/mvp-architecture.d2
+!docs/mvp-architecture.png
 !docs/mvp-architecture.svg

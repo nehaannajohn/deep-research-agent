@@ -28,9 +28,7 @@ This document describes the MVP pipeline — what actually runs today, grounded 
 
 ## 2. Architecture diagram
 
-![Deep Research Agent — MVP architecture](./mvp-architecture.svg)
-
-> Rendered from the editable D2 source [`archive/2026-06-14-mvp-architecture.d2`](./archive/2026-06-14-mvp-architecture.d2) with [D2](https://d2lang.com): `d2 --theme 0 --pad 40 archive/2026-06-14-mvp-architecture.d2 mvp-architecture.svg`. D2 (not Mermaid) is used here because it gives true grouped **containers** — the numbered zones — and a layout engine suited to architecture diagrams.
+![Deep Research Agent — MVP architecture](./mvp-architecture.png)
 
 **How to read it.** Solid arrows are the **MVP runtime** — a single forward pass through four zones: **1 Planning** (decompose + extract constraints) → **2 Retrieval** (route → Exa → verbatim passages → claim synthesis, per sub-question) → **3 Verification & reliability** (verify → recalibrate → contradiction) → **4 Composition** (report) → `ResearchReport`. The **grey dashed edge** from Constraints to Composition is the format/modality bypass — formatting never touches retrieval. The **grey dashed edge** to the *Offline evaluation* zone shows the harness grades the finished report; it does **not** run online. The **amber dashed edge** (Verifier → Router) is the **deferred adaptive-retrieval loop** — the verifier already emits the verdicts + confidence that *would* drive it, but in the MVP they are **surfaced, not acted on** (Phase 3).
 
